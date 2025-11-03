@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://ipnfsc8uvj5o"]
+
+[ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="1_ecmug"]
+[ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/InputManager.gd" id="2_t7am1"]
+[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCardFactory.gd" id="3_6c6n7"]
+[ext_resource type="Texture2D" uid="uid://ddn1bl1h355jw" path="res://assets/sprites/tiles.png" id="4_rj876"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ff88b"]
+texture = ExtResource("4_rj876")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_qorw1"]
+sources/0 = SubResource("TileSetAtlasSource_ff88b")
+
+[node name="Tilemap scene" type="Node2D"]
+
+[node name="Tilemap manager" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
+script = ExtResource("1_ecmug")
+tilemap = NodePath("../TileMapLayer")
+
+[node name="Input manager" type="Node2D" parent="."]
+script = ExtResource("2_t7am1")
+
+[node name="Tile card factory" type="Node2D" parent="." node_paths=PackedStringArray("card_hand")]
+script = ExtResource("3_6c6n7")
+card_hand = NodePath("../CanvasLayer/MarginContainer/Card container")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_qorw1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Card container" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
