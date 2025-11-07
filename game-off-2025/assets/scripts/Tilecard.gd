@@ -8,20 +8,16 @@ const tile_card_scene: PackedScene = preload("res://scenes/TileCard.tscn");
 @export var card_sprite: TextureRect;
 var card_tile_sprite_atlas_coordinates : Vector2i;
 
-## tmp
-var card_names = ["river", "hill", "grove", "plain"];
-var card_sprite_atlas_coords = [Vector2i(0,0), Vector2i(1,0), Vector2i(2,0), Vector2i(3,0)];
-var card_descriptions = ["toto", "tutu", "tata"];
+static func create_random_tile_card():
+	return create_tile_card(TileDataManager.tile_names[randi() % TileDataManager.tile_names.size()]);
 
-static func create_tile_card() -> TileCard:
+static func create_tile_card(_name : String) -> TileCard:
 	var tile_card = tile_card_scene.instantiate();
-	tile_card.setup();
+	tile_card.setup(_name);
 	return tile_card;
 
-func setup() :
-	card_name.text = card_names[randi() % card_names.size()];
-	card_description.text = card_descriptions[randi() % card_descriptions.size()];
-	var card_sprite_texture : AtlasTexture = card_sprite.texture;
-	card_tile_sprite_atlas_coordinates = card_sprite_atlas_coords[randi() % card_sprite_atlas_coords.size()];
-	var atlas_coords = card_tile_sprite_atlas_coordinates * 16;
-	card_sprite_texture.region = Rect2(atlas_coords.x, atlas_coords.y , 16, 16);
+func setup(_name : String) :
+	var tile_data = TileDataManager.tile_dictionnary[_name.to_lower()];
+	card_name.text = tile_data.name;
+	card_description.text = tile_data.description;
+	card_sprite.texture.region = Rect2(tile_data.atlas_coordinates.x, tile_data.atlas_coordinates.y , 16, 16);

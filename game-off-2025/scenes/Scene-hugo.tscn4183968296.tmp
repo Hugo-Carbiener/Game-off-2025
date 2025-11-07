@@ -13,6 +13,10 @@ texture = ExtResource("4_rj876")
 0:0/0/custom_data_0 = "river"
 0:0/0/custom_data_1 = "medium"
 0:0/0/custom_data_2 = "Une rivière toute jolie"
+1:0/0 = 0
+1:0/0/custom_data_0 = "grove"
+1:0/0/custom_data_1 = "low"
+1:0/0/custom_data_2 = "la foré "
 2:0/0 = 0
 2:0/0/custom_data_0 = "hill"
 2:0/0/custom_data_1 = "low"
@@ -21,10 +25,6 @@ texture = ExtResource("4_rj876")
 3:0/0/custom_data_0 = "plain"
 3:0/0/custom_data_1 = "high"
 3:0/0/custom_data_2 = "pouet"
-1:0/0 = 0
-1:0/0/custom_data_0 = "grove"
-1:0/0/custom_data_1 = "low"
-1:0/0/custom_data_2 = "la foré "
 
 [sub_resource type="TileSet" id="TileSet_qorw1"]
 custom_data_layer_0/name = "name"
@@ -37,9 +37,10 @@ sources/0 = SubResource("TileSetAtlasSource_ff88b")
 
 [node name="Tilemap scene" type="Node2D"]
 
-[node name="Tilemap manager" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
+[node name="Tilemap manager" type="Node2D" parent="." node_paths=PackedStringArray("main_tilemap", "dictionnary_tilemap")]
 script = ExtResource("1_ecmug")
-tilemap = NodePath("../TileMapLayer")
+main_tilemap = NodePath("../TileMapLayer")
+dictionnary_tilemap = NodePath("../Tile dictionnary  map")
 
 [node name="Input manager" type="Node2D" parent="."]
 script = ExtResource("2_t7am1")
@@ -49,6 +50,9 @@ script = ExtResource("3_6c6n7")
 card_hand = NodePath("../CanvasLayer/VBoxContainer/Card area/Card container")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_qorw1")
+
+[node name="Tile dictionnary  map" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_qorw1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
