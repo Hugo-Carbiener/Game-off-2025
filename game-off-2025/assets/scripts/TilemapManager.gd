@@ -6,7 +6,6 @@ class_name TilemapManager
 
 enum TILES {RIVER, FOREST, HILL, GROVE, EMPTY};
 
-func place_tile(tile_position : Vector2i, tile_type : TILES) :
+func place_tile(tile_position : Vector2, atlas_coordinates : Vector2) :
 	var source_id = tilemap.tile_set.get_source_id(0);
-	var atlas_coords = Vector2i(-1, -1) if tile_type == TILES.EMPTY else Vector2i(0, 0);
-	tilemap.set_cell(tilemap.local_to_map(tile_position), source_id, atlas_coords);
+	tilemap.set_cell(tilemap.local_to_map(tile_position), source_id, atlas_coordinates);

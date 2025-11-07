@@ -9,7 +9,7 @@ resource_local_to_scene = true
 atlas = ExtResource("3_ig78c")
 region = Rect2(0, 0, 16, 16)
 
-[node name="TextureRect" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
 offset_right = 112.0
 offset_bottom = 160.0
 texture = ExtResource("2_ig78c")
@@ -18,6 +18,7 @@ script = ExtResource("1_334as")
 card_name = NodePath("VBoxContainer/Tile card name")
 card_description = NodePath("VBoxContainer/Card description")
 card_sprite = NodePath("VBoxContainer/Tile preview")
+metadata/Draggable = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
