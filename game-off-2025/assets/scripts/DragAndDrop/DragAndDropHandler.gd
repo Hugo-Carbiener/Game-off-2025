@@ -22,7 +22,7 @@ func find_drop_receivers(node: Node, result : Array) -> void:
 
 func _process(_delta: float) -> void:
 	if is_dragging:
-		control_copy.position = get_local_mouse_position() + dragged_control_offset;
+		control_copy.position = get_local_mouse_position();
 
 func on_drag_input():
 	dragged_control = get_control_to_drag();
@@ -48,6 +48,7 @@ func on_drop():
 	var drop_receiver = get_control_to_drop_in();
 	if drop_receiver == null:
 		cancel_drag();
+		return;
 	drop_receiver.on_drop(dragged_control);
 
 func cancel_drag() :
@@ -67,7 +68,7 @@ func get_control_to_drag() -> Control:
 
 func get_control_to_drop_in() -> DropReceiver:
 	for drop_receiver in drop_receivers:
-		if drop_receiver.get_rect().has_point(get_local_mouse_position()) :
+		if drop_receiver.get_global_rect().has_point(get_viewport().get_mouse_position()) :
 			return drop_receiver;
 	return null;
 

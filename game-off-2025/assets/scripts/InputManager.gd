@@ -1,7 +1,7 @@
 extends Node2D
 class_name InputManager
 
-@onready var tilemap_manager = $"../Tilemap manager"
+@onready var tilemap_manager = $"../Main tilemap"
 
 static var PLACE_TILE_ACTION_KEY = "place-tile";
 static var REMOVE_TILE_ACTION_KEY = "remove-tile";
