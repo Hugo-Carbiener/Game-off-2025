@@ -4,7 +4,8 @@ class_name TilemapManager
 @export_group("Tilemap")
 @export var tilemap : TileMapLayer;
 
-enum TILES {RIVER, FOREST, HILL, GROVE, EMPTY};
+func _ready() -> void:
+	TileDataManager.load_tile_data(tilemap);
 
 func place_tile(tile_position : Vector2, atlas_coordinates : Vector2) :
 	var source_id = tilemap.tile_set.get_source_id(0);

@@ -16,7 +16,7 @@ func _process(_delta: float) -> void:
 		tilemap_manager.place_tile(get_global_mouse_position(), tilemap_manager.TILES.EMPTY);
 
 	if Input.is_action_just_pressed(GENERATE_CARD_ACTION_KEY):
-		TileCardFactory.instance.instantiate_random_card();
+		TileCardFactory.instance.generate_random_card();
 
 	if Input.is_action_just_pressed(DRAG_AND_DROP_ACTION_KEY):
 		DragAndDropHandler.on_drag_input();

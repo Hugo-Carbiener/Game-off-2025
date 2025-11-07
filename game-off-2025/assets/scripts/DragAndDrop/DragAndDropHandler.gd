@@ -18,8 +18,6 @@ func find_drop_receivers(node: Node, result : Array) -> void:
 	if node is DropReceiver :
 		result.push_back(node);
 	for child in node.get_children():
-		if child.name == "Tilemap area":
-			print("prout");
 		find_drop_receivers(child, result);
 
 func _process(_delta: float) -> void:
