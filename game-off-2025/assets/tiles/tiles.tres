@@ -27,6 +27,15 @@ texture = ExtResource("1_k6pw8")
 4:0/0 = 0
 4:0/0/custom_data_0 = "beacon"
 4:0/0/custom_data_1 = "none"
+5:0/0 = 0
+5:0/0/custom_data_0 = "small-breach"
+5:0/0/custom_data_1 = "none"
+6:0/0 = 0
+6:0/0/custom_data_0 = "large-breach"
+6:0/0/custom_data_1 = "none"
+7:0/0 = 0
+7:0/0/custom_data_0 = "monster"
+7:0/0/custom_data_1 = "none"
 
 [resource]
 custom_data_layer_0/name = "name"
