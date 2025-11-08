@@ -6,7 +6,6 @@ var source_id : int;
 
 func _ready() -> void:
 	source_id = tile_set.get_source_id(0);
-	TileDataManager.load_tile_data(self);
 	init_world();
 
 func place_tile(world_position : Vector2, tile : CustomTileData) -> bool :

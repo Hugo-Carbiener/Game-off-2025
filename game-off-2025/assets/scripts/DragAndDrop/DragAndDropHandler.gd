@@ -25,11 +25,15 @@ func _process(_delta: float) -> void:
 		control_copy.position = get_local_mouse_position();
 
 func on_drag_input():
+	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
+	
 	dragged_control = get_control_to_drag();
 	if dragged_control == null: return;
 	drag();
 
 func on_drop_input():
+	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
+
 	if !is_dragging: return;
 	
 	drop();
