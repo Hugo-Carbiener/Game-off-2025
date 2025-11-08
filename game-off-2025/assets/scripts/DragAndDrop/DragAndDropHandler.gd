@@ -73,7 +73,12 @@ func get_control_to_drop_in() -> DropReceiver:
 	return null;
 
 func create_movable_copy(control_to_copy: Control):
-	control_copy = control_to_copy.duplicate(DUPLICATE_STRUCTURE_ONLY);
+	# use the drag preview if exists, otherwise duplicate the full control
+	if "drag_preview" in control_to_copy:
+		control_copy = control_to_copy.drag_preview.duplicate(DUPLICATE_STRUCTURE_ONLY);
+	else:
+		control_copy = control_to_copy.duplicate(DUPLICATE_STRUCTURE_ONLY);
+	
 	dragged_control_offset = control_to_copy.global_position - get_local_mouse_position();
 	control_copy.position = get_local_mouse_position() + dragged_control_offset;
 	get_tree().current_scene.add_child(control_copy);
