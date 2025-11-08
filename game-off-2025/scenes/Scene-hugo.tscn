@@ -13,18 +13,25 @@ texture = ExtResource("4_rj876")
 0:0/0/custom_data_0 = "river"
 0:0/0/custom_data_1 = "medium"
 0:0/0/custom_data_2 = "Une rivière toute jolie"
+0:0/0/custom_data_3 = true
 2:0/0 = 0
 2:0/0/custom_data_0 = "hill"
 2:0/0/custom_data_1 = "low"
 2:0/0/custom_data_2 = "pouet "
+2:0/0/custom_data_3 = true
 3:0/0 = 0
 3:0/0/custom_data_0 = "plain"
 3:0/0/custom_data_1 = "high"
 3:0/0/custom_data_2 = "pouet"
+3:0/0/custom_data_3 = true
 1:0/0 = 0
 1:0/0/custom_data_0 = "grove"
 1:0/0/custom_data_1 = "low"
 1:0/0/custom_data_2 = "la foré "
+1:0/0/custom_data_3 = true
+4:0/0 = 0
+4:0/0/custom_data_0 = "beacon"
+4:0/0/custom_data_1 = "none"
 
 [sub_resource type="TileSet" id="TileSet_qorw1"]
 custom_data_layer_0/name = "name"
@@ -33,13 +40,11 @@ custom_data_layer_1/name = "damage"
 custom_data_layer_1/type = 4
 custom_data_layer_2/name = "description"
 custom_data_layer_2/type = 4
+custom_data_layer_3/name = "is_playable"
+custom_data_layer_3/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ff88b")
 
 [node name="Tilemap scene" type="Node2D"]
-
-[node name="Tilemap manager" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
-script = ExtResource("1_ecmug")
-tilemap = NodePath("../TileMapLayer")
 
 [node name="Input manager" type="Node2D" parent="."]
 script = ExtResource("2_t7am1")
@@ -48,11 +53,12 @@ script = ExtResource("2_t7am1")
 script = ExtResource("3_6c6n7")
 card_hand = NodePath("../CanvasLayer/VBoxContainer/Card area/Card container")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="Main tilemap" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_qorw1")
+script = ExtResource("1_ecmug")
+beacon_range = 10
 
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -62,7 +68,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Tilemap area" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
