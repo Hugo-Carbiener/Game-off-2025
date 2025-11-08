@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=9 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="1_ecmug"]
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_rj876"]
@@ -8,7 +8,20 @@
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/DragAndDrop/TilemapDropReceiver.gd" id="5_6c6n7"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="6_rj876"]
 
+[sub_resource type="GDScript" id="GDScript_rj876"]
+script/source = "extends Node2D
+class_name SceneLoader
+
+@export_group(\"Nodes to load\")
+@export var nodes_in_order : Array[Node2D];
+
+func _ready() -> void:
+	for node in nodes_in_order:
+		node.visib
+"
+
 [node name="Tilemap scene" type="Node2D"]
+script = SubResource("GDScript_rj876")
 
 [node name="Game loop manager" type="Node2D" parent="."]
 script = ExtResource("1_rj876")

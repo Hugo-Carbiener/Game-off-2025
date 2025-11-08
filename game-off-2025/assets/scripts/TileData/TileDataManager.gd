@@ -5,14 +5,18 @@ const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
 
+const tile_set: TileSet = preload("res://assets/tiles/tiles.tres");
+
 var tiles : Array[String] = [];
 var playable_tiles : Array[String] = [];
 var tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
 var tile_dictionnary : Dictionary[String, CustomTileData];
 
-func load_tile_data(tilemap : TileMapLayer):
-	var tileset = tilemap.tile_set;
-	var source : TileSetAtlasSource = tileset.get_source(0);
+func _ready() -> void:
+	load_tile_data();
+
+func load_tile_data():
+	var source : TileSetAtlasSource = tile_set.get_source(0);
 	for tile_number in source.get_tiles_count():
 		var atlas_coordinates = source.get_tile_id(tile_number);
 		var tile_data = source.get_tile_data(atlas_coordinates, 0);
