@@ -17,6 +17,10 @@ func place_tile(world_position : Vector2, tile : CustomTileData, force : bool = 
 	
 	set_cell(tile_position, source_id, tile.atlas_coordinates);
 	tiles.set(tile_position, tile);
+	
+	var breach = MonsterFactory.breaches.get(tile_position);
+	if breach != null:
+		breach.cover();
 	return true;
 
 func init_tilemap_position():

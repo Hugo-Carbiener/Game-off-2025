@@ -16,5 +16,4 @@ func update():
 		MonsterFactory.instance.update_breach_tile(tilemap_position);
 
 func cover():
-	pass;
-	## remove breach
+	MonsterFactory.instance.remove_breach(tilemap_position);
