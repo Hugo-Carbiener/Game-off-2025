@@ -2,6 +2,8 @@ extends Node2D
 
 ## Tiles
 const beacon_range = 5;
+const TILE_DICT_MONSTER_KEY = "monster";
+const TILE_DICT_MONSTER_PATH_KEY = "monster-path";
 
 ## Card hand
 const base_card_per_round = 5;

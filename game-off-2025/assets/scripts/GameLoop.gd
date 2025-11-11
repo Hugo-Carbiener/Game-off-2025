@@ -33,5 +33,5 @@ static func play_phase():
 
 static func resolution_phase():
 	print("Starting resolution phase");
-	MonsterFactory.instance.on_resolution();
+	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
