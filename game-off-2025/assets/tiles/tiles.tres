@@ -36,6 +36,9 @@ texture = ExtResource("1_k6pw8")
 7:0/0 = 0
 7:0/0/custom_data_0 = "monster"
 7:0/0/custom_data_1 = "none"
+0:1/0 = 0
+0:1/0/custom_data_0 = "monster-path"
+0:1/0/custom_data_1 = "none"
 
 [resource]
 custom_data_layer_0/name = "name"

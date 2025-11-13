@@ -27,7 +27,7 @@ func setup(_name : String) :
 
 # Called before a card is destroyed
 func on_card_used():
-	var valid_monster_spawns = TilemapManager.instance.get_valid_monster_spawn_positions();
+	var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
 	MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()]);
 	TileCardFactory.instance.card_amount -= 1;
 	## If hand is empty, next phase

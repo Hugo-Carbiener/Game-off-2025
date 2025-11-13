@@ -39,3 +39,7 @@ func load_tile_data():
 			playable_tiles.append(custom_tile_data.name);
 		tiles.append(custom_tile_data.name);
 		tile_dictionnary.set(custom_tile_data.name, custom_tile_data);
+
+func get_random_tile_data(only_playable_tiles : bool) -> CustomTileData:
+	var tiles_to_place = playable_tiles if only_playable_tiles else tiles;
+	return tile_dictionnary[tiles_to_place[randi() % tiles_to_place.size()]];
