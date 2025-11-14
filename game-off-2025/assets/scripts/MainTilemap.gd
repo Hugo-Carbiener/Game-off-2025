@@ -4,6 +4,7 @@ class_name MainTilemap
 static var instance : MainTilemap;
 
 func _ready() -> void:
+	super();
 	if instance == null:
 		instance = self;
 	init_world();

@@ -13,6 +13,7 @@ static var instance : MonsterFactory;
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
 func _ready() -> void:
+	super();
 	if instance == null:
 		instance = self;
 
