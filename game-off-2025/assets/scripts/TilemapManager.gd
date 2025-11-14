@@ -5,6 +5,7 @@ var source_id : int;
 var tiles : Dictionary[Vector2i, CustomTileData];
 
 func _ready() -> void:
+	position = get_viewport().get_visible_rect().size * Constants.tilemap_offset;
 	source_id = tile_set.get_source_id(0);
 
 func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = false) -> bool :

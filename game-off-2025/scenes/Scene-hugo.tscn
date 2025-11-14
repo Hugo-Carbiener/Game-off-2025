@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=12 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_rj876"]
 [ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/InputManager.gd" id="2_t7am1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="5_m140f"]
 [ext_resource type="Texture2D" uid="uid://ddn1bl1h355jw" path="res://assets/sprites/tiles.png" id="6_jgl1b"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="6_rj876"]
+[ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="7_20167"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("6_jgl1b")
@@ -43,6 +44,7 @@ texture = SubResource("AtlasTexture_20167")
 
 [node name="Indication tilemap" type="TileMapLayer" parent="."]
 tile_set = ExtResource("3_rj876")
+script = ExtResource("7_20167")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

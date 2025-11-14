@@ -4,6 +4,7 @@ class_name MainTilemap
 static var instance : MainTilemap;
 
 func _ready() -> void:
+	super();
 	if instance == null:
 		instance = self;
 	init_world();
@@ -46,3 +47,9 @@ func init_world():
 				#continue;
 			#var tile_data = TileDataManager.get_random_tile_data(true);
 			#set_cell(coords, source_id, tile_data.atlas_coordinates);
+
+func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
+	var tile_data = tiles.get(tilemap_position);
+	if tile_data == null: return;
+	
+	monster.damage(tile_data.damage);
