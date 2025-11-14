@@ -139,6 +139,7 @@ func _input(event):
 func check_for_enemy_hover(event : InputEvent):
 	if event is not InputEventMouseMotion: return;
 	
+	if DragAndDropHandler.is_dragging : return;
 	var cell = local_to_map(get_local_mouse_position());
 	if cell != last_tile_hovered: 
 		if has_tile_at(cell):
