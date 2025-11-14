@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
-[ext_resource type="Texture2D" uid="uid://ddn1bl1h355jw" path="res://assets/sprites/tiles.png" id="3_ig78c"]
+[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_867uw"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ig78c")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 8, 8)
 
 [node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
 offset_right = 112.0
