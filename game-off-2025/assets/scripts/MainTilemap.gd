@@ -48,4 +48,7 @@ func init_world():
 			#set_cell(coords, source_id, tile_data.atlas_coordinates);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
-	pass;
+	var tile_data = tiles.get(tilemap_position);
+	if tile_data == null: return;
+	
+	monster.damage(tile_data.damage);

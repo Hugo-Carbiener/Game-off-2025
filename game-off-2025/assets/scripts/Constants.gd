@@ -12,4 +12,4 @@ const base_card_per_round = 5;
 const breach_initial_maturity = 2;
 
 ## Monsters
-const monster_spawn_max_tile_distance = 2;
+const monster_spawn_max_tile_distance = 5;
