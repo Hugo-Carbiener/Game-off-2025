@@ -46,3 +46,6 @@ func init_world():
 				#continue;
 			#var tile_data = TileDataManager.get_random_tile_data(true);
 			#set_cell(coords, source_id, tile_data.atlas_coordinates);
+
+func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
+	pass;

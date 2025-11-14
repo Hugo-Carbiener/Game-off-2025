@@ -67,7 +67,7 @@ func on_resolution():
 	while monster_count > 0:
 		monster_idx = (monster_idx -1) % monster_count;
 		var monster = monster_list[monster_idx];
-		if monster.is_at_destination():
+		if monster.is_at_destination() or monster.is_dead():
 			monster_list.remove_at(monster_idx);
 			monster_count = monster_list.size();
 			continue;
@@ -80,12 +80,20 @@ func on_resolution():
 		tween.tween_callback(func(): on_move_end(to));
 		tween.tween_callback(func(): monster.on_move_end(self));
 		await tween.finished;
+	compute_monster_positions();
 
 func on_move_start(_from : Vector2i):
 	monster_sprite.visible = true;
 
 func on_move_end(_to : Vector2i):
 	monster_sprite.visible = false;
+
+func compute_monster_positions():
+	var monster_list = monsters.values();
+	if monster_list.size() == 0: return;
+	monsters.clear();
+	for monster in monster_list:
+		monsters.set(monster.tilemap_position, monster);
 
 ## MONSTER PATH
 
