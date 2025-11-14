@@ -68,6 +68,7 @@ func on_resolution():
 	while monster_count > 0:
 		monster_idx = (monster_idx -1) % monster_count;
 		var monster = monster_list[monster_idx];
+			
 		if monster.is_at_destination() or monster.is_dead():
 			monster_list.remove_at(monster_idx);
 			monster_count = monster_list.size();

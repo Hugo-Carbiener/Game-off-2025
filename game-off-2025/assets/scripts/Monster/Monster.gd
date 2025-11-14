@@ -23,6 +23,10 @@ func on_move_end(monsterFactory : MonsterFactory):
 	position_in_trajectory +=1;
 	
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self);
+	
+	if is_at_destination():
+		print_debug(health)
+		BeaconManager.instance.damage(health)
 
 func is_at_destination() -> bool:
 	return tilemap_position == Vector2i.ZERO;

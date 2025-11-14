@@ -16,3 +16,6 @@ const breach_initial_maturity = 2;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;
+
+## Beacon
+const beacon_hp = 10;
