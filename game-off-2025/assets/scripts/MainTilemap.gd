@@ -13,13 +13,14 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	var monster = MonsterFactory.monsters.get(tile_position);
 	if  monster != null: return false;
 	
-	var breach = MonsterFactory.breaches.get(tile_position);
-	if breach != null:
-		breach.cover();
 	
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 
 	
+	var breach = MonsterFactory.breaches.get(tile_position);
+	if breach != null:
+		breach.cover();
+		
 	return true;
 
 func is_valid_cell(coordinates : Vector2) -> bool:
