@@ -10,8 +10,8 @@ atlas = ExtResource("3_ig78c")
 region = Rect2(0, 0, 8, 8)
 
 [node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
-offset_right = 112.0
-offset_bottom = 160.0
+offset_right = 96.0
+offset_bottom = 128.0
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
 script = ExtResource("1_334as")

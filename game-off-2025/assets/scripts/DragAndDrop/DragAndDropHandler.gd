@@ -5,8 +5,9 @@ const DUPLICATE_STRUCTURE_ONLY = 0  # no signals, no scripts, no groups
 var is_dragging = false;
 var dragged_control : Control; ## the control currently being dragged
 var control_copy : Control; ## the control we create to visually move around while dragging
-var dragged_control_offset : Vector2; ## the position offset to hold the control from where the mouse was
 var drop_receivers : Array[DropReceiver]; ## list of control able to receive the drop
+var transition_duration = 0.5;
+var tile_preview : Control;
 
 func _ready() -> void:
 	var nodes : Array;
@@ -22,7 +23,10 @@ func find_drop_receivers(node: Node, result : Array) -> void:
 
 func _process(_delta: float) -> void:
 	if is_dragging:
-		control_copy.position = get_local_mouse_position();
+		var dragged_control_offset = Vector2(tile_preview.size.x/2, tile_preview.position.y + tile_preview.size.y/2);
+		var dragged_control_position = get_local_mouse_position() - dragged_control_offset;
+		var snaped_control_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(dragged_control_position)) + Vector2.ONE + Vector2.DOWN;
+		control_copy.position = snaped_control_position;
 
 func on_drag_input():
 	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
@@ -39,9 +43,9 @@ func on_drop_input():
 	drop();
 
 func drag():
+	is_dragging = true;
 	create_movable_copy(dragged_control);
 	dragged_control.visible = false;
-	is_dragging = true;
 
 func drop():
 	on_drop();
@@ -77,15 +81,21 @@ func get_control_to_drop_in() -> DropReceiver:
 	return null;
 
 func create_movable_copy(control_to_copy: Control):
-	# use the drag preview if exists, otherwise duplicate the full control
-	if "drag_preview" in control_to_copy:
-		control_copy = control_to_copy.drag_preview.duplicate(DUPLICATE_STRUCTURE_ONLY);
-	else:
-		control_copy = control_to_copy.duplicate(DUPLICATE_STRUCTURE_ONLY);
-	
-	dragged_control_offset = control_to_copy.global_position - get_local_mouse_position();
-	control_copy.position = get_local_mouse_position() + dragged_control_offset;
+	control_copy = control_to_copy.duplicate();	
+	control_copy.position = get_local_mouse_position();
+	tile_preview = control_copy.card_sprite;
 	get_tree().current_scene.add_child(control_copy);
+	
+	on_drag_transition(control_copy, control_copy.card_name, control_copy.card_description, control_copy.card_sprite);
+	control_copy.set_script(null);
 
 func destroy_movable_copy(): 
 	control_copy.queue_free();
+
+func on_drag_transition(card_bg : Control, card_name : Control, card_desc : Control, _tile_preview : Control):
+	var tween = get_tree().create_tween();
+	tween.set_parallel();
+	tween.tween_property(card_bg, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(card_desc, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	await tween.finished;

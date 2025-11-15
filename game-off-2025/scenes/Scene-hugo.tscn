@@ -8,13 +8,13 @@
 [ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/MainTilemap.gd" id="4_m140f"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/DragAndDrop/TilemapDropReceiver.gd" id="5_6c6n7"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="5_m140f"]
-[ext_resource type="Texture2D" uid="uid://ddn1bl1h355jw" path="res://assets/sprites/tiles.png" id="6_jgl1b"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="6_rj876"]
 [ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="7_20167"]
+[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="7_x5wog"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
-atlas = ExtResource("6_jgl1b")
-region = Rect2(112, 0, 16, 16)
+atlas = ExtResource("7_x5wog")
+region = Rect2(56, 0, 8, 8)
 
 [node name="Tilemap scene" type="Node2D"]
 
