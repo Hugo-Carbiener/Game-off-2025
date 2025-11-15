@@ -4,6 +4,16 @@ extends Node2D
 const beacon_range = 5;
 const TILE_DICT_MONSTER_KEY = "monster";
 const TILE_DICT_MONSTER_PATH_KEY = "monster-path";
+const TILE_REQUIREMENT_LINK = '=';
+const TILE_REQUIREMENT_AND = '&';
+const TILE_REQUIREMENT_OR = '|';
+const TILE_REQUIREMENT_TILES_SEPARATOR = ',';
+const NEIGHBOR_TILE_COORDINATES_CODEX = {
+	"N" : Vector2i.UP,
+	"S" : Vector2i.DOWN,
+	"E" : Vector2i.RIGHT,
+	"W" : Vector2i.LEFT
+}
 
 ## Tilemaps
 const tilemap_offset = Vector2(0, -0.2);

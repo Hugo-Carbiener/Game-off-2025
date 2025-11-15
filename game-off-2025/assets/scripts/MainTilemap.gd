@@ -19,7 +19,11 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	var breach = MonsterFactory.breaches.get(tile_position);
 	if breach != null:
 		breach.cover();
-		
+	
+	check_for_evolution(tile_position);
+	# update direct neighbors to check for an evolution
+	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
+		check_for_evolution(tile_position + neighbor_offset);
 	return true;
 
 func is_valid_cell(coordinates : Vector2) -> bool:
@@ -47,6 +51,24 @@ func init_world():
 				#continue;
 			#var tile_data = TileDataManager.get_random_tile_data(true);
 			#set_cell(coords, source_id, tile_data.atlas_coordinates);
+
+func check_for_evolution(tile_position : Vector2i):
+	var tile_data = tiles.get(tile_position);
+	if  tile_data == null or tile_data.evolutions.size() == 0 : return;
+	
+	for evolution in tile_data.evolutions:
+		var evolution_tile_data = TileDataManager.tile_dictionnary.get(evolution);
+		if evolution_tile_data == null:
+			print("Invalid evolution tile key : " + evolution + " for tile " + tile_data.name);
+			continue;
+		
+		if evolution_tile_data.requirement == null or evolution_tile_data.requirement.is_met(tile_position) :
+			evolve_tile(tile_position, evolution_tile_data);
+			return;
+
+func evolve_tile(tile_position : Vector2i, evolution : CustomTileData):
+	clear_tile(tile_position);
+	place_tile(tile_position, evolution, true);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);

@@ -15,7 +15,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	tiles.set(tile_position, tile);
 	return true;
 
-func clear_cell(tile_position : Vector2i):
+func clear_tile(tile_position : Vector2i):
 	set_cell(tile_position, 0, Vector2i.ONE * -1);
 	tiles.erase(tile_position);
 

@@ -37,13 +37,13 @@ func remove_breach(tilemap_position: Vector2i):
 	if !breaches.has(tilemap_position): return;
 	
 	breaches.erase(tilemap_position);
-	clear_cell(tilemap_position);
+	clear_tile(tilemap_position);
 
 func remove_monster(tilemap_position: Vector2i):
 	if !monsters.has(tilemap_position): return;
 	
 	monsters.erase(tilemap_position);
-	clear_cell(tilemap_position);
+	clear_tile(tilemap_position);
 
 func update_breach_tile(tilemap_position: Vector2i):
 	var breach = breaches.get(tilemap_position);

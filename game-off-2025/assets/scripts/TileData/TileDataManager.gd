@@ -4,6 +4,8 @@ const TILE_CUSTOM_DATA_NAME_KEY = "name";
 const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
+const TILE_CUSTOM_DATA_EVOLUTIONS_KEY = "evolutions";
+const TILE_CUSTOM_DATA_REQUIREMENTS_KEY = "requirements";
 
 const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 
@@ -27,12 +29,16 @@ func load_tile_data():
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
 		var is_playable = tile_data.get_custom_data(TILE_CUSTOM_DATA_PLAYABLE_KEY);
 		var atlas_texture_coordinates = atlas_coordinates * tile_size;
-		var custom_tile_data = CustomTileData.create(tile_name, 
+		var evolutions = tile_data.get_custom_data(TILE_CUSTOM_DATA_EVOLUTIONS_KEY);
+		var requirements = tile_data.get_custom_data(TILE_CUSTOM_DATA_REQUIREMENTS_KEY);
+		var custom_tile_data = CustomTileData.new(tile_name, 
 			tile_damage, 
 			tile_description, 
 			atlas_coordinates,
 			atlas_texture_coordinates, 
-			is_playable);
+			is_playable,
+			evolutions,
+			requirements);
 		if tiles.has(tile_name) or tile_dictionnary.has(custom_tile_data.name): 
 			print("Error: tile " + tile_name + " registered twice");
 			return
