@@ -89,3 +89,5 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 text = "dead"
+
+[connection signal="beacon_hp_updated" from="Beacon manager" to="CanvasLayer/HUD" method="_on_beacon_manager_beacon_hp_updated"]
