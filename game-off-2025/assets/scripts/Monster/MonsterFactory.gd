@@ -149,6 +149,8 @@ func check_for_enemy_hover(event : InputEvent):
 			on_enemy_hover_out();
 
 func on_enemy_hover_in(cell: Vector2i):
+	if last_tile_hovered != cell:
+		indicator_tilemap.clear();
 	last_tile_hovered = cell;
 	var monster = monsters.get(cell);
 	if monster == null: return;
