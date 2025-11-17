@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3gxvk1q7bain"]
+[gd_scene load_steps=8 format=3 uid="uid://d3gxvk1q7bain"]
 
 [ext_resource type="Script" uid="uid://cfic8alcbjl1e" path="res://assets/scripts/Hud.gd" id="1_f1f40"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="1_wfueu"]
@@ -7,6 +7,20 @@
 atlas = ExtResource("1_wfueu")
 region = Rect2(32, 0, 8, 8)
 
+[sub_resource type="Gradient" id="Gradient_rwkyw"]
+colors = PackedColorArray(0.31061712, 0.31061712, 0.3106171, 1, 0.30980393, 0.30980393, 0.30980393, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yc8k2"]
+gradient = SubResource("Gradient_rwkyw")
+width = 120
+
+[sub_resource type="Gradient" id="Gradient_f1f40"]
+colors = PackedColorArray(0.99607843, 0.21176471, 0.14901961, 1, 0.36078432, 1, 0.24705882, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rwkyw"]
+gradient = SubResource("Gradient_f1f40")
+width = 120
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -14,23 +28,20 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_f1f40")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="BeaconTile" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 4.0
-offset_right = 18.0
-offset_bottom = 20.0
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 10.0
 texture = SubResource("AtlasTexture_f1f40")
 
-[node name="Beacon HP" type="Label" parent="."]
+[node name="BeaconHPBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_left = 20.0
-offset_right = 53.0
-offset_bottom = 23.0
-
-[node name="Beacon HP Suffix" type="Label" parent="."]
-layout_mode = 0
-offset_left = 54.0
-offset_right = 75.0
-offset_bottom = 23.0
-text = "hp"
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 132.0
+offset_bottom = 5.0
+scale = Vector2(1, 4)
+texture_under = SubResource("GradientTexture1D_yc8k2")
+texture_progress = SubResource("GradientTexture1D_rwkyw")

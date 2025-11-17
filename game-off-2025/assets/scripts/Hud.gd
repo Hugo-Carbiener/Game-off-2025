@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 
 
 func _on_beacon_manager_beacon_hp_updated(health: int) -> void:
-	get_node("Beacon HP").text  = str(health)
+	get_node("BeaconHPBar").value  = health * 100 / Constants.beacon_hp
