@@ -24,10 +24,13 @@ func setup(_name : String) :
 	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
 
 # Called before a card is destroyed
-func on_card_used():
+func on_card_used(tilemap_position : Vector2i):
 	var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
 	MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()]);
 	TileCardFactory.instance.card_amount -= 1;
 	## If hand is empty, next phase
 	if TileCardFactory.instance.card_amount == 0:
+		await ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
 		GameLoop.start_phase(GameLoop.get_next_phase());
+	else :
+		await ShockWave.instance.execute_small_shockwave(MainTilemap.instance.tilemap_to_viewport(tilemap_position));

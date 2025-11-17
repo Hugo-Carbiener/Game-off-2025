@@ -3,11 +3,15 @@ class_name MainTilemap
 
 static var instance : MainTilemap;
 
+@export_group("VFX variables")
+@export var tile_placed_vfx : AnimatedSprite2D;
+
 func _ready() -> void:
 	super();
 	if instance == null:
 		instance = self;
 	init_world();
+	init_vfx();
 
 func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = false) -> bool :
 	var monster = MonsterFactory.monsters.get(tile_position);
@@ -15,7 +19,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 
-	
+
 	var breach = MonsterFactory.breaches.get(tile_position);
 	if breach != null:
 		breach.cover();
@@ -75,3 +79,13 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	if tile_data == null: return;
 	
 	monster.damage(tile_data.damage);
+
+func init_vfx():
+	tile_placed_vfx.animation_finished.connect(func(): tile_placed_vfx.visible = false);
+	tile_placed_vfx.visible = false;
+
+func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
+	var world_pos = map_to_local(tilemap_position) + global_position/2;
+	var camera = get_viewport().get_camera_2d();
+	var viewport_coordinates = camera.get_canvas_transform() * world_pos;
+	return viewport_coordinates;
