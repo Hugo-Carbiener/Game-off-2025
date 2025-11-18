@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=25 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/InputManager.gd" id="2_ns00n"]
@@ -6,33 +6,99 @@
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="4_jfdcb"]
 [ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/MainTilemap.gd" id="5_2rfjg"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="6_4gqpi"]
+[ext_resource type="Texture2D" uid="uid://l8jfmi4xinwd" path="res://assets/sprites/vfx_tile_place.png" id="6_ns00n"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="7_pdmmw"]
 [ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="8_8rasb"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/Hud.tscn" id="9_tgalg"]
+[ext_resource type="Shader" uid="uid://cbpkubtqpbggb" path="res://assets/shaders/MovingWhiteNoise.gdshader" id="10_jfdcb"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/DragAndDrop/TilemapDropReceiver.gd" id="10_l5frf"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="11_j64yd"]
+[ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="12_2rfjg"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/white.png" id="14_dppo5"]
+[ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
+shader = ExtResource("10_jfdcb")
+shader_parameter/grid_scale = -1.965
+shader_parameter/base_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
+shader_parameter/opacity = 0.1150000054625
+shader_parameter/movement_amplitude = 17.87
+shader_parameter/movement_speed = 0.025
+shader_parameter/pixelSize = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dppo5"]
+atlas = ExtResource("6_ns00n")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfdcb"]
+atlas = ExtResource("6_ns00n")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rfjg"]
+atlas = ExtResource("6_ns00n")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4gqpi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dppo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfdcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rfjg")
+}],
+"loop": false,
+"name": &"place_tile",
+"speed": 10.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
 region = Rect2(56, 0, 8, 8)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
+shader = ExtResource("16_2rfjg")
+shader_parameter/strength = 0.08
+shader_parameter/center = Vector2(0, 0)
+shader_parameter/radius = 0.25
+shader_parameter/light_opacity = 0.035
+shader_parameter/fall_off_treshold = 0.7
+shader_parameter/aberration = 0.425
+shader_parameter/width = 0.04
+shader_parameter/feather = 0.135
+
 [node name="Tilemap scene" type="Node2D"]
 
-[node name="Game loop manager" type="Node2D" parent="."]
-script = ExtResource("1_ewvwg")
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="Input manager" type="Node2D" parent="."]
-script = ExtResource("2_ns00n")
+[node name="Background shader" type="TextureRect" parent="Background"]
+z_index = -100
+material = SubResource("ShaderMaterial_2rfjg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_dppo5")
 
-[node name="Beacon manager" type="Node" parent="."]
-script = ExtResource("3_dppo5")
+[node name="Tilemaps" type="Node2D" parent="."]
 
-[node name="Main tilemap" type="TileMapLayer" parent="."]
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("tile_placed_vfx")]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("5_2rfjg")
+tile_placed_vfx = NodePath("Tile placed vfx")
 
-[node name="Monster tilemap" type="TileMapLayer" parent="." node_paths=PackedStringArray("indicator_tilemap", "monster_sprite")]
+[node name="Tile placed vfx" type="AnimatedSprite2D" parent="Tilemaps/Main tilemap"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_4gqpi")
+animation = &"place_tile"
+
+[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("indicator_tilemap", "monster_sprite")]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("6_4gqpi")
 breach_tiles_per_maturity = Dictionary[int, String]({
@@ -43,21 +109,44 @@ monster_movement_duration = 0.3
 indicator_tilemap = NodePath("../Indication tilemap")
 monster_sprite = NodePath("Monster sprite")
 
-[node name="Monster sprite" type="Sprite2D" parent="Monster tilemap"]
+[node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 texture = SubResource("AtlasTexture_20167")
 
-[node name="Indication tilemap" type="TileMapLayer" parent="."]
+[node name="Indication tilemap" type="TileMapLayer" parent="Tilemaps"]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("8_8rasb")
 
+[node name="Game loop manager" type="Node2D" parent="."]
+script = ExtResource("1_ewvwg")
+
+[node name="Input manager" type="Node2D" parent="."]
+script = ExtResource("2_ns00n")
+
+[node name="Beacon manager" type="Node" parent="."]
+script = ExtResource("3_dppo5")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 0
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("9_tgalg")]
+[node name="Shockwave texture" type="TextureRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_4gqpi")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_dppo5")
+script = ExtResource("12_2rfjg")
+small_shockwave_duration = 2.0
+large_shockwave_duration = 2.5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="HUD" parent="UI" instance=ExtResource("9_tgalg")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -66,18 +155,19 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tilemap area" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="Tilemap area" type="MarginContainer" parent="UI/VBoxContainer" node_paths=PackedStringArray("main_tilemap")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("10_l5frf")
+main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 
-[node name="Card area" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 script = ExtResource("11_j64yd")
 metadata/CardHandDropArea = ""
 
-[node name="Card container" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Card area"]
+[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/Card area"]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("12_cyh7e")
@@ -90,4 +180,4 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "dead"
 
-[connection signal="beacon_hp_updated" from="Beacon manager" to="CanvasLayer/HUD" method="_on_beacon_manager_beacon_hp_updated"]
+[connection signal="beacon_hp_updated" from="Beacon manager" to="UI/HUD" method="_on_beacon_manager_beacon_hp_updated"]

@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 	if is_dragging:
 		var dragged_control_offset = Vector2(tile_preview.size.x/2, tile_preview.position.y + tile_preview.size.y/2);
 		var dragged_control_position = get_local_mouse_position() - dragged_control_offset;
-		var snaped_control_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(dragged_control_position)) + Vector2.ONE + Vector2.DOWN;
+		var snaped_control_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(dragged_control_position)) + Vector2.DOWN;
 		control_copy.position = snaped_control_position;
 
 func on_drag_input():

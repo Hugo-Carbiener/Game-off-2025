@@ -1,7 +1,7 @@
 extends DropReceiver
 class_name TilemapDropReceiver
 
-@onready var main_tilemap = $"../../../Main tilemap"
+@export var main_tilemap : MainTilemap;
 
 func on_drop(control_dropped : Control):
 	## place corresponding tile in the tilemap
@@ -12,7 +12,7 @@ func on_drop(control_dropped : Control):
 	var placed_tile = main_tilemap.place_tile(tile_position, tile_data);
 	if placed_tile:
 		DragAndDropHandler.destroy_movable_copy();
-		control_dropped.on_card_used();
+		control_dropped.on_card_used(tile_position);
 		control_dropped.queue_free();
 	else : 
 		DragAndDropHandler.cancel_drag();
