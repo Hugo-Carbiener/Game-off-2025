@@ -30,7 +30,7 @@ func on_card_used(tilemap_position : Vector2i):
 	TileCardFactory.instance.card_amount -= 1;
 	## If hand is empty, next phase
 	if TileCardFactory.instance.card_amount == 0:
-		await ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
+		ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
 		GameLoop.start_phase(GameLoop.get_next_phase());
 	else :
 		await ShockWave.instance.execute_small_shockwave(MainTilemap.instance.tilemap_to_viewport(tilemap_position));
