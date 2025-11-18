@@ -129,7 +129,6 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 			err += dx;
 			y0 += sy;
 			continue;
-	cells.pop_front();
 	return cells
 
 ## MONSTER HOVER
@@ -150,14 +149,14 @@ func check_for_enemy_hover(event : InputEvent):
 
 func on_enemy_hover_in(cell: Vector2i):
 	if last_tile_hovered != cell:
-		indicator_tilemap.clear();
+		indicator_tilemap.clear_tilemap();
 	last_tile_hovered = cell;
 	var monster = monsters.get(cell);
 	if monster == null: return;
 	
 	for trajectory_point in monster.trajectory:
-		indicator_tilemap.set_cell(trajectory_point, 0, TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY).atlas_coordinates);
+		indicator_tilemap.place_tile(trajectory_point, TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
 
 func on_enemy_hover_out():
 	last_tile_hovered = Vector2i.ZERO;
-	indicator_tilemap.clear();
+	indicator_tilemap.clear_tilemap();
