@@ -15,7 +15,6 @@ offset_bottom = 128.0
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
 script = ExtResource("1_334as")
-card_id = null
 card_name = NodePath("VBoxContainer/Tile card name")
 card_count = NodePath("VBoxContainer/Tile card count")
 card_description = NodePath("VBoxContainer/Card description")

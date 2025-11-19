@@ -16,11 +16,8 @@ static func create_tile_card(_id : String) -> TileCard:
 	tile_card.setup(_id);
 	return tile_card;
 
-func _ready():
-	print_debug('raidi')
-	SignalBus.cards_amount_updated.connect(_on_cards_amount_updated);
-
 func setup(_id : String) :
+	SignalBus.cards_amount_updated.connect(_on_cards_amount_updated);
 	var tile_data = TileDataManager.tile_dictionnary[_id];
 	card_id = _id;
 	card_name.text = tile_data.name;
@@ -33,6 +30,7 @@ func on_card_used(tilemap_position : Vector2i):
 	MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()]);
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
+	_on_cards_amount_updated();
 	
 	# destroy if it was the last card
 	print_debug(TileCardFactory.instance.cards_amount[card_id])
@@ -49,5 +47,4 @@ func on_card_used(tilemap_position : Vector2i):
 	
 
 func _on_cards_amount_updated():
-	print_debug('signal', card_id, TileCardFactory.instance.cards_amount[card_id]);
 	card_count.text = str(TileCardFactory.instance.cards_amount[card_id]);
