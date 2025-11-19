@@ -28,6 +28,17 @@ func setup(_id : String) :
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
 	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
+	setup_color(tile_data.color);
+
+func setup_color(color : Color) :
+	card_name.label_settings.font_color = color;
+	card_description.label_settings.font_color = color;
+	
+	card_overlay.modulate = color;
+	card_count_overlay.modulate = color;
+	card_sprite.modulate = color;
+	card_damage.modulate = color;
+	card_fatigue.modulate = color;
 
 # Called before a card is destroyed
 func on_card_used(tilemap_position : Vector2i):

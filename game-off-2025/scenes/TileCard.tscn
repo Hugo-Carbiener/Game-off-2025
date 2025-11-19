@@ -13,6 +13,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
 font = ExtResource("6_ttman")
+font_color = Color(0.87058824, 0.8666667, 0.8980392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_178ey"]
 font = ExtResource("3_867uw")

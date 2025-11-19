@@ -1,6 +1,7 @@
 class_name CustomTileData
 
 var id : String;
+var color : Color;
 var name : String;
 var damage : int;
 var description : String;
@@ -11,7 +12,8 @@ var evolutions : Array[String];
 var requirement : TileRequirement;
 
 func _init(
-		_id:String,
+		_id: String,
+		_color: Color,
 		_name : String, 
 		_damage : int, 
 		_description : String, 
@@ -21,6 +23,7 @@ func _init(
 		_evolutions : Array,
 		_requirement : String):
 	self.id = _id;
+	self.color = _color;
 	self.name = _name;
 	self.damage = _damage;
 	self.description = _description;

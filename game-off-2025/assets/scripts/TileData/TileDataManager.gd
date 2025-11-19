@@ -1,6 +1,7 @@
 extends Node2D
 
 const TILE_CUSTOM_DATA_ID_KEY = "id";
+const TILE_CUSTOM_DATA_COLOR_KEY = "color";
 const TILE_CUSTOM_DATA_NAME_KEY = "name";
 const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
@@ -25,6 +26,7 @@ func load_tile_data():
 		var atlas_coordinates = source.get_tile_id(tile_number);
 		var tile_data = source.get_tile_data(atlas_coordinates, 0);
 		var tile_id = tile_data.get_custom_data(TILE_CUSTOM_DATA_ID_KEY);
+		var tile_color = tile_data.get_custom_data(TILE_CUSTOM_DATA_COLOR_KEY);
 		var tile_name = tile_data.get_custom_data(TILE_CUSTOM_DATA_NAME_KEY);
 		var tile_damage = tile_damages.get(tile_data.get_custom_data(TILE_CUSTOM_DATA_DAMAGE_KEY));
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
@@ -34,6 +36,7 @@ func load_tile_data():
 		var requirements = tile_data.get_custom_data(TILE_CUSTOM_DATA_REQUIREMENTS_KEY);
 		var custom_tile_data = CustomTileData.new(
 			tile_id,
+			tile_color,
 			tile_name, 
 			tile_damage, 
 			tile_description, 
