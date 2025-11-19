@@ -3,11 +3,16 @@ class_name TileCard
 
 const tile_card_scene: PackedScene = preload("res://scenes/TileCard.tscn");
 
-@export var card_id: String;
-@export var card_name : RichTextLabel;
-@export var card_count : RichTextLabel;
-@export var card_description : RichTextLabel;
+var card_id : String;
+@export var card_overlay : TextureRect;
+@export var card_count_overlay : TextureRect;
+@export var card_count : Label;
+@export var card_name : Label;
 @export var card_sprite: TextureRect;
+@export var card_damage : TextureRect;
+@export var card_fatigue : TextureRect;
+@export var card_status: TextureRect;
+@export var card_description : Label;
 
 var card_tile_sprite_atlas_coordinates : Vector2i;
 
@@ -47,4 +52,4 @@ func on_card_used(tilemap_position : Vector2i):
 	
 
 func _on_cards_amount_updated():
-	card_count.text = str(TileCardFactory.instance.cards_amount[card_id]);
+	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);

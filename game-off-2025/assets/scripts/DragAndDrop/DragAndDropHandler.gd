@@ -4,10 +4,11 @@ const DUPLICATE_STRUCTURE_ONLY = 0  # no signals, no scripts, no groups
 
 var is_dragging = false;
 var dragged_control : Control; ## the control currently being dragged
-var control_copy : Control; ## the control we create to visually move around while dragging
 var drop_receivers : Array[DropReceiver]; ## list of control able to receive the drop
 var transition_duration = 0.5;
-var tile_preview : Control;
+
+var control_copy : Control; ## the control we create to visually move around while dragging
+var control_copy_anchor_offset : Vector2;
 
 func _ready() -> void:
 	var nodes : Array;
@@ -23,10 +24,11 @@ func find_drop_receivers(node: Node, result : Array) -> void:
 
 func _process(_delta: float) -> void:
 	if is_dragging:
-		var dragged_control_offset = Vector2(tile_preview.size.x/2, tile_preview.position.y + tile_preview.size.y/2);
-		var dragged_control_position = get_local_mouse_position() - dragged_control_offset;
-		var snaped_control_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(dragged_control_position)) + Vector2.DOWN;
-		control_copy.position = snaped_control_position;
+		# Add an offset so the mouse is on the card sprite
+		var card_position = get_local_mouse_position() - control_copy_anchor_offset;
+		# switch to tilemap coords then world coords to snap, add half a tile length horizontally to center it 
+		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.tile_size / 2) - Vector2(TileDataManager.tile_size / 2) * Vector2.LEFT;
+		control_copy.position = snaped_card_position
 
 func on_drag_input():
 	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
@@ -82,21 +84,29 @@ func get_control_to_drop_in() -> DropReceiver:
 
 func create_movable_copy(control_to_copy: Control):
 	control_copy = control_to_copy.duplicate();
-	control_copy.position = get_local_mouse_position();
-	tile_preview = control_copy.card_sprite;
+	control_copy_anchor_offset = Vector2(control_to_copy.card_sprite.size.x/2, control_to_copy.card_sprite.global_position.y - control_to_copy.global_position.y + control_to_copy.card_sprite.size.y/2);
+	control_copy.position = get_local_mouse_position() + control_copy_anchor_offset;
 	get_tree().current_scene.add_child(control_copy);
-	
-	on_drag_transition(control_copy, control_copy.card_name, control_copy.card_count, control_copy.card_description, control_copy.card_sprite);
+	on_drag_transition(control_copy);
 	control_copy.set_script(null);
+	control_copy.z_index = 100;
 
 func destroy_movable_copy(): 
 	control_copy.queue_free();
 
-func on_drag_transition(card_bg : Control, card_name : Control, card_count: Control, card_desc : Control, _tile_preview : Control):
+func on_drag_transition(control_copy : TileCard):
 	var tween = get_tree().create_tween();
 	tween.set_parallel();
-	tween.tween_property(card_bg, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(card_count, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(card_desc, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	
+	# hide card count instantly
+	control_copy.card_count_overlay.self_modulate = Color(1.0,1.0,1.0,0);
+	control_copy.card_count.self_modulate = Color(1.0,1.0,1.0,0);
+	# progressively hide the rest
+	tween.tween_property(control_copy, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_overlay, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_description, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_damage, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_fatigue, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_status, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	await tween.finished;

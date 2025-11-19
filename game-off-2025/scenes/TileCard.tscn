@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://plw2n5bts5nf" path="res://assets/fonts/BitPotionExt.ttf" id="6_ttman"]
 [ext_resource type="Texture2D" uid="uid://odl7t3bf3rxi" path="res://assets/sprites/UI_card_icon_medium_damage.png" id="7_eq3wv"]
 [ext_resource type="Texture2D" uid="uid://cwaee7tqqqt8h" path="res://assets/sprites/UI_card_icon_high_fatigue.png" id="8_tysvy"]
-[ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="9_uila8"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="11_eq3wv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
 font = ExtResource("6_ttman")
@@ -24,17 +24,24 @@ atlas = ExtResource("3_ig78c")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu2q7"]
-font = ExtResource("6_ttman")
+font = ExtResource("11_eq3wv")
+font_size = 8
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_damage", "card_fatigue", "card_status", "card_description")]
 offset_right = 80.0
 offset_bottom = 112.0
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
 script = ExtResource("1_334as")
-card_name = NodePath("")
-card_description = NodePath("")
+card_overlay = NodePath("Overlay")
+card_count_overlay = NodePath("Card count overlay")
+card_count = NodePath("VBoxContainer/Card amount margin/Card amount")
+card_name = NodePath("VBoxContainer/Card name margin/Tile card name")
 card_sprite = NodePath("VBoxContainer/Tile preview margin/Tile preview")
+card_damage = NodePath("VBoxContainer/Icons margin/HBoxContainer/Damages")
+card_fatigue = NodePath("VBoxContainer/Icons margin/HBoxContainer/Fatigue")
+card_status = NodePath("VBoxContainer/Icons margin/HBoxContainer/Effect")
+card_description = NodePath("VBoxContainer/Description margin/Card description")
 metadata/Draggable = true
 
 [node name="Overlay" type="TextureRect" parent="."]
@@ -43,7 +50,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_7nrqj")
 
-[node name="Card amount" type="TextureRect" parent="."]
+[node name="Card count overlay" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -113,11 +120,6 @@ texture = ExtResource("8_tysvy")
 layout_mode = 2
 texture = ExtResource("7_eq3wv")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("9_uila8")
-stretch_mode = 3
-
 [node name="Description margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -128,6 +130,7 @@ theme_override_constants/margin_right = 8
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Description"
+text = "Description gf,jkifosjpq"
 label_settings = SubResource("LabelSettings_nu2q7")
 autowrap_mode = 2
+text_overrun_behavior = 1
