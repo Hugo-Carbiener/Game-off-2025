@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DragAndDropHandler="*res://assets/scripts/DragAndDrop/DragAndDropHandler.gd"
 TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
 Constants="*res://assets/scripts/Constants.gd"
+SignalBus="*res://assets/scripts/SignalBus.gd"
 
 [display]
 

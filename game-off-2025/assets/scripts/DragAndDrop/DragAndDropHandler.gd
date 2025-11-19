@@ -45,7 +45,7 @@ func on_drop_input():
 func drag():
 	is_dragging = true;
 	create_movable_copy(dragged_control);
-	dragged_control.visible = false;
+	# dragged_control.visible = false;
 
 func drop():
 	on_drop();
@@ -81,21 +81,22 @@ func get_control_to_drop_in() -> DropReceiver:
 	return null;
 
 func create_movable_copy(control_to_copy: Control):
-	control_copy = control_to_copy.duplicate();	
+	control_copy = control_to_copy.duplicate();
 	control_copy.position = get_local_mouse_position();
 	tile_preview = control_copy.card_sprite;
 	get_tree().current_scene.add_child(control_copy);
 	
-	on_drag_transition(control_copy, control_copy.card_name, control_copy.card_description, control_copy.card_sprite);
+	on_drag_transition(control_copy, control_copy.card_name, control_copy.card_count, control_copy.card_description, control_copy.card_sprite);
 	control_copy.set_script(null);
 
 func destroy_movable_copy(): 
 	control_copy.queue_free();
 
-func on_drag_transition(card_bg : Control, card_name : Control, card_desc : Control, _tile_preview : Control):
+func on_drag_transition(card_bg : Control, card_name : Control, card_count: Control, card_desc : Control, _tile_preview : Control):
 	var tween = get_tree().create_tween();
 	tween.set_parallel();
 	tween.tween_property(card_bg, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(card_count, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(card_desc, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	await tween.finished;

@@ -9,13 +9,15 @@ resource_local_to_scene = true
 atlas = ExtResource("3_ig78c")
 region = Rect2(0, 0, 8, 8)
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_count", "card_description", "card_sprite")]
 offset_right = 96.0
 offset_bottom = 128.0
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
 script = ExtResource("1_334as")
+card_id = null
 card_name = NodePath("VBoxContainer/Tile card name")
+card_count = NodePath("VBoxContainer/Tile card count")
 card_description = NodePath("VBoxContainer/Card description")
 card_sprite = NodePath("VBoxContainer/Tile preview")
 metadata/Draggable = true
@@ -40,6 +42,13 @@ vertical_alignment = 1
 layout_mode = 2
 texture = SubResource("AtlasTexture_867uw")
 stretch_mode = 3
+
+[node name="Tile card count" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card description" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
