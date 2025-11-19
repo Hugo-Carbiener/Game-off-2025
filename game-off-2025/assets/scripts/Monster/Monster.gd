@@ -25,7 +25,6 @@ func on_move_end(monsterFactory : MonsterFactory):
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self);
 	
 	if is_at_destination():
-		print_debug(health)
 		BeaconManager.instance.damage(health)
 
 func is_at_destination() -> bool:

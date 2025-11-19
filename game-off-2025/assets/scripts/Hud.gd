@@ -1,5 +1,6 @@
 extends Control
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -11,4 +12,5 @@ func _process(_delta: float) -> void:
 
 
 func _on_beacon_manager_beacon_hp_updated(health: int) -> void:
-	get_node("BeaconHPBar").value  = health * 100 / Constants.beacon_hp
+	@warning_ignore("integer_division")
+	get_node("BeaconHPBar").value  = round(health * 100 / Constants.beacon_hp)
