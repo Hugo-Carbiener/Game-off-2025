@@ -1,58 +1,133 @@
-[gd_scene load_steps=5 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=15 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
+[ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
+[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="3_867uw"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
+[ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
+[ext_resource type="FontFile" uid="uid://plw2n5bts5nf" path="res://assets/fonts/BitPotionExt.ttf" id="6_ttman"]
+[ext_resource type="Texture2D" uid="uid://odl7t3bf3rxi" path="res://assets/sprites/UI_card_icon_medium_damage.png" id="7_eq3wv"]
+[ext_resource type="Texture2D" uid="uid://cwaee7tqqqt8h" path="res://assets/sprites/UI_card_icon_high_fatigue.png" id="8_tysvy"]
+[ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="9_uila8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
+font = ExtResource("6_ttman")
+
+[sub_resource type="LabelSettings" id="LabelSettings_178ey"]
+font = ExtResource("3_867uw")
+font_size = 13
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_867uw"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ig78c")
 region = Rect2(0, 0, 8, 8)
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_count", "card_description", "card_sprite")]
-offset_right = 96.0
-offset_bottom = 128.0
+[sub_resource type="LabelSettings" id="LabelSettings_nu2q7"]
+font = ExtResource("6_ttman")
+
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_name", "card_description", "card_sprite")]
+offset_right = 80.0
+offset_bottom = 112.0
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
 script = ExtResource("1_334as")
-card_name = NodePath("VBoxContainer/Tile card name")
-card_count = NodePath("VBoxContainer/Tile card count")
-card_description = NodePath("VBoxContainer/Card description")
-card_sprite = NodePath("VBoxContainer/Tile preview")
+card_name = NodePath("")
+card_description = NodePath("")
+card_sprite = NodePath("VBoxContainer/Tile preview margin/Tile preview")
 metadata/Draggable = true
 
+[node name="Overlay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_7nrqj")
+
+[node name="Card amount" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_yvvng")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="Tile card name" type="RichTextLabel" parent="VBoxContainer"]
+[node name="Card amount margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "Tile card name"
-fit_content = true
+theme_override_constants/margin_right = 31
+
+[node name="Card amount" type="Label" parent="VBoxContainer/Card amount margin"]
+layout_mode = 2
+text = "x2"
+label_settings = SubResource("LabelSettings_yvvng")
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Tile preview" type="TextureRect" parent="VBoxContainer"]
+[node name="Card name margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_top = 10
+
+[node name="Tile card name" type="Label" parent="VBoxContainer/Card name margin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+text = "Name"
+label_settings = SubResource("LabelSettings_178ey")
+horizontal_alignment = 1
+
+[node name="Tile preview margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_top = 3
+
+[node name="Tile preview" type="TextureRect" parent="VBoxContainer/Tile preview margin"]
+layout_mode = 2
+size_flags_vertical = 0
 texture = SubResource("AtlasTexture_867uw")
 stretch_mode = 3
 
-[node name="Tile card count" type="RichTextLabel" parent="VBoxContainer"]
+[node name="Icons margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "0"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 4
 
-[node name="Card description" type="RichTextLabel" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Icons margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Damages" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_eq3wv")
+
+[node name="Fatigue" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_tysvy")
+
+[node name="Effect" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_eq3wv")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_uila8")
+stretch_mode = 3
+
+[node name="Description margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Card description" type="Label" parent="VBoxContainer/Description margin"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 1
 text = "Description"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
+label_settings = SubResource("LabelSettings_nu2q7")
+autowrap_mode = 2

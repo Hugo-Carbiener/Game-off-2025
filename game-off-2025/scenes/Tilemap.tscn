@@ -21,7 +21,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
 shader = ExtResource("10_jfdcb")
 shader_parameter/grid_scale = -1.965
-shader_parameter/base_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
+shader_parameter/base_color = Color(0.12152425, 0.010128265, 0.07223991, 1)
 shader_parameter/opacity = 0.1150000054625
 shader_parameter/movement_amplitude = 17.87
 shader_parameter/movement_speed = 0.025

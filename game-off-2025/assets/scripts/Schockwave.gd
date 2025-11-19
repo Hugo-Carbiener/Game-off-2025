@@ -10,9 +10,6 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 
-func _process(delta: float) -> void:
-	print(str(material.get_shader_parameter("radius")) + " " + str(material.get_shader_parameter("center")));
-
 func execute_small_shockwave(epicenter : Vector2):
 	var uv_epicenter = epicenter / get_rect().size;
 	var duration = init_small_shockwave(uv_epicenter);
@@ -47,7 +44,7 @@ func init_large_shockwave(epicenter : Vector2) -> float:
 	material.set("shader_parameter/feather", 0.135);
 	material.set("shader_parameter/center", epicenter);
 	visible = true;
-	return small_shockwave_duration;
+	return large_shockwave_duration;
 
 func update_shockwave(radius : float):
 	material.set("shader_parameter/radius", radius);
