@@ -31,10 +31,10 @@ func setup(_id : String) :
 	setup_color(tile_data.color);
 
 func setup_color(color : Color) :
-	card_name.set("theme_override/colors/font_color", color)
-	card_description.set("theme_override/colors/font_color", color)
-	#card_name.label_settings.font_color = color;
-	#card_description.label_settings.font_color = color;
+	card_name.label_settings = card_name.label_settings.duplicate();
+	card_name.label_settings.font_color = color;
+	card_description.label_settings = 	card_description.label_settings.duplicate();
+	card_description.label_settings.font_color = color;
 	
 	card_overlay.modulate = color;
 	card_count_overlay.modulate = color;
