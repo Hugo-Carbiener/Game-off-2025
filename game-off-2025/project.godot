@@ -22,6 +22,10 @@ TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
 Constants="*res://assets/scripts/Constants.gd"
 SignalBus="*res://assets/scripts/SignalBus.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=640
