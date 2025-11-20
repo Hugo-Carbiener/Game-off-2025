@@ -27,6 +27,8 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	check_for_evolution(tile_position);
 	# update direct neighbors to check for an evolution
 	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
+		if !has_tile_at(tile_position + neighbor_offset): continue;
+		
 		check_for_evolution(tile_position + neighbor_offset);
 	return true;
 

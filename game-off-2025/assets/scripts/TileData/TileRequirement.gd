@@ -9,4 +9,4 @@ func is_met(tilemap_position : Vector2i) -> bool:
 	if !MainTilemap.instance.tiles.has(tile_position_to_consider): return false;
 	
 	var tile_to_consider = MainTilemap.instance.tiles[tile_position_to_consider];
-	return possible_tiles.has(tile_to_consider.name);
+	return possible_tiles.has(tile_to_consider.id);

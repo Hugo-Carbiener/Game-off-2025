@@ -88,8 +88,6 @@ func create_movable_copy(control_to_copy: Control):
 	control_copy.position = get_local_mouse_position() - control_copy_anchor_offset;
 	get_tree().current_scene.add_child(control_copy);
 	on_drag_transition();
-	control_copy.set_script(null);
-	control_copy.z_index = 100;
 
 func destroy_movable_copy(): 
 	control_copy.queue_free();
