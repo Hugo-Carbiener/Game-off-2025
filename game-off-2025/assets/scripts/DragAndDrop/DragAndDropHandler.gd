@@ -84,7 +84,7 @@ func get_control_to_drop_in() -> DropReceiver:
 
 func create_movable_copy(control_to_copy: Control):
 	control_copy = control_to_copy.duplicate();
-	control_copy_anchor_offset = Vector2(control_to_copy.card_sprite.size.x/2, control_to_copy.card_sprite.global_position.y - control_to_copy.global_position.y + control_to_copy.card_sprite.size.y/2);
+	control_copy_anchor_offset = Vector2(control_to_copy.card_sprite.size.x/2, control_to_copy.card_sprite.global_position.y - control_to_copy.global_position.y );
 	control_copy.position = get_local_mouse_position() + control_copy_anchor_offset;
 	get_tree().current_scene.add_child(control_copy);
 	on_drag_transition();
