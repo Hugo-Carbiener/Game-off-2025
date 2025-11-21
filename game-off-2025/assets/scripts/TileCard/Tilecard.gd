@@ -51,7 +51,6 @@ func on_card_used(tilemap_position : Vector2i):
 	_on_cards_amount_updated();
 	
 	# destroy if it was the last card
-	print_debug(TileCardFactory.instance.cards_amount[card_id])
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		queue_free();
 		pass

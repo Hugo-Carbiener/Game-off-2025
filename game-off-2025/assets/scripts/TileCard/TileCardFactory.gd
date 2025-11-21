@@ -12,6 +12,9 @@ func _ready() -> void:
 	for id in TileDataManager.playable_tiles:
 		cards_amount[id] = 0;
 
+func list_children():
+	return get_children();
+
 func draw_random_card() :
 	var random_id: String = TileDataManager.playable_tiles[randi() % TileDataManager.playable_tiles.size()];
 	
@@ -24,7 +27,6 @@ func draw_random_card() :
 	cards_amount.total += 1;
 	
 	SignalBus.cards_amount_updated.emit();
-	print_debug(cards_amount)
 
 func draw_hand():
 	for i in Constants.base_card_per_round:

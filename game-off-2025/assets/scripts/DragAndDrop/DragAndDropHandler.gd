@@ -30,12 +30,27 @@ func _process(_delta: float) -> void:
 		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.tile_size / 2) - Vector2(TileDataManager.tile_size / 2) * Vector2.LEFT;
 		control_copy.position = snaped_card_position
 
-func on_drag_input():
+func on_drag_card_at_slot(index: int): 
+	print_debug(index, TileCardFactory.instance.list_children().size())
+	if not index >= TileCardFactory.instance.list_children().size():
+		on_drag_input(TileCardFactory.instance.list_children()[index]);
+		return true;
+	else:
+		return false;
+
+func on_drag_input(control: Control = null):
 	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
 	
-	dragged_control = get_control_to_drag();
-	if dragged_control == null: return;
+	if control != null:
+		dragged_control = control;
+	else:
+		dragged_control = get_control_to_drag();
+
+	if dragged_control == null: 
+		return false ;
+	
 	drag();
+	return true;
 
 func on_drop_input():
 	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
@@ -63,7 +78,8 @@ func on_drop():
 
 func cancel_drag() :
 	destroy_movable_copy();
-	dragged_control.visible = true;
+	if dragged_control:
+		dragged_control.visible = true;
 	is_dragging = false;
 
 func get_control_to_drag() -> Control:
@@ -90,7 +106,8 @@ func create_movable_copy(control_to_copy: Control):
 	on_drag_transition();
 
 func destroy_movable_copy(): 
-	control_copy.queue_free();
+	if control_copy:
+		control_copy.queue_free();
 
 func on_drag_transition():
 	var tween = get_tree().create_tween();
