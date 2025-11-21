@@ -121,7 +121,5 @@ func on_drag_transition():
 	tween.tween_property(control_copy.card_overlay, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(control_copy.card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(control_copy.card_description, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(control_copy.card_damage, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(control_copy.card_fatigue, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
-	tween.tween_property(control_copy.card_status, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_icons, "modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	await tween.finished;

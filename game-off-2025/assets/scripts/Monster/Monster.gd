@@ -4,6 +4,7 @@ var health : int;
 var tilemap_position : Vector2i;
 var trajectory : Array[Vector2i];
 var position_in_trajectory : int;
+var turns_stayed_on_tile : int;
 
 var reached_destination : Signal;
 
@@ -14,6 +15,7 @@ func _init(_health: int, _tilemap_position: Vector2i, _trajectory : Array[Vector
 	self.position_in_trajectory = 0;
 
 func on_move_start(monsterFactory : MonsterFactory):
+	turns_stayed_on_tile = 0;
 	monsterFactory.clear_tile(tilemap_position);
 
 func on_move_end(monsterFactory : MonsterFactory):
@@ -23,15 +25,26 @@ func on_move_end(monsterFactory : MonsterFactory):
 	position_in_trajectory +=1;
 	
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self);
-	
+
 	if is_at_destination():
 		BeaconManager.instance.damage(health)
+
+func is_dead() -> bool:
+	return health <= 0;
 
 func is_at_destination() -> bool:
 	return tilemap_position == Vector2i.ZERO;
 
+func is_under_fatigue() -> bool:
+	if !MainTilemap.instance.has_tile_at(tilemap_position): return false;
+	return turns_stayed_on_tile < MainTilemap.instance.tiles[tilemap_position].fatigue
+
 func get_next_position() -> Vector2i:
 	return trajectory[trajectory.find(tilemap_position) + 1];
+
+func stay():
+	turns_stayed_on_tile += 1;
+	MainTilemap.instance.apply_tile_effects(tilemap_position, self);
 
 func damage(damage_amount : int) -> bool:
 	health -= damage_amount;
@@ -40,9 +53,6 @@ func damage(damage_amount : int) -> bool:
 		return false;
 	else: 
 		return true;
-
-func is_dead() -> bool:
-	return health <= 0;
 
 func on_death():
 	TileCardFactory.instance.draw_random_card();

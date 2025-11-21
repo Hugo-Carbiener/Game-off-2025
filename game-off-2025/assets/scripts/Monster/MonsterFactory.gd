@@ -73,6 +73,9 @@ func on_resolution():
 			monster_list.remove_at(monster_idx);
 			monster_count = monster_list.size();
 			continue;
+		if monster.is_under_fatigue():
+			monster.stay();
+			continue;
 		var from = monster.tilemap_position;
 		var to = monster.get_next_position();
 		var tween = get_tree().create_tween();
