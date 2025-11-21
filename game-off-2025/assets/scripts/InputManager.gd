@@ -16,12 +16,12 @@ var keys_to_index = {
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_action_pressed('select-card-mouse') and is_clicking == false:
+	if event is InputEventMouseButton and event.is_action_pressed('select-card-mouse') and !is_clicking:
 		initial_pos = event.global_position;
 		
 	if event is InputEventKey and event.is_action_pressed('select-card-numbers'):
 		# TODO reset cards array after a turn
-		if is_clicking == false:
+		if !is_clicking:
 			var init_drag = DragAndDropHandler.on_drag_card_at_slot(keys_to_index[event.keycode]);
 			
 			if init_drag:

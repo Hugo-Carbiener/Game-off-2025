@@ -28,11 +28,10 @@ func _process(_delta: float) -> void:
 		var card_position = get_local_mouse_position() - control_copy_anchor_offset;
 		# switch to tilemap coords then world coords to snap, add half a tile length horizontally to center it 
 		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.tile_size / 2) - Vector2(TileDataManager.tile_size / 2) * Vector2.LEFT;
-		control_copy.position = snaped_card_position
+		control_copy.position = snaped_card_position;
 
 func on_drag_card_at_slot(index: int): 
-	print_debug(index, TileCardFactory.instance.list_children().size())
-	if not index >= TileCardFactory.instance.list_children().size():
+	if index < TileCardFactory.instance.list_children().size():
 		on_drag_input(TileCardFactory.instance.list_children()[index]);
 		return true;
 	else:
