@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=13 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
 [ext_resource type="FontFile" uid="uid://plw2n5bts5nf" path="res://assets/fonts/BitPotionExt.ttf" id="6_ttman"]
-[ext_resource type="Texture2D" uid="uid://odl7t3bf3rxi" path="res://assets/sprites/UI_card_icon_medium_damage.png" id="7_eq3wv"]
-[ext_resource type="Texture2D" uid="uid://cwaee7tqqqt8h" path="res://assets/sprites/UI_card_icon_high_fatigue.png" id="8_tysvy"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="11_eq3wv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
@@ -28,7 +26,7 @@ region = Rect2(0, 0, 8, 8)
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_damage", "card_fatigue", "card_status", "card_description")]
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description")]
 offset_right = 80.0
 offset_bottom = 112.0
 texture = ExtResource("2_ig78c")
@@ -39,9 +37,7 @@ card_count_overlay = NodePath("Card count overlay")
 card_count = NodePath("VBoxContainer/Card amount margin/Card amount")
 card_name = NodePath("VBoxContainer/Card name margin/Tile card name")
 card_sprite = NodePath("VBoxContainer/Tile preview margin/Tile preview")
-card_damage = NodePath("VBoxContainer/Icons margin/HBoxContainer/Damages")
-card_fatigue = NodePath("VBoxContainer/Icons margin/HBoxContainer/Fatigue")
-card_status = NodePath("VBoxContainer/Icons margin/HBoxContainer/Effect")
+card_icons = NodePath("VBoxContainer/Icons margin/HBoxContainer")
 card_description = NodePath("VBoxContainer/Description margin/Card description")
 metadata/Draggable = true
 
@@ -108,18 +104,6 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Icons margin"]
 layout_mode = 2
 alignment = 1
-
-[node name="Damages" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("7_eq3wv")
-
-[node name="Fatigue" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("8_tysvy")
-
-[node name="Effect" type="TextureRect" parent="VBoxContainer/Icons margin/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("7_eq3wv")
 
 [node name="Description margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2

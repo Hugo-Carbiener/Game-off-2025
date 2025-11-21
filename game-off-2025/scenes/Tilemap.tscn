@@ -88,10 +88,9 @@ texture = ExtResource("14_dppo5")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
-[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("tile_placed_vfx")]
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps"]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("5_2rfjg")
-tile_placed_vfx = NodePath("Tile placed vfx")
 
 [node name="Tile placed vfx" type="AnimatedSprite2D" parent="Tilemaps/Main tilemap"]
 visible = false

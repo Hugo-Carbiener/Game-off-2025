@@ -4,6 +4,7 @@ var id : String;
 var color : Color;
 var name : String;
 var damage : int;
+var fatigue : int;
 var description : String;
 var atlas_coordinates : Vector2;
 var atlas_texture_coordinates : Vector2;
@@ -14,11 +15,12 @@ var requirement : TileRequirement;
 func _init(
 		_id: String,
 		_color: Color,
-		_name : String, 
-		_damage : int, 
-		_description : String, 
-		_atlas_coordinates : Vector2, 
-		_atlas_texture_coordinates : Vector2, 
+		_name : String,
+		_damage : int,
+		_fatigue : int,
+		_description : String,
+		_atlas_coordinates : Vector2,
+		_atlas_texture_coordinates : Vector2,
 		_is_playable : bool,
 		_evolutions : Array,
 		_requirement : String):
@@ -26,6 +28,7 @@ func _init(
 	self.color = _color;
 	self.name = _name;
 	self.damage = _damage;
+	self.fatigue = _fatigue;
 	self.description = _description;
 	self.atlas_coordinates = _atlas_coordinates;
 	self.atlas_texture_coordinates = _atlas_texture_coordinates;
