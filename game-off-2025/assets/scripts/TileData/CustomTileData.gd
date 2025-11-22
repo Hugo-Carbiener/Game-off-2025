@@ -11,6 +11,7 @@ var atlas_texture_coordinates : Vector2;
 var is_playable : bool;
 var evolutions : Array[String];
 var requirement : TileRequirement;
+var actions : Array[TileAction];
 
 func _init(
 		_id: String,
@@ -23,7 +24,8 @@ func _init(
 		_atlas_texture_coordinates : Vector2,
 		_is_playable : bool,
 		_evolutions : Array,
-		_requirement : String):
+		_requirements : String,
+		_actions : Dictionary):
 	self.id = _id;
 	self.color = _color;
 	self.name = _name;
@@ -35,7 +37,8 @@ func _init(
 	self.is_playable = _is_playable;
 	self.evolutions = [];
 	evolutions.assign(_evolutions);
-	self.requirement = parse_requirements(_requirement);
+	self.requirement = parse_requirements(_requirements);
+	self.actions = parse_actions(_actions);
 
 func parse_requirements(_requirement : String) -> TileRequirement:
 	if _requirement == null or _requirement.is_empty(): return null;
@@ -89,3 +92,18 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 			return null;
 	print("Invalid tile requirement " + _requirement + " for tile " + name);
 	return null;
+
+func parse_actions(_actions : Dictionary) -> Array[TileAction]:
+	var action_res : Array[TileAction];
+	for effect in _actions.keys():
+		if effect is not TileEffect: continue;
+		if effect == null: continue;
+		
+		var trigger =  TileDataManager.trigger_alias[_actions[effect]];
+		if trigger == null:
+			printerr("Invalid trigger when parsing action " + _actions[effect] + " of tile " + self.name);
+			continue;
+		
+		var tile_action = TileAction.new(effect, trigger);
+		action_res.append(tile_action);
+	return action_res;

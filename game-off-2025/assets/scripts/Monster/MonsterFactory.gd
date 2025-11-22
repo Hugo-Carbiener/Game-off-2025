@@ -12,6 +12,13 @@ static var instance : MonsterFactory;
 @export var monster_sprite : Sprite2D;
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
+## monster status
+enum STATUS {
+	WET,
+	POISON,
+	SPRAINED
+}
+
 func _ready() -> void:
 	super();
 	if instance == null:
@@ -74,7 +81,7 @@ func on_resolution():
 			monster_count = monster_list.size();
 			continue;
 		if monster.is_under_fatigue():
-			monster.stay();
+			monster.on_stay();
 			continue;
 		var from = monster.tilemap_position;
 		var to = monster.get_next_position();

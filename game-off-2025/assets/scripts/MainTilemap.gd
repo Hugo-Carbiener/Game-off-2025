@@ -72,11 +72,22 @@ func evolve_tile(tile_position : Vector2i, evolution : CustomTileData):
 	clear_tile(tile_position);
 	place_tile(tile_position, evolution, true);
 
-func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
+func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):
 	var tile_data = tiles.get(tilemap_position);
 	if tile_data == null: return;
 	
-	monster.damage(tile_data.damage);
+	if trigger == TileDataManager.TRIGGERS.ON_TILE_ENTER:
+		monster.damage(tile_data.damage);
+	
+	# execute all tile action that matche a trigger
+	execute_tile_actions(tile_data, monster, trigger);
+	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
+		# execute all neighbor tile action that match a neighbor trigger
+		execute_tile_actions(tile_data, monster, TileDataManager.trigger_to_neighbor_trigger[trigger]);
+
+func execute_tile_actions(tile_data : CustomTileData, monster : Monster, trigger : TileDataManager.TRIGGERS):
+	for action in tile_data.actions:
+		action.execute(monster, trigger);
 
 func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var world_pos = map_to_local(tilemap_position) + global_position/2;

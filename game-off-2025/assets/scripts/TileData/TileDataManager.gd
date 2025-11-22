@@ -9,13 +9,38 @@ const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
 const TILE_CUSTOM_DATA_EVOLUTIONS_KEY = "evolutions";
 const TILE_CUSTOM_DATA_REQUIREMENTS_KEY = "requirements";
+const TILE_CUSTOM_DATA_ACTIONS_KEY = "actions";
 const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 
+## tile stats
+const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
+const tile_fatigues = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
+## tile actions
+enum TRIGGERS {
+	ON_TILE_ENTER,
+	ON_NEIGHBOR_TILE_ENTER,
+	ON_TILE_LEAVE,
+	ON_NEIGHBOR_TILE_LEAVE,
+	ON_TILE_STAY,
+	ON_NEIGHBOR_TILE_STAY
+};
+const trigger_to_neighbor_trigger = {
+	TRIGGERS.ON_TILE_ENTER : TRIGGERS.ON_NEIGHBOR_TILE_ENTER,
+	TRIGGERS.ON_TILE_LEAVE : TRIGGERS.ON_NEIGHBOR_TILE_LEAVE,
+	TRIGGERS.ON_TILE_STAY : TRIGGERS.ON_NEIGHBOR_TILE_STAY
+}
+const trigger_alias = {
+	"OTE" = TRIGGERS.ON_TILE_ENTER, 
+	"ONTE" = TRIGGERS.ON_NEIGHBOR_TILE_ENTER, 
+	"OTL" = TRIGGERS.ON_TILE_LEAVE, 
+	"ONTL" = TRIGGERS.ON_NEIGHBOR_TILE_LEAVE, 
+	"OTS" = TRIGGERS.ON_TILE_LEAVE,
+	"ONTS" = TRIGGERS.ON_NEIGHBOR_TILE_STAY
+};
+## tiles 
+var tile_dictionnary : Dictionary[String, CustomTileData];
 var tiles : Array[String] = [];
 var playable_tiles : Array[String] = [];
-var tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
-var tile_fatigues = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
-var tile_dictionnary : Dictionary[String, CustomTileData];
 var tile_size : Vector2i;
 
 func _ready() -> void:
@@ -37,6 +62,7 @@ func load_tile_data():
 		var atlas_texture_coordinates = atlas_coordinates * tile_size;
 		var evolutions = tile_data.get_custom_data(TILE_CUSTOM_DATA_EVOLUTIONS_KEY);
 		var requirements = tile_data.get_custom_data(TILE_CUSTOM_DATA_REQUIREMENTS_KEY);
+		var actions = tile_data.get_custom_data(TILE_CUSTOM_DATA_ACTIONS_KEY);
 		var custom_tile_data = CustomTileData.new(
 			tile_id,
 			tile_color,
@@ -48,7 +74,8 @@ func load_tile_data():
 			atlas_texture_coordinates,
 			is_playable,
 			evolutions,
-			requirements);
+			requirements,
+			actions);
 		if tiles.has(tile_id) or tile_dictionnary.has(custom_tile_data.id): 
 			print("Error: tile " + tile_id + " registered twice");
 			return

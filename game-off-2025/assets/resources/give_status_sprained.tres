@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=2 format=3 uid="uid://cies21fao723m"]
+
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffect.gd" id="1_km6nr"]
+
+[resource]
+script = ExtResource("1_km6nr")
+status_to_give = 2
+damage = null
+metadata/_custom_type_script = "uid://dop7as4nabpyj"

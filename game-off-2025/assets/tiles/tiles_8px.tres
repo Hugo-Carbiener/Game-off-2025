@@ -1,8 +1,11 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://mva5xg62erqv"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://mva5xg62erqv"]
 
+[ext_resource type="Resource" uid="uid://nlpbnyno3rgu" path="res://assets/resources/give_status_wet.tres" id="1_2jcyr"]
+[ext_resource type="Resource" uid="uid://bl654x7nnw32o" path="res://assets/resources/give_status_poison.tres" id="1_vgb11"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="2_4eq8v"]
 [ext_resource type="Texture2D" uid="uid://bb40rr47cbppa" path="res://assets/sprites/river-terrain-atlas.png" id="2_6t64i"]
 [ext_resource type="Texture2D" uid="uid://datptykyir8ht" path="res://assets/sprites/path-terrain-atlas.png" id="3_4eq8v"]
+[ext_resource type="Resource" uid="uid://cies21fao723m" path="res://assets/resources/give_status_sprained.tres" id="3_ikjf6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dp4r"]
 texture = ExtResource("2_4eq8v")
@@ -13,7 +16,7 @@ use_texture_padding = false
 1:0/0/custom_data_1 = "Grove"
 1:0/0/custom_data_2 = "medium"
 1:0/0/custom_data_3 = "none"
-1:0/0/custom_data_4 = "You can hear some noises from the bushes"
+1:0/0/custom_data_4 = "Some welcome shade"
 1:0/0/custom_data_5 = Color(0.30980393, 0.5686275, 0.20784314, 1)
 1:0/0/custom_data_6 = true
 1:0/0/custom_data_7 = ["forest"]
@@ -22,7 +25,6 @@ use_texture_padding = false
 4:0/0/custom_data_1 = "beacon"
 4:0/0/custom_data_2 = "none"
 4:0/0/custom_data_3 = "none"
-4:0/0/custom_data_4 = "The start of everything"
 5:0/0 = 0
 5:0/0/custom_data_0 = "small-breach"
 5:0/0/custom_data_1 = "small-breach"
@@ -48,23 +50,33 @@ use_texture_padding = false
 1:1/0 = 0
 1:1/0/custom_data_0 = "forest"
 1:1/0/custom_data_1 = "forest"
-1:1/0/custom_data_2 = "high"
-1:1/0/custom_data_3 = "none"
-1:1/0/custom_data_4 = "blabla"
+1:1/0/custom_data_2 = "medium"
+1:1/0/custom_data_3 = "medium"
+1:1/0/custom_data_4 = "Who knows what happens in there"
+1:1/0/custom_data_5 = Color(0.07058824, 0.24705882, 0.11372549, 1)
 1:1/0/custom_data_8 = "(N=forest,grove)&(S=forest,grove)&(E=forest,grove)&(W=forest,grove)"
+1:1/0/custom_data_9 = {
+ExtResource("1_vgb11"): "OTE"
+}
 3:1/0 = 0
 3:1/0/custom_data_0 = "field"
-3:1/0/custom_data_1 = "field"
+3:1/0/custom_data_1 = "Crop field"
 3:1/0/custom_data_2 = "medium"
 3:1/0/custom_data_3 = "none"
-3:1/0/custom_data_8 = "(N=river)|(S=river)|(W=river)|(E=river)"
+3:1/0/custom_data_4 = "Sustains its neighbors"
+3:1/0/custom_data_5 = Color(0.8, 0.8235294, 0.45490196, 1)
+3:1/0/custom_data_8 = "(N=river&S=plain)|(S=river&N=plain)|(E=river&W=plain)|(W=river&E=plain)|(N=river&E=plain)|(E=river&S=plain)|(S=river&W=plain)|(W=river&N=plain)|(E=river&N=plain)|(S=river&E=plain)|(W=river&S=plain)|(N=river&W=plain)"
 2:1/0 = 0
 2:1/0/custom_data_0 = "mountain"
 2:1/0/custom_data_1 = "mountain"
-2:1/0/custom_data_2 = "high"
-2:1/0/custom_data_3 = "none"
-2:1/0/custom_data_4 = "fdjspqs"
+2:1/0/custom_data_2 = "medium"
+2:1/0/custom_data_3 = "medium"
+2:1/0/custom_data_4 = "A giant in the distance"
+2:1/0/custom_data_5 = Color(0.20392157, 0.21568628, 0.27450982, 1)
 2:1/0/custom_data_8 = "(E=hill,mountain)&(W=hill,mountain)"
+2:1/0/custom_data_9 = {
+ExtResource("3_ikjf6"): "OTL"
+}
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -72,15 +84,18 @@ use_texture_padding = false
 0:0/0/custom_data_1 = "River"
 0:0/0/custom_data_2 = "none"
 0:0/0/custom_data_3 = "low"
-0:0/0/custom_data_4 = "A calm strip of water"
+0:0/0/custom_data_4 = "Some things cannot ever be stopped"
 0:0/0/custom_data_5 = Color(0.5137255, 0.627451, 0.74509805, 1)
 0:0/0/custom_data_6 = true
+0:0/0/custom_data_9 = {
+ExtResource("1_2jcyr"): "OTE"
+}
 2:0/0 = 0
 2:0/0/custom_data_0 = "hill"
 2:0/0/custom_data_1 = "Hill"
 2:0/0/custom_data_2 = "low"
 2:0/0/custom_data_3 = "low"
-2:0/0/custom_data_4 = "A little height offers a nice view"
+2:0/0/custom_data_4 = "A little height to appreciate the landscape"
 2:0/0/custom_data_5 = Color(0.34117648, 0.3764706, 0.4509804, 1)
 2:0/0/custom_data_6 = true
 2:0/0/custom_data_7 = ["mountain"]
@@ -92,7 +107,23 @@ use_texture_padding = false
 3:0/0/custom_data_4 = "description must not be long"
 3:0/0/custom_data_5 = Color(0.3254902, 0.16470589, 0.03529412, 1)
 3:0/0/custom_data_6 = true
-3:0/0/custom_data_7 = ["field"]
+3:0/0/custom_data_7 = ["field", "swamp"]
+4:1/0 = 0
+4:1/0/custom_data_0 = "village"
+4:1/0/custom_data_1 = "Village"
+4:1/0/custom_data_2 = "medium"
+4:1/0/custom_data_3 = "none"
+4:1/0/custom_data_4 = "Humankind starting anew"
+4:1/0/custom_data_5 = Color(0.7294118, 0.41960785, 0, 1)
+4:1/0/custom_data_6 = true
+5:1/0 = 0
+5:1/0/custom_data_0 = "swamp"
+5:1/0/custom_data_1 = "Swamp"
+5:1/0/custom_data_2 = "low"
+5:1/0/custom_data_3 = "low"
+5:1/0/custom_data_4 = "Repulsing but swarming with life"
+5:1/0/custom_data_5 = Color(0.36078432, 0.7411765, 0.5568628, 1)
+5:1/0/custom_data_8 = "(N=river)|(S=river)|(W=river)|(E=river)"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4eq8v"]
 texture = ExtResource("2_6t64i")
@@ -273,6 +304,8 @@ custom_data_layer_7/name = "evolutions"
 custom_data_layer_7/type = 28
 custom_data_layer_8/name = "requirements"
 custom_data_layer_8/type = 4
+custom_data_layer_9/name = "actions"
+custom_data_layer_9/type = 27
 sources/0 = SubResource("TileSetAtlasSource_3dp4r")
 sources/1 = SubResource("TileSetAtlasSource_4eq8v")
 sources/2 = SubResource("TileSetAtlasSource_vgb11")
