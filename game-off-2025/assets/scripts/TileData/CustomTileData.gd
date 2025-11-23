@@ -95,13 +95,14 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 
 func parse_actions(_actions : Dictionary) -> Array[TileAction]:
 	var action_res : Array[TileAction];
-	for effect in _actions.keys():
-		if effect is not TileEffect: continue;
-		if effect == null: continue;
+	for resource_path in _actions:
+		var effect := load(resource_path) as TileEffect;
+		if effect == null:
+			printerr("Effect at path " + resource_path + " could not be loaded for tile " + self.id);
+			continue;
 		
-		var trigger =  TileDataManager.trigger_alias[_actions[effect]];
+		var trigger =  TileDataManager.trigger_alias[_actions[resource_path]];
 		if trigger == null:
-			printerr("Invalid trigger when parsing action " + _actions[effect] + " of tile " + self.name);
 			continue;
 		
 		var tile_action = TileAction.new(effect, trigger);

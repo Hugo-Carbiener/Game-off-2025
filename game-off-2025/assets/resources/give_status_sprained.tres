@@ -5,5 +5,4 @@
 [resource]
 script = ExtResource("1_km6nr")
 status_to_give = 2
-damage = null
 metadata/_custom_type_script = "uid://dop7as4nabpyj"

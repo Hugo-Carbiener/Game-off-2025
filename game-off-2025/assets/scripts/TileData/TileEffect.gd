@@ -45,5 +45,6 @@ func execute(monster : Monster):
 			return;
 		
 		EFFECT.DAMAGE_NEIGHBOR:
+			print("dealt damage on neighbor monster on " + str(monster.tilemap_position));
 			monster.damage(damage);
 			return;

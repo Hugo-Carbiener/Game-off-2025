@@ -87,6 +87,7 @@ func get_control_to_drag() -> Control:
 	
 	## we get the root node of the instantiated scene 
 	var control = control_child.owner;
+	if control == null: return;
 	if !control.has_meta("Draggable") || !control.get_meta("Draggable"): return;
 		
 	return control;

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TileEffect" load_steps=2 format=3 uid="uid://caelq5t7ljn2s"]
+[gd_resource type="Resource" script_class="TileEffect" load_steps=2 format=3 uid="uid://v568r5etbktv"]
 
 [ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffect.gd" id="1_34dxv"]
 

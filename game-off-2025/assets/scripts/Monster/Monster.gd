@@ -62,4 +62,5 @@ func on_death():
 	MonsterFactory.monsters.erase(tilemap_position);
 
 func give_status(status : MonsterFactory.STATUS):
+	print("monster received status " + str(status) + " on tile " + str(tilemap_position));
 	pass;
