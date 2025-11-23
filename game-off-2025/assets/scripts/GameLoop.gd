@@ -29,9 +29,8 @@ static func setup_phase():
 	start_phase(get_next_phase());
 
 static func play_phase():
-	print("Starting play phase");
+	pass;
 
 static func resolution_phase():
-	print("Starting resolution phase");
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());

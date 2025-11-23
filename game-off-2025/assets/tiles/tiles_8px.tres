@@ -123,7 +123,7 @@ use_texture_padding = false
 2:1/0/custom_data_3 = "medium"
 2:1/0/custom_data_4 = "A giant in the distance"
 2:1/0/custom_data_5 = Color(0.20392157, 0.21568628, 0.27450982, 1)
-2:1/0/custom_data_8 = "(E=hill,mountain)&(W=hill,mountain)"
+2:1/0/custom_data_8 = "(E=hill,mountain&W=hill,mountain)|(N=hill,mountain&S=hill,mountain)"
 2:1/0/custom_data_9 = {
 "res://assets/resources/give_status_sprained.tres": "OTL"
 }

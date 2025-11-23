@@ -5,6 +5,7 @@ var tilemap_position : Vector2i;
 var trajectory : Array[Vector2i];
 var position_in_trajectory : int;
 var turns_stayed_on_tile : int;
+var status : MonsterFactory.STATUS;
 
 var reached_destination : Signal;
 
@@ -28,7 +29,7 @@ func on_move_end(monsterFactory : MonsterFactory):
 	
 	if is_at_destination():
 		BeaconManager.instance.damage(health);
-		damage(health);
+		on_death();
 	
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_ENTER);
 
@@ -52,22 +53,22 @@ func get_next_position() -> Vector2i:
 	trajectory_idx = max(trajectory_idx, 0);
 	return trajectory[trajectory_idx + 1];
 
-func damage(damage_amount : int) -> bool:
+func damage(damage_amount : int, dispatch : bool = true):
+	if damage_amount == 0: return;
+	
 	health -= damage_amount;
+	if dispatch :
+		dispatch_interaction(str(damage_amount), [Constants.monster_info_icons["damage"]]);
 	if is_dead():
 		on_death();
-		return false;
-	else: 
-		return true;
 
 func on_death():
 	TileCardFactory.instance.draw_random_card();
 	MonsterFactory.instance.clear_tile(tilemap_position);
 	MonsterFactory.monsters.erase(tilemap_position);
 
-func set_status(status : MonsterFactory.STATUS):
-	print("monster received status " + str(status) + " on tile " + str(tilemap_position));
-	pass;
+func set_status(_status : MonsterFactory.STATUS):
+	status = _status;
 
-func dispatch_interaction():
-	pass;
+func dispatch_interaction(text : String, icons : Array[ImageTexture]):
+	MonsterFactory.instance.spawn_interaction(self, text, icons);

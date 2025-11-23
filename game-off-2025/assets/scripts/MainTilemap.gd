@@ -76,7 +76,7 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger 
 	var tile_data = tiles.get(tilemap_position);
 	if tile_data == null: return;
 	
-	if trigger == TileDataManager.TRIGGERS.ON_TILE_ENTER:
+	if trigger == TileDataManager.TRIGGERS.ON_TILE_ENTER or trigger == TileDataManager.TRIGGERS.ON_TILE_STAY:
 		monster.damage(tile_data.damage);
 	
 	# execute all tile action that matche a trigger
