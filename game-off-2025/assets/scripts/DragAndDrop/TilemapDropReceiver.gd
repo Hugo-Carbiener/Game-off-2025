@@ -11,7 +11,7 @@ func on_drop(control_dropped : Control):
 	var tile_position = main_tilemap.local_to_map(main_tilemap.get_local_mouse_position());
 	var placed_tile = main_tilemap.place_tile(tile_position, tile_data);
 	if placed_tile:
-		# DragAndDropHandler.destroy_movable_copy();
+		DragAndDropHandler.destroy_movable_copy();
 		control_dropped.on_card_used(tile_position);
 	else : 
 		DragAndDropHandler.cancel_drag();

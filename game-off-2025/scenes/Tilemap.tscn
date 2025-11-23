@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=26 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/InputManager.gd" id="2_ns00n"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/white.png" id="14_dppo5"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
+[ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
 shader = ExtResource("10_jfdcb")
@@ -160,16 +161,26 @@ size_flags_vertical = 3
 script = ExtResource("10_l5frf")
 main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 
-[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("11_j64yd")
 metadata/CardHandDropArea = ""
 
-[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/Card area"]
+[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/HBoxContainer/Card area"]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("12_cyh7e")
+
+[node name="Reroll area" type="Control" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+script = ExtResource("18_pdmmw")
 
 [node name="Death Screen" type="Node2D" parent="."]
 visible = false

@@ -63,7 +63,6 @@ func on_card_used(tilemap_position : Vector2i):
 	# destroy if it was the last card
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		queue_free();
-		pass
 	
 	# If hand is empty, next phase
 	if TileCardFactory.instance.cards_amount.total == 0:
@@ -71,7 +70,21 @@ func on_card_used(tilemap_position : Vector2i):
 		GameLoop.start_phase(GameLoop.get_next_phase());
 	else :
 		await ShockWave.instance.execute_small_shockwave(MainTilemap.instance.tilemap_to_viewport(tilemap_position));
+
+func on_card_reroll():
+	if TileCardFactory.instance.reroll_left == 0:
+		return;
+		
+	TileCardFactory.instance.reroll_left -= 1;
+	SignalBus.reroll_amount_updated.emit(TileCardFactory.instance.reroll_left);
+	TileCardFactory.instance.cards_amount[card_id] -= 1;
+	TileCardFactory.instance.cards_amount.total -= 1;
+	_on_cards_amount_updated();
+	# destroy if it was the last card
+	if (TileCardFactory.instance.cards_amount[card_id] == 0):
+		queue_free();
 	
+	TileCardFactory.instance.draw_random_card();
 
 func _on_cards_amount_updated():
 	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);

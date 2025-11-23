@@ -45,3 +45,10 @@ offset_bottom = 5.0
 scale = Vector2(1, 4)
 texture_under = SubResource("GradientTexture1D_yc8k2")
 texture_progress = SubResource("GradientTexture1D_rwkyw")
+
+[node name="RerollLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 13.0
+offset_right = 41.0
+offset_bottom = 36.0

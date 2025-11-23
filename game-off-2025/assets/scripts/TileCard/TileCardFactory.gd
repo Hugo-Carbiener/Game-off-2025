@@ -13,6 +13,7 @@ var fatigue_icons : Dictionary[String, ImageTexture] = {
 }
 static var instance : TileCardFactory;
 var cards_amount = {"total": 0};
+var reroll_left: int = Constants.reroll_per_turn;
 
 func _ready() -> void:
 	if instance == null:
@@ -21,6 +22,8 @@ func _ready() -> void:
 	# init count with all playable card names
 	for id in TileDataManager.playable_tiles:
 		cards_amount[id] = 0;
+	
+	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func list_children():
 	return get_children();
@@ -39,5 +42,8 @@ func draw_random_card() :
 	SignalBus.cards_amount_updated.emit();
 
 func draw_hand():
+	reroll_left = Constants.reroll_per_turn;
+	SignalBus.reroll_amount_updated.emit(reroll_left);
+	
 	for i in Constants.base_card_per_round:
 		TileCardFactory.instance.draw_random_card();
