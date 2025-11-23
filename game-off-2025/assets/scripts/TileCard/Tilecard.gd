@@ -37,7 +37,6 @@ func init_color(color : Color) :
 	
 	card_overlay.modulate = color;
 	card_count_overlay.modulate = color;
-	card_sprite.modulate = color;
 	for card_icon in card_icons.get_children():
 		card_icon.modulate = color;
 
