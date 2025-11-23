@@ -98,7 +98,7 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_4gqpi")
 animation = &"place_tile"
 
-[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("indicator_tilemap", "monster_sprite")]
+[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("indicator_tilemap", "monster_sprite", "monster_info_pool")]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("6_4gqpi")
 breach_tiles_per_maturity = Dictionary[int, String]({
@@ -108,10 +108,13 @@ breach_tiles_per_maturity = Dictionary[int, String]({
 monster_movement_duration = 0.3
 indicator_tilemap = NodePath("../Indication tilemap")
 monster_sprite = NodePath("Monster sprite")
+monster_info_pool = NodePath("Monster info pool")
 
 [node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 texture = SubResource("AtlasTexture_20167")
+
+[node name="Monster info pool" type="Node2D" parent="Tilemaps/Monster tilemap"]
 
 [node name="Indication tilemap" type="TileMapLayer" parent="Tilemaps"]
 tile_set = ExtResource("4_jfdcb")

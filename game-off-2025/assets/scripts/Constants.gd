@@ -17,17 +17,32 @@ const NEIGHBOR_TILE_COORDINATES_CODEX = {
 }
 
 ## Tilemaps
-const tilemap_offset = Vector2(0, -0.2);
+const tilemap_offset = Vector2(0, -0.1);
 
 ## Card hand
 const base_card_per_round = 5;
 const reroll_per_turn = 1;
+var damage_icons : Dictionary[String, ImageTexture] = {
+	"low" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png")),
+	"medium" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_medium_damage.png")),
+	"high" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_high_damage.png"))
+}
+var fatigue_icons : Dictionary[String, ImageTexture] = {
+	"low" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_fatigue.png")),
+	"medium" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_medium_fatigue.png")),
+	"high" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_high_fatigue.png"))
+}
 
 ## Breaches
 const breach_initial_maturity = 2;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;
+const monster_info_lifetime_duration = 2;
+const monster_info_lifetime_movement = Vector2(0, -20.0);
+var monster_info_icons : Dictionary[String, ImageTexture] = {
+	"damage" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png"))
+	}
 
 ## Beacon
 const beacon_hp = 10;

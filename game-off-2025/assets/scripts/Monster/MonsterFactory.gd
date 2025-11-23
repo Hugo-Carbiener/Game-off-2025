@@ -10,6 +10,9 @@ static var instance : MonsterFactory;
 @export var monster_movement_duration : float;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
+@export_group("Monster info variables")
+@export var monster_info_pool : Node2D;
+const monster_info_model : PackedScene = preload("res://scenes/MonsterInfo.tscn");
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
 ## monster status
@@ -169,3 +172,24 @@ func on_enemy_hover_in(cell: Vector2i):
 func on_enemy_hover_out():
 	last_tile_hovered = Vector2i.ZERO;
 	indicator_tilemap.clear_tilemap();
+
+func get_free_monster_info_model():
+	for monster_info in monster_info_pool.get_children():
+		if monster_info.visible: continue;
+		print("found existing element in pool")
+		return monster_info;
+	return add_monster_info_to_pool();
+
+func add_monster_info_to_pool():
+	print("adding element to pool")
+	var monster_info = monster_info_model.instantiate();
+	monster_info_pool.add_child(monster_info);
+	return monster_info;
+
+func spawn_interaction(monster : Monster, text : String, icons : Array[ImageTexture]):
+	var monster_tilemap_position = monsters.find_key(monster);
+	var monster_info = get_free_monster_info_model();
+	if monster_tilemap_position == null: return;
+	
+	var info_position = map_to_local(monster_tilemap_position);
+	monster_info.launch(info_position, text, icons);
