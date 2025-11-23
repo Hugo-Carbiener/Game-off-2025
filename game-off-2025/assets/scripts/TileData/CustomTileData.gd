@@ -81,15 +81,12 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 			for split_string in split_strings:
 				requirement_or.requirements.append(parse_requirements(split_string))
 			return requirement_or;
-		elif !is_sub_group:
+		elif !is_sub_group and i == _requirement.length() - 1 :
 			var split_strings = _requirement.split(Constants.TILE_REQUIREMENT_LINK);
 			var requirement_string = TileRequirement.new();
 			requirement_string.relative_tilemap_coordinate = Constants.NEIGHBOR_TILE_COORDINATES_CODEX[split_strings[0]];
 			requirement_string.possible_tiles = split_strings[1].split(Constants.TILE_REQUIREMENT_TILES_SEPARATOR);
 			return requirement_string;
-		else :
-			print("Unknown situation at index " + str(i) + " while parsing tile requirement " + _requirement);
-			return null;
 	print("Invalid tile requirement " + _requirement + " for tile " + name);
 	return null;
 

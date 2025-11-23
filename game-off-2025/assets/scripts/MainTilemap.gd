@@ -83,7 +83,9 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger 
 	execute_tile_actions(tile_data, monster, trigger);
 	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
 		# execute all neighbor tile action that match a neighbor trigger
-		execute_tile_actions(tile_data, monster, TileDataManager.trigger_to_neighbor_trigger[trigger]);
+		var neighbor_tile_data = tiles.get(tilemap_position + neighbor_offset);
+		if neighbor_tile_data == null: continue;
+		execute_tile_actions(neighbor_tile_data, monster, TileDataManager.trigger_to_neighbor_trigger[trigger]);
 
 func execute_tile_actions(tile_data : CustomTileData, monster : Monster, trigger : TileDataManager.TRIGGERS):
 	for action in tile_data.actions:

@@ -4,12 +4,12 @@ class_name TileEffect
 
 enum EFFECT {
 	GIVE_STATUS,
-	DAMAGE_NEIGHBOR
+	DAMAGE
 }
 
 @export_group("Give status variables")
 @export var status_to_give : MonsterFactory.STATUS;
-@export_group("Damage neighbor variables")
+@export_group("Damage variables")
 @export var damage : int;
 @export_group("Effect variables")
 @export var effect : EFFECT:
@@ -20,11 +20,11 @@ enum EFFECT {
 ## Hide useless fields
 const fields_per_effect : Dictionary[StringName, EFFECT] = {
 	&"status_to_give" : EFFECT.GIVE_STATUS,
-	&"damage" : EFFECT.DAMAGE_NEIGHBOR
+	&"damage" : EFFECT.DAMAGE
 }
 const field_groups_per_effect : Dictionary[StringName, EFFECT] = {
 	&"Give status variables" : EFFECT.GIVE_STATUS,
-	&"Damage neighbor variables" : EFFECT.DAMAGE_NEIGHBOR
+	&"Damage variables" : EFFECT.DAMAGE
 }
 
 func _validate_property(property : Dictionary) -> void:
@@ -44,7 +44,7 @@ func execute(monster : Monster):
 			monster.give_status(status_to_give);
 			return;
 		
-		EFFECT.DAMAGE_NEIGHBOR:
+		EFFECT.DAMAGE:
 			print("dealt damage on neighbor monster on " + str(monster.tilemap_position));
 			monster.damage(damage);
 			return;

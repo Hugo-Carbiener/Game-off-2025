@@ -10,6 +10,6 @@ func _init(_effect : TileEffect, _trigger : TileDataManager.TRIGGERS):
 
 func execute(monster : Monster, _trigger : TileDataManager.TRIGGERS):
 	if trigger != _trigger:
-		pass;
+		return;
 	
 	effect.execute(monster);
