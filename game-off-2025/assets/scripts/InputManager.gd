@@ -18,9 +18,10 @@ func _input(event: InputEvent) -> void:
 		if card_selected:
 			card_selected = false;
 			DragAndDropHandler.on_drop_input();
-		else: 
-			card_selected = true;
-			DragAndDropHandler.on_drag_input();
+		else:
+			var init_drag = DragAndDropHandler.on_drag_input();
+			if init_drag:
+				card_selected = true;
 		
 	if event is InputEventKey and event.is_action_pressed('select-card-numbers'):
 		if card_selected:
