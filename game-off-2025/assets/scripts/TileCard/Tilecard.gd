@@ -45,11 +45,11 @@ func init_icons(tile_data : CustomTileData) :
 	var tile_fatigue_key = TileDataManager.tile_fatigues.find_key(tile_data.fatigue);
 	if tile_damage_key != "none":
 		var icon = TextureRect.new();
-		icon.texture = ImageTexture.create_from_image(TileCardFactory.instance.damage_icons[tile_damage_key]);
+		icon.texture = TileCardFactory.instance.damage_icons[tile_damage_key];
 		card_icons.add_child(icon);
 	if tile_fatigue_key != "none":
 		var icon = TextureRect.new();
-		icon.texture = ImageTexture.create_from_image(TileCardFactory.instance.fatigue_icons[tile_fatigue_key]);
+		icon.texture = TileCardFactory.instance.fatigue_icons[tile_fatigue_key];
 		card_icons.add_child(icon);
 
 # Called before a card is destroyed

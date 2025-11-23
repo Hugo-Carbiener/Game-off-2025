@@ -1,15 +1,15 @@
 extends Control
 class_name TileCardFactory
 
-var damage_icons : Dictionary[String, Image] = {
-	"low" = Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png"),
-	"medium" = Image.load_from_file("res://assets/sprites/UI_card_icon_medium_damage.png"),
-	"high" = Image.load_from_file("res://assets/sprites/UI_card_icon_high_damage.png")
+var damage_icons : Dictionary[String, ImageTexture] = {
+	"low" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png")),
+	"medium" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_medium_damage.png")),
+	"high" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_high_damage.png"))
 }
-var fatigue_icons : Dictionary[String, Image] = {
-	"low" = Image.load_from_file("res://assets/sprites/UI_card_icon_low_fatigue.png"),
-	"medium" = Image.load_from_file("res://assets/sprites/UI_card_icon_medium_fatigue.png"),
-	"high" = Image.load_from_file("res://assets/sprites/UI_card_icon_high_fatigue.png")
+var fatigue_icons : Dictionary[String, ImageTexture] = {
+	"low" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_fatigue.png")),
+	"medium" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_medium_fatigue.png")),
+	"high" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_high_fatigue.png"))
 }
 static var instance : TileCardFactory;
 var cards_amount = {"total": 0};

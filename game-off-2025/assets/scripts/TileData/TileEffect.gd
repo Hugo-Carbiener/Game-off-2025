@@ -41,7 +41,7 @@ func _validate_property(property : Dictionary) -> void:
 func execute(monster : Monster):
 	match effect:
 		EFFECT.GIVE_STATUS:
-			monster.give_status(status_to_give);
+			monster.set_status(status_to_give);
 			return;
 		
 		EFFECT.DAMAGE:

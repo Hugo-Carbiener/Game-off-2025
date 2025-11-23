@@ -21,19 +21,20 @@ func on_move_start(monsterFactory : MonsterFactory):
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_LEAVE);
 
 func on_move_end(monsterFactory : MonsterFactory):
+	position_in_trajectory +=1;
 	var new_position = trajectory[position_in_trajectory];
 	monsterFactory.place_tile(new_position, TileDataManager.tile_dictionnary["monster"]);
 	tilemap_position = new_position;
-	position_in_trajectory +=1;
+	
+	if is_at_destination():
+		BeaconManager.instance.damage(health);
+		damage(health);
 	
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_ENTER);
 
 func on_stay():
 	turns_stayed_on_tile += 1;
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_STAY);
-
-	if is_at_destination():
-		BeaconManager.instance.damage(health)
 
 func is_dead() -> bool:
 	return health <= 0;
@@ -46,7 +47,10 @@ func is_under_fatigue() -> bool:
 	return turns_stayed_on_tile < MainTilemap.instance.tiles[tilemap_position].fatigue
 
 func get_next_position() -> Vector2i:
-	return trajectory[trajectory.find(tilemap_position) + 1];
+	var trajectory_idx = trajectory.find(tilemap_position);
+	trajectory_idx = min(trajectory_idx, trajectory.size()-2);
+	trajectory_idx = max(trajectory_idx, 0);
+	return trajectory[trajectory_idx + 1];
 
 func damage(damage_amount : int) -> bool:
 	health -= damage_amount;
@@ -61,6 +65,9 @@ func on_death():
 	MonsterFactory.instance.clear_tile(tilemap_position);
 	MonsterFactory.monsters.erase(tilemap_position);
 
-func give_status(status : MonsterFactory.STATUS):
+func set_status(status : MonsterFactory.STATUS):
 	print("monster received status " + str(status) + " on tile " + str(tilemap_position));
+	pass;
+
+func dispatch_interaction():
 	pass;

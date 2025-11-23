@@ -24,9 +24,6 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 
-func is_valid_cell(_coordinates : Vector2) -> bool:
-	return true;
-
 func spawn_monster(tilemap_position: Vector2i):
 	var monster = Monster.new(GameLoop.round_number, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
@@ -75,30 +72,32 @@ func on_resolution():
 	while monster_count > 0:
 		monster_idx = (monster_idx -1) % monster_count;
 		var monster = monster_list[monster_idx];
-			
+		var from = monster.tilemap_position;
+		var to = monster.get_next_position();
+		
 		if monster.is_at_destination() or monster.is_dead():
 			monster_list.remove_at(monster_idx);
 			monster_count = monster_list.size();
 			continue;
-		if monster.is_under_fatigue():
+		if monster.is_under_fatigue() or monsters.has(to):
 			monster.on_stay();
 			continue;
-		var from = monster.tilemap_position;
-		var to = monster.get_next_position();
 		var tween = get_tree().create_tween();
 		tween.tween_callback(func(): monster.on_move_start(self));
-		tween.tween_callback(func(): on_move_start(from));
-		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration).from(map_to_local(from));
-		tween.tween_callback(func(): on_move_end(to));
+		tween.tween_callback(func(): on_move_start(monster, from));
+		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration);
+		tween.tween_callback(func(): on_move_end(monster, to));
 		tween.tween_callback(func(): monster.on_move_end(self));
 		await tween.finished;
-	compute_monster_positions();
 
-func on_move_start(_from : Vector2i):
+func on_move_start(_monster : Monster, from : Vector2i):
+	monster_sprite.position = map_to_local(from);
 	monster_sprite.visible = true;
+	monsters.erase(from);
 
-func on_move_end(_to : Vector2i):
+func on_move_end(monster : Monster, _to : Vector2i):
 	monster_sprite.visible = false;
+	monsters.set(_to, monster);
 
 func compute_monster_positions():
 	var monster_list = monsters.values();
