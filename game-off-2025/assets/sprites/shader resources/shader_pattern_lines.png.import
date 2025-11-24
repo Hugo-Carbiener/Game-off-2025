@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjdcy8jux4exr"
-path="res://.godot/imported/white.png-96a0d5f5c5e94babd72a0e472d036985.ctex"
+uid="uid://lpfbqrk7ohi2"
+path="res://.godot/imported/shader_pattern_lines.png-db499f63c3f39c92cfb0cb6622585d3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/white.png"
-dest_files=["res://.godot/imported/white.png-96a0d5f5c5e94babd72a0e472d036985.ctex"]
+source_file="res://assets/sprites/shader resources/shader_pattern_lines.png"
+dest_files=["res://.godot/imported/shader_pattern_lines.png-db499f63c3f39c92cfb0cb6622585d3e.ctex"]
 
 [params]
 

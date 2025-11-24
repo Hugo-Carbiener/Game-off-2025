@@ -42,6 +42,7 @@ var tile_dictionnary : Dictionary[String, CustomTileData];
 var tiles : Array[String] = [];
 var playable_tiles : Array[String] = [];
 var tile_size : Vector2i;
+var world_tile_amount = 0;
 
 func _ready() -> void:
 	load_tile_data();

@@ -1,61 +1,33 @@
-[gd_scene load_steps=26 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=24 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="2_8rasb"]
 [ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/InputManager.gd" id="2_ns00n"]
+[ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="2_tgalg"]
 [ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/BeaconManager.gd" id="3_dppo5"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="4_jfdcb"]
-[ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/MainTilemap.gd" id="5_2rfjg"]
+[ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/Tilemap/MainTilemap.gd" id="5_2rfjg"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="6_4gqpi"]
-[ext_resource type="Texture2D" uid="uid://l8jfmi4xinwd" path="res://assets/sprites/vfx_tile_place.png" id="6_ns00n"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="7_pdmmw"]
-[ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/TilemapManager.gd" id="8_8rasb"]
+[ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/Tilemap/TilemapManager.gd" id="8_8rasb"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/Hud.tscn" id="9_tgalg"]
-[ext_resource type="Shader" uid="uid://cbpkubtqpbggb" path="res://assets/shaders/MovingWhiteNoise.gdshader" id="10_jfdcb"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/DragAndDrop/TilemapDropReceiver.gd" id="10_l5frf"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="11_j64yd"]
+[ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="11_l5frf"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="12_2rfjg"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
-[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/white.png" id="14_dppo5"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="14_dppo5"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
-shader = ExtResource("10_jfdcb")
-shader_parameter/grid_scale = -1.965
-shader_parameter/base_color = Color(0.12152425, 0.010128265, 0.07223991, 1)
-shader_parameter/opacity = 0.1150000054625
-shader_parameter/movement_amplitude = 17.87
-shader_parameter/movement_speed = 0.025
-shader_parameter/pixelSize = 4
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dppo5"]
-atlas = ExtResource("6_ns00n")
-region = Rect2(0, 0, 48, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jfdcb"]
-atlas = ExtResource("6_ns00n")
-region = Rect2(48, 0, 48, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2rfjg"]
-atlas = ExtResource("6_ns00n")
-region = Rect2(96, 0, 48, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4gqpi"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dppo5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jfdcb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2rfjg")
-}],
-"loop": false,
-"name": &"place_tile",
-"speed": 10.0
-}]
+shader = ExtResource("1_pdmmw")
+shader_parameter/main_tex = ExtResource("2_tgalg")
+shader_parameter/noise_tex = ExtResource("2_8rasb")
+shader_parameter/time_scale = 7.27
+shader_parameter/noise_scale = 0.60800002888
+shader_parameter/width_scale = 1.8230000390925
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -78,6 +50,7 @@ shader_parameter/feather = 0.135
 layer = -1
 
 [node name="Background shader" type="TextureRect" parent="Background"]
+modulate = Color(0, 0, 0, 1)
 z_index = -100
 material = SubResource("ShaderMaterial_2rfjg")
 anchors_preset = 15
@@ -86,17 +59,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_dppo5")
+stretch_mode = 6
 
 [node name="Tilemaps" type="Node2D" parent="."]
+
+[node name="Background tilemap" type="TileMapLayer" parent="Tilemaps"]
+tile_set = ExtResource("4_jfdcb")
+script = ExtResource("11_l5frf")
 
 [node name="Main tilemap" type="TileMapLayer" parent="Tilemaps"]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("5_2rfjg")
-
-[node name="Tile placed vfx" type="AnimatedSprite2D" parent="Tilemaps/Main tilemap"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_4gqpi")
-animation = &"place_tile"
 
 [node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("indicator_tilemap", "monster_sprite", "monster_info_pool")]
 tile_set = ExtResource("4_jfdcb")

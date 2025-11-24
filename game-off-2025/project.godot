@@ -13,7 +13,6 @@ config_version=5
 config/name="Game off 2025"
 run/main_scene="uid://ipnfsc8uvj5o"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
@@ -74,4 +73,5 @@ select-card-mouse-cancel={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.13725491, 0.050980393, 0.13725491, 1)
+environment/defaults/default_clear_color=Color(0.09768944, 0.093472935, 0.06711691, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
