@@ -179,7 +179,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("12_cyh7e")
 
-[node name="Reroll area" type="Control" parent="UI/VBoxContainer/HBoxContainer"]
+[node name="Reroll area" type="MarginContainer" parent="UI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2

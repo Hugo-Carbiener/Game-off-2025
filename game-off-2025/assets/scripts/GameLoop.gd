@@ -26,6 +26,12 @@ static func setup_phase():
 	round_number += 1;
 	MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
+	
+	for i in range(round_number + Constants.breaches_spawn_increase_per_round):
+		await Utils.wait(2);
+		var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
+		MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()]);
+		
 	start_phase(get_next_phase());
 
 static func play_phase():
