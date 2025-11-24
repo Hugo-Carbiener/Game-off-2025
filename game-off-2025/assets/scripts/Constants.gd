@@ -19,8 +19,6 @@ const NEIGHBOR_TILE_COORDINATES_CODEX = {
 ## Tilemaps
 const tilemap_offset = Vector2(0, -0.1);
 
-const breaches_spawn_increase_per_round = 1;
-
 ## Card hand
 const base_card_per_round = 5;
 const reroll_per_turn = 1;
@@ -36,8 +34,9 @@ var fatigue_icons : Dictionary[String, ImageTexture] = {
 }
 
 ## Breaches
+const breaches_spawn_increase_per_round = 1;
 const breach_initial_maturity = 2;
-const breach_transition_duration = 2.;
+const breach_transition_duration = .75;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;

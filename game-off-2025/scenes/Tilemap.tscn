@@ -23,14 +23,6 @@
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
-shader = ExtResource("1_pdmmw")
-shader_parameter/main_tex = ExtResource("2_tgalg")
-shader_parameter/noise_tex = ExtResource("2_8rasb")
-shader_parameter/time_scale = 7.27
-shader_parameter/noise_scale = 0.60800002888
-shader_parameter/width_scale = 1.8230000390925
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
 region = Rect2(56, 0, 8, 8)
@@ -101,22 +93,16 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
+shader = ExtResource("1_pdmmw")
+shader_parameter/main_tex = ExtResource("2_tgalg")
+shader_parameter/noise_tex = ExtResource("2_8rasb")
+shader_parameter/time_scale = 15.25
+shader_parameter/center_offset = Vector2(0, 0.06)
+shader_parameter/noise_scale = 0.4110000195225
+shader_parameter/width_scale = 2.3710000651225
+
 [node name="Tilemap scene" type="Node2D"]
-
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Background shader" type="TextureRect" parent="Background"]
-modulate = Color(0, 0, 0, 1)
-z_index = -100
-material = SubResource("ShaderMaterial_2rfjg")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("14_dppo5")
-stretch_mode = 6
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
@@ -223,6 +209,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("18_pdmmw")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background shader" type="TextureRect" parent="Background"]
+modulate = Color(0, 0, 0, 1)
+z_index = -100
+material = SubResource("ShaderMaterial_2rfjg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_dppo5")
+stretch_mode = 6
 
 [node name="Death Screen" type="Node2D" parent="."]
 visible = false
