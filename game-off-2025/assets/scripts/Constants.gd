@@ -37,6 +37,7 @@ var fatigue_icons : Dictionary[String, ImageTexture] = {
 
 ## Breaches
 const breach_initial_maturity = 2;
+const breach_transition_duration = 2.;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;

@@ -3,6 +3,8 @@ class_name MonsterFactory
 
 @export_group("Breaches variables")
 @export var breach_tiles_per_maturity : Dictionary[int, String];
+@export var breach_intro_animation_per_maturity : Dictionary[int, String];
+@export var breach_animated_sprite : AnimatedSprite2D;
 static var monsters : Dictionary[Vector2i, Monster];
 static var breaches : Dictionary[Vector2i, Breach];
 static var instance : MonsterFactory;
@@ -38,7 +40,19 @@ func spawn_breach(tilemap_position: Vector2i):
 	breaches.set(tilemap_position, breach);
 	var breach_tile_name = breach_tiles_per_maturity.get(Constants.breach_initial_maturity);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
+	
+	await breach_transition(tilemap_position, Constants.breach_initial_maturity);
 	place_tile(tilemap_position, breach_tile_data);
+
+func breach_transition(tilemap_position : Vector2i, breach_maturity : int):
+	var tween = get_tree().create_tween();
+	tween.tween_callback(func(): breach_animated_sprite.visible = true);
+	tween.tween_callback(func(): breach_animated_sprite.position = map_to_local(tilemap_position));
+	tween.tween_callback(func(): breach_animated_sprite.frame = 0);
+	tween.tween_callback(func(): breach_animated_sprite.animation = breach_intro_animation_per_maturity[breach_maturity]);
+	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.breach_transition_duration);
+	tween.tween_callback(func(): breach_animated_sprite.visible = false);
+	await tween.finished;
 
 func remove_breach(tilemap_position: Vector2i):
 	if !breaches.has(tilemap_position): return;
@@ -58,11 +72,13 @@ func update_breach_tile(tilemap_position: Vector2i):
 	
 	var breach_tile_name = breach_tiles_per_maturity.get(breach.turn_remaining);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
+	set_cell(tilemap_position, 0, Vector2(-1,-1));
+	await MonsterFactory.instance.breach_transition(tilemap_position, breach.turn_remaining);
 	set_cell(tilemap_position, 0, breach_tile_data.atlas_coordinates);
 
 func on_setup():
 	for breach in breaches.values():
-		breach.update();
+		await breach.update();
 
 func on_resolution():
 	# Get monsters from furthest to closest 

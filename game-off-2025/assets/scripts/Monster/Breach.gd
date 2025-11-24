@@ -13,7 +13,7 @@ func update():
 		MonsterFactory.instance.remove_breach(tilemap_position);
 		MonsterFactory.instance.spawn_monster(tilemap_position);
 	else:
-		MonsterFactory.instance.update_breach_tile(tilemap_position);
+		await MonsterFactory.instance.update_breach_tile(tilemap_position);
 
 func cover():
 	MonsterFactory.instance.remove_breach(tilemap_position);
