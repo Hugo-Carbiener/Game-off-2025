@@ -5,13 +5,14 @@ static var health: int = Constants.beacon_hp;
 static var instance : BeaconManager;
 
 signal beacon_hp_updated;
+signal beacon_tile_placed;
 
 func _ready() -> void:
 	beacon_hp_updated.emit(health)
-	
+	beacon_tile_placed.connect(on_tile_placed);
 	if instance == null:
 		instance = self;
-		
+
 func damage(damages: int):
 	health -= damages;
 	if health < 0: 
@@ -20,6 +21,8 @@ func damage(damages: int):
 	beacon_hp_updated.emit(health)
 	
 	if health <= 0:
-		get_tree().paused = true
-		get_node("../Death Screen").visible = true
-	
+		GameLoop.instance.loose_game();
+
+func on_tile_placed():
+	if MainTilemap.instance.tiles.size() >= TileDataManager.world_tile_amount:
+		GameLoop.instance.win_game();

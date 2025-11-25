@@ -64,6 +64,8 @@ func on_card_used(tilemap_position : Vector2i):
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		TileCardFactory.instance.free_card_slot(card_id);
 	
+	BeaconManager.instance.beacon_tile_placed.emit();
+	
 	# If hand is empty, next phase
 	if TileCardFactory.instance.cards_amount.total == 0:
 		ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
