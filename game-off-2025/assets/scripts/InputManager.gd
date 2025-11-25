@@ -7,7 +7,8 @@ var keys_to_index = {
 	49: 0,
 	50: 1,
 	51: 2,
-	52: 3
+	52: 3,
+	53: 4
 }
 
 # There are two playing mode: 2 clicks and number key + click

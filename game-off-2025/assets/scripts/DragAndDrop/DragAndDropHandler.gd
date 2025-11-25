@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 		control_copy.position = snaped_card_position;
 
 func on_drag_card_at_slot(index: int): 
-	if index < TileCardFactory.instance.card_slots.size():
+	if index < TileCardFactory.instance.card_slot_used_amount:
 		on_drag_input(TileCardFactory.instance.card_slots[index].get_children()[1]);
 		return true;
 	else:

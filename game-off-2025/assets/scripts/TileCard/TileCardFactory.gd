@@ -71,6 +71,7 @@ func free_card_slot(tile_id : String):
 			slots_per_card.set(further_card.card_id, slot_index);
 			card_slot = further_card_slot;
 	card_slot_used_amount -= 1;
+	print_debug(card_slot_used_amount)
 
 func draw_hand():
 	reroll_left = Constants.reroll_per_turn;
