@@ -80,9 +80,9 @@ func on_card_reroll():
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
 	_on_cards_amount_updated();
-	# destroy if it was the last card
+	
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
-		queue_free();
+		TileCardFactory.instance.free_card_slot(card_id);
 	
 	TileCardFactory.instance.draw_random_card();
 
