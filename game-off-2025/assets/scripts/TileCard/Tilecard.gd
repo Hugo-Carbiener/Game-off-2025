@@ -54,8 +54,6 @@ func init_icons(tile_data : CustomTileData) :
 
 # Called before a card is destroyed
 func on_card_used(tilemap_position : Vector2i):
-	# var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
-	# MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()]);
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
 	_on_cards_amount_updated();

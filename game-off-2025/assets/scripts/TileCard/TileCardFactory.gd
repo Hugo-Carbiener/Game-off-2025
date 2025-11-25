@@ -33,8 +33,10 @@ func init_UI():
 func list_children():
 	return get_children();
 
-func draw_random_card() :
-	var random_id: String = TileDataManager.playable_tiles[randi() % TileDataManager.playable_tiles.size()];
+func draw_random_card(index = null) :
+	if index == null: 
+		index = randi() % TileDataManager.playable_tiles.size();
+	var random_id: String = TileDataManager.playable_tiles[index];
 	
 	# if card already in hand, stop here
 	if TileCardFactory.instance.cards_amount[random_id] == 0:
@@ -68,10 +70,9 @@ func free_card_slot(tile_id : String):
 			var further_card = further_card_slot.get_children()[1];
 			further_card_slot.remove_child(further_card);
 			card_slot.add_child(further_card);
-			slots_per_card.set(further_card.card_id, slot_index);
+			slots_per_card.set(further_card.card_id, further_card_slot_index - 1);
 			card_slot = further_card_slot;
 	card_slot_used_amount -= 1;
-	print_debug(card_slot_used_amount)
 
 func draw_hand():
 	reroll_left = Constants.reroll_per_turn;
