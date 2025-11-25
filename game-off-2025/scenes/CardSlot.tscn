@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfn4fasw36ooe"]
+
+[ext_resource type="Texture2D" uid="uid://c3nvi5jwleu0r" path="res://assets/sprites/UI_card_slot.png" id="1_mxh2e"]
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 96.0
+offset_bottom = 144.0
+theme_override_constants/margin_left = -8
+theme_override_constants/margin_right = -8
+
+[node name="Card slot" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_mxh2e")
