@@ -62,7 +62,7 @@ func on_card_used(tilemap_position : Vector2i):
 	
 	# destroy if it was the last card
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
-		queue_free();
+		TileCardFactory.instance.free_card_slot(card_id);
 	
 	# If hand is empty, next phase
 	if TileCardFactory.instance.cards_amount.total == 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=34 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="14_dppo5"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
+[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
@@ -98,7 +99,7 @@ shader = ExtResource("1_pdmmw")
 shader_parameter/main_tex = ExtResource("2_tgalg")
 shader_parameter/noise_tex = ExtResource("2_8rasb")
 shader_parameter/time_scale = 15.25
-shader_parameter/center_offset = Vector2(0, 0.06)
+shader_parameter/center_offset = Vector2(0, 0.1)
 shader_parameter/noise_scale = 0.4110000195225
 shader_parameter/width_scale = 2.3710000651225
 
@@ -189,22 +190,42 @@ size_flags_vertical = 3
 script = ExtResource("10_l5frf")
 main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+[node name="Footer" type="HBoxContainer" parent="UI/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="Empty" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+script = ExtResource("18_pdmmw")
+
+[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 script = ExtResource("11_j64yd")
 metadata/CardHandDropArea = ""
 
-[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/HBoxContainer/Card area"]
+[node name="Frame background" type="NinePatchRect" parent="UI/VBoxContainer/Footer/Card area"]
+layout_mode = 2
+texture = ExtResource("18_cyh7e")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/Footer/Card area"]
+layout_mode = 2
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_right = 11
+
+[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/Footer/Card area/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 0
 script = ExtResource("12_cyh7e")
 
-[node name="Reroll area" type="MarginContainer" parent="UI/VBoxContainer/HBoxContainer"]
+[node name="Reroll area" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2

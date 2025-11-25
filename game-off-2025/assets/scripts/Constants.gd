@@ -17,10 +17,11 @@ const NEIGHBOR_TILE_COORDINATES_CODEX = {
 }
 
 ## Tilemaps
-const tilemap_offset = Vector2(0, -0.1);
+const tilemap_offset = Vector2(0, -0.2);
 
 ## Card hand
 const base_card_per_round = 5;
+const card_slot_amount = 5;
 const reroll_per_turn = 1;
 var damage_icons : Dictionary[String, ImageTexture] = {
 	"low" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png")),
