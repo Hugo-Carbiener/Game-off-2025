@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://odl7t3bf3rxi"
-valid=false
+uid="uid://b8e0ophfdelsq"
+path="res://.godot/imported/UI_button.png-bdb1bc2d2e2e6bc106d753e6dd296835.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/sprites/UI_card_icon_medium_damage.png"
+source_file="res://assets/sprites/UI_button.png"
+dest_files=["res://.godot/imported/UI_button.png-bdb1bc2d2e2e6bc106d753e6dd296835.ctex"]
 
 [params]
 

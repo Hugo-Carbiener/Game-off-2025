@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=40 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -23,6 +23,10 @@
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
+[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
+[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
+[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
+[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -94,6 +98,16 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
+[sub_resource type="LabelSettings" id="LabelSettings_frms8"]
+font = ExtResource("21_xpe83")
+font_size = 13
+outline_size = 4
+outline_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_66bvi"]
+font = ExtResource("21_xpe83")
+font_size = 13
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
 shader = ExtResource("1_pdmmw")
 shader_parameter/main_tex = ExtResource("2_tgalg")
@@ -146,8 +160,12 @@ animation = &"breach_spawn"
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("8_8rasb")
 
-[node name="Game loop manager" type="Node2D" parent="."]
+[node name="Game loop manager" type="Node2D" parent="." node_paths=PackedStringArray("death_screen", "win_screen", "lose_button", "win_button")]
 script = ExtResource("1_ewvwg")
+death_screen = NodePath("../UI/Death Screen")
+win_screen = NodePath("../UI/Win screen")
+lose_button = NodePath("../UI/Death Screen/NinePatchRect/VBoxContainer/Quit button")
+win_button = NodePath("../UI/Win screen/NinePatchRect/VBoxContainer/Quit button")
 
 [node name="Input manager" type="Node2D" parent="."]
 script = ExtResource("2_ns00n")
@@ -231,6 +249,142 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("18_pdmmw")
 
+[node name="Win screen" type="TextureRect" parent="UI"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.39215687)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_dppo5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Win screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -68.185
+offset_right = 80.0
+offset_bottom = 31.815125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_cyh7e")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Win screen/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "You win ..."
+label_settings = SubResource("LabelSettings_frms8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit button" type="TextureButton" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("22_6rsph")
+texture_pressed = ExtResource("23_daolu")
+texture_hover = ExtResource("24_tl7n3")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer/Quit button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Death Screen" type="TextureRect" parent="UI"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.39215687)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_dppo5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Death Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -68.185
+offset_right = 80.0
+offset_bottom = 31.815125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_cyh7e")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Death Screen/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "You loose ..."
+label_settings = SubResource("LabelSettings_frms8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit button" type="TextureButton" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("22_6rsph")
+texture_pressed = ExtResource("23_daolu")
+texture_hover = ExtResource("24_tl7n3")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer/Quit button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -245,13 +399,5 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_dppo5")
 stretch_mode = 6
-
-[node name="Death Screen" type="Node2D" parent="."]
-visible = false
-
-[node name="Label" type="Label" parent="Death Screen"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "dead"
 
 [connection signal="beacon_hp_updated" from="Beacon manager" to="UI/HUD" method="_on_beacon_manager_beacon_hp_updated"]

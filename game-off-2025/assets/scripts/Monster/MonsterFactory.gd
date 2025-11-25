@@ -52,7 +52,9 @@ func breach_transition(tilemap_position : Vector2i, breach_maturity : int):
 	tween.tween_callback(func(): breach_animated_sprite.animation = breach_intro_animation_per_maturity[breach_maturity]);
 	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.breach_transition_duration);
 	tween.tween_callback(func(): breach_animated_sprite.visible = false);
+	print("Tweening breach at " + str(tilemap_position));
 	await tween.finished;
+	return;
 
 func remove_breach(tilemap_position: Vector2i):
 	if !breaches.has(tilemap_position): return;
@@ -79,6 +81,7 @@ func update_breach_tile(tilemap_position: Vector2i):
 func on_setup():
 	for breach in breaches.values():
 		await breach.update();
+	return;
 
 func on_resolution():
 	# Get monsters from furthest to closest 

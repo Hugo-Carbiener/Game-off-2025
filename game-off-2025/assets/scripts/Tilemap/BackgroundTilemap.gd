@@ -1,7 +1,6 @@
 extends TilemapManager
 class_name BackgroundTilemap
 
-
 func _ready() -> void:
 	super();
 	var _range = range(-1 * Constants.beacon_range, Constants.beacon_range + 1, 1);
