@@ -8,6 +8,7 @@
 font = ExtResource("1_6v762")
 font_size = 8
 font_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "icon_model")]
 offset_right = 27.0
