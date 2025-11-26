@@ -1,7 +1,7 @@
 extends Node2D
 class_name GameLoop
 
-@export_group("UI elements")
+@export_group("UI")
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export_group("UI buttons")
@@ -45,9 +45,10 @@ static func setup_phase():
 	start_phase(get_next_phase());
 
 static func play_phase():
-	pass;
+	await UIUtils.instance.toggle_card_slots();
 
 static func resolution_phase():
+	await UIUtils.instance.toggle_card_slots();
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
 

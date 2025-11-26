@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=41 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/DragAndDrop/CardHandDropReceiver.gd" id="11_j64yd"]
 [ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="11_l5frf"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="12_2rfjg"]
+[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UIUtils.gd" id="12_6rsph"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="14_dppo5"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
@@ -175,8 +176,14 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("card_slot_ui")]
 layer = 0
+script = ExtResource("12_6rsph")
+card_slot_ui = NodePath("VBoxContainer/Footer/Card area container")
+default_card_slot_modulate = Color(1, 1, 1, 1)
+disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
+disabled_card_slot_margin = -75
+card_slot_transition_duration = 0.2
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -218,13 +225,16 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 script = ExtResource("18_pdmmw")
 
-[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
+[node name="Card area container" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
+layout_mode = 2
+
+[node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/Footer/Card area container"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 script = ExtResource("11_j64yd")
 metadata/CardHandDropArea = ""
 
-[node name="Frame background" type="NinePatchRect" parent="UI/VBoxContainer/Footer/Card area"]
+[node name="Frame background" type="NinePatchRect" parent="UI/VBoxContainer/Footer/Card area container/Card area"]
 layout_mode = 2
 texture = ExtResource("18_cyh7e")
 patch_margin_left = 16
@@ -232,12 +242,12 @@ patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/Footer/Card area"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/Footer/Card area container/Card area"]
 layout_mode = 2
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_right = 11
 
-[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/Footer/Card area/MarginContainer"]
+[node name="Card container" type="HBoxContainer" parent="UI/VBoxContainer/Footer/Card area container/Card area/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 0
