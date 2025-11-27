@@ -17,8 +17,6 @@ shadow_size = 0
 [sub_resource type="LabelSettings" id="LabelSettings_178ey"]
 font = ExtResource("3_867uw")
 font_size = 13
-shadow_size = 0
-shadow_color = Color(0, 0, 0, 0.039215688)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_867uw"]
 resource_local_to_scene = true
@@ -28,8 +26,6 @@ region = Rect2(0, 0, 8, 8)
 [sub_resource type="LabelSettings" id="LabelSettings_nu2q7"]
 font = ExtResource("11_eq3wv")
 font_size = 8
-shadow_size = 0
-shadow_color = Color(0, 0, 0, 0.039215688)
 
 [node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description")]
 offset_right = 80.0

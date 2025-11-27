@@ -8,7 +8,7 @@ var cards_amount = {"total": 0};
 var slots_per_card : Dictionary[String, int];
 var card_slots : Array[Control];
 var card_slot_used_amount = 0;
-var reroll_left: int = Constants.reroll_per_turn;
+var reroll_left: int = 0;
 
 func _ready() -> void:
 	if instance == null:
@@ -75,7 +75,7 @@ func free_card_slot(tile_id : String):
 	card_slot_used_amount -= 1;
 
 func draw_hand():
-	reroll_left = Constants.reroll_per_turn;
+	reroll_left = GameLoop.round_number;
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 	
 	for i in Constants.base_card_per_round:
