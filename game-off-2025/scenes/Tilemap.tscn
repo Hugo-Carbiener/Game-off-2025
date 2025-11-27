@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=42 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 [ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
+[ext_resource type="Texture2D" uid="uid://c6n0sl523pkd0" path="res://assets/sprites/UI_card_icon_low_damage.png" id="22_daolu"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
 
@@ -221,14 +222,9 @@ main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Empty" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
-script = ExtResource("18_pdmmw")
-
 [node name="Card area container" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
 layout_mode = 2
+size_flags_horizontal = 6
 
 [node name="Card area" type="MarginContainer" parent="UI/VBoxContainer/Footer/Card area container"]
 custom_minimum_size = Vector2(0, 100)
@@ -256,10 +252,25 @@ theme_override_constants/separation = 0
 script = ExtResource("12_cyh7e")
 
 [node name="Reroll area" type="MarginContainer" parent="UI/VBoxContainer/Footer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 8
+size_flags_vertical = 8
 size_flags_stretch_ratio = 0.2
+
+[node name="RerollIcon" type="TextureRect" parent="UI/VBoxContainer/Footer/Reroll area"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+texture = ExtResource("22_daolu")
 script = ExtResource("18_pdmmw")
+
+[node name="Frame" type="NinePatchRect" parent="UI/VBoxContainer/Footer/Reroll area"]
+layout_mode = 2
+texture = ExtResource("18_cyh7e")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
 
 [node name="Win screen" type="TextureRect" parent="UI"]
 visible = false

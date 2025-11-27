@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3gxvk1q7bain"]
+[gd_scene load_steps=10 format=3 uid="uid://d3gxvk1q7bain"]
 
 [ext_resource type="Script" uid="uid://cfic8alcbjl1e" path="res://assets/scripts/Hud.gd" id="1_f1f40"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="1_wfueu"]
+[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="2_rwkyw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1f40"]
 atlas = ExtResource("1_wfueu")
@@ -15,40 +16,54 @@ gradient = SubResource("Gradient_rwkyw")
 width = 120
 
 [sub_resource type="Gradient" id="Gradient_f1f40"]
-colors = PackedColorArray(0.99607843, 0.21176471, 0.14901961, 1, 0.36078432, 1, 0.24705882, 1)
+colors = PackedColorArray(0.3882353, 0.7176471, 0.25882354, 1, 0.3882353, 0.7176471, 0.25882354, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rwkyw"]
 gradient = SubResource("Gradient_f1f40")
 width = 120
 
+[sub_resource type="LabelSettings" id="LabelSettings_yc8k2"]
+font_size = 8
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 145.0
+offset_bottom = 34.0
 script = ExtResource("1_f1f40")
+
+[node name="Frame" type="NinePatchRect" parent="."]
+layout_mode = 1
+offset_right = 159.0
+offset_bottom = 49.0
+texture = ExtResource("2_rwkyw")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
 
 [node name="BeaconTile" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = 21.0
+offset_bottom = 22.0
 texture = SubResource("AtlasTexture_f1f40")
 
 [node name="BeaconHPBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 4.0
-offset_right = 132.0
-offset_bottom = 5.0
-scale = Vector2(1, 4)
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 144.0
+offset_bottom = 15.0
+scale = Vector2(1, 8)
 texture_under = SubResource("GradientTexture1D_yc8k2")
 texture_progress = SubResource("GradientTexture1D_rwkyw")
 
 [node name="RerollLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 13.0
-offset_right = 41.0
-offset_bottom = 36.0
+offset_left = 14.0
+offset_top = 25.0
+offset_right = 54.0
+offset_bottom = 37.0
+label_settings = SubResource("LabelSettings_yc8k2")
