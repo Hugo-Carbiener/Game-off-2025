@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="27_ggakg"]
 [ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="27_tl7n3"]
-[ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
+[ext_resource type="Shader" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
 [ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
@@ -163,7 +163,7 @@ shader_parameter/center_offset = Vector2(0, 0.1)
 shader_parameter/noise_scale = 0.4110000195225
 shader_parameter/width_scale = 2.0850000515375
 
-[node name="Tilemap scene" type="Node2D"]
+[node name="Main scene" type="Node2D"]
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
