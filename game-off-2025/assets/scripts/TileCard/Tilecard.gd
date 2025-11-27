@@ -5,6 +5,7 @@ const tile_card_scene: PackedScene = preload("res://scenes/TileCard.tscn");
 const tile_card_evolution_scene: PackedScene = preload("res://scenes/TileCardEvolution.tscn");
 
 var card_id : String;
+var card_color : Color;
 @export var card_overlay : TextureRect;
 @export var card_count_overlay : TextureRect;
 @export var card_count : Label;
@@ -36,6 +37,7 @@ func setup(_id : String) :
 	init_color(tile_data.color);
 
 func init_color(color : Color) :
+	card_color = color;
 	card_name.label_settings = card_name.label_settings.duplicate();
 	card_name.label_settings.font_color = color;
 	card_description.label_settings = 	card_description.label_settings.duplicate();
@@ -71,11 +73,21 @@ func init_evolutions(tile_data : CustomTileData):
 		var card_evolution = tile_card_evolution_scene.instantiate();
 		var frame = card_evolution.get_child(0);
 		var tile = frame.get_child(0);
-		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution];
+		tile.texture = tile.texture.duplicate();
+		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution] if TileDataManager.known_evolution.has(evolution) else TileDataManager.tile_dictionnary["unknown"];
 		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
 		evolution_frames.append(frame);
 		evolution_tiles.append(tile);
 		card_evolutions.add_child(card_evolution);
+
+func update_evolutions(tile_data : CustomTileData):
+	for evolution_index in tile_data.evolutions.size():
+		var evolution = tile_data.evolutions[evolution_index];
+		if !TileDataManager.known_evolution.has(evolution): continue;
+		
+		var tile = evolution_tiles[evolution_index];
+		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution];
+		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
 
 # Called before a card is destroyed
 func on_card_used(tilemap_position : Vector2i):
@@ -112,4 +124,5 @@ func on_card_reroll():
 	TileCardFactory.instance.draw_random_card();
 
 func _on_cards_amount_updated():
+	if !TileCardFactory.instance.cards_amount.has(card_id): return;
 	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);

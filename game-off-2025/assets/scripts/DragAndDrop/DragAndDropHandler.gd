@@ -122,4 +122,6 @@ func on_drag_transition():
 	tween.tween_property(control_copy.card_name, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(control_copy.card_description, "self_modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	tween.tween_property(control_copy.card_icons, "modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_evolution_title, "modulate", Color(1.0,1.0,1.0,0), transition_duration);
+	tween.tween_property(control_copy.card_evolutions, "modulate", Color(1.0,1.0,1.0,0), transition_duration);
 	await tween.finished;
