@@ -64,7 +64,7 @@ func free_card_slot(tile_id : String):
 	
 	var slot_index = slots_per_card.get(tile_id);
 	var card_slot = card_slots[slot_index];
-	var card = card_slot.get_children()[1];
+	var card = card_slot.get_children()[2];
 	card_slot.remove_child(card);
 	slots_per_card.erase(tile_id);
 	cards.erase(tile_id);
@@ -73,7 +73,7 @@ func free_card_slot(tile_id : String):
 	if slot_index + 1 < card_slot_used_amount :
 		for further_card_slot_index in range(slot_index + 1 , card_slot_used_amount):
 			var further_card_slot = card_slots[further_card_slot_index];
-			var further_card = further_card_slot.get_children()[1];
+			var further_card = further_card_slot.get_children()[2];
 			further_card_slot.remove_child(further_card);
 			card_slot.add_child(further_card);
 			slots_per_card.set(further_card.card_id, further_card_slot_index - 1);
