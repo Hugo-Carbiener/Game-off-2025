@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="14_dppo5"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
-[ext_resource type="Script" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
+[ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 [ext_resource type="Texture2D" uid="uid://bi6wdajopmdwg" path="res://assets/sprites/reroll_breach.png" id="21_daolu"]
 [ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
