@@ -53,11 +53,9 @@ static func resolution_phase():
 	start_phase(get_next_phase());
 
 func loose_game():
-	get_tree().paused = true
 	death_screen.visible = true
 
 func win_game():
-	get_tree().paused = true
 	win_screen.visible = true
 
 func quit_game():
