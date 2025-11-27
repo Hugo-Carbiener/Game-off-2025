@@ -43,6 +43,8 @@ var tiles : Array[String] = [];
 var playable_tiles : Array[String] = [];
 var tile_size : Vector2i;
 var world_tile_amount = 0;
+## tile evolutions
+var known_evolution : Array[String];
 
 func _ready() -> void:
 	load_tile_data();
@@ -89,3 +91,10 @@ func load_tile_data():
 func get_random_tile_data(only_playable_tiles : bool) -> CustomTileData:
 	var tiles_to_place = playable_tiles if only_playable_tiles else tiles;
 	return tile_dictionnary[tiles_to_place[randi() % tiles_to_place.size()]];
+
+func learn_evolution(tile_data : CustomTileData):
+	if known_evolution.has(tile_data.id): return;
+	
+	known_evolution.append(tile_data.id);
+	TileCardFactory.instance.update_tile_card_evolutions();
+	UIUtils.instance.on_evolution_discovered(tile_data);

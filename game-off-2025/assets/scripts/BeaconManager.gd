@@ -21,8 +21,8 @@ func damage(damages: int):
 	beacon_hp_updated.emit(health)
 	
 	if health <= 0:
-		GameLoop.instance.loose_game();
+		UIUtils.instance.loose_game();
 
 func on_tile_placed():
 	if MainTilemap.instance.tiles.size() >= TileDataManager.world_tile_amount:
-		GameLoop.instance.win_game();
+		UIUtils.instance.win_game();

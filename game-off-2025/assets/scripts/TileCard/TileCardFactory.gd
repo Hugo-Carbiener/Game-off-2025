@@ -4,9 +4,12 @@ class_name TileCardFactory
 var card_slot_model : PackedScene = preload("res://scenes/CardSlot.tscn");
 
 static var instance : TileCardFactory;
+# Cards
 var cards_amount = {"total": 0};
-var slots_per_card : Dictionary[String, int];
+var cards : Dictionary[String, TileCard];
+# Card slots
 var card_slots : Array[Control];
+var slots_per_card : Dictionary[String, int];
 var card_slot_used_amount = 0;
 var reroll_left: int = 0;
 
@@ -50,6 +53,7 @@ func draw_random_card(index = null) :
 func fill_card_slot(tile_id : String):
 	var slot_index = card_slot_used_amount;
 	var tile_card = TileCard.create_tile_card(tile_id);
+	cards.set(tile_id ,tile_card);
 	card_slots[slot_index].add_child(tile_card);
 	slots_per_card.set(tile_id, slot_index);
 	card_slot_used_amount += 1;
@@ -62,6 +66,7 @@ func free_card_slot(tile_id : String):
 	var card = card_slot.get_children()[1];
 	card_slot.remove_child(card);
 	slots_per_card.erase(tile_id);
+	cards.erase(tile_id);
 	card.queue_free()
 	
 	if slot_index + 1 < card_slot_used_amount :
@@ -80,3 +85,7 @@ func draw_hand():
 	
 	for i in Constants.base_card_per_round:
 		TileCardFactory.instance.draw_random_card();
+
+func update_tile_card_evolutions():
+	for tile_card in cards.values():
+		tile_card.update_evolutions(TileDataManager.tile_dictionnary[tile_card.card_id]);

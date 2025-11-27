@@ -15,7 +15,7 @@ var keys_to_index = {
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed('select-card-mouse'):
+	if event.is_action_released('select-card-mouse'):
 		if card_selected:
 			card_selected = false;
 			DragAndDropHandler.on_drop_input();

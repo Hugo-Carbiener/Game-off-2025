@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://6ep3d1ypq83u"]
+
+[ext_resource type="Texture2D" uid="uid://bv2o0o60tyeff" path="res://assets/sprites/UI_tile_preview_frame.png" id="1_ufn6l"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ora4u"]
+load_path = "res://.godot/imported/tiles_8px.png-f21763d3f970f70e53edc7fbaf45e926.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufn6l"]
+atlas = SubResource("CompressedTexture2D_ora4u")
+region = Rect2(72, 0, 8, 8)
+
+[node name="Evolution margin" type="MarginContainer"]
+size_flags_vertical = 0
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = -1
+theme_override_constants/margin_bottom = -1
+
+[node name="Frame" type="TextureRect" parent="."]
+self_modulate = Color(0, 0.46666667, 0.80784315, 1)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_ufn6l")
+stretch_mode = 2
+
+[node name="Tile preview" type="TextureRect" parent="Frame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ufn6l")

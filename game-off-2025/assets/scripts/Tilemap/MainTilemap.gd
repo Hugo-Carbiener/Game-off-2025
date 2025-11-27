@@ -70,6 +70,7 @@ func check_for_evolution(tile_position : Vector2i):
 
 func evolve_tile(tile_position : Vector2i, evolution : CustomTileData):
 	clear_tile(tile_position);
+	TileDataManager.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=14 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
@@ -27,7 +27,11 @@ region = Rect2(0, 0, 8, 8)
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description")]
+[sub_resource type="LabelSettings" id="LabelSettings_lqopf"]
+font = ExtResource("11_eq3wv")
+font_size = 8
+
+[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
 offset_right = 80.0
 offset_bottom = 112.0
 texture = ExtResource("2_ig78c")
@@ -40,6 +44,8 @@ card_name = NodePath("VBoxContainer/Card name margin/Tile card name")
 card_sprite = NodePath("VBoxContainer/Tile preview margin/Tile preview")
 card_icons = NodePath("VBoxContainer/Icons margin/HBoxContainer")
 card_description = NodePath("VBoxContainer/Description margin/Card description")
+card_evolution_title = NodePath("VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
+card_evolutions = NodePath("VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
 metadata/Draggable = true
 
 [node name="Overlay" type="TextureRect" parent="."]
@@ -50,7 +56,7 @@ offset_bottom = 40.0
 texture = ExtResource("3_7nrqj")
 
 [node name="Card count overlay" type="TextureRect" parent="."]
-modulate = Color(0.23614109, 0.39937246, 1, 1)
+modulate = Color(0, 0.46666667, 0.80784315, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -108,6 +114,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Description margin" type="MarginContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -120,3 +127,28 @@ text = "Description gf,jkifosjpq"
 label_settings = SubResource("LabelSettings_nu2q7")
 autowrap_mode = 3
 text_overrun_behavior = 1
+
+[node name="Evolution margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.53
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Evolution margin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Evolutions" type="Label" parent="VBoxContainer/Evolution margin/VBoxContainer"]
+layout_mode = 2
+text = "Evolutions"
+label_settings = SubResource("LabelSettings_lqopf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Evolutions container" type="GridContainer" parent="VBoxContainer/Evolution margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 4
