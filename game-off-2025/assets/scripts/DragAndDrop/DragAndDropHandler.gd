@@ -1,4 +1,5 @@
 extends Node2D 
+class_name DragAndDropHandler
 
 const DUPLICATE_STRUCTURE_ONLY = 0  # no signals, no scripts, no groups
 
@@ -10,7 +11,12 @@ var transition_duration = 0.5;
 var control_copy : Control; ## the control we create to visually move around while dragging
 var control_copy_anchor_offset : Vector2;
 
+static var instance : DragAndDropHandler;
+	
 func _ready() -> void:
+	if instance == null:
+		instance = self;
+		
 	var nodes : Array;
 	find_drop_receivers(get_tree().get_root(), nodes);
 	for node in nodes :
@@ -27,7 +33,7 @@ func _process(_delta: float) -> void:
 		# Add an offset so the mouse is on the card sprite
 		var card_position = get_local_mouse_position() - control_copy_anchor_offset;
 		# switch to tilemap coords then world coords to snap, add half a tile length horizontally to center it 
-		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.tile_size / 2) - Vector2(TileDataManager.tile_size / 2) * Vector2.LEFT;
+		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.instance.tile_size / 2) - Vector2(TileDataManager.instance.tile_size / 2) * Vector2.LEFT;
 		control_copy.position = snaped_card_position;
 
 func on_drag_card_at_slot(index: int): 

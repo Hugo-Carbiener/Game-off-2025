@@ -1,4 +1,5 @@
 extends Node2D
+class_name TileDataManager
 
 const TILE_CUSTOM_DATA_ID_KEY = "id";
 const TILE_CUSTOM_DATA_COLOR_KEY = "color";
@@ -46,7 +47,11 @@ var world_tile_amount = 0;
 ## tile evolutions
 var known_evolution : Array[String];
 
+static var instance : TileDataManager;
+
 func _ready() -> void:
+	if instance == null:
+		instance = self;
 	load_tile_data();
 
 func load_tile_data():

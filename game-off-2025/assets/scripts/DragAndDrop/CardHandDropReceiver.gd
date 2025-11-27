@@ -3,4 +3,4 @@ class_name CardHandDropReceiver
 
 func on_drop(_control_dropped : Control):
 	## return card to hand
-	DragAndDropHandler.cancel_drag();
+	DragAndDropHandler.instance.cancel_drag();

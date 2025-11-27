@@ -24,5 +24,5 @@ func damage(damages: int):
 		UIUtils.instance.loose_game();
 
 func on_tile_placed():
-	if MainTilemap.instance.tiles.size() >= TileDataManager.world_tile_amount:
+	if MainTilemap.instance.tiles.size() >= TileDataManager.instance.world_tile_amount:
 		UIUtils.instance.win_game();

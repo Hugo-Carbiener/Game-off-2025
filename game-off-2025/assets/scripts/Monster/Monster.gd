@@ -24,18 +24,18 @@ func on_move_start(monsterFactory : MonsterFactory):
 func on_move_end(monsterFactory : MonsterFactory):
 	position_in_trajectory +=1;
 	var new_position = trajectory[position_in_trajectory];
-	monsterFactory.place_tile(new_position, TileDataManager.tile_dictionnary["monster"]);
+	monsterFactory.place_tile(new_position, TileDataManager.instance.tile_dictionnary["monster"]);
 	tilemap_position = new_position;
 	
 	if is_at_destination():
 		BeaconManager.instance.damage(health);
 		on_death();
 	
-	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_ENTER);
+	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.instance.TRIGGERS.ON_TILE_ENTER);
 
 func on_stay():
 	turns_stayed_on_tile += 1;
-	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.TRIGGERS.ON_TILE_STAY);
+	MainTilemap.instance.apply_tile_effects(tilemap_position, self, TileDataManager.instance.TRIGGERS.ON_TILE_STAY);
 
 func is_dead() -> bool:
 	return health <= 0;

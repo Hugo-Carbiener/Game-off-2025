@@ -43,7 +43,7 @@ func is_valid_cell(coordinates : Vector2) -> bool:
 	return has_neighbor;
 
 func init_world():
-	place_tile(Vector2.ZERO, TileDataManager.tile_dictionnary["beacon"], true);
+	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
 	#for x in range(-50 , 51, 1):
 		#for y in range(-50, 51, 1):
 			#var coords = Vector2(x, y);
@@ -59,7 +59,7 @@ func check_for_evolution(tile_position : Vector2i):
 	if  tile_data == null or tile_data.evolutions.size() == 0 : return;
 	
 	for evolution in tile_data.evolutions:
-		var evolution_tile_data = TileDataManager.tile_dictionnary.get(evolution);
+		var evolution_tile_data = TileDataManager.instance.tile_dictionnary.get(evolution);
 		if evolution_tile_data == null:
 			print("Invalid evolution tile key : " + evolution + " for tile " + tile_data.name);
 			continue;
@@ -70,7 +70,7 @@ func check_for_evolution(tile_position : Vector2i):
 
 func evolve_tile(tile_position : Vector2i, evolution : CustomTileData):
 	clear_tile(tile_position);
-	TileDataManager.learn_evolution(evolution);
+	TileDataManager.instance.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):

@@ -18,13 +18,13 @@ func _ready() -> void:
 		instance = self;
 	init_UI();
 	# init count with all playable card names
-	for id in TileDataManager.playable_tiles:
+	for id in TileDataManager.instance.playable_tiles:
 		cards_amount[id] = 0;
 	
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func init_UI():
-	if Constants.card_slot_amount < TileDataManager.playable_tiles.size():
+	if Constants.card_slot_amount < TileDataManager.instance.playable_tiles.size():
 		printerr("Warning: not enough slots for all playable cards");
 		return;
 
@@ -39,8 +39,8 @@ func list_children():
 
 func draw_random_card(index = null) :
 	if index == null: 
-		index = randi() % TileDataManager.playable_tiles.size();
-	var random_id: String = TileDataManager.playable_tiles[index];
+		index = randi() % TileDataManager.instance.playable_tiles.size();
+	var random_id: String = TileDataManager.instance.playable_tiles[index];
 	
 	# if card already in hand, stop here
 	if TileCardFactory.instance.cards_amount[random_id] == 0:
@@ -89,4 +89,4 @@ func draw_hand():
 
 func update_tile_card_evolutions():
 	for tile_card in cards.values():
-		tile_card.update_evolutions(TileDataManager.tile_dictionnary[tile_card.card_id]);
+		tile_card.update_evolutions(TileDataManager.instance.tile_dictionnary[tile_card.card_id]);

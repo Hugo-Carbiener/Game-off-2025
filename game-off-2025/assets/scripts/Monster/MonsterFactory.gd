@@ -32,14 +32,14 @@ func _ready() -> void:
 func spawn_monster(tilemap_position: Vector2i):
 	var monster = Monster.new(GameLoop.round_number, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
-	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
+	var monster_tile_data = TileDataManager.instance.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
 
 func spawn_breach(tilemap_position: Vector2i):
 	var breach = Breach.new(Constants.breach_initial_maturity, tilemap_position);
 	breaches.set(tilemap_position, breach);
 	var breach_tile_name = breach_tiles_per_maturity.get(Constants.breach_initial_maturity);
-	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
+	var breach_tile_data = TileDataManager.instance.tile_dictionnary.get(breach_tile_name);
 	
 	await breach_transition(tilemap_position, Constants.breach_initial_maturity);
 	place_tile(tilemap_position, breach_tile_data);
@@ -73,7 +73,7 @@ func update_breach_tile(tilemap_position: Vector2i):
 	if breach == null: return;
 	
 	var breach_tile_name = breach_tiles_per_maturity.get(breach.turn_remaining);
-	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
+	var breach_tile_data = TileDataManager.instance.tile_dictionnary.get(breach_tile_name);
 	set_cell(tilemap_position, 0, Vector2(-1,-1));
 	await MonsterFactory.instance.breach_transition(tilemap_position, breach.turn_remaining);
 	set_cell(tilemap_position, 0, breach_tile_data.atlas_coordinates);
@@ -170,7 +170,6 @@ func _input(event):
 func check_for_enemy_hover(event : InputEvent):
 	if event is not InputEventMouseMotion: return;
 	
-	#if DragAndDropHandler.is_dragging : return;
 	var cell = local_to_map(get_local_mouse_position());
 	if cell != last_tile_hovered: 
 		if has_tile_at(cell):
@@ -186,7 +185,7 @@ func on_enemy_hover_in(cell: Vector2i):
 	if monster == null: return;
 	
 	for trajectory_point in monster.trajectory:
-		indicator_tilemap.place_tile(trajectory_point, TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
+		indicator_tilemap.place_tile(trajectory_point, TileDataManager.instance.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
 
 func on_enemy_hover_out():
 	last_tile_hovered = Vector2i.ZERO;

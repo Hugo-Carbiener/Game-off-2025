@@ -27,11 +27,11 @@ static func create_tile_card(_id : String) -> TileCard:
 
 func setup(_id : String) :
 	SignalBus.cards_amount_updated.connect(_on_cards_amount_updated);
-	var tile_data = TileDataManager.tile_dictionnary[_id];
+	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
-	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
+	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
 	init_icons(tile_data);
 	init_evolutions(tile_data);
 	init_color(tile_data.color);
@@ -74,8 +74,8 @@ func init_evolutions(tile_data : CustomTileData):
 		var frame = card_evolution.get_child(0);
 		var tile = frame.get_child(0);
 		tile.texture = tile.texture.duplicate();
-		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution] if TileDataManager.known_evolution.has(evolution) else TileDataManager.tile_dictionnary["unknown"];
-		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
+		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution] if TileDataManager.instance.known_evolution.has(evolution) else TileDataManager.instance.tile_dictionnary["unknown"];
+		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
 		evolution_frames.append(frame);
 		evolution_tiles.append(tile);
 		card_evolutions.add_child(card_evolution);
@@ -83,11 +83,11 @@ func init_evolutions(tile_data : CustomTileData):
 func update_evolutions(tile_data : CustomTileData):
 	for evolution_index in tile_data.evolutions.size():
 		var evolution = tile_data.evolutions[evolution_index];
-		if !TileDataManager.known_evolution.has(evolution): continue;
+		if !TileDataManager.instance.known_evolution.has(evolution): continue;
 		
 		var tile = evolution_tiles[evolution_index];
-		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution];
-		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
+		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution];
+		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
 
 # Called before a card is destroyed
 func on_card_used(tilemap_position : Vector2i):
