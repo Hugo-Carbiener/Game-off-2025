@@ -29,7 +29,8 @@ func init_UI():
 		return;
 
 	for i in range(Constants.card_slot_amount):
-		var new_card_slot = card_slot_model.instantiate();
+		var new_card_slot : CardSlot = card_slot_model.instantiate();
+		new_card_slot.setup(i + 1);
 		add_child(new_card_slot);
 		card_slots.append(new_card_slot);
 

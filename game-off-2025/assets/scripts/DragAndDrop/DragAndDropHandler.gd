@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 
 func on_drag_card_at_slot(index: int): 
 	if index < TileCardFactory.instance.card_slot_used_amount:
-		on_drag_input(TileCardFactory.instance.card_slots[index].get_children()[1]);
+		on_drag_input(TileCardFactory.instance.card_slots[index].get_children()[2]);
 		return true;
 	else:
 		return false;
