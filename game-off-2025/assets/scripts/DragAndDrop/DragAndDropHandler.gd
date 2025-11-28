@@ -62,17 +62,12 @@ func on_drop_input():
 
 	if !is_dragging: return;
 	
-	drop();
+	on_drop();
 
 func drag():
 	is_dragging = true;
 	create_movable_copy(dragged_control);
 	# dragged_control.visible = false;
-
-func drop():
-	on_drop();
-	
-	is_dragging = false;
 
 func on_drop():
 	var drop_receiver = get_control_to_drop_in();

@@ -1,5 +1,5 @@
 extends Node2D
-class_name InputManager
+class_name MainInputManager
 
 var card_selected: bool = false;
 var current_number_keycode: int;
