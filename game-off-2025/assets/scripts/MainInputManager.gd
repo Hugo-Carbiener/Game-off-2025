@@ -17,8 +17,12 @@ var keys_to_index = {
 func _input(event: InputEvent) -> void:
 	if event.is_action_released('select-card-mouse'):
 		if card_selected:
-			card_selected = false;
-			DragAndDropHandler.instance.on_drop_input();
+			var shouldContinue = DragAndDropHandler.instance.on_drop_input();
+			
+			# allow multiple consecutive placements of same card
+			if !shouldContinue:
+				card_selected = false;
+				
 		else:
 			var init_drag = DragAndDropHandler.instance.on_drag_input();
 			if init_drag:

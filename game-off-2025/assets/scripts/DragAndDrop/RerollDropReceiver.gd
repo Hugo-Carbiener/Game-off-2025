@@ -7,13 +7,15 @@ class_name RerollDropReceiver
 func _ready() -> void:	
 	SignalBus.reroll_amount_updated.connect(_on_reroll_amount_updated);
 
-func on_drop(control_dropped : Control):
+# always returns false, we always interrupt the dropping after the first card
+func on_drop(control_dropped : Control) -> bool:
 	## place corresponding tile in the tilemap
-	if control_dropped is not TileCard : return;
+	if control_dropped is not TileCard : return false;
 	
-	DragAndDropHandler.instance.destroy_movable_copy();
+	DragAndDropHandler.instance.cancel_drag();
 	control_dropped.on_card_reroll();
 	
+	return false;
 	
 func _on_reroll_amount_updated(reroll_amount: int):
 	if reroll_amount == 0:

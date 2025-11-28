@@ -57,29 +57,28 @@ func on_drag_input(control: Control = null):
 	drag();
 	return true;
 
-func on_drop_input():
-	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return;
+# indicate to the input manager if we can continue dropping items
+func on_drop_input() -> bool:
+	if GameLoop.current_phase != GameLoop.PHASES.PLAY: return false;
 
-	if !is_dragging: return;
+	if !is_dragging: return false;
 	
-	on_drop();
+	return on_drop();
 
 func drag():
 	is_dragging = true;
 	create_movable_copy(dragged_control);
-	# dragged_control.visible = false;
 
-func on_drop():
+# return value indicate if we can continue dropping or not
+func on_drop() -> bool:
 	var drop_receiver = get_control_to_drop_in();
 	if drop_receiver == null:
 		cancel_drag();
-		return;
-	drop_receiver.on_drop(dragged_control);
+		return false;
+	return drop_receiver.on_drop(dragged_control);
 
 func cancel_drag() :
 	destroy_movable_copy();
-	if dragged_control:
-		dragged_control.visible = true;
 	is_dragging = false;
 
 func get_control_to_drag() -> Control:
