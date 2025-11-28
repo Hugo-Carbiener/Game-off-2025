@@ -26,7 +26,7 @@ static func create_tile_card(_id : String) -> TileCard:
 	return tile_card;
 
 func setup(_id : String) :
-	SignalBus.cards_amount_updated.connect(_on_cards_amount_updated);
+	SignalBus.cards_amount_updated.connect(update_card_amount);
 	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
 	card_id = _id;
 	card_name.text = tile_data.name;
@@ -93,13 +93,13 @@ func update_evolutions(tile_data : CustomTileData):
 func on_card_used(tilemap_position : Vector2i):
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
-	_on_cards_amount_updated();
+	update_card_amount();
 	
 	# destroy if it was the last card
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		TileCardFactory.instance.free_card_slot(card_id);
 	
-	BeaconManager.instance.beacon_tile_placed.emit();
+	SignalBus.card_used.emit(MainTilemap.instance.tiles.size());
 	
 	# If hand is empty, next phase
 	if TileCardFactory.instance.cards_amount.total == 0:
@@ -116,13 +116,15 @@ func on_card_reroll():
 	SignalBus.reroll_amount_updated.emit(TileCardFactory.instance.reroll_left);
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
-	_on_cards_amount_updated();
+	update_card_amount();
 	
 	if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		TileCardFactory.instance.free_card_slot(card_id);
 	
+	SignalBus.card_used.emit(MainTilemap.instance.tiles.size());
+
 	TileCardFactory.instance.draw_random_card();
 
-func _on_cards_amount_updated():
+func update_card_amount():
 	if !TileCardFactory.instance.cards_amount.has(card_id): return;
 	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);

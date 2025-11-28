@@ -3,7 +3,7 @@ class_name UIUtils
 
 static var instance : UIUtils;
 @export_group("Card slot UI")
-@export var card_slot_ui : Control;
+@export var footer_container : MarginContainer;
 @export var default_card_slot_modulate : Color;
 @export var disabled_card_slot_modulate : Color;
 @export var default_card_slot_margin : int;
@@ -21,6 +21,7 @@ var card_slot_disabled : bool = true;
 func _ready() -> void:
 	if instance == null:
 		instance = self;
+	init_button_actions();
 
 func init_button_actions():
 	for button in quit_buttons:
@@ -42,17 +43,17 @@ func toggle_card_slots():
 		await transition_card_slot(!card_slot_disabled, disabled_card_slot_modulate, disabled_card_slot_margin);
 
 func transition_card_slot(to : bool, color : Color, to_margin : int):
-	var from_margin = card_slot_ui.get_theme_constant("margin_bottom");
+	var from_margin = footer_container.get_theme_constant("margin_bottom");
 	var tween = get_tree().create_tween();
 	tween.set_parallel(true);
-	tween.tween_property(card_slot_ui, "modulate", color, card_slot_transition_duration).set_ease(Tween.EASE_IN);
+	tween.tween_property(footer_container, "modulate", color, card_slot_transition_duration).set_ease(Tween.EASE_IN);
 	tween.tween_method(update_card_slot_position, from_margin, to_margin, card_slot_transition_duration).set_ease(Tween.EASE_IN);
 	tween.tween_callback(func(): card_slot_disabled = to);
 	await tween.finished;
 	return;
 
 func update_card_slot_position(margin : int):
-	card_slot_ui.add_theme_constant_override("margin_bottom", margin);
+	footer_container.add_theme_constant_override("margin_bottom", margin);
 
 func on_evolution_discovered(tile_data : CustomTileData):
 	evolution_window.setup(tile_data);

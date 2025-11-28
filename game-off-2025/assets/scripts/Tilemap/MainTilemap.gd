@@ -16,6 +16,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 
 
+	SignalBus.tile_placed.emit(tiles.size());
 	var breach = MonsterFactory.breaches.get(tile_position);
 	if breach != null:
 		breach.cover();

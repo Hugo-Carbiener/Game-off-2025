@@ -11,6 +11,7 @@ static var current_phase : PHASES = PHASES.SETUP;
 static var round_number : int = 0;
 
 func _ready() -> void:
+	SignalBus.tile_placed.connect(on_tile_placed);
 	get_tree().current_scene.ready.connect(start_phase.bind(current_phase));
 
 static func get_next_phase() -> int:
@@ -21,8 +22,8 @@ static func start_phase(phase : PHASES):
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():
-	print("Starting setup phase");
 	round_number += 1;
+	SignalBus.round_started.emit(round_number);
 	await MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
 	
@@ -40,3 +41,7 @@ static func resolution_phase():
 	await UIUtils.instance.toggle_card_slots();
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
+
+func on_tile_placed(tile_amount : int):
+	if tile_amount >= TileDataManager.instance.world_tile_amount:
+		UIUtils.instance.win_game();
