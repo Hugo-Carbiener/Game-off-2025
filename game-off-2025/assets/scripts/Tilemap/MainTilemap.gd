@@ -44,15 +44,6 @@ func is_valid_cell(coordinates : Vector2) -> bool:
 
 func init_world():
 	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
-	#for x in range(-50 , 51, 1):
-		#for y in range(-50, 51, 1):
-			#var coords = Vector2(x, y);
-			#if x == 0 and y == 0 : 
-				#continue;
-			#if !is_valid_cell(coords) :
-				#continue;
-			#var tile_data = TileDataManager.get_random_tile_data(true);
-			#set_cell(coords, source_id, tile_data.atlas_coordinates);
 
 func check_for_evolution(tile_position : Vector2i):
 	var tile_data = tiles.get(tile_position);

@@ -12,7 +12,7 @@ var control_copy : Control; ## the control we create to visually move around whi
 var control_copy_anchor_offset : Vector2;
 
 static var instance : DragAndDropHandler;
-	
+
 func _ready() -> void:
 	if instance == null:
 		instance = self;
@@ -30,11 +30,25 @@ func find_drop_receivers(node: Node, result : Array) -> void:
 
 func _process(_delta: float) -> void:
 	if is_dragging:
-		# Add an offset so the mouse is on the card sprite
-		var card_position = get_local_mouse_position() - control_copy_anchor_offset;
-		# switch to tilemap coords then world coords to snap, add half a tile length horizontally to center it 
+		control_copy.position = get_conditionnal_snapped_tile_position();
+
+func get_snapped_tile_position(local_position : Vector2) -> Vector2:
+	# Add an offset so the mouse is on the card sprite
+	var card_position = local_position - control_copy_anchor_offset;
+	# switch to tilemap coords then world coords to snap, add half a tile length horizontally to center it 
+	var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.instance.tile_size / 2) - Vector2(TileDataManager.instance.tile_size / 2) * Vector2.LEFT;
+	return snaped_card_position;
+
+func get_conditionnal_snapped_tile_position() -> Vector2:
+	# Add an offset so the mouse is on the card sprite
+	var card_position = get_local_mouse_position() - control_copy_anchor_offset;
+	var tilemap_card_position = MainTilemap.instance.local_to_map(MainTilemap.instance.get_local_mouse_position());
+	if MainTilemap.instance.is_valid_cell(tilemap_card_position):
 		var snaped_card_position = MainTilemap.instance.map_to_local(MainTilemap.instance.local_to_map(card_position)) - Vector2(TileDataManager.instance.tile_size / 2) - Vector2(TileDataManager.instance.tile_size / 2) * Vector2.LEFT;
-		control_copy.position = snaped_card_position;
+		return snaped_card_position;
+	else :
+		return card_position;
+	
 
 func on_drag_card_at_slot(index: int): 
 	if index < TileCardFactory.instance.card_slot_used_amount:
