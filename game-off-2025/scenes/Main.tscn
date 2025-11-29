@@ -44,7 +44,7 @@
 [ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
 [ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="28_pdwbg"]
-[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
+[ext_resource type="Script" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")

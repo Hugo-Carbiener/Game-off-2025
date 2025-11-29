@@ -12,6 +12,7 @@ func _ready() -> void:
 func setup(tile_data : CustomTileData):
 	reset();
 	var tile_card = TileCard.create_tile_card(tile_data.id);
+	tile_card.set_meta('Draggable', false);
 	tile_card.card_count.modulate = Color(0);
 	tile_card.card_count_overlay.modulate = Color(0);
 	shader_holder.material.set("shader_parameter/glow_color", tile_card.card_color);
