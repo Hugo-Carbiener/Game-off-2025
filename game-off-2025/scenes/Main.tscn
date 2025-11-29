@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=61 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_5grtr"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
+[ext_resource type="PackedScene" path="res://scenes/TitleScreen.tscn" id="20_vua0o"]
 [ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
@@ -232,7 +233,7 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "death_screen", "win_screen", "evolution_window", "quit_buttons")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "death_screen", "win_screen", "evolution_window", "main_menu_buttons")]
 layer = 0
 script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
@@ -243,7 +244,8 @@ card_slot_transition_duration = 0.2
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
 evolution_window = NodePath("Evolution window")
-quit_buttons = [NodePath("Win screen/NinePatchRect/VBoxContainer/Quit button"), NodePath("Death Screen/NinePatchRect/VBoxContainer/Quit button")]
+main_menu_scene = ExtResource("20_vua0o")
+main_menu_buttons = [NodePath("Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu")]
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -403,21 +405,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Quit button" type="TextureButton" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Main menu" type="TextureButton" parent="UI/Win screen/NinePatchRect/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("22_6rsph")
 texture_pressed = ExtResource("23_daolu")
 texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 3
+stretch_mode = 0
 
-[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer/Quit button"]
+[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Quit"
+text = "Main menu"
 label_settings = SubResource("LabelSettings_66bvi")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -472,21 +479,26 @@ label_settings = SubResource("LabelSettings_frms8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Quit button" type="TextureButton" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Main menu" type="TextureButton" parent="UI/Death Screen/NinePatchRect/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("22_6rsph")
 texture_pressed = ExtResource("23_daolu")
 texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 3
+stretch_mode = 0
 
-[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer/Quit button"]
+[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Quit"
+text = "Main menu"
 label_settings = SubResource("LabelSettings_66bvi")
 horizontal_alignment = 1
 vertical_alignment = 1

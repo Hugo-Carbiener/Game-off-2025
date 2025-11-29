@@ -15,8 +15,9 @@ var card_slot_disabled : bool = true;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var evolution_window : EvolutionWindow;
+@export var main_menu_scene : PackedScene;
 @export_group("UI buttons")
-@export var quit_buttons : Array[TextureButton];
+@export var main_menu_buttons : Array[TextureButton];
 
 func _ready() -> void:
 	if instance == null:
@@ -26,14 +27,17 @@ func _ready() -> void:
 	SignalBus.game_lost.connect(on_game_lost);
 
 func init_button_actions():
-	for button in quit_buttons:
-		button.button_up.connect(quit_game);
+	for button in main_menu_buttons:
+		button.button_up.connect(main_menu);
 
 func on_game_lost():
 	death_screen.visible = true
 
 func on_game_won():
 	win_screen.visible = true
+
+func main_menu():
+	get_tree().change_scene_to_packed(main_menu_scene);
 
 func quit_game():
 	get_tree().quit();

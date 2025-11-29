@@ -20,10 +20,10 @@ func _ready() -> void:
 
 func start_game():
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[game_start_music]), 2);
-	get_tree().change_scene_to_packed(next_scene)
+	get_tree().change_scene_to_packed(next_scene);
 
 func init_audio():
-	base_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+	base_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"));
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[music]), 2);
 
 func update_volume(value_changed: bool):
