@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=60 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -19,10 +19,15 @@
 [ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="11_l5frf"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="12_2rfjg"]
 [ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/UIUtils.gd" id="12_6rsph"]
+[ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="12_8b871"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
 [ext_resource type="Script" uid="uid://bc076kh6vfac7" path="res://assets/scripts/TileData/TileDataManager.gd" id="12_hq6as"]
+[ext_resource type="AudioStream" uid="uid://d8nj8pplxnbw" path="res://assets/audio/Combat_1.ogg" id="13_pdwbg"]
+[ext_resource type="AudioStream" uid="uid://cdq5avugofp7r" path="res://assets/audio/Combat_2.ogg" id="14_5grtr"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="14_dppo5"]
+[ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/Audio/AudioManager.gd" id="15_pdwbg"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="16_2rfjg"]
+[ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_5grtr"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 [ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
@@ -98,6 +103,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_pdwbg"]
+fade_time = 0.0
+stream_count = 4
+stream_0 = ExtResource("12_8b871")
+stream_1 = ExtResource("13_pdwbg")
+stream_2 = ExtResource("14_5grtr")
+stream_3 = ExtResource("16_5grtr")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
 shader = ExtResource("16_2rfjg")
 shader_parameter/strength = 0.08
@@ -150,6 +163,7 @@ shader_parameter/time_scale = 15.25
 shader_parameter/center_offset = Vector2(0, 0.1)
 shader_parameter/noise_scale = 0.4110000195225
 shader_parameter/width_scale = 2.0850000515375
+shader_parameter/rotation_coef = 1.0
 
 [node name="Main scene" type="Node2D"]
 
@@ -201,7 +215,14 @@ tile_set = ExtResource("4_jfdcb")
 script = ExtResource("8_8rasb")
 
 [node name="Game loop manager" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_ewvwg")
+
+[node name="Audio manager" type="Node2D" parent="."]
+script = ExtResource("15_pdwbg")
+victory_sound = 5
+defeat_sound = 6
+main_audio_sequence = SubResource("AudioStreamPlaylist_pdwbg")
 
 [node name="Input manager" type="Node2D" parent="."]
 script = ExtResource("2_ns00n")
@@ -331,6 +352,7 @@ layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
 
 [node name="Win screen" type="TextureRect" parent="UI"]
+visible = false
 self_modulate = Color(0, 0, 0, 0.39215687)
 anchors_preset = 15
 anchor_right = 1.0

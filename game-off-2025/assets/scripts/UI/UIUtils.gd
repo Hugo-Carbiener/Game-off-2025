@@ -22,15 +22,17 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 	init_button_actions();
+	SignalBus.game_won.connect(on_game_won);
+	SignalBus.game_lost.connect(on_game_lost);
 
 func init_button_actions():
 	for button in quit_buttons:
 		button.button_up.connect(quit_game);
 
-func loose_game():
+func on_game_lost():
 	death_screen.visible = true
 
-func win_game():
+func on_game_won():
 	win_screen.visible = true
 
 func quit_game():
