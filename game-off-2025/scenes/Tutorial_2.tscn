@@ -35,31 +35,32 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_bottom = -90
+size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="Lore" type="Label" parent="VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 text = "But just maybe, all is not lost.
 
 Harness the void to rebuild the land, step by step.
 
 Revitalise the beacons, the last remnants of what once stood here."
 label_settings = SubResource("LabelSettings_qyuap")
-horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("4_rv7oy")
 stretch_mode = 3
 
 [node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_vertical = 8
 text = "Press any key to continue"
 label_settings = SubResource("LabelSettings_ch40n")
 horizontal_alignment = 1

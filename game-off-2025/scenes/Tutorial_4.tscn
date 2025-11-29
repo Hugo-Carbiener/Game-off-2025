@@ -35,29 +35,30 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = -95
+size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="Lore" type="Label" parent="VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 text = "Work hand in hand with the land to fend off your assailants.
 
 Every piece of landscape and its inhabitants will take part in the fight. Plan ahead to make out the most out of each elements and to discover hidden powers."
 label_settings = SubResource("LabelSettings_qyuap")
-horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("4_fyglb")
 stretch_mode = 3
 
 [node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_vertical = 8
 text = "Press any key to continue"
 label_settings = SubResource("LabelSettings_ch40n")
 horizontal_alignment = 1

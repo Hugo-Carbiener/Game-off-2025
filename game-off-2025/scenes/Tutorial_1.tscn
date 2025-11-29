@@ -35,29 +35,30 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = -55
-theme_override_constants/margin_bottom = -60
+size_flags_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
 
 [node name="Lore" type="Label" parent="VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
+theme_override_constants/line_spacing = -3
 text = "Growing ever louder, in search of greatness and expansion, 
 mankind angered ruthless species set on silencing it for good.
 
 Today, nothing remains..."
 label_settings = SubResource("LabelSettings_qyuap")
-horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("4_v6lsl")
 stretch_mode = 3
 
 [node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 8
 text = "Press any key to continue"
