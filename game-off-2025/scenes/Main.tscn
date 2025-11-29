@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=62 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -9,6 +9,7 @@
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="4_jfdcb"]
 [ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/Tilemap/MainTilemap.gd" id="5_2rfjg"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="6_4gqpi"]
+[ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="6_t70y2"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="7_pdmmw"]
 [ext_resource type="Script" uid="uid://0oayu4rjsppd" path="res://assets/scripts/Tilemap/TilemapManager.gd" id="8_8rasb"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/StatWindow.tscn" id="9_tgalg"]
@@ -180,9 +181,14 @@ script = ExtResource("12_hq6as")
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("11_l5frf")
 
-[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps"]
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite")]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("5_2rfjg")
+beacon_sprite = NodePath("Beacon sprite")
+
+[node name="Beacon sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
+texture = ExtResource("6_t70y2")
+offset = Vector2(0, -4)
 
 [node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite", "monster_info_pool")]
 tile_set = ExtResource("4_jfdcb")

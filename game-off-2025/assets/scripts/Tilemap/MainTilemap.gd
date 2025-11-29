@@ -2,6 +2,7 @@ extends TilemapManager
 class_name MainTilemap
 
 static var instance : MainTilemap;
+@export var beacon_sprite : Sprite2D;
 
 func _ready() -> void:
 	super();
@@ -44,7 +45,8 @@ func is_valid_cell(coordinates : Vector2) -> bool:
 	return has_neighbor;
 
 func init_world():
-	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
+	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["background"], true);
+	beacon_sprite.position = map_to_local(Vector2i.ZERO);
 
 func check_for_evolution(tile_position : Vector2i):
 	var tile_data = tiles.get(tile_position);

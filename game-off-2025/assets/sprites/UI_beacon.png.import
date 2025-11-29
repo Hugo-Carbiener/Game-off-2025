@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du4j50v3guom4"
-path="res://.godot/imported/UI_half_frame_h.png-6cc8f06416e509bc6d43c4b44137d2fc.ctex"
+uid="uid://bh7v6by5k7f6q"
+path="res://.godot/imported/UI_beacon.png-a469f5649f87537095c3d111137d53bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_half_frame_h.png"
-dest_files=["res://.godot/imported/UI_half_frame_h.png-6cc8f06416e509bc6d43c4b44137d2fc.ctex"]
+source_file="res://assets/sprites/UI_beacon.png"
+dest_files=["res://.godot/imported/UI_beacon.png-a469f5649f87537095c3d111137d53bd.ctex"]
 
 [params]
 

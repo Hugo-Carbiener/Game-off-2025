@@ -1,40 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3gxvk1q7bain"]
+[gd_scene load_steps=13 format=3 uid="uid://d3gxvk1q7bain"]
 
 [ext_resource type="Script" uid="uid://cfic8alcbjl1e" path="res://assets/scripts/UI/StatWindow.gd" id="1_f1f40"]
-[ext_resource type="Texture2D" uid="uid://crirpwwqaqlhp" path="res://assets/sprites/animations_beacon.png" id="2_b0yg8"]
+[ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="2_kxl8a"]
 [ext_resource type="Texture2D" uid="uid://culvfph6gtgpf" path="res://assets/sprites/UI_health_bar_empty.png" id="3_8n4j0"]
 [ext_resource type="Texture2D" uid="uid://doxuek76qppi6" path="res://assets/sprites/UI_health_bar_frame.png" id="4_gfly3"]
 [ext_resource type="Texture2D" uid="uid://dm1uw0sb8tf50" path="res://assets/sprites/UI_health_bar_full.png" id="5_igu3p"]
 [ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="6_8n4j0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fiauw"]
-atlas = ExtResource("2_b0yg8")
-region = Rect2(0, 0, 8, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tftld"]
-atlas = ExtResource("2_b0yg8")
-region = Rect2(8, 0, 8, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m70kh"]
-atlas = ExtResource("2_b0yg8")
-region = Rect2(16, 0, 8, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_us07l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fiauw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tftld")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m70kh")
-}],
-"loop": true,
-"name": &"Beacon",
-"speed": 5.0
-}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gfly3"]
 font = ExtResource("6_8n4j0")
@@ -72,9 +43,8 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="BeaconTile" type="AnimatedSprite2D" parent="VBoxContainer/Health bar container"]
-sprite_frames = SubResource("SpriteFrames_us07l")
-animation = &"Beacon"
+[node name="BeaconTile" type="Sprite2D" parent="VBoxContainer/Health bar container"]
+texture = ExtResource("2_kxl8a")
 offset = Vector2(4, 8)
 
 [node name="Beacon health bar" type="TextureProgressBar" parent="VBoxContainer/Health bar container"]
