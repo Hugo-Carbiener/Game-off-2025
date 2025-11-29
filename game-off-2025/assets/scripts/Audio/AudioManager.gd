@@ -12,7 +12,7 @@ func _ready() -> void:
 		instance = self;
 	SignalBus.game_won.connect(on_game_won);
 	SignalBus.game_lost.connect(on_game_lost);
-	AudioUtils.switch_music(main_audio_sequence);
+	#AudioUtils.switch_music(main_audio_sequence);
 
 func on_game_won():
 	AudioUtils.toggle_music();

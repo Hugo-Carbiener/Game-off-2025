@@ -14,10 +14,12 @@ var card_slot_disabled : bool = true;
 @export_group("UI")
 @export var death_screen : Control;
 @export var win_screen : Control;
+@export var pause_window : PauseWindow;
 @export var evolution_window : EvolutionWindow;
 @export var main_menu_scene_path : String = "res://scenes/TitleScreen.tscn";
 @export_group("UI buttons")
 @export var main_menu_buttons : Array[TextureButton];
+@export var quit_buttons : Array[TextureButton];
 
 func _ready() -> void:
 	if instance == null:
@@ -29,6 +31,8 @@ func _ready() -> void:
 func init_button_actions():
 	for button in main_menu_buttons:
 		button.button_up.connect(main_menu);
+	for button in quit_buttons:
+		button.button_up.connect(quit_game);
 
 func on_game_lost():
 	death_screen.visible = true
@@ -64,3 +68,6 @@ func update_card_slot_position(margin : int):
 func on_evolution_discovered(tile_data : CustomTileData):
 	evolution_window.setup(tile_data);
 	evolution_window.visible = true;
+
+func toggle_pause_window():
+	pause_window.visible = !pause_window.visible;

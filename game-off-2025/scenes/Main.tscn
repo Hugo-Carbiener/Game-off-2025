@@ -44,6 +44,7 @@
 [ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
 [ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="28_pdwbg"]
+[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -238,7 +239,7 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "death_screen", "win_screen", "evolution_window", "main_menu_buttons")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "death_screen", "win_screen", "pause_window", "evolution_window", "main_menu_buttons", "quit_buttons")]
 layer = 0
 script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
@@ -248,8 +249,10 @@ disabled_card_slot_margin = -75
 card_slot_transition_duration = 0.2
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
+pause_window = NodePath("Pause screen")
 evolution_window = NodePath("Evolution window")
-main_menu_buttons = [NodePath("Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu")]
+main_menu_buttons = [NodePath("Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Pause screen/NinePatchRect/VBoxContainer/Main menu button container/Main menu")]
+quit_buttons = [NodePath("Pause screen/NinePatchRect/VBoxContainer/Quit button container/quit")]
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -356,6 +359,130 @@ size_flags_horizontal = 4
 [node name="TextureRect" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
+
+[node name="Pause screen" type="TextureRect" parent="UI" node_paths=PackedStringArray("close_button")]
+visible = false
+self_modulate = Color(0, 0, 0, 0.39215687)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("14_dppo5")
+script = ExtResource("34_t70y2")
+close_button = NodePath("NinePatchRect/VBoxContainer/Close button container/Continue")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Pause screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -101.850006
+offset_right = 95.0
+offset_bottom = 101.850006
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_cyh7e")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Pause screen/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+label_settings = SubResource("LabelSettings_frms8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Continue" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Close button container"]
+layout_mode = 2
+texture_normal = ExtResource("22_6rsph")
+texture_pressed = ExtResource("23_daolu")
+texture_hover = ExtResource("24_tl7n3")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Close button container/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main menu button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Main menu" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Main menu button container"]
+layout_mode = 2
+texture_normal = ExtResource("22_6rsph")
+texture_pressed = ExtResource("23_daolu")
+texture_hover = ExtResource("24_tl7n3")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Main menu button container/Main menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main menu"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="quit" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Quit button container"]
+layout_mode = 2
+texture_normal = ExtResource("22_6rsph")
+texture_pressed = ExtResource("23_daolu")
+texture_hover = ExtResource("24_tl7n3")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Quit button container/quit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Win screen" type="TextureRect" parent="UI"]
 visible = false
