@@ -10,10 +10,11 @@ font = ExtResource("2_ch40n")
 [sub_resource type="LabelSettings" id="LabelSettings_ch40n"]
 font = ExtResource("2_ch40n")
 
-[node name="TitleScreen" type="CanvasLayer" node_paths=PackedStringArray("UI", "text")]
+[node name="Tutorial 1" type="CanvasLayer" node_paths=PackedStringArray("UI", "text", "press_next_key")]
 script = ExtResource("1_qyuap")
 UI = NodePath("VBoxContainer")
 text = NodePath("VBoxContainer/Lore")
+press_next_key = NodePath("VBoxContainer/PressKeyMsg")
 next_scene = ExtResource("2_w0crm")
 text_reveal_duration = 10.0
 fade_out_duration = 1.0

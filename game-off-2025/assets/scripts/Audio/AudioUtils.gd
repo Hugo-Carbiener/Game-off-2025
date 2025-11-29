@@ -11,6 +11,7 @@ enum MUSICS {
 	VICTORY,
 	DEFEAT
 }
+
 var musics = {
 	MUSICS.COMBAT_1 : preload("res://assets/audio/Combat_1.ogg"),
 	MUSICS.COMBAT_2 : preload("res://assets/audio/Combat_2.ogg"),
