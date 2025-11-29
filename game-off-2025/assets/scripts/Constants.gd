@@ -42,8 +42,8 @@ const breach_transition_duration = .75;
 const monster_spawn_max_tile_distance = 5;
 const monster_info_lifetime_duration = 2;
 const monster_info_lifetime_movement = Vector2(0, -20.0);
-var monster_info_icons : Dictionary[String, ImageTexture] = {
-	"damage" = ImageTexture.create_from_image(Image.load_from_file("res://assets/sprites/UI_card_icon_low_damage.png"))
+var monster_info_icons : Dictionary[String, Resource] = {
+	"damage" = load("res://assets/sprites/UI_card_icon_low_damage.png")
 	}
 
 ## Beacon
