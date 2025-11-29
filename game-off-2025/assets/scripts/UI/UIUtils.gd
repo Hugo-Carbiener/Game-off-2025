@@ -15,7 +15,7 @@ var card_slot_disabled : bool = true;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var evolution_window : EvolutionWindow;
-@export var main_menu_scene : PackedScene;
+@export var main_menu_scene_path : String = "res://scenes/TitleScreen.tscn";
 @export_group("UI buttons")
 @export var main_menu_buttons : Array[TextureButton];
 
@@ -37,7 +37,7 @@ func on_game_won():
 	win_screen.visible = true
 
 func main_menu():
-	get_tree().change_scene_to_packed(main_menu_scene);
+	get_tree().change_scene_to_file(main_menu_scene_path);
 
 func quit_game():
 	get_tree().quit();

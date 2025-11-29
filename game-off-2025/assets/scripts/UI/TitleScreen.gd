@@ -10,7 +10,7 @@ var base_volume : float;
 @export var quit_button : TextureButton;
 @export var volume_slider : HSlider;
 @export_group("Scenes")
-@export var next_scene : PackedScene;
+@export var next_scene_path : String = "res://scenes/Tutorial_1.tscn";
 
 func _ready() -> void:
 	init_audio();
@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func start_game():
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[game_start_music]), 2);
-	get_tree().change_scene_to_packed(next_scene);
+	get_tree().change_scene_to_file(next_scene_path);
 
 func init_audio():
 	base_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"));

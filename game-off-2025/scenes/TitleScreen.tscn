@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://i47qge3oinkm" path="res://assets/scripts/UI/TitleScreen.gd" id="1_bxdlt"]
 [ext_resource type="Texture2D" uid="uid://d22vugyy4lndy" path="res://assets/sprites/UI_title.png" id="3_5u5ic"]
-[ext_resource type="PackedScene" uid="uid://bg82sdbkgyvx5" path="res://scenes/Tutorial_1.tscn" id="3_ae2uc"]
+; Removed PackedScene reference to Tutorial_1 to avoid circular deps
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_ly5u4"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="5_ncdcj"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="6_gn1eu"]
@@ -36,7 +36,7 @@ game_start_music = 3
 start_button = NodePath("Title and buttons/VBoxContainer/Start game")
 quit_button = NodePath("Title and buttons/VBoxContainer/Quit button")
 volume_slider = NodePath("Volume slider/HBoxContainer/HSlider")
-next_scene = ExtResource("3_ae2uc")
+; next_scene_path is set in script export; no PackedScene assignment
 
 [node name="Background shader" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
