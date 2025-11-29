@@ -7,7 +7,7 @@ class_name EvolutionWindow
 @export var shader_holder : TextureRect;
 
 func _ready() -> void:
-	close_button.button_up.connect(func(): visible = false)
+	close_button.button_up.connect(close);
 
 func setup(tile_data : CustomTileData):
 	reset();
@@ -21,3 +21,6 @@ func reset():
 	for n in card_container.get_children():
 		card_container.remove_child(n);
 		n.queue_free();
+
+func close():
+	visible = false;

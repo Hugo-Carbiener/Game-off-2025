@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Game off 2025"
-run/main_scene="uid://bg82sdbkgyvx5"
+run/main_scene="uid://db1ahptufxnqf"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
 Constants="*res://assets/scripts/Constants.gd"
 SignalBus="*res://assets/scripts/SignalBus.gd"
+AudioUtils="*res://assets/scripts/Audio/AudioUtils.gd"
 
 [debug]
 

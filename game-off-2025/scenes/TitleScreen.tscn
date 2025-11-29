@@ -1,41 +1,142 @@
-[gd_scene load_steps=4 format=3 uid="uid://bg82sdbkgyvx5"]
+[gd_scene load_steps=17 format=3 uid="uid://db1ahptufxnqf"]
 
-[ext_resource type="Script" uid="uid://dmyqcnuyojr8p" path="res://assets/scripts/TitleScreenInputManager.gd" id="1_qyuap"]
+[ext_resource type="Script" uid="uid://i47qge3oinkm" path="res://assets/scripts/UI/TitleScreen.gd" id="1_bxdlt"]
+[ext_resource type="Texture2D" uid="uid://d22vugyy4lndy" path="res://assets/sprites/UI_title.png" id="3_5u5ic"]
+[ext_resource type="PackedScene" uid="uid://bg82sdbkgyvx5" path="res://scenes/Tutorial_1.tscn" id="3_ae2uc"]
+[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_ly5u4"]
+[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="5_ncdcj"]
+[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="6_gn1eu"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="7_bch4e"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="8_bch4e"]
+[ext_resource type="Texture2D" uid="uid://b1y7qobnmywul" path="res://assets/sprites/UI_volume_icon.png" id="8_mq2qu"]
+[ext_resource type="Texture2D" uid="uid://lpfbqrk7ohi2" path="res://assets/sprites/shader resources/shader_pattern_lines.png" id="9_bch4e"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="10_ae2uc"]
+[ext_resource type="Texture2D" uid="uid://bg7qun63nvd7d" path="res://assets/sprites/UI_slider_knob.png" id="10_cxpn8"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="11_0x157"]
+[ext_resource type="Texture2D" uid="uid://cyoiql1s1pxud" path="res://assets/sprites/UI_slider_knob_highlight.png" id="11_p6ntd"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_qyuap"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cxpn8"]
+shader = ExtResource("8_bch4e")
+shader_parameter/main_tex = ExtResource("9_bch4e")
+shader_parameter/noise_tex = ExtResource("10_ae2uc")
+shader_parameter/time_scale = 5.0
+shader_parameter/center_offset = Vector2(-0.1, 0)
+shader_parameter/noise_scale = 0.4110000195225
+shader_parameter/width_scale = 0.0
+shader_parameter/rotation_coef = 0.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_ch40n"]
-font_size = 8
+[sub_resource type="LabelSettings" id="LabelSettings_mq2qu"]
+font = ExtResource("7_bch4e")
+shadow_size = 0
 
-[node name="TitleScreen" type="CanvasLayer"]
-script = ExtResource("1_qyuap")
+[node name="TitleScreen" type="CanvasLayer" node_paths=PackedStringArray("start_button", "quit_button", "volume_slider")]
+script = ExtResource("1_bxdlt")
+music = 4
+game_start_music = 3
+start_button = NodePath("Title and buttons/VBoxContainer/Start game")
+quit_button = NodePath("Title and buttons/VBoxContainer/Quit button")
+volume_slider = NodePath("Volume slider/HBoxContainer/HSlider")
+next_scene = ExtResource("3_ae2uc")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
+[node name="Background shader" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -100
+material = SubResource("ShaderMaterial_cxpn8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("11_0x157")
+stretch_mode = 6
 
-[node name="Lore" type="Label" parent="VBoxContainer"]
+[node name="Title and buttons" type="MarginContainer" parent="."]
+offset_right = 187.0
+offset_bottom = 190.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title and buttons"]
 layout_mode = 2
+
+[node name="Title and buttons" type="MarginContainer" parent="Title and buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 90
+
+[node name="TextureRect" type="TextureRect" parent="Title and buttons/VBoxContainer/Title and buttons"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_5u5ic")
+stretch_mode = 2
+
+[node name="Start game" type="TextureButton" parent="Title and buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_ly5u4")
+texture_pressed = ExtResource("5_ncdcj")
+texture_hover = ExtResource("6_gn1eu")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Title and buttons/VBoxContainer/Start game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+label_settings = SubResource("LabelSettings_mq2qu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit button" type="TextureButton" parent="Title and buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_ly5u4")
+texture_pressed = ExtResource("5_ncdcj")
+texture_hover = ExtResource("6_gn1eu")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Title and buttons/VBoxContainer/Quit button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_mq2qu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Volume slider" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+offset_right = 187.0
+grow_vertical = 0
 size_flags_vertical = 3
-text = "Lore blablabla"
-label_settings = SubResource("LabelSettings_qyuap")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+[node name="HBoxContainer" type="HBoxContainer" parent="Volume slider"]
 layout_mode = 2
-size_flags_vertical = 8
-text = "Press any key to continue"
-label_settings = SubResource("LabelSettings_ch40n")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 14
+
+[node name="Volume icon" type="TextureRect" parent="Volume slider/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_mq2qu")
+
+[node name="HSlider" type="HSlider" parent="Volume slider/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/center_grabber = 32
+theme_override_icons/grabber = ExtResource("10_cxpn8")
+theme_override_icons/grabber_highlight = ExtResource("11_p6ntd")
+max_value = 1.0
+step = 0.001
+value = 0.5

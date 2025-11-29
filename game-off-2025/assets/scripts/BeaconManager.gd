@@ -10,9 +10,11 @@ func _ready() -> void:
 		instance = self;
 
 func damage(damages: int):
+	if health <= 0: return;
+	
 	health -= damages;
 	SignalBus.beacon_health_updated.emit(health);
-	
+
 	if health <= 0:
 		health = 0;
-		UIUtils.instance.loose_game();
+		SignalBus.game_lost.emit()

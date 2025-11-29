@@ -12,7 +12,10 @@ static var round_number : int = 0;
 
 func _ready() -> void:
 	SignalBus.tile_placed.connect(on_tile_placed);
-	get_tree().current_scene.ready.connect(start_phase.bind(current_phase));
+	get_tree().current_scene.ready.connect(start_game);
+
+func start_game():
+	start_phase(current_phase);
 
 static func get_next_phase() -> int:
 	return PHASES.values()[(current_phase + 1) % PHASES.size()];
@@ -44,4 +47,4 @@ static func resolution_phase():
 
 func on_tile_placed(tile_amount : int):
 	if tile_amount >= TileDataManager.instance.world_tile_amount:
-		UIUtils.instance.win_game();
+		SignalBus.game_won.emit();
