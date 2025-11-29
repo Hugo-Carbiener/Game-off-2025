@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://dswxb2uupbtap"]
+[gd_scene load_steps=7 format=3 uid="uid://dswxb2uupbtap"]
 
 [ext_resource type="Script" uid="uid://dmyqcnuyojr8p" path="res://assets/scripts/UI/TutorialScreen.gd" id="1_5x7ev"]
 [ext_resource type="PackedScene" uid="uid://0y56omxccotb" path="res://scenes/Tutorial_3.tscn" id="2_rv7oy"]
 [ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="3_xvr7d"]
-[ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="4_rv7oy"]
+[ext_resource type="Texture2D" uid="uid://depr1o85elxrs" path="res://assets/sprites/UI_tutorial-2.png" id="4_rv7oy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qyuap"]
 font = ExtResource("3_xvr7d")
@@ -36,7 +36,8 @@ grow_vertical = 2
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_top = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = -90
 
 [node name="Lore" type="Label" parent="VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 200)
@@ -51,6 +52,11 @@ label_settings = SubResource("LabelSettings_qyuap")
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_rv7oy")
+stretch_mode = 3
+
 [node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -58,11 +64,3 @@ text = "Press any key to continue"
 label_settings = SubResource("LabelSettings_ch40n")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Background tilemap" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAnAB0AAAAIAAAAAAAnABwAAAAIAAAAAAAmABwAAAAIAAAAAAAlABwAAAAIAAAAAAAkABwAAAAIAAAAAAAjABwAAAAIAAAAAAAoABwAAAAIAAAAAAApABwAAAAIAAAAAAAqABwAAAAIAAAAAAArABwAAAAIAAAAAAAiABwAAAAIAAAAAAAsABwAAAAIAAAAAAAnAB4AAAAIAAAAAAAnAB8AAAAIAAAAAAAnACAAAAAIAAAAAAAnACEAAAAIAAAAAAAnABsAAAAIAAAAAAAnABoAAAAIAAAAAAAnABkAAAAIAAAAAAAnABgAAAAIAAAAAAAnABcAAAAIAAAAAAAkABcAAAAIAAAAAAAlABcAAAAIAAAAAAAmABcAAAAIAAAAAAAiABkAAAAIAAAAAAAiABoAAAAIAAAAAAAiABsAAAAIAAAAAAAjABgAAAAIAAAAAAAiAB0AAAAIAAAAAAAiAB4AAAAIAAAAAAAiAB8AAAAIAAAAAAAkACEAAAAIAAAAAAAlACEAAAAIAAAAAAAmACEAAAAIAAAAAAAoACEAAAAIAAAAAAApACEAAAAIAAAAAAAqACEAAAAIAAAAAAAsAB8AAAAIAAAAAAAsAB4AAAAIAAAAAAAsAB0AAAAIAAAAAAAsABkAAAAIAAAAAAAsABoAAAAIAAAAAAAsABsAAAAIAAAAAAAqABcAAAAIAAAAAAApABcAAAAIAAAAAAAoABcAAAAIAAAAAAAoABgAAAAIAAAAAAApABgAAAAIAAAAAAApABkAAAAIAAAAAAAoABkAAAAIAAAAAAAoABoAAAAIAAAAAAApABoAAAAIAAAAAAAoABsAAAAIAAAAAAApABsAAAAIAAAAAAAqABsAAAAIAAAAAAArABsAAAAIAAAAAAArABoAAAAIAAAAAAAqABoAAAAIAAAAAAAqABkAAAAIAAAAAAAqABgAAAAIAAAAAAArABkAAAAIAAAAAAArABgAAAAIAAAAAAAmABsAAAAIAAAAAAAlABsAAAAIAAAAAAAkABsAAAAIAAAAAAAjABsAAAAIAAAAAAAlABoAAAAIAAAAAAAkABoAAAAIAAAAAAAjABoAAAAIAAAAAAAmABoAAAAIAAAAAAAlABkAAAAIAAAAAAAkABkAAAAIAAAAAAAjABkAAAAIAAAAAAAlABgAAAAIAAAAAAAkABgAAAAIAAAAAAAmABgAAAAIAAAAAAAmABkAAAAIAAAAAAAlAB0AAAAIAAAAAAAkAB0AAAAIAAAAAAAjAB4AAAAIAAAAAAAkAB4AAAAIAAAAAAAlAB4AAAAIAAAAAAAjAB0AAAAIAAAAAAAmAB0AAAAIAAAAAAAkAB8AAAAIAAAAAAAlAB8AAAAIAAAAAAAjAB8AAAAIAAAAAAAkACAAAAAIAAAAAAAlACAAAAAIAAAAAAAmACAAAAAIAAAAAAAjACAAAAAIAAAAAAAmAB8AAAAIAAAAAAAmAB4AAAAIAAAAAAAoAB0AAAAIAAAAAAAoAB4AAAAIAAAAAAAoAB8AAAAIAAAAAAApAB8AAAAIAAAAAAAqAB8AAAAIAAAAAAArAB8AAAAIAAAAAAApACAAAAAIAAAAAAAqACAAAAAIAAAAAAArACAAAAAIAAAAAAAoACAAAAAIAAAAAAAqAB4AAAAIAAAAAAArAB4AAAAIAAAAAAApAB4AAAAIAAAAAAAqAB0AAAAIAAAAAAArAB0AAAAIAAAAAAApAB0AAAAIAAAAAAA=")
-tile_set = ExtResource("4_rv7oy")
-
-[node name="Main tilemap" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAnABwAAAAEAAAAAAAlABwAAAAEAAEAAAAnABsAAQABAAAAAAAmABsAAQABAAAAAAAlABsAAQAAAAIAAAAoABwAAQAHAAIAAAAoABsAAQACAAAAAAAlABoAAQACAAEAAAAlABkAAQAHAAAAAAAmABwAAAADAAEAAAAkAB0AAAABAAAAAAAlAB0AAAABAAAAAAAnAB0AAAABAAAAAAAmAB0AAAABAAAAAAAoAB0AAAACAAAAAAApAB0AAAACAAAAAAAnAB4AAAACAAAAAAAoAB4AAAACAAAAAAA=")
-tile_set = ExtResource("4_rv7oy")

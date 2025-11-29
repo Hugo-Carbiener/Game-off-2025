@@ -13,7 +13,7 @@ var tween;
 
 func _ready() -> void:
 	text.visible_characters = 0;
-	press_next_key.visible = false;
+	press_next_key.modulate = Color(1.0,1.0,1.0,0.0);
 	await text_reveal();
 
 func _input(event: InputEvent) -> void:
@@ -33,7 +33,7 @@ func text_reveal():
 	tween.tween_property(text, "visible_characters", text.text.length(), text_reveal_duration);
 	await tween.finished;
 	ready_to_switch = true;
-	press_next_key.visible = true;
+	press_next_key.modulate = Color(1.0,1.0,1.0,1.0);
 	return;
 
 func fade_out():

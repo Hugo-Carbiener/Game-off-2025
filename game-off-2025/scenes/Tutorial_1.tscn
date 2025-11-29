@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bg82sdbkgyvx5"]
+[gd_scene load_steps=7 format=3 uid="uid://bg82sdbkgyvx5"]
 
 [ext_resource type="Script" uid="uid://dmyqcnuyojr8p" path="res://assets/scripts/UI/TutorialScreen.gd" id="1_qyuap"]
 [ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="2_ch40n"]
 [ext_resource type="PackedScene" uid="uid://dswxb2uupbtap" path="res://scenes/Tutorial_2.tscn" id="2_w0crm"]
+[ext_resource type="Texture2D" uid="uid://dkqrndnhok1q3" path="res://assets/sprites/UI_tutorial_1.png" id="4_v6lsl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qyuap"]
 font = ExtResource("2_ch40n")
@@ -13,7 +14,7 @@ font = ExtResource("2_ch40n")
 [node name="Tutorial 1" type="CanvasLayer" node_paths=PackedStringArray("UI", "text", "press_next_key")]
 script = ExtResource("1_qyuap")
 UI = NodePath("VBoxContainer")
-text = NodePath("VBoxContainer/Lore")
+text = NodePath("VBoxContainer/MarginContainer/Lore")
 press_next_key = NodePath("VBoxContainer/PressKeyMsg")
 next_scene = ExtResource("2_w0crm")
 text_reveal_duration = 10.0
@@ -32,7 +33,12 @@ offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Lore" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -55
+theme_override_constants/margin_bottom = -60
+
+[node name="Lore" type="Label" parent="VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -44,6 +50,11 @@ label_settings = SubResource("LabelSettings_qyuap")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_v6lsl")
+stretch_mode = 3
 
 [node name="PressKeyMsg" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)

@@ -10,9 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Game off 2025"
+config/name="Void builder"
+config/description="A game made for the Game Off 2025 game jam."
+config/version="0.1.0"
 run/main_scene="uid://db1ahptufxnqf"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/bg_color=Color(0.09803922, 0.09411765, 0.06666667, 1)
+config/icon="uid://o6nlteqh8rve"
 
 [autoload]
 
