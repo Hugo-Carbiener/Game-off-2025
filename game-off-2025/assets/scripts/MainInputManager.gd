@@ -4,17 +4,24 @@ class_name MainInputManager
 var card_selected: bool = false;
 var current_number_keycode: int;
 var keys_to_index = {
-	49: 0,
-	50: 1,
-	51: 2,
-	52: 3,
-	53: 4
+	KEY_1: 0,
+	KEY_AMPERSAND : 0,
+	KEY_2: 1,
+	201 : 1,
+	KEY_3: 2,
+	KEY_NUMBERSIGN : 2,
+	KEY_4: 3,
+	KEY_APOSTROPHE : 3,
+	KEY_5: 4,
+	KEY_BRACELEFT : 5
 }
 
 # There are two playing mode: 2 clicks and number key + click
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		print(str(event.as_text_keycode()) + ", " + str(event.keycode) + ", " + str(event.key_label) + ", " + str(event.as_text_physical_keycode()));
 	if event.is_action_released('select-card-mouse'):
 		if card_selected:
 			var shouldContinue = DragAndDropHandler.instance.on_drop_input();
