@@ -49,7 +49,7 @@ use_texture_padding = false
 1:1/0 = 0
 1:1/0/custom_data_0 = "forest"
 1:1/0/custom_data_1 = "forest"
-1:1/0/custom_data_2 = "medium"
+1:1/0/custom_data_2 = "high"
 1:1/0/custom_data_3 = "medium"
 1:1/0/custom_data_4 = "Who knows what happens in there"
 1:1/0/custom_data_5 = Color(0.071, 0.247, 0.114, 1)
@@ -80,7 +80,7 @@ use_texture_padding = false
 0:0/0/custom_data_6 = true
 0:0/0/custom_data_7 = ["fountain"]
 0:0/0/custom_data_9 = {
-"res://assets/resources/give_status_wet.tres": "OTE"
+"res://assets/resources/heal_low.tres": "OTL"
 }
 2:0/0 = 0
 2:0/0/custom_data_0 = "hill"
@@ -112,7 +112,7 @@ use_texture_padding = false
 5:1/0 = 0
 5:1/0/custom_data_0 = "swamp"
 5:1/0/custom_data_1 = "Swamp"
-5:1/0/custom_data_2 = "low"
+5:1/0/custom_data_2 = "medium"
 5:1/0/custom_data_3 = "low"
 5:1/0/custom_data_4 = "Repulsing but swarming with life"
 5:1/0/custom_data_5 = Color(0.36078432, 0.7411765, 0.5568628, 1)
@@ -175,6 +175,14 @@ use_texture_padding = false
 2:2/0/custom_data_4 = "The power of what once was"
 2:2/0/custom_data_5 = Color(0.30980393, 0.3254902, 0.3647059, 1)
 2:2/0/custom_data_8 = "(N=beacon)|(E=beacon)|(S=beacon)|(W=beacon)"
+1:2/0 = 0
+1:2/0/custom_data_0 = "statue"
+1:2/0/custom_data_1 = "Statue"
+1:2/0/custom_data_2 = "medium"
+1:2/0/custom_data_3 = "medium"
+1:2/0/custom_data_4 = "The might of what once was"
+1:2/0/custom_data_5 = Color(0.32156864, 0.44313726, 0.2, 1)
+1:2/0/custom_data_8 = "(N=beacon)|(E=beacon)|(S=beacon)|(W=beacon)"
 0:2/0 = 0
 0:2/0/custom_data_0 = "fountain"
 0:2/0/custom_data_1 = "Fountain"
@@ -184,16 +192,8 @@ use_texture_padding = false
 0:2/0/custom_data_5 = Color(0.24313726, 0.3764706, 0.5137255, 1)
 0:2/0/custom_data_8 = "(N=beacon)|(E=beacon)|(S=beacon)|(W=beacon)"
 0:2/0/custom_data_9 = {
-"res://assets/resources/heal_low.tres": "OTE"
+"res://assets/resources/heal_medium.tres": "OTE"
 }
-1:2/0 = 0
-1:2/0/custom_data_0 = "statue"
-1:2/0/custom_data_1 = "Statue"
-1:2/0/custom_data_2 = "medium"
-1:2/0/custom_data_3 = "medium"
-1:2/0/custom_data_4 = "The might of what once was"
-1:2/0/custom_data_5 = Color(0.32156864, 0.44313726, 0.2, 1)
-1:2/0/custom_data_8 = "(N=beacon)|(E=beacon)|(S=beacon)|(W=beacon)"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4eq8v"]
 texture = ExtResource("2_6t64i")

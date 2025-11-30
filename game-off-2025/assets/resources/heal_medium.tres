@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=2 format=3 uid="uid://bmfchgsf81vn7"]
+
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffect.gd" id="1_a7eph"]
+
+[resource]
+script = ExtResource("1_a7eph")
+heal = 2
+icons_paths = Array[String](["res://assets/sprites/UI_card_icon_heal.png"])
+effect = 2
+metadata/_custom_type_script = "uid://dop7as4nabpyj"

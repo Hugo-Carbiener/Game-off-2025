@@ -14,7 +14,7 @@ const TILE_CUSTOM_DATA_ACTIONS_KEY = "actions";
 const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 
 ## tile stats
-const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
+const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 4};
 const tile_fatigues = {"none" = 0, "low" = 1, "medium" = 2, "high" = 3};
 ## tile actions
 enum TRIGGERS {
