@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_dw5sr")
-damage_neighbor = null
 heal = 1
 icons_paths = Array[String](["res://assets/sprites/UI_card_icon_heal.png"])
 effect = 2
