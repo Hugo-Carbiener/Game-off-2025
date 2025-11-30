@@ -45,7 +45,7 @@ func is_valid_cell(coordinates : Vector2) -> bool:
 	return has_neighbor;
 
 func init_world():
-	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["background"], true);
+	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
 	beacon_sprite.position = map_to_local(Vector2i.ZERO);
 
 func check_for_evolution(tile_position : Vector2i):

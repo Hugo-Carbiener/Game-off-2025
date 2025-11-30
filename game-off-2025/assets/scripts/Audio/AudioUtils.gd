@@ -35,6 +35,8 @@ func play_music(sound: AudioStream, at : float = 0, autoplay := true):
 
 func switch_music(sound: AudioStream):
 	# prepare previous player to be killed
+	if player == null: return;
+	
 	var old_player = player;
 	old_player.finished.connect(func(): old_player.queue_free());
 	# add new player
