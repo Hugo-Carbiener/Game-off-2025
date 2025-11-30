@@ -102,9 +102,12 @@ func get_control_to_drag() -> Control:
 	## we get the root node of the instantiated scene 
 	var control = control_child.owner;
 	if control == null: return;
-	if !control.has_meta("Draggable") || !control.get_meta("Draggable"): return;
-		
-	return control;
+	var root = control;
+	while (!root.has_meta("Draggable") || !root.get_meta("Draggable")) and root != get_tree().root:
+		root = root.get_parent();
+	
+	if root == get_tree().root: return;
+	return root;
 
 func get_control_to_drop_in() -> DropReceiver:
 	for drop_receiver in drop_receivers:
