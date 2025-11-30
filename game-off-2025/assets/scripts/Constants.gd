@@ -40,7 +40,7 @@ const breach_transition_duration = .75;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;
-const monster_info_lifetime_duration = 2;
+const monster_info_lifetime_duration = 10;
 const monster_info_lifetime_movement = Vector2(0, -20.0);
 var monster_info_icons : Dictionary[String, Resource] = {
 	"damage" = load("res://assets/sprites/UI_card_icon_low_damage.png")

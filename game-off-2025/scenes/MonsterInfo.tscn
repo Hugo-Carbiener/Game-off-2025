@@ -1,22 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0h8chxj3ck5o"]
+[gd_scene load_steps=8 format=3 uid="uid://c0h8chxj3ck5o"]
 
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="1_6v762"]
 [ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/Monster/MonsterInfo.gd" id="1_tc3cy"]
 [ext_resource type="Texture2D" uid="uid://c6n0sl523pkd0" path="res://assets/sprites/UI_card_icon_low_damage.png" id="2_mg4vn"]
+[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="2_nxjs2"]
+[ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="3_dnikc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qegl"]
+atlas = ExtResource("2_nxjs2")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_py124"]
 font = ExtResource("1_6v762")
 font_size = 8
-font_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
-[node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "icon_model")]
+[node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "tile_preview", "icon_model")]
 offset_right = 27.0
 offset_bottom = 16.0
 theme_override_constants/separation = 0
 script = ExtResource("1_tc3cy")
 label = NodePath("Label")
+tile_preview = NodePath("Tile preview")
 icon_model = NodePath("Icon model")
+
+[node name="Tile preview" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0qegl")
+stretch_mode = 3
+
+[node name="Separator" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_dnikc")
+stretch_mode = 3
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -29,3 +45,4 @@ vertical_alignment = 1
 [node name="Icon model" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("2_mg4vn")
+stretch_mode = 2

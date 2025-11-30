@@ -70,5 +70,5 @@ func on_death():
 func set_status(_status : MonsterFactory.STATUS):
 	status = _status;
 
-func dispatch_interaction(text : String, icons : Array[ImageTexture]):
+func dispatch_interaction(text : String, icons : Array[Resource]):
 	MonsterFactory.instance.spawn_interaction(self, text, icons);

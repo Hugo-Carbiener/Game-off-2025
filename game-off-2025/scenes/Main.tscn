@@ -205,13 +205,11 @@ breach_animated_sprite = NodePath("Breach animations")
 monster_movement_duration = 0.3
 indicator_tilemap = NodePath("../Indication tilemap")
 monster_sprite = NodePath("Monster sprite")
-monster_info_pool = NodePath("Monster info pool")
+monster_info_pool = NodePath("../../UI/Monster info container")
 
 [node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 texture = SubResource("AtlasTexture_20167")
-
-[node name="Monster info pool" type="Node2D" parent="Tilemaps/Monster tilemap"]
 
 [node name="Breach animations" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
 sprite_frames = SubResource("SpriteFrames_tl7n3")
@@ -266,6 +264,10 @@ texture = ExtResource("14_dppo5")
 script = ExtResource("12_2rfjg")
 small_shockwave_duration = 2.0
 large_shockwave_duration = 2.5
+
+[node name="Monster info container" type="VBoxContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Screen container" type="VBoxContainer" parent="UI"]
 anchors_preset = 15

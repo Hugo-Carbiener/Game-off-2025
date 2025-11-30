@@ -64,6 +64,13 @@ func init_icons(tile_data : CustomTileData) :
 		var icon = TextureRect.new();
 		icon.texture = Constants.fatigue_icons[tile_fatigue_key];
 		card_icons.add_child(icon);
+	if !tile_data.actions.is_empty():
+		for action in tile_data.actions:
+			var effect = action.effect;
+			for icon_res in effect.get_icons():
+				var icon = TextureRect.new();
+				icon.texture = icon_res;
+				card_icons.add_child(icon);
 
 func init_evolutions(tile_data : CustomTileData):
 	if tile_data.evolutions == null or tile_data.evolutions.is_empty() : 

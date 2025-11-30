@@ -13,7 +13,7 @@ static var instance : MonsterFactory;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
 @export_group("Monster info variables")
-@export var monster_info_pool : Node2D;
+@export var monster_info_pool : Control;
 const monster_info_model : PackedScene = preload("res://scenes/MonsterInfo.tscn");
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
@@ -204,10 +204,11 @@ func add_monster_info_to_pool():
 	monster_info_pool.add_child(monster_info);
 	return monster_info;
 
-func spawn_interaction(monster : Monster, text : String, icons : Array[ImageTexture]):
+func spawn_interaction(monster : Monster, text : String, icons : Array[Resource]):
 	var monster_tilemap_position = monsters.find_key(monster);
 	var monster_info = get_free_monster_info_model();
 	if monster_tilemap_position == null: return;
 	
-	var info_position = map_to_local(monster_tilemap_position);
-	monster_info.launch(info_position, text, icons);
+	var tile_data = MainTilemap.instance.tiles[monster_tilemap_position];
+	if tile_data == null: return;
+	monster_info.launch(tile_data, text, icons);
