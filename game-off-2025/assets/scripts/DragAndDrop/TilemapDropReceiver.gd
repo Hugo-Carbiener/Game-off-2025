@@ -22,6 +22,6 @@ func on_drop(control_dropped : Control) -> bool:
 			canContinue = true;
 		control_dropped.on_card_used(tile_position);
 	else: 
-		canContinue = false;
+		canContinue = true;
 	
 	return canContinue;
