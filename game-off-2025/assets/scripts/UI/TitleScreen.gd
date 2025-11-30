@@ -28,4 +28,4 @@ func init_audio():
 
 func update_volume(value_changed: bool):
 	if !value_changed: return;
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), base_volume * ( 1 - volume_slider.value));
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(volume_slider.value))

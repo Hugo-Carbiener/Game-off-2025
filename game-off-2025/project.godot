@@ -36,6 +36,10 @@ window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="D:/Dev/Godot/Game-off-2025/game-off-2025/assets/movie.avi"
+
 [input]
 
 debug-next-phase={
