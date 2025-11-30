@@ -9,10 +9,6 @@ static var phase_start_sequences = {
 }
 static var current_phase : PHASES = PHASES.SETUP;
 static var round_number : int = 0;
-static var phase_msg = {
-	PHASES.SETUP: "Day {round}",
-	PHASES.PLAY: "Your turn!"
-}
 
 func _ready() -> void:
 	SignalBus.tile_placed.connect(on_tile_placed);
@@ -26,8 +22,8 @@ static func get_next_phase() -> int:
  
 static func start_phase(phase: PHASES):
 	current_phase = phase;
-	if phase in phase_msg:
-		await UIUtils.instance.displayPhaseMsg((phase_msg[phase]).format({ round: str(round_number + 1)}));
+	if phase != PHASES.RESOLUTION:
+		await UIUtils.instance.displayPhaseMsg( "Day " + str(round_number + 1) if phase == PHASES.SETUP else "Your turn!");
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():

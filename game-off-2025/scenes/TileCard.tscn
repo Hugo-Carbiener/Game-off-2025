@@ -1,22 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=12 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
-[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="3_867uw"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
-[ext_resource type="FontFile" uid="uid://plw2n5bts5nf" path="res://assets/fonts/BitPotionExt.ttf" id="6_ttman"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="11_eq3wv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
-font = ExtResource("6_ttman")
+font = ExtResource("11_eq3wv")
+font_size = 8
 font_color = Color(0.87058824, 0.8666667, 0.8980392, 1)
 shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_178ey"]
-font = ExtResource("3_867uw")
-font_size = 13
+font = ExtResource("11_eq3wv")
+font_size = 8
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_867uw"]
 resource_local_to_scene = true
@@ -73,8 +72,8 @@ theme_override_constants/separation = 0
 
 [node name="Card amount margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_right = 31
-theme_override_constants/margin_bottom = 1
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 33
 
 [node name="Card amount" type="Label" parent="VBoxContainer/Card amount margin"]
 layout_mode = 2
@@ -85,7 +84,7 @@ horizontal_alignment = 1
 [node name="Card name margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 11
 
 [node name="Tile card name" type="Label" parent="VBoxContainer/Card name margin"]
 layout_mode = 2
@@ -98,7 +97,7 @@ horizontal_alignment = 1
 [node name="Tile preview margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/margin_top = 3
+theme_override_constants/margin_top = 7
 
 [node name="Tile preview" type="TextureRect" parent="VBoxContainer/Tile preview margin"]
 layout_mode = 2
@@ -107,7 +106,7 @@ stretch_mode = 3
 
 [node name="Icons margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 7
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Icons margin"]

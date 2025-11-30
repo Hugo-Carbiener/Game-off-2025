@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dmyqcnuyojr8p" path="res://assets/scripts/UI/TutorialScreen.gd" id="1_5x7ev"]
 [ext_resource type="PackedScene" uid="uid://0y56omxccotb" path="res://scenes/Tutorial_3.tscn" id="2_rv7oy"]
-[ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="3_xvr7d"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_rv7oy"]
 [ext_resource type="Texture2D" uid="uid://depr1o85elxrs" path="res://assets/sprites/UI_tutorial-2.png" id="4_rv7oy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qyuap"]
-font = ExtResource("3_xvr7d")
+font = ExtResource("3_rv7oy")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ch40n"]
-font = ExtResource("3_xvr7d")
+font = ExtResource("3_rv7oy")
 
 [node name="Tutorial 2" type="CanvasLayer" node_paths=PackedStringArray("UI", "text", "press_next_key")]
 script = ExtResource("1_5x7ev")

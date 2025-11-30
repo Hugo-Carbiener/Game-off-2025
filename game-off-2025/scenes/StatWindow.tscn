@@ -5,31 +5,37 @@
 [ext_resource type="Texture2D" uid="uid://culvfph6gtgpf" path="res://assets/sprites/UI_health_bar_empty.png" id="3_8n4j0"]
 [ext_resource type="Texture2D" uid="uid://doxuek76qppi6" path="res://assets/sprites/UI_health_bar_frame.png" id="4_gfly3"]
 [ext_resource type="Texture2D" uid="uid://dm1uw0sb8tf50" path="res://assets/sprites/UI_health_bar_full.png" id="5_igu3p"]
-[ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="6_8n4j0"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="6_r8gxa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gfly3"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_igu3p"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_8n4j0"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_fiauw"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_tftld"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_m70kh"]
-font = ExtResource("6_8n4j0")
+font = ExtResource("6_r8gxa")
+font_size = 8
 
 [node name="Stat window" type="MarginContainer" node_paths=PackedStringArray("beacon_health_bar", "round_number_label", "current_tile_label", "max_tile_label")]
 offset_right = 107.0
 offset_bottom = 56.0
 script = ExtResource("1_f1f40")
-beacon_health_bar = NodePath("VBoxContainer/Health bar container/Beacon health bar")
+beacon_health_bar = NodePath("VBoxContainer/MarginContainer/Health bar container/Beacon health bar")
 round_number_label = NodePath("VBoxContainer/Round number container/Number")
 current_tile_label = NodePath("VBoxContainer/Tiles remaining container/Current")
 max_tile_label = NodePath("VBoxContainer/Tiles remaining container/Max")
@@ -37,15 +43,19 @@ max_tile_label = NodePath("VBoxContainer/Tiles remaining container/Max")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Health bar container" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+
+[node name="Health bar container" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="BeaconTile" type="Sprite2D" parent="VBoxContainer/Health bar container"]
+[node name="BeaconTile" type="Sprite2D" parent="VBoxContainer/MarginContainer/Health bar container"]
 texture = ExtResource("2_kxl8a")
 offset = Vector2(4, 8)
 
-[node name="Beacon health bar" type="TextureProgressBar" parent="VBoxContainer/Health bar container"]
+[node name="Beacon health bar" type="TextureProgressBar" parent="VBoxContainer/MarginContainer/Health bar container"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 100.0

@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
 [ext_resource type="Texture2D" uid="uid://bi6wdajopmdwg" path="res://assets/sprites/reroll_breach.png" id="21_daolu"]
-[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
+[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/Dedicool.ttf" id="21_xpe83"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]

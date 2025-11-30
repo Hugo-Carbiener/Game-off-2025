@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=61 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -31,12 +31,10 @@
 [ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_5grtr"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/DragAndDrop/RerollDropReceiver.gd" id="18_pdmmw"]
-[ext_resource type="FontFile" uid="uid://3wtnt3phrlwe" path="res://assets/fonts/NotJamBlkltr13.ttf" id="21_xpe83"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
 [ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="24_cmqll"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
-[ext_resource type="FontFile" uid="uid://blkcquh5memc" path="res://assets/fonts/NotJamBlkltr16.ttf" id="25_hq6as"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="26_8cp6k"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="27_8b871"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="27_ggakg"]
@@ -125,10 +123,11 @@ shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
 [sub_resource type="LabelSettings" id="LabelSettings_t70y2"]
-font = ExtResource("25_hq6as")
+font = ExtResource("27_ggakg")
 
 [sub_resource type="LabelSettings" id="LabelSettings_kxyth"]
-font = ExtResource("25_hq6as")
+font = ExtResource("27_ggakg")
+font_size = 8
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_5grtr"]
 frames = 3
@@ -140,8 +139,7 @@ frame_2/texture = ExtResource("28_pdwbg")
 frame_2/duration = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_frms8"]
-font = ExtResource("21_xpe83")
-font_size = 13
+font = ExtResource("27_ggakg")
 outline_size = 4
 outline_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
 shadow_size = 0
@@ -284,6 +282,7 @@ size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Screen container"]
 layout_mode = 2
+theme_override_constants/margin_top = 5
 
 [node name="PhaseMsg" type="Label" parent="UI/Screen container/MarginContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -527,7 +526,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -95.0
 offset_top = -75.0
-offset_right = 95.0
+offset_right = 105.0
 offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -680,10 +679,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -140.0
 offset_top = -130.0
-offset_right = 140.0
+offset_right = 160.0
 offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 0
 
 [node name="Shader holder" type="TextureRect" parent="UI/Evolution window/MarginContainer"]
 material = SubResource("ShaderMaterial_66bvi")
