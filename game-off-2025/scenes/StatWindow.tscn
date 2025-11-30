@@ -26,9 +26,8 @@ font = ExtResource("6_8n4j0")
 font = ExtResource("6_8n4j0")
 
 [node name="Stat window" type="MarginContainer" node_paths=PackedStringArray("beacon_health_bar", "round_number_label", "current_tile_label", "max_tile_label")]
-offset_right = 142.0
+offset_right = 107.0
 offset_bottom = 56.0
-theme_override_constants/margin_left = 5
 script = ExtResource("1_f1f40")
 beacon_health_bar = NodePath("VBoxContainer/Health bar container/Beacon health bar")
 round_number_label = NodePath("VBoxContainer/Round number container/Number")
@@ -62,7 +61,7 @@ theme_override_constants/separation = 0
 
 [node name="Round" type="Label" parent="VBoxContainer/Round number container"]
 layout_mode = 2
-text = "Round : "
+text = "Day: "
 label_settings = SubResource("LabelSettings_gfly3")
 
 [node name="Number" type="Label" parent="VBoxContainer/Round number container"]
@@ -75,7 +74,7 @@ layout_mode = 2
 
 [node name="Tiles" type="Label" parent="VBoxContainer/Tiles remaining container"]
 layout_mode = 2
-text = "Tiles :"
+text = "Tiles:"
 label_settings = SubResource("LabelSettings_8n4j0")
 
 [node name="Current" type="Label" parent="VBoxContainer/Tiles remaining container"]

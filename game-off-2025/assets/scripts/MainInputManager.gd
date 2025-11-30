@@ -44,15 +44,16 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released('select-card-mouse-cancel'):
 			card_selected = false;
 			DragAndDropHandler.instance.cancel_drag();
-	
-	if event.is_action_pressed('generate-card'):
-		TileCardFactory.instance.draw_random_card();
-		
-	if event.is_action_pressed('next-phase'):
-		GameLoop.start_phase(GameLoop.get_next_phase());
-	
+
 	if event.is_action_released('pause-game'):
 		UIUtils.instance.toggle_pause_window();
+	
+	if event.is_action_pressed('debug-generate-card'):
+		TileCardFactory.instance.draw_random_card();
+		
+	if event.is_action_pressed('debug-next-phase'):
+		GameLoop.start_phase(GameLoop.get_next_phase());
+	
 
 func start_selection(event: InputEvent):
 	var init_drag = DragAndDropHandler.instance.on_drag_card_at_slot(keys_to_index[event.keycode]);

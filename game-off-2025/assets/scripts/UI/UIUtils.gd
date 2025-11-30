@@ -12,6 +12,7 @@ static var instance : UIUtils;
 @export var card_slot_transition_duration : float;
 var card_slot_disabled : bool = true;
 @export_group("UI")
+@export var phase_msg: Label;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var pause_window : PauseWindow;
@@ -72,3 +73,16 @@ func on_evolution_discovered(tile_data : CustomTileData):
 
 func toggle_pause_window():
 	pause_window.visible = !pause_window.visible;
+
+func displayPhaseMsg(text: String): 
+		UIUtils.instance.phase_msg.modulate.a = 0;
+		UIUtils.instance.phase_msg.text = "";
+		UIUtils.instance.phase_msg.text = text;
+		
+		var tween = get_tree().create_tween();
+		tween.tween_property(UIUtils.instance.phase_msg, "modulate", Color.WHITE, 2).from(Color(1, 1, 1, 0)).set_ease(Tween.EASE_IN);
+		await tween.finished;
+		
+		await get_tree().create_timer(1.5).timeout
+		UIUtils.instance.phase_msg.modulate.a = 0;
+		UIUtils.instance.phase_msg.text = "";

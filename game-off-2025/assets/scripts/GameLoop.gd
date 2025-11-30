@@ -9,6 +9,10 @@ static var phase_start_sequences = {
 }
 static var current_phase : PHASES = PHASES.SETUP;
 static var round_number : int = 0;
+static var phase_msg = {
+	PHASES.SETUP: "Day {round}",
+	PHASES.PLAY: "Your turn!"
+}
 
 func _ready() -> void:
 	SignalBus.tile_placed.connect(on_tile_placed);
@@ -20,8 +24,10 @@ func start_game():
 static func get_next_phase() -> int:
 	return PHASES.values()[(current_phase + 1) % PHASES.size()];
  
-static func start_phase(phase : PHASES):
+static func start_phase(phase: PHASES):
 	current_phase = phase;
+	if phase in phase_msg:
+		await UIUtils.instance.displayPhaseMsg((phase_msg[phase]).format({ round: str(round_number + 1)}));
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():
@@ -48,3 +54,4 @@ static func resolution_phase():
 func on_tile_placed(tile_amount : int):
 	if tile_amount >= TileDataManager.instance.world_tile_amount:
 		SignalBus.game_won.emit();
+		

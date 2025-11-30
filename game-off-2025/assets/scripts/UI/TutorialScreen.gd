@@ -37,7 +37,7 @@ func text_reveal():
 	return;
 
 func fade_out():
-	tween = get_tree().create_tween();
+	tween = get_tree().create_tween();  
 	tween.tween_property(UI, "modulate", Color(1,1,1,0), fade_out_duration);
 	await tween.finished;
 	return;

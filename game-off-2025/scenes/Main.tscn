@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=63 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -124,6 +124,9 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
+[sub_resource type="LabelSettings" id="LabelSettings_t70y2"]
+font = ExtResource("25_hq6as")
+
 [sub_resource type="LabelSettings" id="LabelSettings_kxyth"]
 font = ExtResource("25_hq6as")
 
@@ -237,7 +240,7 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "death_screen", "win_screen", "pause_window", "evolution_window", "main_menu_buttons", "quit_buttons")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window", "main_menu_buttons", "quit_buttons")]
 layer = 0
 script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
@@ -245,6 +248,7 @@ default_card_slot_modulate = Color(1, 1, 1, 1)
 disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
 disabled_card_slot_margin = -75
 card_slot_transition_duration = 0.2
+phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
 pause_window = NodePath("Pause screen")
@@ -277,6 +281,15 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container"]
+layout_mode = 2
+
+[node name="PhaseMsg" type="Label" parent="UI/Screen container/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_t70y2")
+horizontal_alignment = 1
 
 [node name="Tilemap area" type="MarginContainer" parent="UI/Screen container" node_paths=PackedStringArray("main_tilemap")]
 layout_mode = 2
