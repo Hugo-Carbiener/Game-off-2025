@@ -15,16 +15,13 @@ func on_drop(control_dropped : Control) -> bool:
 	var canContinue = true;
 	
 	if placed_tile:
-		print_debug(TileCardFactory.instance.cards_amount[DragAndDropHandler.instance.dragged_control.card_id])
 		if TileCardFactory.instance.cards_amount[DragAndDropHandler.instance.dragged_control.card_id] == 1:
 			DragAndDropHandler.instance.cancel_drag();
 			canContinue = false;
 		else: 
 			canContinue = true;
-		print_debug('placing card')
 		control_dropped.on_card_used(tile_position);
 	else: 
-		DragAndDropHandler.instance.cancel_drag();
 		canContinue = false;
 	
 	return canContinue;
