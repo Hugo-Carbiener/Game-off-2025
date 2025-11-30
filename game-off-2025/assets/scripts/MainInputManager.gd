@@ -7,21 +7,21 @@ var keys_to_index = {
 	KEY_1: 0,
 	KEY_AMPERSAND : 0,
 	KEY_2: 1,
+	KEY_ASCIITILDE : 1,
 	201 : 1,
 	KEY_3: 2,
 	KEY_NUMBERSIGN : 2,
+	KEY_QUOTEDBL : 2,
 	KEY_4: 3,
 	KEY_APOSTROPHE : 3,
 	KEY_5: 4,
-	KEY_BRACELEFT : 5
+	KEY_BRACELEFT :4
 }
 
 # There are two playing mode: 2 clicks and number key + click
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		print(str(event.as_text_keycode()) + ", " + str(event.keycode) + ", " + str(event.key_label) + ", " + str(event.as_text_physical_keycode()));
 	if event.is_action_released('select-card-mouse'):
 		if card_selected:
 			var shouldContinue = DragAndDropHandler.instance.on_drop_input();
@@ -62,8 +62,8 @@ func _input(event: InputEvent) -> void:
 		GameLoop.start_phase(GameLoop.get_next_phase());
 	
 
-func start_selection(event: InputEvent):
-	var init_drag = DragAndDropHandler.instance.on_drag_card_at_slot(keys_to_index[event.keycode]);
+func start_selection(event: InputEventKey):
+	var init_drag = DragAndDropHandler.instance.on_drag_card_at_slot(keys_to_index[event.physical_keycode]);
 			
 	if init_drag:
 		current_number_keycode = event.keycode;
