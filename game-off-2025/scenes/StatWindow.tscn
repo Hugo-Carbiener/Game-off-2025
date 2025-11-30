@@ -26,10 +26,9 @@ font = ExtResource("6_8n4j0")
 font = ExtResource("6_8n4j0")
 
 [node name="Stat window" type="MarginContainer" node_paths=PackedStringArray("beacon_health_bar", "round_number_label", "current_tile_label", "max_tile_label")]
-offset_right = 101.0
+offset_right = 142.0
 offset_bottom = 56.0
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 30
 script = ExtResource("1_f1f40")
 beacon_health_bar = NodePath("VBoxContainer/Health bar container/Beacon health bar")
 round_number_label = NodePath("VBoxContainer/Round number container/Number")

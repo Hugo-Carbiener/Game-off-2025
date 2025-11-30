@@ -44,7 +44,7 @@
 [ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
 [ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="28_pdwbg"]
-[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
+[ext_resource type="Script" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -313,7 +313,6 @@ theme_override_constants/separation = 0
 script = ExtResource("12_cyh7e")
 
 [node name="Stats area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
-custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
@@ -324,39 +323,46 @@ patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer"]
 layout_mode = 2
 
-[node name="Stat window" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer" instance=ExtResource("9_tgalg")]
+[node name="Stat window" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" instance=ExtResource("9_tgalg")]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 6
 
-[node name="Reroll window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer" node_paths=PackedStringArray("reroll_animation")]
+[node name="Reroll window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" node_paths=PackedStringArray("reroll_animation")]
 layout_mode = 2
 script = ExtResource("18_pdmmw")
 reroll_animation = NodePath("VBoxContainer/MarginContainer/TextureRect")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window"]
 layout_mode = 2
 
-[node name="Separator" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window/VBoxContainer"]
+[node name="Separator" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("24_cmqll")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
 layout_mode = 2
 text = "Reroll card:"
 label_settings = SubResource("LabelSettings_kxyth")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureRect" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/VBoxContainer/Reroll window/VBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
 
