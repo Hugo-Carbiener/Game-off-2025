@@ -12,7 +12,7 @@ func _ready() -> void:
 func damage(damages: int):
 	if health <= 0: return;
 	
-	health -= min(health - damages, Constants.beacon_hp);
+	health = min(health - damages, Constants.beacon_hp);
 	SignalBus.beacon_health_updated.emit(health);
 
 	if health <= 0:
