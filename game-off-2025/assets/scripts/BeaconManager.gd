@@ -1,10 +1,11 @@
 extends Node2D
 class_name BeaconManager
 
-static var health: int = Constants.beacon_hp;
+static var health: int;
 static var instance : BeaconManager;
 
 func _ready() -> void:
+	health = Constants.beacon_hp;
 	SignalBus.beacon_health_updated.emit(health);
 	if instance == null:
 		instance = self;

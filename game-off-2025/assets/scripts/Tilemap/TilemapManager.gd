@@ -6,6 +6,7 @@ var tiles : Dictionary[Vector2i, CustomTileData];
 var terrain_id_by_cell : Dictionary[Vector2i, int];
 
 func _ready() -> void:
+	clear_tilemap();
 	position = get_viewport().get_visible_rect().size * Constants.tilemap_offset;
 	source_id = tile_set.get_source_id(0);
 

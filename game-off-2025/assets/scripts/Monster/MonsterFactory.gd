@@ -25,6 +25,8 @@ enum STATUS {
 }
 
 func _ready() -> void:
+	monsters.clear();
+	breaches.clear();
 	super();
 	if instance == null:
 		instance = self;

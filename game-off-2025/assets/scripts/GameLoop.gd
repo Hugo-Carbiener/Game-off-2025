@@ -7,10 +7,12 @@ static var phase_start_sequences = {
 	PHASES.PLAY : Callable(play_phase),
 	PHASES.RESOLUTION : Callable(resolution_phase)
 }
-static var current_phase : PHASES = PHASES.SETUP;
-static var round_number : int = 0;
+static var current_phase : PHASES;
+static var round_number : int;
 
 func _ready() -> void:
+	current_phase = PHASES.SETUP;
+	round_number = 0;
 	SignalBus.tile_placed.connect(on_tile_placed);
 	get_tree().current_scene.ready.connect(start_game);
 
