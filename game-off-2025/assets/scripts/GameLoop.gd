@@ -42,9 +42,11 @@ static func setup_phase():
 	start_phase(get_next_phase());
 
 static func play_phase():
+	UserSettings.areInputBlocked = false;
 	await UIUtils.instance.toggle_card_slots();
 
 static func resolution_phase():
+	UserSettings.areInputBlocked = true;
 	await UIUtils.instance.toggle_card_slots();
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());

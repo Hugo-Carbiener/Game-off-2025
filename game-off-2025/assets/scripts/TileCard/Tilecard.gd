@@ -6,6 +6,7 @@ const tile_card_evolution_scene: PackedScene = preload("res://scenes/TileCardEvo
 
 var card_id : String;
 var card_color : Color;
+@export_group("Components")
 @export var card_overlay : TextureRect;
 @export var card_count_overlay : TextureRect;
 @export var card_count : Label;
@@ -15,6 +16,9 @@ var card_color : Color;
 @export var card_description : Label;
 @export var card_evolution_title : Label;
 @export var card_evolutions : GridContainer;
+@export_group("Variables")
+@export var hover_offset : int;
+@export var hover_transition_duration : float;
 
 var evolution_frames : Array[TextureRect];
 var evolution_tiles : Array[TextureRect];
@@ -26,15 +30,20 @@ static func create_tile_card(_id : String) -> TileCard:
 	return tile_card;
 
 func setup(_id : String) :
-	SignalBus.cards_amount_updated.connect(update_card_amount);
 	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
 	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	init_signals();
 	init_icons(tile_data);
 	init_evolutions(tile_data);
 	init_color(tile_data.color);
+
+func init_signals():
+	SignalBus.cards_amount_updated.connect(update_card_amount);
+	mouse_entered.connect(on_mouse_entered);
+	mouse_exited.connect(on_mouse_exit);
 
 func init_color(color : Color) :
 	card_color = color;
@@ -135,3 +144,16 @@ func on_card_reroll():
 func update_card_amount():
 	if !TileCardFactory.instance.cards_amount.has(card_id): return;
 	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);
+
+func update_card_margin(margin : int):
+	add_theme_constant_override("margin_bottom", margin);
+
+func on_mouse_entered():
+	if UserSettings.areInputBlocked: return;
+	
+	var tween = get_tree().create_tween();
+	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), hover_offset, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);
+
+func on_mouse_exit():
+	var tween = get_tree().create_tween();
+	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), 0, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);

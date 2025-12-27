@@ -23,6 +23,7 @@ config/icon="uid://o6nlteqh8rve"
 Constants="*res://assets/scripts/Constants.gd"
 SignalBus="*res://assets/scripts/SignalBus.gd"
 AudioUtils="*res://assets/scripts/Audio/AudioUtils.gd"
+UserSettings="*res://assets/scripts/UserSettings.gd"
 
 [debug]
 

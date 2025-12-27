@@ -30,38 +30,43 @@ font_size = 8
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="Tile card" type="TextureRect" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
-offset_right = 80.0
-offset_bottom = 112.0
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_334as")
+card_overlay = NodePath("Tile card/Overlay")
+card_count_overlay = NodePath("Tile card/Card count overlay")
+card_count = NodePath("Tile card/VBoxContainer/Card amount margin/Card amount")
+card_name = NodePath("Tile card/VBoxContainer/Card name margin/Tile card name")
+card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/Tile preview")
+card_icons = NodePath("Tile card/VBoxContainer/Icons margin/HBoxContainer")
+card_description = NodePath("Tile card/VBoxContainer/Description margin/Card description")
+card_evolution_title = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
+card_evolutions = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
+hover_offset = 24
+hover_transition_duration = 0.05
+
+[node name="Tile card" type="TextureRect" parent="."]
+layout_mode = 2
 texture = ExtResource("2_ig78c")
 stretch_mode = 2
-script = ExtResource("1_334as")
-card_overlay = NodePath("Overlay")
-card_count_overlay = NodePath("Card count overlay")
-card_count = NodePath("VBoxContainer/Card amount margin/Card amount")
-card_name = NodePath("VBoxContainer/Card name margin/Tile card name")
-card_sprite = NodePath("VBoxContainer/Tile preview margin/Tile preview")
-card_icons = NodePath("VBoxContainer/Icons margin/HBoxContainer")
-card_description = NodePath("VBoxContainer/Description margin/Card description")
-card_evolution_title = NodePath("VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
-card_evolutions = NodePath("VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
 metadata/Draggable = true
 
-[node name="Overlay" type="TextureRect" parent="."]
+[node name="Overlay" type="TextureRect" parent="Tile card"]
 modulate = Color(0, 0.4682628, 0.8059386, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_7nrqj")
 
-[node name="Card count overlay" type="TextureRect" parent="."]
+[node name="Card count overlay" type="TextureRect" parent="Tile card"]
 modulate = Color(0, 0.46666667, 0.80784315, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("4_yvvng")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Tile card"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,23 +75,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Card amount margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Card amount margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 33
 
-[node name="Card amount" type="Label" parent="VBoxContainer/Card amount margin"]
+[node name="Card amount" type="Label" parent="Tile card/VBoxContainer/Card amount margin"]
 layout_mode = 2
 text = "x2"
 label_settings = SubResource("LabelSettings_yvvng")
 horizontal_alignment = 1
 
-[node name="Card name margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Card name margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/margin_top = 11
 
-[node name="Tile card name" type="Label" parent="VBoxContainer/Card name margin"]
+[node name="Tile card name" type="Label" parent="Tile card/VBoxContainer/Card name margin"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
@@ -94,32 +99,32 @@ text = "Name"
 label_settings = SubResource("LabelSettings_178ey")
 horizontal_alignment = 1
 
-[node name="Tile preview margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Tile preview margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/margin_top = 7
 
-[node name="Tile preview" type="TextureRect" parent="VBoxContainer/Tile preview margin"]
+[node name="Tile preview" type="TextureRect" parent="Tile card/VBoxContainer/Tile preview margin"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_867uw")
 stretch_mode = 3
 
-[node name="Icons margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Icons margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Icons margin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Tile card/VBoxContainer/Icons margin"]
 layout_mode = 2
 alignment = 1
 
-[node name="Description margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Description margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="Card description" type="Label" parent="VBoxContainer/Description margin"]
+[node name="Card description" type="Label" parent="Tile card/VBoxContainer/Description margin"]
 custom_minimum_size = Vector2(68, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -128,25 +133,25 @@ label_settings = SubResource("LabelSettings_nu2q7")
 autowrap_mode = 3
 text_overrun_behavior = 1
 
-[node name="Evolution margin" type="MarginContainer" parent="VBoxContainer"]
+[node name="Evolution margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.53
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Evolution margin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Tile card/VBoxContainer/Evolution margin"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Evolutions" type="Label" parent="VBoxContainer/Evolution margin/VBoxContainer"]
+[node name="Evolutions" type="Label" parent="Tile card/VBoxContainer/Evolution margin/VBoxContainer"]
 layout_mode = 2
 text = "Evolutions"
 label_settings = SubResource("LabelSettings_lqopf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Evolutions container" type="GridContainer" parent="VBoxContainer/Evolution margin/VBoxContainer"]
+[node name="Evolutions container" type="GridContainer" parent="Tile card/VBoxContainer/Evolution margin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 1

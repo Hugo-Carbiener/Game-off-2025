@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ipnfsc8uvj5o"]
+[gd_scene load_steps=62 format=3 uid="uid://ipnfsc8uvj5o"]
 
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="1_ewvwg"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="1_pdmmw"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="24_cmqll"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="26_8cp6k"]
+[ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="26_vua0o"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="27_8b871"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="27_ggakg"]
 [ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="27_tl7n3"]
@@ -306,10 +307,14 @@ theme_override_constants/separation = 0
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
 size_flags_horizontal = 2
+size_flags_vertical = 8
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-texture = ExtResource("18_cyh7e")
+size_flags_vertical = 8
+texture = ExtResource("26_vua0o")
+region_rect = Rect2(0, 31.874634, 80, 48.125366)
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
@@ -317,17 +322,19 @@ patch_margin_bottom = 16
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
 layout_mode = 2
-theme_override_constants/margin_left = 11
-theme_override_constants/margin_right = 11
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
 [node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 0
 script = ExtResource("12_cyh7e")
 
 [node name="Stats area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
 layout_mode = 2

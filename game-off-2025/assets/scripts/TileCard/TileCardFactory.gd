@@ -2,6 +2,7 @@ extends Control
 class_name TileCardFactory
 
 var card_slot_model : PackedScene = preload("res://scenes/CardSlot.tscn");
+var half_card_slot_model : PackedScene = preload("res://scenes/HalfCardSlot.tscn");
 
 static var instance : TileCardFactory;
 # Cards
@@ -29,7 +30,7 @@ func init_UI():
 		return;
 
 	for i in range(Constants.card_slot_amount):
-		var new_card_slot : CardSlot = card_slot_model.instantiate();
+		var new_card_slot : CardSlot = half_card_slot_model.instantiate();
 		new_card_slot.setup(i + 1);
 		add_child(new_card_slot);
 		card_slots.append(new_card_slot);

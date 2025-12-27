@@ -41,6 +41,8 @@ func on_game_lost():
 func on_game_won():
 	win_screen.visible = true
 
+
+
 func main_menu():
 	get_tree().change_scene_to_file(main_menu_scene_path);
 
@@ -73,6 +75,7 @@ func on_evolution_discovered(tile_data : CustomTileData):
 
 func toggle_pause_window():
 	pause_window.visible = !pause_window.visible;
+	UserSettings.areInputBlocked = pause_window.visible;
 
 func displayPhaseMsg(text: String): 
 		UIUtils.instance.phase_msg.modulate.a = 0;

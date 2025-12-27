@@ -22,6 +22,8 @@ var keys_to_index = {
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
+	if UserSettings.areInputBlocked : return;
+	
 	if event.is_action_released('select-card-mouse'):
 		if card_selected:
 			var shouldContinue = DragAndDropHandler.instance.on_drop_input();
@@ -63,6 +65,7 @@ func _input(event: InputEvent) -> void:
 	
 
 func start_selection(event: InputEventKey):
+	if UserSettings.areInputBlocked: return;
 	var init_drag = DragAndDropHandler.instance.on_drag_card_at_slot(keys_to_index[event.physical_keycode]);
 			
 	if init_drag:
