@@ -150,10 +150,16 @@ func update_card_margin(margin : int):
 
 func on_mouse_entered():
 	if UserSettings.areInputBlocked: return;
+	if !TileDataManager.instance.tile_dictionnary[card_id].is_playable: return;
 	
+	var card_slot = TileCardFactory.instance.slots_per_card[card_id];
+	if card_slot == null: return;
+	
+	CardSlotSelector.instance.card_slot_hovered = card_slot;
 	var tween = get_tree().create_tween();
 	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), hover_offset, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);
 
 func on_mouse_exit():
+	CardSlotSelector.instance.card_slot_hovered = -1;
 	var tween = get_tree().create_tween();
 	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), 0, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);
