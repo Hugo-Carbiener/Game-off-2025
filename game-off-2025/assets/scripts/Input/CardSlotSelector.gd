@@ -17,7 +17,9 @@ func on_card_slot_input():
 		unselect_card_slot();
 		return;
 	
-	return interaction_area.interact();
+	var keep_card = interaction_area.interact();
+	if !keep_card : 
+		unselect_card_slot();
 
 func on_card_slot_selection():
 	if !card_is_hovered(): 
@@ -29,17 +31,19 @@ func on_card_slot_selection():
 		return;
 	
 	if card_slot_selected != card_slot_hovered:
+		unselect_card_slot();
 		select_card_slot(card_slot_hovered);
 	else :
 		unselect_card_slot();
 
 func on_card_slot_selection_via_key(card_slot_index : int):
 	if !card_is_selected():
-		select_card_slot(card_slot_hovered);
+		select_card_slot(card_slot_index);
 		return;
-	
+
 	if card_slot_selected != card_slot_index:
-		select_card_slot(card_slot_hovered);
+		unselect_card_slot();
+		select_card_slot(card_slot_index);
 	else :
 		unselect_card_slot();
 
@@ -49,8 +53,11 @@ func select_card_slot(card_slot_index : int):
 	card_slot_selected = card_slot_index;
 	
 	var card_selected = get_selected_card();
-	if card_selected == null: return;
+	if card_selected == null: 
+		card_slot_selected = -1;
+		return;
 	
+	card_selected.on_selection();
 	cursor_preview = card_selected.card_sprite.duplicate();
 	cursor_preview_anchor_offset = Vector2(card_selected.card_sprite.size.x/2, card_selected.card_sprite.global_position.y - card_selected.global_position.y);
 	cursor_preview.position = get_local_mouse_position();
@@ -59,13 +66,24 @@ func select_card_slot(card_slot_index : int):
 func unselect_card_slot():
 	if !card_is_selected(): return;
 	
+	var selected_card = get_selected_card();
+	if selected_card == null : return null;
+	
 	card_slot_selected = -1;
+	selected_card.on_unselection();
 	cursor_preview.queue_free();
 
 func get_selected_card() -> TileCard:
 	if !card_is_selected() : return null;
 	
-	return TileCardFactory.instance.cards[TileCardFactory.instance.slots_per_card.find_key(card_slot_selected)];
+	var card_id = TileCardFactory.instance.slots_per_card.find_key(card_slot_selected);
+	if card_id == null : return null;
+	return TileCardFactory.instance.cards[card_id];
+
+func get_hovered_card() -> TileCard:
+	if !card_is_hovered() : return null;
+	
+	return TileCardFactory.instance.cards[TileCardFactory.instance.slots_per_card.find_key(card_slot_hovered)];
 
 func card_is_selected() -> bool:
 	return card_slot_selected != -1 and card_slot_selected < Constants.card_slot_amount;

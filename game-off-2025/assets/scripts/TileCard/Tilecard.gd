@@ -18,7 +18,8 @@ var card_color : Color;
 @export var card_evolutions : GridContainer;
 @export_group("Variables")
 @export var hover_offset : int;
-@export var hover_transition_duration : float;
+@export var selection_offset : int;
+@export var transition_duration : float;
 
 var evolution_frames : Array[TextureRect];
 var evolution_tiles : Array[TextureRect];
@@ -148,18 +149,42 @@ func update_card_amount():
 func update_card_margin(margin : int):
 	add_theme_constant_override("margin_bottom", margin);
 
+func transition_card_margin():
+	var tween = get_tree().create_tween();
+	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), get_current_margin(), transition_duration).set_ease(Tween.EASE_IN_OUT);
+
+func get_current_margin() -> int:
+	if card_is_selected():
+		return selection_offset;
+	if card_is_hovered():
+		return hover_offset;
+	return 0;
+
 func on_mouse_entered():
 	if UserSettings.areInputBlocked: return;
+	if card_is_selected(): return;
 	if !TileDataManager.instance.tile_dictionnary[card_id].is_playable: return;
 	
 	var card_slot = TileCardFactory.instance.slots_per_card[card_id];
 	if card_slot == null: return;
 	
 	CardSlotSelector.instance.card_slot_hovered = card_slot;
-	var tween = get_tree().create_tween();
-	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), hover_offset, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);
+	transition_card_margin();
 
 func on_mouse_exit():
+	if card_is_selected(): return;
+
 	CardSlotSelector.instance.card_slot_hovered = -1;
-	var tween = get_tree().create_tween();
-	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), 0, hover_transition_duration).set_ease(Tween.EASE_IN_OUT);
+	transition_card_margin();
+
+func on_selection():
+	transition_card_margin();
+
+func on_unselection():
+	transition_card_margin();
+
+func card_is_selected() -> bool:
+	return CardSlotSelector.instance.get_selected_card() == self;
+
+func card_is_hovered() -> bool:
+	return CardSlotSelector.instance.get_hovered_card() == self;

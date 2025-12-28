@@ -43,8 +43,9 @@ card_icons = NodePath("Tile card/VBoxContainer/Icons margin/HBoxContainer")
 card_description = NodePath("Tile card/VBoxContainer/Description margin/Card description")
 card_evolution_title = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
 card_evolutions = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
-hover_offset = 24
-hover_transition_duration = 0.05
+hover_offset = 5
+selection_offset = 30
+transition_duration = 0.05
 
 [node name="Tile card" type="TextureRect" parent="."]
 layout_mode = 2
