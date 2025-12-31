@@ -1,11 +1,25 @@
-[gd_scene load_steps=12 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=17 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="4_eq3wv"]
+[ext_resource type="Texture2D" uid="uid://dkcxv38sgq7dq" path="res://assets/sprites/UI_card_background_border.png" id="4_ttman"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
+[ext_resource type="Texture2D" uid="uid://bqa4poxen4or5" path="res://assets/sprites/shader resources/shader_pattern_middle_gradient.png" id="5_tysvy"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="6_uila8"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="11_eq3wv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ga2n"]
+shader = ExtResource("4_eq3wv")
+shader_parameter/main_tex = ExtResource("5_tysvy")
+shader_parameter/noise_tex = ExtResource("6_uila8")
+shader_parameter/time_scale = 5.0
+shader_parameter/center_offset = Vector2(0, 0)
+shader_parameter/noise_scale = 0.22000001045
+shader_parameter/width_scale = 0.0
+shader_parameter/rotation_coef = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_yvvng"]
 font = ExtResource("11_eq3wv")
@@ -30,12 +44,13 @@ font_size = 8
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_334as")
 card_overlay = NodePath("Tile card/Overlay")
 card_count_overlay = NodePath("Tile card/Card count overlay")
+card_border = NodePath("Tile card/Border")
 card_count = NodePath("Tile card/VBoxContainer/Card amount margin/Card amount")
 card_name = NodePath("Tile card/VBoxContainer/Card name margin/Tile card name")
 card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/Tile preview")
@@ -59,6 +74,14 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_7nrqj")
+
+[node name="Border" type="TextureRect" parent="Tile card"]
+modulate = Color(0, 0.46666667, 0.80784315, 1)
+material = SubResource("ShaderMaterial_8ga2n")
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 144.0
+texture = ExtResource("4_ttman")
 
 [node name="Card count overlay" type="TextureRect" parent="Tile card"]
 modulate = Color(0, 0.46666667, 0.80784315, 1)
