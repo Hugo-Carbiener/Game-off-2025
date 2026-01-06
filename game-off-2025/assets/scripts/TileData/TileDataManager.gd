@@ -100,6 +100,7 @@ func get_random_tile_data(only_playable_tiles : bool) -> CustomTileData:
 func learn_evolution(tile_data : CustomTileData):
 	if known_evolution.has(tile_data.id): return;
 	
+	CardSlotSelector.instance.unselect_card_slot();
 	known_evolution.append(tile_data.id);
 	TileCardFactory.instance.update_tile_card_evolutions();
 	UIUtils.instance.on_evolution_discovered(tile_data);

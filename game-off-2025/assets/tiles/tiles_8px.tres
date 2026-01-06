@@ -211,6 +211,11 @@ use_texture_padding = false
 4:0/0/custom_data_1 = "Beacon"
 4:0/0/custom_data_2 = "none"
 4:0/0/custom_data_3 = "none"
+10:0/0 = 0
+10:0/0/custom_data_0 = "valid-cell"
+10:0/0/custom_data_1 = "valid cell"
+10:0/0/custom_data_2 = "none"
+10:0/0/custom_data_3 = "none"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4eq8v"]
 texture = ExtResource("2_6t64i")

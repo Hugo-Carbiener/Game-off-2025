@@ -44,6 +44,15 @@ func is_valid_cell(coordinates : Vector2) -> bool:
 	
 	return has_neighbor;
 
+func get_valid_cells() -> Array[Vector2i] :
+	var result : Array[Vector2i];
+	for cell in get_used_cells():
+		for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
+			var neighbor_coordinates = cell + neighbor_offset;
+			if is_valid_cell(neighbor_coordinates):
+				result.append(neighbor_coordinates);
+	return result;
+
 func init_world():
 	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
 	beacon_sprite.position = map_to_local(Vector2i.ZERO);

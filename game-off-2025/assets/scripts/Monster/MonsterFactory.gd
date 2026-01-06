@@ -1,20 +1,23 @@
 extends TilemapManager
 class_name MonsterFactory
 
+static var monsters : Dictionary[Vector2i, Monster];
+static var breaches : Dictionary[Vector2i, Breach];
+static var instance : MonsterFactory;
+
+const monster_info_model : PackedScene = preload("res://scenes/MonsterInfo.tscn");
+
 @export_group("Breaches variables")
 @export var breach_tiles_per_maturity : Dictionary[int, String];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
 @export var breach_animated_sprite : AnimatedSprite2D;
-static var monsters : Dictionary[Vector2i, Monster];
-static var breaches : Dictionary[Vector2i, Breach];
-static var instance : MonsterFactory;
 @export_group("Monster path variables")
 @export var monster_movement_duration : float;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
 @export_group("Monster info variables")
 @export var monster_info_pool : Control;
-const monster_info_model : PackedScene = preload("res://scenes/MonsterInfo.tscn");
+
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
 ## monster status
@@ -174,24 +177,12 @@ func check_for_enemy_hover(event : InputEvent):
 	
 	var cell = local_to_map(get_local_mouse_position());
 	if cell != last_tile_hovered: 
-		if has_tile_at(cell):
-			on_enemy_hover_in(cell);
+		if has_tile_at(cell) and MonsterFactory.monsters.has(cell):
+			IndicationTilemap.instance.on_enemy_hover_in(cell, last_tile_hovered);
+			last_tile_hovered = cell;
 		elif last_tile_hovered != Vector2i.ZERO:
-			on_enemy_hover_out();
-
-func on_enemy_hover_in(cell: Vector2i):
-	if last_tile_hovered != cell:
-		indicator_tilemap.clear_tilemap();
-	last_tile_hovered = cell;
-	var monster = monsters.get(cell);
-	if monster == null: return;
-	
-	for trajectory_point in monster.trajectory:
-		indicator_tilemap.place_tile(trajectory_point, TileDataManager.instance.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
-
-func on_enemy_hover_out():
-	last_tile_hovered = Vector2i.ZERO;
-	indicator_tilemap.clear_tilemap();
+			IndicationTilemap.instance.on_enemy_hover_out();
+			last_tile_hovered = Vector2i.ZERO;
 
 func get_free_monster_info_model():
 	for monster_info in monster_info_pool.get_children():
