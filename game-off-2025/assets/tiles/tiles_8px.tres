@@ -52,8 +52,8 @@ use_texture_padding = false
 "res://assets/resources/give_status_poison.tres": "OTE"
 }
 3:1/0 = 0
-3:1/0/custom_data_0 = "fields"
-3:1/0/custom_data_1 = "Fields"
+3:1/0/custom_data_0 = "field"
+3:1/0/custom_data_1 = "Field"
 3:1/0/custom_data_2 = "medium"
 3:1/0/custom_data_3 = "none"
 3:1/0/custom_data_4 = "Sustains its neighbors"

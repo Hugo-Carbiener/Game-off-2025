@@ -15,6 +15,8 @@ enum EFFECT {
 @export_group("Heal variables")
 @export var heal : int;
 @export_group("Effect variables")
+@export var title : String;
+@export var description : String;
 @export var icons_paths : Array[String];
 var icons : Array[Resource];
 @export var effect : EFFECT:

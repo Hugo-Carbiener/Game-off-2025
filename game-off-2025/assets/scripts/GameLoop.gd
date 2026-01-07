@@ -25,7 +25,7 @@ static func get_next_phase() -> int:
 static func start_phase(phase: PHASES):
 	current_phase = phase;
 	if phase != PHASES.RESOLUTION:
-		await UIUtils.instance.displayPhaseMsg( "Day " + str(round_number + 1) if phase == PHASES.SETUP else "Your turn!");
+		await GameUI.instance.displayPhaseMsg( "Day " + str(round_number + 1) if phase == PHASES.SETUP else "Your turn!");
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():
@@ -43,11 +43,11 @@ static func setup_phase():
 
 static func play_phase():
 	UserSettings.areInputBlocked = false;
-	await UIUtils.instance.toggle_card_slots();
+	await GameUI.instance.toggle_card_slots();
 
 static func resolution_phase():
 	UserSettings.areInputBlocked = true;
-	await UIUtils.instance.toggle_card_slots();
+	await GameUI.instance.toggle_card_slots();
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
 

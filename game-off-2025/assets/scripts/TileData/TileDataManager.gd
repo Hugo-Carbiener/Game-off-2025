@@ -103,4 +103,4 @@ func learn_evolution(tile_data : CustomTileData):
 	CardSlotSelector.instance.unselect_card_slot();
 	known_evolution.append(tile_data.id);
 	TileCardFactory.instance.update_tile_card_evolutions();
-	UIUtils.instance.on_evolution_discovered(tile_data);
+	GameUI.instance.on_evolution_discovered(tile_data);

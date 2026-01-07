@@ -1,8 +1,7 @@
 extends Control
 class_name TileCard
 
-const tile_card_scene: PackedScene = preload("res://scenes/TileCard.tscn");
-const tile_card_evolution_scene: PackedScene = preload("res://scenes/TileCardEvolution.tscn");
+const tile_card_scene: PackedScene = preload("res://scenes/components/TileCard.tscn");
 
 var card_id : String;
 var card_color : Color;
@@ -16,23 +15,27 @@ var card_color : Color;
 @export var card_icons : HBoxContainer;
 @export var card_description : Label;
 @export var card_evolution_title : Label;
-@export var card_evolutions : GridContainer;
+@export var tile_card_evolution_container : GridContainer;
 @export_group("Variables")
 @export var hover_offset : int;
 @export var selection_offset : int;
 @export var transition_duration : float;
 
-var evolution_frames : Array[TextureRect];
-var evolution_tiles : Array[TextureRect];
+var tile_card_evolutions : Array[TileCardEvolution];
 var card_tile_sprite_atlas_coordinates : Vector2i;
 
-static func create_tile_card(_id : String) -> TileCard:
+static func create_tile_card(id : String, draggable : bool = true) -> TileCard:
 	var tile_card = tile_card_scene.instantiate();
-	tile_card.setup(_id);
+	tile_card.setup(id, draggable);
 	return tile_card;
 
-func setup(_id : String) :
+func with_clickable_evolutions(on_evolution_click : Callable) -> TileCard:
+	init_evolutions_click(on_evolution_click);
+	return self;
+
+func setup(_id : String, draggable : bool) :
 	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
+	set_meta('Draggable', draggable);
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
@@ -43,6 +46,20 @@ func setup(_id : String) :
 	init_evolutions(tile_data);
 	init_color(tile_data.color);
 
+func reset():
+	for card_icon in card_icons.get_children():
+		card_icon.queue_free();
+	for tile_card_evolution in tile_card_evolutions:
+		tile_card_evolution.queue_free();
+	tile_card_evolutions.clear();
+
+	if SignalBus.cards_amount_updated.is_connected(update_card_amount):
+		SignalBus.cards_amount_updated.disconnect(update_card_amount);
+	if 	mouse_entered.is_connected(on_mouse_entered):
+		mouse_entered.disconnect(on_mouse_entered);
+	if mouse_exited.is_connected(on_mouse_exit):
+		mouse_exited.disconnect(on_mouse_exit);
+
 func init_signals():
 	SignalBus.cards_amount_updated.connect(update_card_amount);
 	mouse_entered.connect(on_mouse_entered);
@@ -52,7 +69,7 @@ func init_color(color : Color) :
 	card_color = color;
 	card_name.label_settings = card_name.label_settings.duplicate();
 	card_name.label_settings.font_color = color;
-	card_description.label_settings = 	card_description.label_settings.duplicate();
+	card_description.label_settings = card_description.label_settings.duplicate();
 	card_description.label_settings.font_color = color;
 	
 	card_overlay.modulate = color;
@@ -63,8 +80,8 @@ func init_color(color : Color) :
 	
 	card_evolution_title.label_settings = card_evolution_title.label_settings.duplicate();
 	card_evolution_title.label_settings.font_color = color;
-	for evolution_frame in evolution_frames:
-		evolution_frame.self_modulate = color;
+	for tile_card_evolution in tile_card_evolutions:
+		tile_card_evolution.setup_color(color);
 
 func init_icons(tile_data : CustomTileData) :
 	var tile_damage_key = TileDataManager.tile_damages.find_key(tile_data.damage);
@@ -90,24 +107,20 @@ func init_evolutions(tile_data : CustomTileData):
 		card_evolution_title.visible = false;
 		return;
 	for evolution in tile_data.evolutions:
-		var card_evolution = tile_card_evolution_scene.instantiate();
-		var frame = card_evolution.get_child(0);
-		var tile = frame.get_child(0);
-		tile.texture = tile.texture.duplicate();
-		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution] if TileDataManager.instance.known_evolution.has(evolution) else TileDataManager.instance.tile_dictionnary["unknown"];
-		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
-		evolution_frames.append(frame);
-		evolution_tiles.append(tile);
-		card_evolutions.add_child(card_evolution);
-
-func update_evolutions(tile_data : CustomTileData):
-	for evolution_index in tile_data.evolutions.size():
-		var evolution = tile_data.evolutions[evolution_index];
-		if !TileDataManager.instance.known_evolution.has(evolution): continue;
-		
-		var tile = evolution_tiles[evolution_index];
 		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution];
-		tile.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+		if evolution_tile_data == null: return;
+		
+		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(evolution_tile_data);
+		tile_card_evolutions.append(tile_card_evolution);
+		tile_card_evolution_container.add_child(tile_card_evolution);
+
+func init_evolutions_click(on_click : Callable):
+	for tile_card_evolution in tile_card_evolutions:
+		tile_card_evolution.init_buttons(on_click);
+
+func update_evolutions():
+	for tile_card_evolution in tile_card_evolutions:
+		tile_card_evolution.update();
 
 # Called before a card is destroyed
 func on_card_used(tilemap_position : Vector2i):

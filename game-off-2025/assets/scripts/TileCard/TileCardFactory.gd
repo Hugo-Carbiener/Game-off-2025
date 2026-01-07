@@ -1,8 +1,8 @@
 extends Control
 class_name TileCardFactory
 
-var card_slot_model : PackedScene = preload("res://scenes/CardSlot.tscn");
-var half_card_slot_model : PackedScene = preload("res://scenes/HalfCardSlot.tscn");
+var card_slot_model : PackedScene = preload("res://scenes/components/CardSlot.tscn");
+var half_card_slot_model : PackedScene = preload("res://scenes/components/HalfCardSlot.tscn");
 
 static var instance : TileCardFactory;
 # Cards
@@ -90,4 +90,4 @@ func draw_hand():
 
 func update_tile_card_evolutions():
 	for tile_card in cards.values():
-		tile_card.update_evolutions(TileDataManager.instance.tile_dictionnary[tile_card.card_id]);
+		tile_card.update_evolutions();

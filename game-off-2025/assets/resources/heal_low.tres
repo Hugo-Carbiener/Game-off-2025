@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_dw5sr")
 heal = 1
+title = "Heal"
+description = "Apply a low heal on the beacon"
 icons_paths = Array[String](["res://assets/sprites/UI_card_icon_heal.png"])
 effect = 2
 metadata/_custom_type_script = "uid://dop7as4nabpyj"

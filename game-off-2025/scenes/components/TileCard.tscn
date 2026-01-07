@@ -44,7 +44,7 @@ font_size = 8
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "card_evolutions")]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "tile_card_evolution_container")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_334as")
@@ -57,7 +57,7 @@ card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/Tile preview
 card_icons = NodePath("Tile card/VBoxContainer/Icons margin/HBoxContainer")
 card_description = NodePath("Tile card/VBoxContainer/Description margin/Card description")
 card_evolution_title = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
-card_evolutions = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
+tile_card_evolution_container = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
 hover_offset = 5
 selection_offset = 30
 transition_duration = 0.05
@@ -161,8 +161,8 @@ text_overrun_behavior = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.53
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tile card/VBoxContainer/Evolution margin"]
 layout_mode = 2
@@ -178,6 +178,6 @@ vertical_alignment = 1
 [node name="Evolutions container" type="GridContainer" parent="Tile card/VBoxContainer/Evolution margin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/h_separation = 1
-theme_override_constants/v_separation = 1
-columns = 4
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3

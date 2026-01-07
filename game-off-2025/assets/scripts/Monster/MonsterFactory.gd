@@ -5,7 +5,7 @@ static var monsters : Dictionary[Vector2i, Monster];
 static var breaches : Dictionary[Vector2i, Breach];
 static var instance : MonsterFactory;
 
-const monster_info_model : PackedScene = preload("res://scenes/MonsterInfo.tscn");
+const monster_info_model : PackedScene = preload("res://scenes/components/MonsterInfo.tscn");
 
 @export_group("Breaches variables")
 @export var breach_tiles_per_maturity : Dictionary[int, String];
@@ -57,7 +57,6 @@ func breach_transition(tilemap_position : Vector2i, breach_maturity : int):
 	tween.tween_callback(func(): breach_animated_sprite.animation = breach_intro_animation_per_maturity[breach_maturity]);
 	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.breach_transition_duration);
 	tween.tween_callback(func(): breach_animated_sprite.visible = false);
-	print("Tweening breach at " + str(tilemap_position));
 	await tween.finished;
 	return;
 

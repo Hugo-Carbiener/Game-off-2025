@@ -11,7 +11,7 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 
-func on_card_slot_input():
+func on_card_interaction_input():
 	var interaction_area = get_interaction_area_on_cursor();
 	if interaction_area == null:
 		unselect_card_slot();
