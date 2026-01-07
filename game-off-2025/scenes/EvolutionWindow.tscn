@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvolln6vpyvh1"]
+
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_4i5b3"]
+[ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="2_8bwl7"]
+[ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="3_7b7eo"]
+[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="4_727jj"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="5_jddul"]
+[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="6_5ocqo"]
+[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="7_kygy5"]
+[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="8_4ofdr"]
+[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="9_pe3gt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66bvi"]
+shader = ExtResource("3_7b7eo")
+shader_parameter/glow_color = Vector4(0.07, 0.247, 0.114, 1)
+shader_parameter/glow_radius = 1.6949999999999998
+shader_parameter/glow_strength = 1.0
+shader_parameter/pulse_speed = 2.2
+shader_parameter/twinkle_density = 13.895
+shader_parameter/twinkle_speed = 0.29
+shader_parameter/twinkle_opacity = 0.3600000171
+
+[sub_resource type="LabelSettings" id="LabelSettings_frms8"]
+font = ExtResource("5_jddul")
+outline_size = 4
+outline_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_66bvi"]
+font = ExtResource("5_jddul")
+shadow_size = 0
+
+[node name="Evolution window" type="TextureRect" node_paths=PackedStringArray("card_container", "close_button", "shader_holder")]
+self_modulate = Color(0, 0, 0, 0.78431374)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4i5b3")
+script = ExtResource("2_8bwl7")
+card_container = NodePath("MarginContainer/NinePatchRect/VBoxContainer/Card container")
+close_button = NodePath("MarginContainer/NinePatchRect/VBoxContainer/Close button")
+shader_holder = NodePath("MarginContainer/Shader holder")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -130.0
+offset_right = 160.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+
+[node name="Shader holder" type="TextureRect" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_66bvi")
+layout_mode = 2
+texture = ExtResource("1_4i5b3")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_727jj")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "New evolution discovered !"
+label_settings = SubResource("LabelSettings_frms8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Card container" type="MarginContainer" parent="MarginContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Tile card" parent="MarginContainer/NinePatchRect/VBoxContainer/Card container" instance=ExtResource("6_5ocqo")]
+layout_mode = 2
+
+[node name="Close button" type="TextureButton" parent="MarginContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_kygy5")
+texture_pressed = ExtResource("8_4ofdr")
+texture_hover = ExtResource("9_pe3gt")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/VBoxContainer/Close button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Got it"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1

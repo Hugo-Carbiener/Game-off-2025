@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://v1xgibbdcoov"]
+
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_o4o8p"]
+[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="2_5lo4k"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_shkow"]
+[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_2av06"]
+[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="5_7k4w0"]
+[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="6_j3k3a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_frms8"]
+font = ExtResource("3_shkow")
+outline_size = 4
+outline_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_66bvi"]
+font = ExtResource("3_shkow")
+shadow_size = 0
+
+[node name="Death Screen" type="TextureRect"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.39215687)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_o4o8p")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -68.185
+offset_right = 80.0
+offset_bottom = 31.815125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5lo4k")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "You loose ..."
+label_settings = SubResource("LabelSettings_frms8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Main menu" type="TextureButton" parent="NinePatchRect/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_2av06")
+texture_pressed = ExtResource("5_7k4w0")
+texture_hover = ExtResource("6_j3k3a")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/VBoxContainer/MarginContainer/Main menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main menu"
+label_settings = SubResource("LabelSettings_66bvi")
+horizontal_alignment = 1
+vertical_alignment = 1

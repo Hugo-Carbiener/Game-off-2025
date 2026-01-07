@@ -32,20 +32,21 @@
 [ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_5grtr"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="18_cyh7e"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/Input/RerollInteractionArea.gd" id="18_pdmmw"]
-[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="22_6rsph"]
-[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="23_daolu"]
 [ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="24_cmqll"]
-[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="24_tl7n3"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="26_8cp6k"]
 [ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="26_vua0o"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="27_8b871"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="27_ggakg"]
 [ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="27_tl7n3"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/CardHandInteractionArea.gd" id="28_8gny2"]
-[ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="28_66bvi"]
 [ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="28_pdwbg"]
-[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/PauseWindow.gd" id="34_t70y2"]
+[ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/PauseScreen.tscn" id="37_s3wmy"]
+[ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/WinScreen.tscn" id="38_gdcyb"]
+[ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/DeathScreen.tscn" id="39_oa6sj"]
+[ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/EvolutionWindow.tscn" id="40_0f1tp"]
+[ext_resource type="Texture2D" uid="uid://c6n0sl523pkd0" path="res://assets/sprites/UI_card_icon_low_damage.png" id="42_0qimb"]
+[ext_resource type="Texture2D" uid="uid://dwkdns7k0syh8" path="res://assets/sprites/UI_card_icon_low_fatigue.png" id="43_in2eo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -141,25 +142,13 @@ frame_1/duration = 1.0
 frame_2/texture = ExtResource("28_pdwbg")
 frame_2/duration = 1.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_frms8"]
+[sub_resource type="LabelSettings" id="LabelSettings_dyyw8"]
 font = ExtResource("27_ggakg")
-outline_size = 4
-outline_color = Color(0.13725491, 0.050980393, 0.13725491, 1)
-shadow_size = 0
+font_size = 8
 
-[sub_resource type="LabelSettings" id="LabelSettings_66bvi"]
+[sub_resource type="LabelSettings" id="LabelSettings_gjpm3"]
 font = ExtResource("27_ggakg")
-shadow_size = 0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_66bvi"]
-shader = ExtResource("28_66bvi")
-shader_parameter/glow_color = Vector4(0.07, 0.247, 0.114, 1)
-shader_parameter/glow_radius = 1.6949999999999998
-shader_parameter/glow_strength = 1.0
-shader_parameter/pulse_speed = 2.2
-shader_parameter/twinkle_density = 13.895
-shader_parameter/twinkle_speed = 0.29
-shader_parameter/twinkle_opacity = 0.3600000171
+font_size = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
 shader = ExtResource("1_pdmmw")
@@ -254,12 +243,12 @@ disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
 disabled_card_slot_margin = -75
 card_slot_transition_duration = 0.2
 phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
-death_screen = NodePath("Death Screen")
-win_screen = NodePath("Win screen")
-pause_window = NodePath("Pause screen")
-evolution_window = NodePath("Evolution window")
-main_menu_buttons = [NodePath("Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"), NodePath("Pause screen/NinePatchRect/VBoxContainer/Main menu button container/Main menu")]
-quit_buttons = [NodePath("Pause screen/NinePatchRect/VBoxContainer/Quit button container/quit")]
+death_screen = NodePath("")
+win_screen = NodePath("")
+pause_window = NodePath("")
+evolution_window = NodePath("")
+main_menu_buttons = [NodePath(""), NodePath(""), NodePath("")]
+quit_buttons = [NodePath("")]
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -394,373 +383,112 @@ size_flags_horizontal = 4
 layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
 
-[node name="Pause screen" type="TextureRect" parent="UI" node_paths=PackedStringArray("close_button")]
+[node name="Pause screen" parent="UI" instance=ExtResource("37_s3wmy")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Win screen" parent="UI" instance=ExtResource("38_gdcyb")]
+
+[node name="Death Screen" parent="UI" instance=ExtResource("39_oa6sj")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Evolution window" parent="UI" instance=ExtResource("40_0f1tp")]
 visible = false
-self_modulate = Color(0, 0, 0, 0.39215687)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-texture = ExtResource("14_dppo5")
-script = ExtResource("34_t70y2")
-close_button = NodePath("NinePatchRect/VBoxContainer/Close button container/Continue")
+offset_right = 0.0
+offset_bottom = 0.0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Pause screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = -101.850006
-offset_right = 95.0
-offset_bottom = 101.850006
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("18_cyh7e")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Pause screen/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 14
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "Pause"
-label_settings = SubResource("LabelSettings_frms8")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Close button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="Continue" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Close button container"]
-layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Close button container/Continue"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Continue"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Main menu button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="Main menu" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Main menu button container"]
-layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Main menu button container/Main menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Main menu"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Quit button container" type="MarginContainer" parent="UI/Pause screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="quit" type="TextureButton" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Quit button container"]
-layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Pause screen/NinePatchRect/VBoxContainer/Quit button container/quit"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Quit"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Win screen" type="TextureRect" parent="UI"]
+[node name="Card detail window" type="TextureRect" parent="UI" node_paths=PackedStringArray("card_container", "close_button", "shader_holder")]
 visible = false
-self_modulate = Color(0, 0, 0, 0.39215687)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -60.0
-offset_right = 8.0
-offset_bottom = -44.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 0
-texture = ExtResource("14_dppo5")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Win screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = -75.0
-offset_right = 105.0
-offset_bottom = 75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("18_cyh7e")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Win screen/NinePatchRect"]
-layout_mode = 1
+self_modulate = Color(0, 0, 0, 0.9019608)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 14
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "The beacon is renewed! Congratulations!"
-label_settings = SubResource("LabelSettings_frms8")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Win screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="Main menu" type="TextureButton" parent="UI/Win screen/NinePatchRect/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Win screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Main menu"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Death Screen" type="TextureRect" parent="UI"]
-visible = false
-self_modulate = Color(0, 0, 0, 0.39215687)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-texture = ExtResource("14_dppo5")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Death Screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -68.185
-offset_right = 80.0
-offset_bottom = 31.815125
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("18_cyh7e")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Death Screen/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 14
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "You loose ..."
-label_settings = SubResource("LabelSettings_frms8")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Death Screen/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="Main menu" type="TextureButton" parent="UI/Death Screen/NinePatchRect/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="UI/Death Screen/NinePatchRect/VBoxContainer/MarginContainer/Main menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Main menu"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Evolution window" type="TextureRect" parent="UI" node_paths=PackedStringArray("card_container", "close_button", "shader_holder")]
-visible = false
-self_modulate = Color(0, 0, 0, 0.78431374)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 16.0
-offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_dppo5")
 script = ExtResource("27_tl7n3")
-card_container = NodePath("MarginContainer/NinePatchRect/VBoxContainer/Card container")
-close_button = NodePath("MarginContainer/NinePatchRect/VBoxContainer/Close button")
-shader_holder = NodePath("MarginContainer/Shader holder")
+card_container = NodePath("")
+close_button = NodePath("")
+shader_holder = NodePath("")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Evolution window"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Card detail window"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -130.0
-offset_right = 160.0
-offset_bottom = 130.0
+offset_left = -56.0
+offset_top = -72.0
+offset_right = 56.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 0
 
-[node name="Shader holder" type="TextureRect" parent="UI/Evolution window/MarginContainer"]
-material = SubResource("ShaderMaterial_66bvi")
+[node name="Basic details container" type="MarginContainer" parent="UI/Card detail window/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("14_dppo5")
+theme_override_constants/margin_top = 15
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Evolution window/MarginContainer"]
+[node name="Frame" type="NinePatchRect" parent="UI/Card detail window/HBoxContainer/Basic details container"]
+custom_minimum_size = Vector2(112, 11.66)
 layout_mode = 2
+size_flags_vertical = 0
 texture = ExtResource("18_cyh7e")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+region_rect = Rect2(16, 16, 48, 48)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Evolution window/MarginContainer/NinePatchRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 24.34
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 14
-alignment = 1
 
-[node name="Label" type="Label" parent="UI/Evolution window/MarginContainer/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "New evolution discovered !"
-label_settings = SubResource("LabelSettings_frms8")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Card container" type="MarginContainer" parent="UI/Evolution window/MarginContainer/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Tile card" parent="UI/Evolution window/MarginContainer/NinePatchRect/VBoxContainer/Card container" instance=ExtResource("28_frms8")]
+[node name="Damage line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer"]
 layout_mode = 2
 
-[node name="Close button" type="TextureButton" parent="UI/Evolution window/MarginContainer/NinePatchRect/VBoxContainer"]
+[node name="Damage icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
 layout_mode = 2
-texture_normal = ExtResource("22_6rsph")
-texture_pressed = ExtResource("23_daolu")
-texture_hover = ExtResource("24_tl7n3")
-stretch_mode = 3
+texture = ExtResource("42_0qimb")
 
-[node name="Label" type="Label" parent="UI/Evolution window/MarginContainer/NinePatchRect/VBoxContainer/Close button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Got it"
-label_settings = SubResource("LabelSettings_66bvi")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
+layout_mode = 2
+text = "Tile damage: "
+label_settings = SubResource("LabelSettings_dyyw8")
+
+[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_gjpm3")
+horizontal_alignment = 2
+
+[node name="Fatigue line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer"]
+layout_mode = 2
+
+[node name="Fatigue icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+layout_mode = 2
+texture = ExtResource("43_in2eo")
+
+[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+layout_mode = 2
+text = "Tile slow: "
+label_settings = SubResource("LabelSettings_dyyw8")
+
+[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_gjpm3")
+horizontal_alignment = 2
+
+[node name="Tile card" parent="UI/Card detail window/HBoxContainer" instance=ExtResource("28_frms8")]
+layout_mode = 2
+
+[node name="Effects container" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer"]
+layout_mode = 2
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
