@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx4n4q73n4oix"]
+[gd_scene load_steps=10 format=3 uid="uid://dx4n4q73n4oix"]
 
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_274dy"]
+[ext_resource type="Script" uid="uid://bqnen1bn2avb3" path="res://assets/scripts/UI/Components/DeathScreen.gd" id="2_8cwvy"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="2_tad7g"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_8cwvy"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_fpwgu"]
@@ -17,8 +18,7 @@ shadow_size = 0
 font = ExtResource("3_8cwvy")
 shadow_size = 0
 
-[node name="Win screen" type="TextureRect"]
-visible = false
+[node name="Win screen" type="TextureRect" node_paths=PackedStringArray("main_menu_button")]
 self_modulate = Color(0, 0, 0, 0.39215687)
 anchors_preset = 8
 anchor_left = 0.5
@@ -35,6 +35,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 0
 texture = ExtResource("1_274dy")
+script = ExtResource("2_8cwvy")
+main_menu_button = NodePath("NinePatchRect/VBoxContainer/MarginContainer/Main menu")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1

@@ -21,6 +21,9 @@ var keys_to_index = {
 
 # Save the initial click position if not already in click mode
 func _input(event: InputEvent) -> void:
+	if event.is_action_released('pause-game'):
+		GameUI.instance.toggle_pause_window();
+	
 	if UserSettings.areInputBlocked : return;
 	
 	if event.is_action_released('select-card-mouse'):
@@ -31,9 +34,6 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_released('select-card-mouse-cancel'):
 		CardSlotSelector.instance.unselect_card_slot();
-
-	if event.is_action_released('pause-game'):
-		UIUtils.instance.toggle_pause_window();
 	
 	if event.is_action_pressed('debug-generate-card'):
 		TileCardFactory.instance.draw_random_card();

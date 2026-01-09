@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://bvolln6vpyvh1"]
 
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_4i5b3"]
-[ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="2_8bwl7"]
+[ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/Components/EvolutionWindow.gd" id="2_8bwl7"]
 [ext_resource type="Shader" uid="uid://dyqir37cs7ebl" path="res://assets/shaders/GlowTwinkle.gdshader" id="3_7b7eo"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="4_727jj"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="5_jddul"]
-[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="6_5ocqo"]
+[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/components/TileCard.tscn" id="6_5ocqo"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="7_kygy5"]
 [ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="8_4ofdr"]
 [ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="9_pe3gt"]

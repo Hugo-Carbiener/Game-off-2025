@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://3wsqc25g5gfo"]
+
+[ext_resource type="Script" uid="uid://jywjy6cy07lo" path="res://assets/scripts/UI/Components/EffectTooltip.gd" id="1_rwp0f"]
+[ext_resource type="Texture2D" uid="uid://doga57yq6ys4j" path="res://assets/sprites/UI_card_icon_heal.png" id="2_ftm5n"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_xq6kq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffyvr"]
+font = ExtResource("3_xq6kq")
+
+[sub_resource type="LabelSettings" id="LabelSettings_tpcqc"]
+font = ExtResource("3_xq6kq")
+font_size = 8
+
+[node name="Effect tooltip" type="MarginContainer"]
+custom_minimum_size = Vector2(160, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_rwp0f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Icon container" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 4
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/Icon container"]
+layout_mode = 2
+texture = ExtResource("2_ftm5n")
+stretch_mode = 2
+
+[node name="Texts container" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Texts container"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/Texts container/VBoxContainer"]
+layout_mode = 2
+text = "Heal"
+label_settings = SubResource("LabelSettings_ffyvr")
+
+[node name="Description" type="Label" parent="HBoxContainer/Texts container/VBoxContainer"]
+layout_mode = 2
+text = "Regenerate the beacon "
+label_settings = SubResource("LabelSettings_tpcqc")
+autowrap_mode = 3

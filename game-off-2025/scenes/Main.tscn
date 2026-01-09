@@ -12,14 +12,14 @@
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="6_4gqpi"]
 [ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="6_t70y2"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="7_pdmmw"]
-[ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/StatWindow.tscn" id="9_tgalg"]
+[ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="9_tgalg"]
 [ext_resource type="Texture2D" uid="uid://b85i6xlo841q1" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="10_j64yd"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/Input/TilemapInteractionArea.gd" id="10_l5frf"]
 [ext_resource type="Texture2D" uid="uid://c68d4kq0uchmv" path="res://assets/sprites/animations_small_to_large_breach.png" id="11_cyh7e"]
 [ext_resource type="Script" uid="uid://celoowj4dpbon" path="res://assets/scripts/Input/DragAndDropHandler.gd" id="11_g6wdg"]
 [ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="11_l5frf"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="12_2rfjg"]
-[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/UIUtils.gd" id="12_6rsph"]
+[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/GameUI.gd" id="12_6rsph"]
 [ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="12_8b871"]
 [ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/Tilemap/IndicationTilemap.gd" id="12_8gny2"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="12_cyh7e"]
@@ -37,16 +37,16 @@
 [ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="26_vua0o"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="27_8b871"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="27_ggakg"]
-[ext_resource type="Script" uid="uid://b8ra3koy68ix1" path="res://assets/scripts/UI/EvolutionWindow.gd" id="27_tl7n3"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/CardHandInteractionArea.gd" id="28_8gny2"]
-[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/TileCard.tscn" id="28_frms8"]
+[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/components/TileCard.tscn" id="28_frms8"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="28_pdwbg"]
-[ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/PauseScreen.tscn" id="37_s3wmy"]
-[ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/WinScreen.tscn" id="38_gdcyb"]
-[ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/DeathScreen.tscn" id="39_oa6sj"]
-[ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/EvolutionWindow.tscn" id="40_0f1tp"]
+[ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/components/PauseScreen.tscn" id="37_s3wmy"]
+[ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="38_gdcyb"]
+[ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="39_oa6sj"]
+[ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/components/EvolutionWindow.tscn" id="40_0f1tp"]
 [ext_resource type="Texture2D" uid="uid://c6n0sl523pkd0" path="res://assets/sprites/UI_card_icon_low_damage.png" id="42_0qimb"]
 [ext_resource type="Texture2D" uid="uid://dwkdns7k0syh8" path="res://assets/sprites/UI_card_icon_low_fatigue.png" id="43_in2eo"]
+[ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/components/EffectTooltip.tscn" id="44_s3wmy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("7_pdmmw")
@@ -234,7 +234,7 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window", "main_menu_buttons", "quit_buttons")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window")]
 layer = 0
 script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
@@ -243,12 +243,10 @@ disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
 disabled_card_slot_margin = -75
 card_slot_transition_duration = 0.2
 phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
-death_screen = NodePath("")
-win_screen = NodePath("")
-pause_window = NodePath("")
-evolution_window = NodePath("")
-main_menu_buttons = [NodePath(""), NodePath(""), NodePath("")]
-quit_buttons = [NodePath("")]
+death_screen = NodePath("Death Screen")
+win_screen = NodePath("Win screen")
+pause_window = NodePath("Pause screen")
+evolution_window = NodePath("Evolution window")
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -388,8 +386,10 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="Win screen" parent="UI" instance=ExtResource("38_gdcyb")]
+visible = false
 
 [node name="Death Screen" parent="UI" instance=ExtResource("39_oa6sj")]
+visible = false
 offset_right = 0.0
 offset_bottom = 0.0
 
@@ -398,8 +398,7 @@ visible = false
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="Card detail window" type="TextureRect" parent="UI" node_paths=PackedStringArray("card_container", "close_button", "shader_holder")]
-visible = false
+[node name="Card detail window" type="TextureRect" parent="UI"]
 self_modulate = Color(0, 0, 0, 0.9019608)
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,10 +406,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_dppo5")
-script = ExtResource("27_tl7n3")
-card_container = NodePath("")
-close_button = NodePath("")
-shader_holder = NodePath("")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Card detail window"]
 layout_mode = 1
@@ -428,56 +423,46 @@ grow_vertical = 2
 
 [node name="Basic details container" type="MarginContainer" parent="UI/Card detail window/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_top = 15
 
-[node name="Frame" type="NinePatchRect" parent="UI/Card detail window/HBoxContainer/Basic details container"]
-custom_minimum_size = Vector2(112, 11.66)
-layout_mode = 2
-size_flags_vertical = 0
-texture = ExtResource("18_cyh7e")
-region_rect = Rect2(16, 16, 48, 48)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 24.34
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Damage line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container"]
 layout_mode = 2
 
-[node name="Damage icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
+[node name="Damage line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Damage icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Damage line"]
 layout_mode = 2
 texture = ExtResource("42_0qimb")
 
-[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
+[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Damage line"]
 layout_mode = 2
 text = "Tile damage: "
 label_settings = SubResource("LabelSettings_dyyw8")
 
-[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Damage line"]
+[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Damage line"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 label_settings = SubResource("LabelSettings_gjpm3")
 horizontal_alignment = 2
 
-[node name="Fatigue line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer"]
+[node name="Fatigue line" type="HBoxContainer" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 
-[node name="Fatigue icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+[node name="Fatigue icon" type="TextureRect" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Fatigue line"]
 layout_mode = 2
 texture = ExtResource("43_in2eo")
 
-[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+[node name="Label" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Fatigue line"]
 layout_mode = 2
 text = "Tile slow: "
 label_settings = SubResource("LabelSettings_dyyw8")
 
-[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/Frame/VBoxContainer/Fatigue line"]
+[node name="Damage amount" type="Label" parent="UI/Card detail window/HBoxContainer/Basic details container/VBoxContainer/Fatigue line"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
@@ -487,7 +472,23 @@ horizontal_alignment = 2
 [node name="Tile card" parent="UI/Card detail window/HBoxContainer" instance=ExtResource("28_frms8")]
 layout_mode = 2
 
-[node name="Effects container" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Card detail window/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="Effects container" type="VBoxContainer" parent="UI/Card detail window/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Effect tooltip" parent="UI/Card detail window/HBoxContainer/MarginContainer/Effects container" instance=ExtResource("44_s3wmy")]
+layout_mode = 2
+
+[node name="Effect tooltip2" parent="UI/Card detail window/HBoxContainer/MarginContainer/Effects container" instance=ExtResource("44_s3wmy")]
+layout_mode = 2
+
+[node name="Effect tooltip3" parent="UI/Card detail window/HBoxContainer/MarginContainer/Effects container" instance=ExtResource("44_s3wmy")]
+layout_mode = 2
+
+[node name="Effect tooltip4" parent="UI/Card detail window/HBoxContainer/MarginContainer/Effects container" instance=ExtResource("44_s3wmy")]
 layout_mode = 2
 
 [node name="Background" type="CanvasLayer" parent="."]

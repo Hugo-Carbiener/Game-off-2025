@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://btmpdbhdpo5uj"]
 
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_81276"]
-[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/PauseWindow.gd" id="2_ltr6k"]
+[ext_resource type="Script" uid="uid://dea2xchw0nbdv" path="res://assets/scripts/UI/Components/PauseWindow.gd" id="2_ltr6k"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="3_3mu6v"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="4_j11gb"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="5_gu1d1"]
@@ -18,7 +18,7 @@ shadow_size = 0
 font = ExtResource("4_j11gb")
 shadow_size = 0
 
-[node name="Pause screen" type="TextureRect" node_paths=PackedStringArray("close_button")]
+[node name="Pause screen" type="TextureRect" node_paths=PackedStringArray("close_button", "main_menu_button", "quit_button")]
 visible = false
 self_modulate = Color(0, 0, 0, 0.39215687)
 anchors_preset = 15
@@ -32,6 +32,8 @@ mouse_filter = 0
 texture = ExtResource("1_81276")
 script = ExtResource("2_ltr6k")
 close_button = NodePath("NinePatchRect/VBoxContainer/Close button container/Continue")
+main_menu_button = NodePath("NinePatchRect/VBoxContainer/Main menu button container/Main menu")
+quit_button = NodePath("NinePatchRect/VBoxContainer/Quit button container/quit")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
