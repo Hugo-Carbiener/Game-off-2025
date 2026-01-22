@@ -39,7 +39,7 @@ func setup(_id : String, draggable : bool) :
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
-	card_sprite.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	card_sprite.texture.region = tile_data.get_texture_region();
 	card_border.visible = false;
 	init_signals();
 	init_icons(tile_data);

@@ -105,3 +105,6 @@ func parse_actions(_actions : Dictionary) -> Array[TileAction]:
 		var tile_action = TileAction.new(effect, trigger);
 		action_res.append(tile_action);
 	return action_res;
+
+func get_texture_region() -> Rect2:
+	return Rect2(atlas_texture_coordinates.x, atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);

@@ -3,9 +3,15 @@ extends Node2D
 # UI signals
 signal cards_amount_updated;
 signal reroll_amount_updated;
-signal tile_placed;
+
+# World signals
 signal card_used;
-signal round_started;
+signal tile_placed;
+signal evolution_started;
+signal evolution_finished;
 signal beacon_health_updated;
+
+# Game signals
+signal round_started;
 signal game_won;
 signal game_lost;

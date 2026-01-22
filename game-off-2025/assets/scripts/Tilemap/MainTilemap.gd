@@ -3,6 +3,10 @@ class_name MainTilemap
 
 static var instance : MainTilemap;
 @export var beacon_sprite : Sprite2D;
+@export_group("Evolution transition")
+@export var evolution_transition_duration : float;
+@export var evolution_from_tile_sprite : Sprite2D;
+@export var evolution_to_tile_sprite : Sprite2D;
 
 func _ready() -> void:
 	super();
@@ -22,12 +26,12 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	if breach != null:
 		breach.cover();
 	
-	check_for_evolution(tile_position);
+	await check_for_evolution(tile_position);
 	# update direct neighbors to check for an evolution
 	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
 		if !has_tile_at(tile_position + neighbor_offset): continue;
 		
-		check_for_evolution(tile_position + neighbor_offset);
+		await check_for_evolution(tile_position + neighbor_offset);
 	return true;
 
 func is_valid_cell(coordinates : Vector2) -> bool:
@@ -68,13 +72,40 @@ func check_for_evolution(tile_position : Vector2i):
 			continue;
 		
 		if evolution_tile_data.requirement == null or evolution_tile_data.requirement.is_met(tile_position) :
-			evolve_tile(tile_position, evolution_tile_data);
+			await evolve_tile(tile_position, tile_data, evolution_tile_data);
 			return;
 
-func evolve_tile(tile_position : Vector2i, evolution : CustomTileData):
+func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolution : CustomTileData):
 	clear_tile(tile_position);
+	await evolution_transition(tile_position, current_tile, evolution);
 	TileDataManager.instance.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
+
+func init_evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, to_tile : CustomTileData):
+	evolution_from_tile_sprite.position = map_to_local(tile_position);
+	evolution_from_tile_sprite.texture.region = from_tile.get_texture_region();
+	evolution_from_tile_sprite.visible = true;
+	evolution_from_tile_sprite.modulate = Color(1, 1, 1, 1);
+	evolution_to_tile_sprite.position = map_to_local(tile_position);
+	evolution_to_tile_sprite.texture.region = to_tile.get_texture_region();
+	evolution_to_tile_sprite.visible = true;
+	evolution_to_tile_sprite.modulate = Color(10, 10, 10, 0);
+
+func evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, to_tile : CustomTileData):
+	SignalBus.evolution_started.emit();
+	var tween = get_tree().create_tween();
+	tween.tween_callback(init_evolution_transition.bind(tile_position, from_tile, to_tile));
+	tween.tween_property(evolution_from_tile_sprite, "modulate", Color(10, 10, 10, 1), evolution_transition_duration/3).from(Color(1, 1, 1, 1));
+	tween.set_parallel(true);
+	tween.tween_property(evolution_from_tile_sprite, "modulate", Color(10, 10, 10, 0), evolution_transition_duration/3).from(Color(10, 10, 10, 1));
+	tween.tween_property(evolution_to_tile_sprite, "modulate", Color(10, 10, 10, 1), evolution_transition_duration/3).from(Color(10, 10, 10, 0));
+	tween.set_parallel(false);
+	tween.tween_property(evolution_to_tile_sprite, "modulate", Color(1, 1, 1, 1), evolution_transition_duration/3).from(Color(10,10,10,1));
+	tween.tween_callback(func(): evolution_from_tile_sprite.visible = false);
+	tween.tween_callback(func(): evolution_to_tile_sprite.visible = false);
+	await tween.finished;
+	SignalBus.evolution_finished.emit();
+	return;
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):
 	var tile_data = tiles.get(tilemap_position);

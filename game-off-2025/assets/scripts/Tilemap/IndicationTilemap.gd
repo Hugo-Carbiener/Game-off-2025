@@ -10,7 +10,8 @@ func _ready() -> void:
 	super();
 	if instance == null:
 		instance = self;
-	SignalBus.card_used.connect(on_card_used);
+	SignalBus.card_used.connect(update_valid_cells);
+	SignalBus.evolution_started.connect(reset_valid_cells);
 
 func on_enemy_hover_in(cell: Vector2i, last_tile_hovered : Vector2i):
 	if last_tile_hovered != cell:
@@ -32,15 +33,15 @@ func clear_enemy_indications():
 	for tile in enemy_indications:
 		clear_tile(tile);
 
-func on_card_selection():
+func display_valid_cells():
 	var valid_cells = MainTilemap.instance.get_valid_cells();
 	for valid_cell in valid_cells:
 		place_tile(valid_cell, TileDataManager.instance.tile_dictionnary[VALID_CELL_TILE_KEY]);
 
-func on_card_used(_card_amount : int):
+func update_valid_cells(_card_amount : int = 0):
 	if CardSlotSelector.instance.card_is_selected():
-		clear_tilemap();
-		on_card_selection();
+		reset_valid_cells();
+		display_valid_cells();
 
-func on_card_unselection():
+func reset_valid_cells():
 	clear_tilemap();

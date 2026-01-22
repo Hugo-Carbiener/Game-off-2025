@@ -46,7 +46,7 @@ func reset():
 	for effect_tooltip in effect_tooltip_container.get_children():
 		effect_tooltip.queue_free();
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if visible: pass
 		#if (event is InputEventKey or event is InputEventMouseButton) and event.is_pressed():
 			#GameUI.instance.toggle_card_details();

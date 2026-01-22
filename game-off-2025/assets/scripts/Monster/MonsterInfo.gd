@@ -14,7 +14,7 @@ func init(tile_data : CustomTileData, text : String, icons : Array[Resource]):
 	visible = true;
 	icon_model.visible = true;
 	tile_preview.texture = tile_preview.texture.duplicate();
-	tile_preview.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	tile_preview.texture.region = tile_data.get_texture_region();
 	modulate = tile_data.color;
 	label.label_settings = label.label_settings.duplicate();
 	label.label_settings.font_color = tile_data.color;

@@ -19,7 +19,7 @@ func setup(tile_data : CustomTileData) :
 	tile_id = tile_data.id;
 	evolution_icon.texture = evolution_icon.texture.duplicate();
 	var evolution_tile_data = tile_data if TileDataManager.instance.known_evolution.has(tile_data.id) else TileDataManager.instance.tile_dictionnary["unknown"];
-	evolution_icon.texture.region = Rect2(evolution_tile_data.atlas_texture_coordinates.x, evolution_tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	evolution_icon.texture.region = evolution_tile_data.get_texture_region();
 	frame_button.disabled = true;
 
 func setup_color(color: Color):
@@ -36,4 +36,4 @@ func update():
 	var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
 	if tile_data == null: return;
 	
-	evolution_icon.texture.region = Rect2(tile_data.atlas_texture_coordinates.x, tile_data.atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	evolution_icon.texture.region = tile_data.get_texture_region();
