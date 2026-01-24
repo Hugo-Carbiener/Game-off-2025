@@ -12,6 +12,8 @@ signal evolution_finished;
 signal beacon_health_updated;
 
 # Game signals
-signal round_started;
+signal play_phase_started;
+signal setup_phase_started;
+signal resolution_phase_started;
 signal game_won;
 signal game_lost;

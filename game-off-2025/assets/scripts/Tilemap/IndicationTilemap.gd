@@ -12,6 +12,8 @@ func _ready() -> void:
 		instance = self;
 	SignalBus.card_used.connect(update_valid_cells);
 	SignalBus.evolution_started.connect(reset_valid_cells);
+	SignalBus.evolution_started.connect(reset_valid_cells);
+	SignalBus.resolution_phase_started.connect(reset_valid_cells);
 
 func on_enemy_hover_in(cell: Vector2i, last_tile_hovered : Vector2i):
 	if last_tile_hovered != cell:

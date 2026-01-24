@@ -89,7 +89,6 @@ func init_icons(tile_data : CustomTileData) :
 		var icon = TextureRect.new();
 		icon.texture = Constants.damage_icons[tile_damage_key];
 		card_icons.add_child(icon);
-		card_icons.add_child(icon);
 	if !tile_data.actions.is_empty():
 		for action in tile_data.actions:
 			var effect = action.effect;

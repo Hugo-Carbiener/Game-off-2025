@@ -30,7 +30,7 @@ static func start_phase(phase: PHASES):
 
 static func setup_phase():
 	round_number += 1;
-	SignalBus.round_started.emit(round_number);
+	SignalBus.setup_phase_started.emit(round_number);
 	await MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
 	
@@ -42,11 +42,11 @@ static func setup_phase():
 	start_phase(get_next_phase());
 
 static func play_phase():
-	UserSettings.areInputBlocked = false;
+	SignalBus.play_phase_started.emit();
 	await GameUI.instance.toggle_card_slots();
 
 static func resolution_phase():
-	UserSettings.areInputBlocked = true;
+	SignalBus.resolution_phase_started.emit();
 	await GameUI.instance.toggle_card_slots();
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
