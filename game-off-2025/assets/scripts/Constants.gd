@@ -27,11 +27,6 @@ var damage_icons : Dictionary[String, Resource] = {
 	"medium" = load("res://assets/sprites/UI_card_icon_medium_damage.png"),
 	"high" = load("res://assets/sprites/UI_card_icon_high_damage.png")
 }
-var fatigue_icons : Dictionary[String, Resource] = {
-	"low" = load("res://assets/sprites/UI_card_icon_low_fatigue.png"),
-	"medium" = load("res://assets/sprites/UI_card_icon_medium_fatigue.png"),
-	"high" = load("res://assets/sprites/UI_card_icon_high_fatigue.png")
-}
 
 ## Breaches
 const breaches_spawn_increase_per_round = 1;

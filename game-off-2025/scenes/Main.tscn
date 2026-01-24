@@ -437,7 +437,7 @@ visible = false
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="Card detail window" type="TextureRect" parent="UI" node_paths=PackedStringArray("damage_amount_label", "slow_amount_label", "return_button_label", "tile_card_container", "effect_tooltip_container", "back_button")]
+[node name="Card detail window" type="TextureRect" parent="UI" node_paths=PackedStringArray("damage_amount_label", "return_button_label", "tile_card_container", "effect_tooltip_container", "back_button")]
 visible = false
 self_modulate = Color(0, 0, 0, 0.9019608)
 anchors_preset = 15
@@ -448,7 +448,6 @@ grow_vertical = 2
 texture = ExtResource("14_dppo5")
 script = ExtResource("41_gdcyb")
 damage_amount_label = NodePath("HBoxContainer/Basic details container/VBoxContainer/Damage line/Damage amount")
-slow_amount_label = NodePath("HBoxContainer/Basic details container/VBoxContainer/Fatigue line/Damage amount")
 return_button_label = NodePath("HBoxContainer/Basic details container/VBoxContainer/Return text")
 tile_card_container = NodePath("HBoxContainer/Tilecard container")
 effect_tooltip_container = NodePath("HBoxContainer/MarginContainer/Effects container")

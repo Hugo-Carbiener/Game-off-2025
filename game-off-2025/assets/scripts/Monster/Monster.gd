@@ -43,10 +43,6 @@ func is_dead() -> bool:
 func is_at_destination() -> bool:
 	return tilemap_position == Vector2i.ZERO;
 
-func is_under_fatigue() -> bool:
-	if !MainTilemap.instance.has_tile_at(tilemap_position): return false;
-	return turns_stayed_on_tile < MainTilemap.instance.tiles[tilemap_position].fatigue
-
 func get_next_position() -> Vector2i:
 	var trajectory_idx = trajectory.find(tilemap_position);
 	trajectory_idx = min(trajectory_idx, trajectory.size()-2);

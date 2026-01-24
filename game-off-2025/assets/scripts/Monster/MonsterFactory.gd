@@ -105,9 +105,6 @@ func on_resolution():
 			monster_list.remove_at(monster_idx);
 			monster_count = monster_list.size();
 			continue;
-		if monster.is_under_fatigue() or monsters.has(to):
-			monster.on_stay();
-			continue;
 		var tween = get_tree().create_tween();
 		tween.tween_callback(func(): monster.on_move_start(self));
 		tween.tween_callback(func(): on_move_start(monster, from));

@@ -3,7 +3,7 @@ class_name CardDetailScreen
 
 @export_group("Components")
 @export var damage_amount_label : Label;
-@export var slow_amount_label : Label;
+@export var range_amount_label : Label;
 @export var return_button_label : Label;
 @export var tile_card_container : Control;
 @export var effect_tooltip_container : VBoxContainer;
@@ -21,7 +21,6 @@ func setup(tile_id : String):
 	if tile_data == null: return; 
 	
 	damage_amount_label.text = str(tile_data.damage);
-	slow_amount_label.text = str(tile_data.fatigue);
 	return_button_label.text = "Close" if tile_id_stack.is_empty() else "Back";
 	tile_card = TileCard.create_tile_card(tile_data.id).with_clickable_evolutions(open_evolution);
 	tile_card_container.add_child(tile_card);
