@@ -4,6 +4,7 @@ class_name TilemapManager
 var source_id : int;
 var tiles : Dictionary[Vector2i, CustomTileData];
 var terrain_id_by_cell : Dictionary[Vector2i, int];
+var last_tile_hovered : Vector2i = Vector2i.ZERO;
 
 func _ready() -> void:
 	clear_tilemap();
@@ -89,3 +90,23 @@ func update_terrain_tiles(tilemap_position : Vector2i):
 	if terrain_id != -1:
 		terrain_id_by_cell.set(tilemap_position, terrain_id);
 		set_cells_terrain_connect(get_cell_by_terrain(terrain_id), terrain_set, terrain_id)
+
+func _input(event):
+	check_for_tile_hover(event);
+
+func check_for_tile_hover(event : InputEvent):
+	if event is not InputEventMouseMotion: return;
+	
+	var cell = local_to_map(get_local_mouse_position());
+	if cell != last_tile_hovered: 
+		var tile_hover_signals = get_tilemap_hover_signals();
+		if tile_hover_signals.size() != 2: return;
+		
+		tile_hover_signals[1].emit(last_tile_hovered);
+		last_tile_hovered = cell;
+		if has_tile_at(cell):
+			tile_hover_signals[0].emit(cell);
+
+# Returns a list of signals : [signal_hover_in, signal_over_out]
+func get_tilemap_hover_signals() -> Array[Signal]:
+	return [];

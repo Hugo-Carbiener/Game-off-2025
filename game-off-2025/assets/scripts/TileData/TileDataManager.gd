@@ -5,6 +5,7 @@ const TILE_CUSTOM_DATA_ID_KEY = "id";
 const TILE_CUSTOM_DATA_COLOR_KEY = "color";
 const TILE_CUSTOM_DATA_NAME_KEY = "name";
 const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
+const TILE_CUSTOM_DATA_RANGE_KEY = "range";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
 const TILE_CUSTOM_DATA_EVOLUTIONS_KEY = "evolutions";
@@ -62,6 +63,7 @@ func load_tile_data():
 		var tile_color = tile_data.get_custom_data(TILE_CUSTOM_DATA_COLOR_KEY);
 		var tile_name = tile_data.get_custom_data(TILE_CUSTOM_DATA_NAME_KEY);
 		var tile_damage = tile_damages.get(tile_data.get_custom_data(TILE_CUSTOM_DATA_DAMAGE_KEY));
+		var tile_range = tile_data.get_custom_data(TILE_CUSTOM_DATA_RANGE_KEY);
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
 		var is_playable = tile_data.get_custom_data(TILE_CUSTOM_DATA_PLAYABLE_KEY);
 		var atlas_texture_coordinates = atlas_coordinates * tile_size;
@@ -73,6 +75,7 @@ func load_tile_data():
 			tile_color,
 			tile_name,
 			tile_damage,
+			tile_range,
 			tile_description,
 			atlas_coordinates,
 			atlas_texture_coordinates,

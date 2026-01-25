@@ -8,6 +8,8 @@ static var instance : MainTilemap;
 @export var evolution_from_tile_sprite : Sprite2D;
 @export var evolution_to_tile_sprite : Sprite2D;
 
+var is_evolving_tile = false;
+
 func _ready() -> void:
 	super();
 	if instance == null:
@@ -26,12 +28,15 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	if breach != null:
 		breach.cover();
 	
+	
 	await check_for_evolution(tile_position);
 	# update direct neighbors to check for an evolution
 	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
 		if !has_tile_at(tile_position + neighbor_offset): continue;
 		
 		await check_for_evolution(tile_position + neighbor_offset);
+	
+	update_targetted_tiles();
 	return true;
 
 func is_valid_cell(coordinates : Vector2) -> bool:
@@ -76,10 +81,12 @@ func check_for_evolution(tile_position : Vector2i):
 			return;
 
 func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolution : CustomTileData):
+	is_evolving_tile = true;
 	clear_tile(tile_position);
 	await evolution_transition(tile_position, current_tile, evolution);
 	TileDataManager.instance.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
+	is_evolving_tile = false;
 
 func init_evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, to_tile : CustomTileData):
 	evolution_from_tile_sprite.position = map_to_local(tile_position);
@@ -107,6 +114,20 @@ func evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, 
 	SignalBus.evolution_finished.emit();
 	return;
 
+func is_currently_evolving_tile() -> bool:
+	return is_evolving_tile;
+
+func update_targetted_tiles(tile_position : Vector2i):
+	var tile_data = tiles[tile_position];
+	if tile_data == null: return;
+	
+	var offset_coordinates = tile_data.get_cells_in_range();
+	if offset_coordinates.size() <= 1 : return;
+
+	for offset_coordinates in offset_coordinates:
+		
+		
+
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):
 	var tile_data = tiles.get(tilemap_position);
 	if tile_data == null: return;
@@ -131,3 +152,6 @@ func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var camera = get_viewport().get_camera_2d();
 	var viewport_coordinates = camera.get_canvas_transform() * world_pos;
 	return viewport_coordinates;
+
+func get_tilemap_hover_signals() -> Array[Signal]:
+	return [SignalBus.tile_hovered_in, SignalBus.tile_hovered_out];

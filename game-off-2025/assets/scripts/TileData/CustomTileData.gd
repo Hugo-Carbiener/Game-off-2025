@@ -4,6 +4,7 @@ var id : String;
 var color : Color;
 var name : String;
 var damage : int;
+var effect_range : TileRange;
 var description : String;
 var atlas_coordinates : Vector2;
 var atlas_texture_coordinates : Vector2;
@@ -17,6 +18,7 @@ func _init(
 		_color: Color,
 		_name : String,
 		_damage : int,
+		_range : String,
 		_description : String,
 		_atlas_coordinates : Vector2,
 		_atlas_texture_coordinates : Vector2,
@@ -28,6 +30,7 @@ func _init(
 	self.color = _color;
 	self.name = _name;
 	self.damage = _damage;
+	self.effect_range = TileRange.parse_range(_range);
 	self.description = _description;
 	self.atlas_coordinates = _atlas_coordinates;
 	self.atlas_texture_coordinates = _atlas_texture_coordinates;
@@ -105,3 +108,6 @@ func parse_actions(_actions : Dictionary) -> Array[TileAction]:
 
 func get_texture_region() -> Rect2:
 	return Rect2(atlas_texture_coordinates.x, atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+
+func get_cells_in_range() -> Array[Vector2i]:
+	return effect_range.get_offset_coordinates();

@@ -11,6 +11,14 @@ signal evolution_started;
 signal evolution_finished;
 signal beacon_health_updated;
 
+# Hover signals
+signal card_selected
+signal card_unselected
+signal monster_hovered_in
+signal monster_hovered_out
+signal tile_hovered_in
+signal tile_hovered_out
+
 # Game signals
 signal play_phase_started;
 signal setup_phase_started;

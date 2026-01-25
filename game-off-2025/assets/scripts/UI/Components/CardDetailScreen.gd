@@ -21,6 +21,7 @@ func setup(tile_id : String):
 	if tile_data == null: return; 
 	
 	damage_amount_label.text = str(tile_data.damage);
+	range_amount_label.text = tile_data.effect_range.range_to_string();
 	return_button_label.text = "Close" if tile_id_stack.is_empty() else "Back";
 	tile_card = TileCard.create_tile_card(tile_data.id).with_clickable_evolutions(open_evolution);
 	tile_card_container.add_child(tile_card);

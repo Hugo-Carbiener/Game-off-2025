@@ -18,8 +18,6 @@ const monster_info_model : PackedScene = preload("res://scenes/components/Monste
 @export_group("Monster info variables")
 @export var monster_info_pool : Control;
 
-var last_tile_hovered : Vector2i = Vector2i.ZERO;
-
 ## monster status
 enum STATUS {
 	WET,
@@ -163,23 +161,6 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 			continue;
 	return cells
 
-## MONSTER HOVER
-
-func _input(event):
-	check_for_enemy_hover(event);
-
-func check_for_enemy_hover(event : InputEvent):
-	if event is not InputEventMouseMotion: return;
-	
-	var cell = local_to_map(get_local_mouse_position());
-	if cell != last_tile_hovered: 
-		if has_tile_at(cell) and MonsterFactory.monsters.has(cell):
-			IndicationTilemap.instance.on_enemy_hover_in(cell, last_tile_hovered);
-			last_tile_hovered = cell;
-		elif last_tile_hovered != Vector2i.ZERO:
-			IndicationTilemap.instance.on_enemy_hover_out();
-			last_tile_hovered = Vector2i.ZERO;
-
 func get_free_monster_info_model():
 	for monster_info in monster_info_pool.get_children():
 		if monster_info.visible: continue;
@@ -201,3 +182,6 @@ func spawn_interaction(monster : Monster, text : String, icons : Array[Resource]
 	var tile_data = MainTilemap.instance.tiles[monster_tilemap_position];
 	if tile_data == null: return;
 	monster_info.launch(tile_data, text, icons);
+
+func get_tilemap_hover_signals() -> Array[Signal]:
+	return [SignalBus.monster_hovered_in, SignalBus.monster_hovered_out];

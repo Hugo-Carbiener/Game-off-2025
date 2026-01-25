@@ -57,8 +57,8 @@ func select_card_slot(card_slot_index : int):
 		card_slot_selected = -1;
 		return;
 	
+	SignalBus.card_selected.emit();
 	card_selected.on_selection();
-	IndicationTilemap.instance.display_valid_cells();
 	cursor_preview = card_selected.card_sprite.duplicate();
 	cursor_preview_anchor_offset = Vector2(card_selected.card_sprite.size.x/2, card_selected.card_sprite.global_position.y - card_selected.global_position.y);
 	cursor_preview.position = get_local_mouse_position();
@@ -71,7 +71,7 @@ func unselect_card_slot():
 	if selected_card == null : return null;
 	
 	card_slot_selected = -1;
-	IndicationTilemap.instance.reset_valid_cells();
+	SignalBus.card_unselected.emit();
 	selected_card.on_unselection();
 	cursor_preview.queue_free();
 
