@@ -36,7 +36,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 		
 		await check_for_evolution(tile_position + neighbor_offset);
 	
-	update_targetted_tiles();
+	update_targetted_tiles(tile_position);
 	return true;
 
 func is_valid_cell(coordinates : Vector2) -> bool:
@@ -117,6 +117,7 @@ func evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, 
 func is_currently_evolving_tile() -> bool:
 	return is_evolving_tile;
 
+# Updates the targetted_by field of all tiles in the range of the current tile
 func update_targetted_tiles(tile_position : Vector2i):
 	var tile_data = tiles[tile_position];
 	if tile_data == null: return;
@@ -124,28 +125,25 @@ func update_targetted_tiles(tile_position : Vector2i):
 	var offset_coordinates = tile_data.get_cells_in_range();
 	if offset_coordinates.size() <= 1 : return;
 
-	for offset_coordinates in offset_coordinates:
+	for offset_coordinate in offset_coordinates:
+		var targetted_coordinates = tile_position + offset_coordinate;
+		if !tiles.has(targetted_coordinates): continue;
 		
-		
+		var targetted_tile = tiles[targetted_coordinates];
+		targetted_tile.targetted_by.push_back(targetted_coordinates);
 
-func apply_tile_effects(tilemap_position : Vector2i, monster : Monster, trigger : TileDataManager.TRIGGERS):
+func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);
 	if tile_data == null: return;
 	
-	if trigger == TileDataManager.TRIGGERS.ON_TILE_ENTER or trigger == TileDataManager.TRIGGERS.ON_TILE_STAY:
-		monster.damage(tile_data.damage);
+	monster.damage(tile_data.damage);
 	
-	# execute all tile action that matche a trigger
-	execute_tile_actions(tile_data, monster, trigger);
-	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
-		# execute all neighbor tile action that match a neighbor trigger
-		var neighbor_tile_data = tiles.get(tilemap_position + neighbor_offset);
-		if neighbor_tile_data == null: continue;
-		execute_tile_actions(neighbor_tile_data, monster, TileDataManager.trigger_to_neighbor_trigger[trigger]);
+	execute_tile_effects(tile_data, monster);
+	# TODO: execute tile effects of tiles targetting this cell
 
-func execute_tile_actions(tile_data : CustomTileData, monster : Monster, trigger : TileDataManager.TRIGGERS):
-	for action in tile_data.actions:
-		action.execute(monster, trigger);
+func execute_tile_effects(tile_data : CustomTileData, monster : Monster):
+	for effect in tile_data.effects:
+		effect.execute(monster);
 
 func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var world_pos = map_to_local(tilemap_position) + global_position/2;

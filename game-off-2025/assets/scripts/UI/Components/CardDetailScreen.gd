@@ -25,8 +25,8 @@ func setup(tile_id : String):
 	return_button_label.text = "Close" if tile_id_stack.is_empty() else "Back";
 	tile_card = TileCard.create_tile_card(tile_data.id).with_clickable_evolutions(open_evolution);
 	tile_card_container.add_child(tile_card);
-	for action in tile_data.actions:
-		var effect_tooltip = EffectTooltip.create_tooltip(action.effect, action.trigger);
+	for effect in tile_data.effects:
+		var effect_tooltip = EffectTooltip.create_tooltip(effect);
 		effect_tooltip_container.add_child(effect_tooltip);
 
 func open_evolution(tile_id : String):

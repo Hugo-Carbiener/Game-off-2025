@@ -11,7 +11,8 @@ var atlas_texture_coordinates : Vector2;
 var is_playable : bool;
 var evolutions : Array[String];
 var requirement : TileRequirement;
-var actions : Array[TileAction];
+var effects : Array[TileEffect];
+var targetted_by : Array[Vector2i];
 
 func _init(
 		_id: String,
@@ -25,7 +26,7 @@ func _init(
 		_is_playable : bool,
 		_evolutions : Array,
 		_requirements : String,
-		_actions : Dictionary):
+		_effects : Array):
 	self.id = _id;
 	self.color = _color;
 	self.name = _name;
@@ -38,7 +39,7 @@ func _init(
 	self.evolutions = [];
 	evolutions.assign(_evolutions);
 	self.requirement = parse_requirements(_requirements);
-	self.actions = parse_actions(_actions);
+	self.effects = parse_effects(_effects);
 
 func parse_requirements(_requirement : String) -> TileRequirement:
 	if _requirement == null or _requirement.is_empty(): return null;
@@ -90,21 +91,16 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 	print("Invalid tile requirement " + _requirement + " for tile " + name);
 	return null;
 
-func parse_actions(_actions : Dictionary) -> Array[TileAction]:
-	var action_res : Array[TileAction];
-	for resource_path in _actions:
+func parse_effects(_effects : Array) -> Array[TileEffect]:
+	var tile_effects : Array[TileEffect];
+	for resource_path in _effects:
 		var effect := load(resource_path) as TileEffect;
 		if effect == null:
 			printerr("Effect at path " + resource_path + " could not be loaded for tile " + self.id);
 			continue;
 		
-		var trigger =  TileDataManager.trigger_alias[_actions[resource_path]];
-		if trigger == null:
-			continue;
-		
-		var tile_action = TileAction.new(effect, trigger);
-		action_res.append(tile_action);
-	return action_res;
+		tile_effects.push_back(effect);
+	return tile_effects;
 
 func get_texture_region() -> Rect2:
 	return Rect2(atlas_texture_coordinates.x, atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);

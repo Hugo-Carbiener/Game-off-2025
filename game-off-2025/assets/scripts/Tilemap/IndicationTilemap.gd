@@ -57,7 +57,7 @@ func display_valid_cells():
 	for valid_cell in valid_cells:
 		place_tile(valid_cell, TileDataManager.instance.tile_dictionnary[VALID_CELL_TILE_KEY]);
 
-func clear_valid_cells(_cell: Vector2i):
+func clear_valid_cells():
 	if is_valid_tile_displayed:
 		clear_tilemap();
 		is_valid_tile_displayed = false;
