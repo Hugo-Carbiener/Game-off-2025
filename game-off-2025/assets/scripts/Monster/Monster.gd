@@ -14,12 +14,8 @@ func _init(_health: int, _tilemap_position: Vector2i, _trajectory : Array[Vector
 	self.trajectory = _trajectory
 	self.position_in_trajectory = 0;
 
-func on_move_start(monsterFactory : MonsterFactory):
-	monsterFactory.clear_tile(tilemap_position);
-
-func on_move_end(monsterFactory : MonsterFactory):
+func on_step_end():
 	tilemap_position = trajectory[position_in_trajectory];
-	monsterFactory.place_tile(tilemap_position, TileDataManager.instance.tile_dictionnary["monster"]);
 	
 	if is_at_destination():
 		BeaconManager.instance.damage(health);

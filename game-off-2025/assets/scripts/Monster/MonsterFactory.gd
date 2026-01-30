@@ -100,15 +100,15 @@ func execute_monster_trajectory(monster : Monster):
 			break;
 	
 		var tween = get_tree().create_tween();
-		tween.tween_callback(func(): monster.on_move_start(self));
 		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration);
-		tween.tween_callback(func(): monster.on_move_end(self));
+		tween.tween_callback(func(): monster.on_step_end());
 		await tween.finished;
 	on_move_end();
 
 func on_move_start(_monster : Monster):
 	monster_sprite.position = map_to_local(_monster.tilemap_position);
 	monster_sprite.visible = true;
+	clear_tile(_monster.tilemap_position);
 	monsters.erase(_monster.tilemap_position);
 
 func on_move_end():
