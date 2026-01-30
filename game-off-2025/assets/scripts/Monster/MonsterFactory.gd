@@ -87,45 +87,32 @@ func on_setup():
 
 func on_resolution():
 	# Get monsters from furthest to closest 
-	var monster_positions = monsters.keys();
-	monster_positions.sort_custom(func(a,b) : return cell_manhattan_distance(a, Vector2i.ZERO) < cell_manhattan_distance(b, Vector2i.ZERO));
-	var monster_list = monster_positions.map(func(a): return monsters.get(a));
-	
-	var monster_count = monster_list.size();
-	var monster_idx = 0;
-	while monster_count > 0:
-		monster_idx = (monster_idx -1) % monster_count;
-		var monster = monster_list[monster_idx];
-		var from = monster.tilemap_position;
-		var to = monster.get_next_position();
-		
+	var sorted_monsters = monsters.values();
+	sorted_monsters.sort_custom(func(a,b) : return cell_manhattan_distance(monsters.find_key(a), Vector2i.ZERO) < cell_manhattan_distance(monsters.find_key(b), Vector2i.ZERO))
+	for monster in sorted_monsters:
+		await execute_monster_trajectory(monster);
+
+func execute_monster_trajectory(monster : Monster):
+	on_move_start(monster);
+	for monster_destination in monster.trajectory:
+		var to = monster_destination;
 		if monster.is_at_destination() or monster.is_dead():
-			monster_list.remove_at(monster_idx);
-			monster_count = monster_list.size();
-			continue;
+			break;
+	
 		var tween = get_tree().create_tween();
 		tween.tween_callback(func(): monster.on_move_start(self));
-		tween.tween_callback(func(): on_move_start(monster, from));
 		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration);
-		tween.tween_callback(func(): on_move_end(monster, to));
 		tween.tween_callback(func(): monster.on_move_end(self));
 		await tween.finished;
+	on_move_end();
 
-func on_move_start(_monster : Monster, from : Vector2i):
-	monster_sprite.position = map_to_local(from);
+func on_move_start(_monster : Monster):
+	monster_sprite.position = map_to_local(_monster.tilemap_position);
 	monster_sprite.visible = true;
-	monsters.erase(from);
+	monsters.erase(_monster.tilemap_position);
 
-func on_move_end(monster : Monster, _to : Vector2i):
+func on_move_end():
 	monster_sprite.visible = false;
-	monsters.set(_to, monster);
-
-func compute_monster_positions():
-	var monster_list = monsters.values();
-	if monster_list.size() == 0: return;
-	monsters.clear();
-	for monster in monster_list:
-		monsters.set(monster.tilemap_position, monster);
 
 ## MONSTER PATH
 
