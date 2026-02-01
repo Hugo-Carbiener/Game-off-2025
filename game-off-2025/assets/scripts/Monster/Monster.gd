@@ -36,14 +36,15 @@ func get_next_position() -> Vector2i:
 	trajectory_idx = max(trajectory_idx, 0);
 	return trajectory[trajectory_idx + 1];
 
-func damage(damage_amount : int, dispatch : bool = true):
+func damage(damage_amount : int):
 	if damage_amount == 0: return;
 	
 	health -= damage_amount;
-	if dispatch :
-		dispatch_interaction(str(damage_amount), [Constants.monster_info_icons["damage"]]);
 	if is_dead():
 		on_death();
+		return;
+	
+	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite, 0.1);
 
 func on_death():
 	TileCardFactory.instance.draw_random_card();
@@ -52,6 +53,3 @@ func on_death():
 
 func set_status(_status : MonsterFactory.STATUS):
 	status = _status;
-
-func dispatch_interaction(text : String, icons : Array[Resource]):
-	MonsterFactory.instance.spawn_interaction(self, text, icons);

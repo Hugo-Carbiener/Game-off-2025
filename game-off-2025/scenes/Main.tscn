@@ -222,7 +222,7 @@ texture = SubResource("AtlasTexture_0f1tp")
 visible = false
 texture = SubResource("AtlasTexture_0qimb")
 
-[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite", "monster_info_pool")]
+[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite")]
 tile_set = ExtResource("4_jfdcb")
 script = ExtResource("6_4gqpi")
 breach_tiles_per_maturity = Dictionary[int, String]({
@@ -237,7 +237,6 @@ breach_animated_sprite = NodePath("Breach animations")
 monster_movement_duration = 0.3
 indicator_tilemap = NodePath("../Indication tilemap")
 monster_sprite = NodePath("Monster sprite")
-monster_info_pool = NodePath("../../UI/Monster info container")
 
 [node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
@@ -278,7 +277,6 @@ script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
 default_card_slot_modulate = Color(1, 1, 1, 1)
 disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
-disabled_card_slot_margin = -75
 card_slot_transition_duration = 0.2
 phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
 death_screen = NodePath("Death Screen")

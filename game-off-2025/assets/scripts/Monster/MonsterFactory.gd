@@ -5,8 +5,6 @@ static var monsters : Dictionary[Vector2i, Monster];
 static var breaches : Dictionary[Vector2i, Breach];
 static var instance : MonsterFactory;
 
-const monster_info_model : PackedScene = preload("res://scenes/components/MonsterInfo.tscn");
-
 @export_group("Breaches variables")
 @export var breach_tiles_per_maturity : Dictionary[int, String];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
@@ -15,8 +13,6 @@ const monster_info_model : PackedScene = preload("res://scenes/components/Monste
 @export var monster_movement_duration : float;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
-@export_group("Monster info variables")
-@export var monster_info_pool : Control;
 
 ## monster status
 enum STATUS {
@@ -146,29 +142,7 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 			err += dx;
 			y0 += sy;
 			continue;
-	return cells
-
-func get_free_monster_info_model():
-	for monster_info in monster_info_pool.get_children():
-		if monster_info.visible: continue;
-		print("found existing element in pool")
-		return monster_info;
-	return add_monster_info_to_pool();
-
-func add_monster_info_to_pool():
-	print("adding element to pool")
-	var monster_info = monster_info_model.instantiate();
-	monster_info_pool.add_child(monster_info);
-	return monster_info;
-
-func spawn_interaction(monster : Monster, text : String, icons : Array[Resource]):
-	var monster_tilemap_position = monsters.find_key(monster);
-	var monster_info = get_free_monster_info_model();
-	if monster_tilemap_position == null: return;
-	
-	var tile_data = MainTilemap.instance.tiles[monster_tilemap_position];
-	if tile_data == null: return;
-	monster_info.launch(tile_data, text, icons);
+	return cells;
 
 func get_tilemap_hover_signals() -> Array[Signal]:
 	return [SignalBus.monster_hovered_in, SignalBus.monster_hovered_out];

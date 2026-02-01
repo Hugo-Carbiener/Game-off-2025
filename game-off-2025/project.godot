@@ -25,6 +25,7 @@ SignalBus="*res://assets/scripts/SignalBus.gd"
 AudioUtils="*res://assets/scripts/Audio/AudioUtils.gd"
 UserSettings="*res://assets/scripts/UserSettings.gd"
 UIUtils="*res://assets/scripts/UI/UIUtils.gd"
+AnimationUtils="*res://assets/scripts/AnimationUtils.gd"
 
 [debug]
 
