@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcrlwcxsrpbqu"]
+
+[ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
+[ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
+[ext_resource type="Script" uid="uid://bmne3slcqxwie" path="res://assets/scripts/UI/Tile codex/TileCodex.gd" id="2_rahan"]
+[ext_resource type="Texture2D" uid="uid://gc2duhs13dlt" path="res://assets/sprites/UI_book-next-page.png" id="3_rahan"]
+[ext_resource type="Texture2D" uid="uid://c4vv43yh2yj6h" path="res://assets/sprites/UI_book-next-page-highlighted.png" id="4_mm6dg"]
+
+[node name="Tile codex" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_on25x")
+script = ExtResource("2_rahan")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Tab container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Tab container"]
+layout_mode = 2
+theme_override_constants/margin_top = 44
+
+[node name="Page container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Left page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+layout_mode = 2
+theme_override_constants/margin_left = 144
+
+[node name="Left page" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Left page margin"]
+layout_mode = 2
+texture = ExtResource("2_4f30n")
+
+[node name="Buttons container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Previous page button container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons container"]
+layout_mode = 2
+theme_override_constants/margin_left = 129
+theme_override_constants/margin_top = 1
+
+[node name="Previous page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Buttons container/Previous page button container"]
+layout_mode = 2
+texture_normal = ExtResource("3_rahan")
+texture_pressed = ExtResource("4_mm6dg")
+texture_hover = ExtResource("4_mm6dg")
+flip_h = true
