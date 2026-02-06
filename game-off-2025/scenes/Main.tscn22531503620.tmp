@@ -272,7 +272,7 @@ script = ExtResource("3_dppo5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window", "tile_codex")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window")]
 layer = 0
 script = ExtResource("12_6rsph")
 footer_container = NodePath("Screen container/Footer container")
@@ -284,7 +284,6 @@ death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
 pause_window = NodePath("Pause screen")
 evolution_window = NodePath("Evolution window")
-tile_codex = NodePath("Tile codex")
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -440,7 +439,6 @@ offset_bottom = 0.0
 visible = false
 
 [node name="Card detail window" type="TextureRect" parent="UI" node_paths=PackedStringArray("damage_amount_label", "return_button_label", "tile_card_container", "effect_tooltip_container", "back_button")]
-visible = false
 self_modulate = Color(0, 0, 0, 0.9019608)
 anchors_preset = 15
 anchor_right = 1.0

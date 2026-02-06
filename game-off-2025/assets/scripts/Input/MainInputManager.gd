@@ -67,7 +67,7 @@ func update_hold_input(delta : float):
 		progress_bar.visible = true;
 	
 	if hold_input_time >= hold_input_required_duration:
-		GameUI.instance.toggle_card_details();
+		GameUI.instance.toggle_card_codex();
 		hold_input = false;
 
 func reset_hold_input():

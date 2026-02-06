@@ -15,6 +15,10 @@ static func create_tile_card_evolution(tile_data : CustomTileData) -> TileCardEv
 	tile_card_evolution.setup(tile_data);
 	return tile_card_evolution;
 
+func with_clickable_evolutions(on_evolution_click : Callable) -> TileCardEvolution:
+	init_buttons(on_evolution_click);
+	return self;
+
 func setup(tile_data : CustomTileData) :
 	tile_id = tile_data.id;
 	evolution_icon.texture = evolution_icon.texture.duplicate();

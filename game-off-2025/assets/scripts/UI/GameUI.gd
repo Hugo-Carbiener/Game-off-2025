@@ -15,7 +15,7 @@ var card_slot_disabled : bool = true;
 @export var win_screen : Control;
 @export var pause_window : PauseWindow;
 @export var evolution_window : EvolutionWindow;
-@export var card_detail_screen : CardDetailScreen;
+@export var tile_codex : TileCodex;
 
 func _ready() -> void:
 	if instance == null:
@@ -29,11 +29,11 @@ func on_game_lost():
 func on_game_won():
 	win_screen.visible = true
 
-func toggle_card_details():
-	card_detail_screen.visible = !card_detail_screen.visible;
+func toggle_card_codex():
+	tile_codex.visible = !tile_codex.visible;
 	UserSettings.areInputBlocked = pause_window.visible;
-	if card_detail_screen.visible and CardSlotSelector.instance.card_is_hovered():
-		card_detail_screen.setup(CardSlotSelector.instance.get_hovered_card().card_id);
+	if tile_codex.visible and CardSlotSelector.instance.card_is_hovered():
+		tile_codex.setup(CardSlotSelector.instance.get_hovered_card().card_id);
 
 func toggle_card_slots():
 	if card_slot_disabled:

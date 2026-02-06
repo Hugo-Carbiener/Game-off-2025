@@ -8,6 +8,7 @@ const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
 const TILE_CUSTOM_DATA_RANGE_KEY = "range";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
+const TILE_CUSTOM_DATA_UTIL_KEY = "is_util";
 const TILE_CUSTOM_DATA_EVOLUTIONS_KEY = "evolutions";
 const TILE_CUSTOM_DATA_REQUIREMENTS_KEY = "requirements";
 const TILE_CUSTOM_DATA_EFFECTS_KEY = "effects";
@@ -17,8 +18,8 @@ const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 4};
 ## tiles 
 var tile_dictionnary : Dictionary[String, CustomTileData];
-var tiles : Array[String] = [];
-var playable_tiles : Array[String] = [];
+var playable_tiles : Array[String];
+var land_tiles : Array[String];
 var tile_size : Vector2i;
 var world_tile_amount = 0;
 ## tile evolutions
@@ -44,6 +45,7 @@ func load_tile_data():
 		var tile_range = tile_data.get_custom_data(TILE_CUSTOM_DATA_RANGE_KEY);
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
 		var is_playable = tile_data.get_custom_data(TILE_CUSTOM_DATA_PLAYABLE_KEY);
+		var is_util = tile_data.get_custom_data(TILE_CUSTOM_DATA_UTIL_KEY);
 		var atlas_texture_coordinates = atlas_coordinates * tile_size;
 		var evolutions = tile_data.get_custom_data(TILE_CUSTOM_DATA_EVOLUTIONS_KEY);
 		var requirements = tile_data.get_custom_data(TILE_CUSTOM_DATA_REQUIREMENTS_KEY);
@@ -58,21 +60,19 @@ func load_tile_data():
 			atlas_coordinates,
 			atlas_texture_coordinates,
 			is_playable,
+			is_util,
 			evolutions,
 			requirements,
 			effects);
-		if tiles.has(tile_id) or tile_dictionnary.has(custom_tile_data.id): 
+		if tile_dictionnary.has(custom_tile_data.id): 
 			print("Error: tile " + tile_id + " registered twice");
 			return
 		
 		if is_playable:
 			playable_tiles.append(custom_tile_data.id);
-		tiles.append(custom_tile_data.id);
+		if !is_util:
+			land_tiles.append(custom_tile_data.id);
 		tile_dictionnary.set(custom_tile_data.id, custom_tile_data);
-
-func get_random_tile_data(only_playable_tiles : bool) -> CustomTileData:
-	var tiles_to_place = playable_tiles if only_playable_tiles else tiles;
-	return tile_dictionnary[tiles_to_place[randi() % tiles_to_place.size()]];
 
 func learn_evolution(tile_data : CustomTileData):
 	if known_evolution.has(tile_data.id): return;

@@ -11,9 +11,7 @@ func _ready() -> void:
 
 func setup(tile_data : CustomTileData):
 	reset();
-	var tile_card = TileCard.create_tile_card(tile_data.id, false);
-	tile_card.card_count.modulate = Color(0);
-	tile_card.card_count_overlay.modulate = Color(0);
+	var tile_card = TileCard.create_tile_card(tile_data.id, false).without_count_overlay();
 	shader_holder.material.set("shader_parameter/glow_color", tile_card.card_color);
 	card_container.add_child(tile_card);
 

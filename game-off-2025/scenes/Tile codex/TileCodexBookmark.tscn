@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj110c2dk0d7o"]
+
+[ext_resource type="Script" uid="uid://phb0fm833q10" path="res://assets/scripts/UI/Tile codex/TileCodexBookmark.gd" id="1_47cgr"]
+[ext_resource type="Texture2D" uid="uid://up2y061uhkdy" path="res://assets/sprites/UI_book-mark.png" id="2_ij2qk"]
+[ext_resource type="Texture2D" uid="uid://dcpnx1ld312qg" path="res://assets/sprites/UI_book-mark-selected.png" id="3_uly7c"]
+[ext_resource type="Texture2D" uid="uid://bdqwmob15x52h" path="res://assets/sprites/UI_book-mark-highlighted.png" id="4_phldk"]
+[ext_resource type="Texture2D" uid="uid://wu51wc6rfonh" path="res://assets/sprites/UI_book-summary-icon.png" id="5_w8gfr"]
+
+[node name="Bookmark" type="MarginContainer"]
+theme_override_constants/margin_top = -4
+script = ExtResource("1_47cgr")
+
+[node name="Bookmark button" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = ExtResource("2_ij2qk")
+texture_pressed = ExtResource("3_uly7c")
+texture_hover = ExtResource("4_phldk")
+
+[node name="Icon" type="TextureRect" parent="Bookmark button"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_w8gfr")
+stretch_mode = 2

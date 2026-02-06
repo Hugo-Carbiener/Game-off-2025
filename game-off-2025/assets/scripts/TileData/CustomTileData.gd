@@ -9,6 +9,7 @@ var description : String;
 var atlas_coordinates : Vector2;
 var atlas_texture_coordinates : Vector2;
 var is_playable : bool;
+var is_util : bool;
 var evolutions : Array[String];
 var requirement : TileRequirement;
 var effects : Array[TileEffect];
@@ -24,6 +25,7 @@ func _init(
 		_atlas_coordinates : Vector2,
 		_atlas_texture_coordinates : Vector2,
 		_is_playable : bool,
+		_is_util : bool,
 		_evolutions : Array,
 		_requirements : String,
 		_effects : Array):
@@ -36,6 +38,7 @@ func _init(
 	self.atlas_coordinates = _atlas_coordinates;
 	self.atlas_texture_coordinates = _atlas_texture_coordinates;
 	self.is_playable = _is_playable;
+	self.is_util = _is_util;
 	self.evolutions = [];
 	evolutions.assign(_evolutions);
 	self.requirement = parse_requirements(_requirements);

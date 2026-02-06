@@ -1,16 +1,45 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=21 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
 [ext_resource type="Script" uid="uid://bmne3slcqxwie" path="res://assets/scripts/UI/Tile codex/TileCodex.gd" id="2_rahan"]
 [ext_resource type="Texture2D" uid="uid://gc2duhs13dlt" path="res://assets/sprites/UI_book-next-page.png" id="3_rahan"]
+[ext_resource type="PackedScene" uid="uid://cj110c2dk0d7o" path="res://scenes/Tile codex/TileCodexBookmark.tscn" id="3_s8rmu"]
 [ext_resource type="Texture2D" uid="uid://c4vv43yh2yj6h" path="res://assets/sprites/UI_book-next-page-highlighted.png" id="4_mm6dg"]
+[ext_resource type="Texture2D" uid="uid://b1xbcmasxlyhd" path="res://assets/sprites/UI_book-favorite-inactive.png" id="5_v50lp"]
+[ext_resource type="Texture2D" uid="uid://osh2ul4q2jpc" path="res://assets/sprites/UI_book-favorite-active.png" id="6_2iigh"]
+[ext_resource type="Texture2D" uid="uid://cnkoeggd3iwyc" path="res://assets/sprites/UI_book-favorite-inactive-highlighted.png" id="7_alp4d"]
+[ext_resource type="Script" uid="uid://ctpn4t63tm4ud" path="res://assets/scripts/UI/Components/ToggleButton.gd" id="8_alp4d"]
+[ext_resource type="Texture2D" uid="uid://1apjfaxjnqup" path="res://assets/sprites/UI_book-favorite-active-highlighted.png" id="9_cs6d5"]
+[ext_resource type="Texture2D" uid="uid://bvqhu1pbds0yf" path="res://assets/sprites/UI_damage-icon.png" id="10_14s6e"]
+[ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="10_ffusi"]
+[ext_resource type="Texture2D" uid="uid://ckhy411r42l1k" path="res://assets/sprites/UI_range-icon.png" id="11_ffusi"]
+[ext_resource type="Texture2D" uid="uid://b1ewahacht5i3" path="res://assets/sprites/UI_book-right-page-effects.png" id="14_2fjf8"]
+[ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/Tile codex/EffectTooltip.tscn" id="15_ffusi"]
+[ext_resource type="Texture2D" uid="uid://c7yqfqmuxr4sj" path="res://assets/sprites/UI_book-right-page-evolutions.png" id="15_keuhg"]
+[ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
+[ext_resource type="Texture2D" uid="uid://brk8socub4rmk" path="res://assets/sprites/UI_book-right-page-filler.png" id="19_keuhg"]
+[ext_resource type="Texture2D" uid="uid://dt5j7lq8o77uj" path="res://assets/sprites/UI_book-next-page-disabled.png" id="21_keuhg"]
 
-[node name="Tile codex" type="TextureRect"]
+[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("effects_area", "evolutions_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "damage_effect_tooltip")]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_on25x")
 script = ExtResource("2_rahan")
+effects_area = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects")
+evolutions_area = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions")
+bookmark_container = NodePath("MarginContainer/VBoxContainer/MarginContainer/Bookmark container")
+tile_card_container = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Tile card container")
+effects_container = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container")
+evolutions_container = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin/Evolutions container")
+title_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Title")
+number_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Number container/Number")
+damage_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Damage line/Damage amount")
+range_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Range line/Range amount")
+previous_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Previous page button")
+next_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Next page button")
+favorite_button = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Favorite container/Favorite button")
+damage_effect_tooltip = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container/Effect tooltip")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -24,12 +53,20 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Tab container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 145
+theme_override_constants/margin_bottom = 16
+
+[node name="Bookmark container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Tab container"]
+[node name="Summary bookmark" parent="MarginContainer/VBoxContainer/MarginContainer/Bookmark container" instance=ExtResource("3_s8rmu")]
 layout_mode = 2
-theme_override_constants/margin_top = 44
+
+[node name="Separator" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/Bookmark container"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
 
 [node name="Page container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -42,17 +79,196 @@ theme_override_constants/margin_left = 144
 layout_mode = 2
 texture = ExtResource("2_4f30n")
 
-[node name="Buttons container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Favorite container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 157
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_bottom = 1
+
+[node name="Favorite button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Favorite container"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("5_v50lp")
+texture_pressed = ExtResource("6_2iigh")
+texture_hover = ExtResource("7_alp4d")
+script = ExtResource("8_alp4d")
+pressed_hovered_texture = ExtResource("9_cs6d5")
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "River"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tile card container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 4
+
+[node name="Number container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -7
+
+[node name="Number" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Number container"]
+layout_mode = 2
+text = "1/20"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+text = "
+~ Statistics ~ 
+"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats line container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="Damage line" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container"]
 layout_mode = 2
 
-[node name="Previous page button container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buttons container"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Damage line"]
 layout_mode = 2
-theme_override_constants/margin_left = 129
+texture = ExtResource("10_14s6e")
+stretch_mode = 3
+
+[node name="Separator" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Damage line"]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Damage amount" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Damage line"]
+layout_mode = 2
+text = "5"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Range line" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Range line"]
+layout_mode = 2
+texture = ExtResource("11_ffusi")
+stretch_mode = 3
+
+[node name="Separator" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Range line"]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Range amount" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container/Range line"]
+layout_mode = 2
+text = "5"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Right page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Effects" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_2fjf8")
+
+[node name="Effects content margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects"]
+layout_mode = 0
+offset_right = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="Effects container" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Effects title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container"]
+layout_mode = 2
+text = "Effects:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Effect tooltip" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container" instance=ExtResource("15_ffusi")]
+layout_mode = 2
+
+[node name="Evolutions" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_keuhg")
+
+[node name="Evolutions content margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+
+[node name="Evolutions container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Evolutions title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin/Evolutions container"]
+layout_mode = 2
+text = "Evolutions:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Requirements background" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_0pkkn")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 8.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 18
+
+[node name="Requirements title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/MarginContainer"]
+layout_mode = 2
+text = "Requirements:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Filler" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("19_keuhg")
+expand_mode = 2
+
+[node name="Page buttons container" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_constants/margin_top = 1
 
-[node name="Previous page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Buttons container/Previous page button container"]
+[node name="Buttons container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page buttons container"]
+layout_mode = 2
+theme_override_constants/separation = 350
+alignment = 1
+
+[node name="Previous page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page buttons container/Buttons container"]
 layout_mode = 2
 texture_normal = ExtResource("3_rahan")
 texture_pressed = ExtResource("4_mm6dg")
 texture_hover = ExtResource("4_mm6dg")
+texture_disabled = ExtResource("21_keuhg")
 flip_h = true
+
+[node name="Next page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page buttons container/Buttons container"]
+layout_mode = 2
+texture_normal = ExtResource("3_rahan")
+texture_pressed = ExtResource("4_mm6dg")
+texture_hover = ExtResource("4_mm6dg")
+texture_disabled = ExtResource("21_keuhg")

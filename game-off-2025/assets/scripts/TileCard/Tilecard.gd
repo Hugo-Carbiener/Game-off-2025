@@ -33,6 +33,11 @@ func with_clickable_evolutions(on_evolution_click : Callable) -> TileCard:
 	init_evolutions_click(on_evolution_click);
 	return self;
 
+func without_count_overlay() -> TileCard:
+	card_count.modulate = Color(0);
+	card_count_overlay.modulate = Color(0);
+	return self;
+
 func setup(_id : String, draggable : bool) :
 	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
 	set_meta('Draggable', draggable);

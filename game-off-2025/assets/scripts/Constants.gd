@@ -39,3 +39,6 @@ const monster_info_lifetime_movement = Vector2(0, -20.0);
 
 ## Beacon
 const beacon_hp = 10;
+
+## Tile codex
+const max_bookmarks = 5;

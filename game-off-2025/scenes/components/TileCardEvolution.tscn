@@ -11,7 +11,7 @@ load_path = "res://.godot/imported/tiles_8px.png-f21763d3f970f70e53edc7fbaf45e92
 atlas = SubResource("CompressedTexture2D_ora4u")
 region = Rect2(72, 0, 8, 8)
 
-[node name="Evolution margin" type="MarginContainer" node_paths=PackedStringArray("frame_button", "evolution_icon")]
+[node name="Evolution" type="MarginContainer" node_paths=PackedStringArray("frame_button", "evolution_icon")]
 size_flags_vertical = 0
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1

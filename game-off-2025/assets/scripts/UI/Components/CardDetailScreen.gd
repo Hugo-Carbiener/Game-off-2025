@@ -34,11 +34,8 @@ func open_evolution(tile_id : String):
 	setup(tile_id);
 
 func go_back():
-	if tile_id_stack.is_empty():
-		GameUI.instance.toggle_card_details();
-	else:
-		var tile_id = tile_id_stack.pop_back();
-		setup(tile_id);
+	var tile_id = tile_id_stack.pop_back();
+	setup(tile_id);
 
 func reset():
 	if tile_card != null:
