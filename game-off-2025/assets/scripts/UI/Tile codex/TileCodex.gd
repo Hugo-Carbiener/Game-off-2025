@@ -56,12 +56,20 @@ func init_movement_buttons():
 		next_button.button_up.connect(next_tile);
 
 func init_bookmarks():
+	reset_bookmarks();
 	for target_tile_id in UserSettings.tile_codex_bookmarks:
-		var bookmark = TileCodexBookmark.create_tile_codex_tab(target_tile_id);
+		var bookmark = TileCodexBookmark.create_tile_codex_bookmark(target_tile_id);
 		bookmark_container.add_child(bookmark);
 		bookmarks.push_back(bookmark);
 
 func init_favorite_button(tile_id : String):
+	update_favorite_button_style(tile_id);
+	if favorite_button.button_up.has_connections():
+		for connection in favorite_button.button_up.get_connections():
+			favorite_button.button_up.disconnect(connection["callable"]);
+	favorite_button.button_up.connect(toggle_favorite.bind(tile_id));
+
+func update_favorite_button_style(tile_id : String):
 	favorite_button.button_pressed = UserSettings.tile_codex_bookmarks.has(tile_id);
 
 func init_title(tile_name : String):
@@ -101,9 +109,7 @@ func init_evolutions(tile_data : CustomTileData):
 		evolutions.push_back(tile_card_evolution);
 
 func reset():
-	for bookmark in bookmarks:
-		bookmark.queue_free();
-	bookmarks.clear();
+	reset_bookmarks();
 	if tile_card != null:
 		tile_card.queue_free();
 	for effect in effect_tooltips:
@@ -113,7 +119,27 @@ func reset():
 		evolution.queue_free();
 	evolutions.clear();
 
+func reset_bookmarks():
+	for bookmark in bookmarks:
+		bookmark.queue_free();
+	bookmarks.clear();
+
 ## ACTIONS 
+
+func toggle_favorite(tile_id : String):
+	if !favorite_button.button_pressed:
+		UserSettings.tile_codex_bookmarks.erase(tile_id);
+	else:
+		if UserSettings.tile_codex_bookmarks.size() >= Constants.max_bookmarks:
+			favorite_button.button_pressed = false;
+			printerr("Max bookmark amount reached.");
+			# TODO: Implement tooltip to warn player
+			return;
+			
+		if !UserSettings.tile_codex_bookmarks.has(tile_id):
+			UserSettings.tile_codex_bookmarks.push_back(tile_id);
+	init_bookmarks();
+	update_favorite_button_style(tile_id);
 
 func next_tile():
 	if current_tile_index + 1 >= TileDataManager.instance.land_tiles.size(): return;

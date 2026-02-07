@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdqwmob15x52h"
-path="res://.godot/imported/UI_book-mark-highlighted.png-e9680d427894e5d2ceab97fff93f9f0d.ctex"
+uid="uid://d2diwwy06u6p0"
+path="res://.godot/imported/UI_book-mark-pressed.png-46455b8e66fc9c800d7a7a49712dc1e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_book-mark-highlighted.png"
-dest_files=["res://.godot/imported/UI_book-mark-highlighted.png-e9680d427894e5d2ceab97fff93f9f0d.ctex"]
+source_file="res://assets/sprites/UI_book-mark-pressed.png"
+dest_files=["res://.godot/imported/UI_book-mark-pressed.png-46455b8e66fc9c800d7a7a49712dc1e3.ctex"]
 
 [params]
 

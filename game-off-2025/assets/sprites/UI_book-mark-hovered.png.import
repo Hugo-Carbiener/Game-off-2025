@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcpnx1ld312qg"
-path="res://.godot/imported/UI_book-mark-selected.png-bd68af0085d599761a470a2c6930b7b8.ctex"
+uid="uid://duw4yaov5rkdr"
+path="res://.godot/imported/UI_book-mark-hovered.png-25b63523cf8a30c977f8ad0dd721de36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_book-mark-selected.png"
-dest_files=["res://.godot/imported/UI_book-mark-selected.png-bd68af0085d599761a470a2c6930b7b8.ctex"]
+source_file="res://assets/sprites/UI_book-mark-hovered.png"
+dest_files=["res://.godot/imported/UI_book-mark-hovered.png-25b63523cf8a30c977f8ad0dd721de36.ctex"]
 
 [params]
 
