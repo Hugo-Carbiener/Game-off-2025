@@ -183,7 +183,6 @@ shader_parameter/rotation_coef = 1.0
 visible = false
 offset_right = 16.0
 offset_bottom = 16.0
-mouse_filter = 2
 value = 70.0
 fill_mode = 4
 texture_progress = ExtResource("20_oa6sj")

@@ -1,14 +1,20 @@
 extends Control
 class_name TileCodex
 
-@export_group("Hidable parts")
+@export_group("Pages")
+@export var left_page : Control;
+@export var right_page : Control;
+@export var summary_left_page : Control;
+@export_group("Hideable parts")
 @export var effects_area : Control;
 @export var evolutions_area : Control;
+@export var requirements_area : Control;
 @export_group("Containers")
 @export var bookmark_container : Control;
 @export var tile_card_container : Control;
 @export var effects_container : Control;
 @export var evolutions_container : Control;
+@export var summary_elements_container : GridContainer;
 @export_group("Texts")
 @export var title_label : Label;
 @export var number_label : Label;
@@ -18,7 +24,8 @@ class_name TileCodex
 @export var previous_button : TextureButton;
 @export var next_button : TextureButton;
 @export var favorite_button : ToggleButton;
-
+@export_group("Misc")
+@export var summary_bookmark : TileCodexBookmark;
 @export var damage_effect_tooltip : EffectTooltip;
  
 var current_tile_index : int;
@@ -29,13 +36,33 @@ var evolutions : Array[TileCardEvolution];
 
 func _ready() -> void:
 	SignalBus.bookmark_clicked.connect(setup);
+	SignalBus.summary_element_clicked.connect(setup);
 
 func setup(tile_id : String):
 	reset();
-	var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
-	if tile_data == null:
-		printerr("Failed to find tile data " + tile_id + " while instancing tile codex.");
-		return;
+	if TileDataManager.instance.tile_dictionnary.has(tile_id):
+		var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
+		init_tile_detail_page(tile_data);
+	else:
+		init_summary();
+
+func init_summary():
+	summary_left_page.visible = true;
+	left_page.visible = false;
+	effects_area.visible = false;
+	evolutions_area.visible = false;
+	requirements_area.visible = false;
+	init_bookmarks("");
+	for tile in TileDataManager.instance.land_tiles:
+		var summary_element = TileCodexSummaryElement.create_tile_codex_summary_element(tile);
+		summary_elements_container.add_child(summary_element);
+
+func init_tile_detail_page(tile_data : CustomTileData):
+	summary_left_page.visible = false;
+	left_page.visible = true;
+	effects_area.visible = true;
+	evolutions_area.visible = true;
+	requirements_area.visible = true;
 	init_left_page(tile_data);
 	init_right_page(tile_data);
 	init_movement_buttons();
@@ -58,8 +85,14 @@ func init_movement_buttons():
 	if !next_button.button_up.has_connections():
 		next_button.button_up.connect(next_tile);
 
+func init_summary_bookmark(tile_id : String):
+	summary_bookmark.button_pressed = tile_id == "";
+	if !summary_bookmark.button_up.has_connections():
+		summary_bookmark.button_up.connect(setup.bind(""));
+
 func init_bookmarks(tile_id : String):
 	reset_bookmarks();
+	init_summary_bookmark(tile_id);
 	for target_tile_id in UserSettings.tile_codex_bookmarks:
 		var bookmark = TileCodexBookmark.create_tile_codex_bookmark(target_tile_id);
 		if target_tile_id == tile_id:
@@ -123,6 +156,8 @@ func reset():
 	for evolution in evolutions:
 		evolution.queue_free();
 	evolutions.clear();
+	for summary_element in summary_elements_container.get_children():
+		summary_element.queue_free();
 
 func reset_bookmarks():
 	for bookmark in bookmarks:

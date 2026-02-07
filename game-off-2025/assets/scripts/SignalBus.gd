@@ -6,6 +6,7 @@ signal reroll_amount_updated;
 
 # Codex signals
 signal bookmark_clicked
+signal summary_element_clicked
 
 # World signals
 signal card_used;

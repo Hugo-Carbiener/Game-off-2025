@@ -5,6 +5,7 @@ const tile_card_scene: PackedScene = preload("res://scenes/components/TileCard.t
 
 var card_id : String;
 var card_color : Color;
+var is_draggable : bool;
 @export_group("Components")
 @export var card_overlay : TextureRect;
 @export var card_count_overlay : TextureRect;
@@ -40,7 +41,8 @@ func without_count_overlay() -> TileCard:
 
 func setup(_id : String, draggable : bool) :
 	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
-	set_meta('Draggable', draggable);
+	is_draggable = draggable;
+	set_meta('Draggable', is_draggable);
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
@@ -176,7 +178,7 @@ func get_current_margin() -> int:
 	return 0;
 
 func on_mouse_entered():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.areInputBlocked or !is_draggable: return;
 	if card_is_selected(): return;
 	if !TileDataManager.instance.tile_dictionnary[card_id].is_playable: return;
 	
@@ -187,6 +189,7 @@ func on_mouse_entered():
 	transition_card_margin();
 
 func on_mouse_exit():
+	if !is_draggable: return;
 	if card_is_selected(): return;
 
 	CardSlotSelector.instance.card_slot_hovered = -1;

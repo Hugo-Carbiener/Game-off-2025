@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwkcr4khyeowy"]
+
+[ext_resource type="Texture2D" uid="uid://b6e0s5kah8qr1" path="res://assets/sprites/UI_book-summary-tile-bg.png" id="1_j70hg"]
+[ext_resource type="Texture2D" uid="uid://7ed4k48i2yf7" path="res://assets/sprites/UI_book-summary-tile-bg-highlighted.png" id="2_s78bb"]
+[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_f28cp"]
+[ext_resource type="Script" uid="uid://cna1a78oj2mw7" path="res://assets/scripts/UI/Tile codex/TileCodexSummaryElement.gd" id="3_s78bb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j70hg"]
+resource_local_to_scene = true
+atlas = ExtResource("3_f28cp")
+region = Rect2(0, 0, 8, 8)
+
+[node name="Tile summary element" type="TextureButton" node_paths=PackedStringArray("tile_preview")]
+offset_right = 12.0
+offset_bottom = 12.0
+texture_normal = ExtResource("1_j70hg")
+texture_pressed = ExtResource("2_s78bb")
+texture_hover = ExtResource("2_s78bb")
+script = ExtResource("3_s78bb")
+tile_preview = NodePath("Tile preview")
+
+[node name="Tile preview" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_j70hg")
+stretch_mode = 3
