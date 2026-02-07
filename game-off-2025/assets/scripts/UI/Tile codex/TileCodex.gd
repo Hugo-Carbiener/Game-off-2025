@@ -27,6 +27,9 @@ var tile_card : TileCard;
 var effect_tooltips : Array[EffectTooltip];
 var evolutions : Array[TileCardEvolution];
 
+func _ready() -> void:
+	SignalBus.bookmark_clicked.connect(setup);
+
 func setup(tile_id : String):
 	reset();
 	var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
@@ -38,7 +41,7 @@ func setup(tile_id : String):
 	init_movement_buttons();
 
 func init_left_page(tile_data : CustomTileData):
-	init_bookmarks();
+	init_bookmarks(tile_data.id);
 	init_favorite_button(tile_data.id);
 	init_title(tile_data.name);
 	init_card(tile_data.id);
@@ -55,10 +58,12 @@ func init_movement_buttons():
 	if !next_button.button_up.has_connections():
 		next_button.button_up.connect(next_tile);
 
-func init_bookmarks():
+func init_bookmarks(tile_id : String):
 	reset_bookmarks();
 	for target_tile_id in UserSettings.tile_codex_bookmarks:
 		var bookmark = TileCodexBookmark.create_tile_codex_bookmark(target_tile_id);
+		if target_tile_id == tile_id:
+			bookmark.button_pressed = true;
 		bookmark_container.add_child(bookmark);
 		bookmarks.push_back(bookmark);
 
@@ -138,7 +143,7 @@ func toggle_favorite(tile_id : String):
 			
 		if !UserSettings.tile_codex_bookmarks.has(tile_id):
 			UserSettings.tile_codex_bookmarks.push_back(tile_id);
-	init_bookmarks();
+	init_bookmarks(tile_id);
 	update_favorite_button_style(tile_id);
 
 func next_tile():

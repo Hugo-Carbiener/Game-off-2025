@@ -17,4 +17,7 @@ func setup(target_tile_id: String):
 		return;
 	
 	icon.texture.region = tile_data.get_texture_region();
-	# TODO: link button to tile codex and deal with summary version
+	button_up.connect(on_click.bind(target_tile_id));
+
+func on_click(target_tile_id: String):
+	SignalBus.bookmark_clicked.emit(target_tile_id);

@@ -4,6 +4,9 @@ extends Node2D
 signal cards_amount_updated;
 signal reroll_amount_updated;
 
+# Codex signals
+signal bookmark_clicked
+
 # World signals
 signal card_used;
 signal tile_placed;

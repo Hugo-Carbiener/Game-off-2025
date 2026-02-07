@@ -14,6 +14,7 @@ region = Rect2(0, 0, 8, 8)
 [node name="Bookmark" type="TextureButton" node_paths=PackedStringArray("icon")]
 offset_right = 16.0
 offset_bottom = 16.0
+toggle_mode = true
 texture_normal = ExtResource("2_ij2qk")
 texture_pressed = ExtResource("3_47cgr")
 texture_hover = ExtResource("4_ij2qk")
