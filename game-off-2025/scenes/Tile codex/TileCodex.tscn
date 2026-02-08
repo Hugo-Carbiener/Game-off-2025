@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=27 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
@@ -22,8 +22,12 @@
 [ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
 [ext_resource type="Texture2D" uid="uid://brk8socub4rmk" path="res://assets/sprites/UI_book-right-page-filler.png" id="19_keuhg"]
 [ext_resource type="Texture2D" uid="uid://dt5j7lq8o77uj" path="res://assets/sprites/UI_book-next-page-disabled.png" id="21_keuhg"]
+[ext_resource type="Texture2D" uid="uid://cf6mwp5qst7td" path="res://assets/sprites/UI_book-back-button.png" id="23_gb3bu"]
+[ext_resource type="Texture2D" uid="uid://bml77avxanc46" path="res://assets/sprites/UI_book-back-button-highlighted.png" id="24_g7s2b"]
+[ext_resource type="Texture2D" uid="uid://bc3ywu5bxciqp" path="res://assets/sprites/UI_book-close-button.png" id="25_08uid"]
+[ext_resource type="Texture2D" uid="uid://cq2wgtsre4est" path="res://assets/sprites/UI_book-close-button-highlighted.png" id="26_72rhy"]
 
-[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "summary_bookmark", "damage_effect_tooltip")]
+[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "back_button", "close_button", "summary_bookmark", "damage_effect_tooltip")]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_on25x")
@@ -46,6 +50,8 @@ range_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page m
 previous_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Previous page button")
 next_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Next page button")
 favorite_button = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Favorite container/Favorite button")
+back_button = NodePath("MarginContainer/VBoxContainer/Back_close button margin/Back button")
+close_button = NodePath("MarginContainer/VBoxContainer/Back_close button margin/Close button")
 summary_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark")
 damage_effect_tooltip = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container/Effect tooltip")
 
@@ -87,6 +93,7 @@ theme_override_constants/margin_left = 25
 layout_mode = 2
 
 [node name="Summary page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -125,7 +132,6 @@ theme_override_constants/v_separation = 4
 columns = 8
 
 [node name="Left page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -191,7 +197,7 @@ vertical_alignment = 1
 
 [node name="Stats line container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 70
+theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Damage line" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Stats line container"]
@@ -241,7 +247,6 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Effects" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("14_2fjf8")
 
@@ -264,7 +269,6 @@ label_settings = ExtResource("10_ffusi")
 layout_mode = 2
 
 [node name="Evolutions" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("15_keuhg")
 
@@ -286,7 +290,6 @@ text = "Evolutions:"
 label_settings = ExtResource("10_ffusi")
 
 [node name="Requirements background" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("16_0pkkn")
 
@@ -331,5 +334,57 @@ texture_normal = ExtResource("3_rahan")
 texture_pressed = ExtResource("4_mm6dg")
 texture_hover = ExtResource("4_mm6dg")
 texture_disabled = ExtResource("21_keuhg")
+
+[node name="Back_close button margin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 272
+theme_override_constants/margin_top = -1
+
+[node name="Back button" type="TextureButton" parent="MarginContainer/VBoxContainer/Back_close button margin"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("23_gb3bu")
+texture_pressed = ExtResource("24_g7s2b")
+texture_hover = ExtResource("24_g7s2b")
+
+[node name="Label margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Back_close button margin/Back button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+
+[node name="Back label" type="Label" parent="MarginContainer/VBoxContainer/Back_close button margin/Back button/Label margin"]
+layout_mode = 2
+text = "Back"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close button" type="TextureButton" parent="MarginContainer/VBoxContainer/Back_close button margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("25_08uid")
+texture_pressed = ExtResource("26_72rhy")
+texture_hover = ExtResource("26_72rhy")
+
+[node name="Label margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Back_close button margin/Close button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 16
+
+[node name="Back label" type="Label" parent="MarginContainer/VBoxContainer/Back_close button margin/Close button/Label margin"]
+layout_mode = 2
+text = "Close"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark"]

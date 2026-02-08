@@ -88,7 +88,7 @@ func init_color(color : Color) :
 	card_evolution_title.label_settings = card_evolution_title.label_settings.duplicate();
 	card_evolution_title.label_settings.font_color = color;
 	for tile_card_evolution in tile_card_evolutions:
-		tile_card_evolution.setup_color(color);
+		tile_card_evolution.init_color(color);
 
 func init_icons(tile_data : CustomTileData) :
 	var tile_damage_key = TileDataManager.tile_damages.find_key(tile_data.damage);

@@ -24,15 +24,18 @@ class_name TileCodex
 @export var previous_button : TextureButton;
 @export var next_button : TextureButton;
 @export var favorite_button : ToggleButton;
+@export var back_button : TextureButton;
+@export var close_button : TextureButton;
 @export_group("Misc")
 @export var summary_bookmark : TileCodexBookmark;
 @export var damage_effect_tooltip : EffectTooltip;
  
-var current_tile_index : int;
+var current_tile_index : int = 0;
 var bookmarks : Array[TileCodexBookmark];
 var tile_card : TileCard;
 var effect_tooltips : Array[EffectTooltip];
 var evolutions : Array[TileCardEvolution];
+var previous_tiles : Array[String];
 
 func _ready() -> void:
 	SignalBus.bookmark_clicked.connect(setup);
@@ -53,6 +56,7 @@ func init_summary():
 	evolutions_area.visible = false;
 	requirements_area.visible = false;
 	init_bookmarks("");
+	init_movement_buttons("");
 	for tile in TileDataManager.instance.land_tiles:
 		var summary_element = TileCodexSummaryElement.create_tile_codex_summary_element(tile);
 		summary_elements_container.add_child(summary_element);
@@ -65,7 +69,7 @@ func init_tile_detail_page(tile_data : CustomTileData):
 	requirements_area.visible = true;
 	init_left_page(tile_data);
 	init_right_page(tile_data);
-	init_movement_buttons();
+	init_movement_buttons(tile_data.id);
 
 func init_left_page(tile_data : CustomTileData):
 	init_bookmarks(tile_data.id);
@@ -79,11 +83,19 @@ func init_right_page(tile_data : CustomTileData):
 	init_effects(tile_data);
 	init_evolutions(tile_data);
 
-func init_movement_buttons():
+func init_movement_buttons(tile_id : String):
 	if !previous_button.button_up.has_connections():
 		previous_button.button_up.connect(previous_tile);
 	if !next_button.button_up.has_connections():
 		next_button.button_up.connect(next_tile);
+	close_button.visible = tile_id == "" or previous_tiles.is_empty();
+	back_button.visible = tile_id != "" and !previous_tiles.is_empty();
+	if close_button.visible and !close_button.button_up.has_connections():
+		close_button.button_up.connect(GameUI.instance.toggle_card_codex);
+	if back_button.visible:
+		for connection in back_button.button_up.get_connections():
+			back_button.button_up.disconnect(connection["callable"]);
+		back_button.button_up.connect(previously_visited_tile);
 
 func init_summary_bookmark(tile_id : String):
 	summary_bookmark.button_pressed = tile_id == "";
@@ -141,10 +153,18 @@ func init_evolutions(tile_data : CustomTileData):
 	if !evolutions_area.visible: return;
 	
 	for evolution in tile_data.evolutions:
-		#TODO : add new setup on evolution click + migrate stack feature
-		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(tile_data).with_clickable_evolutions(func():return);
+		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution];
+		if evolution_tile_data == null: continue;
+		
+		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(evolution_tile_data).with_clickable_evolutions(on_evolution_click);
 		evolutions_container.add_child(tile_card_evolution);
 		evolutions.push_back(tile_card_evolution);
+		tile_card_evolution.init_color(tile_data.color);
+
+func on_evolution_click(target_tile_id : String):
+	var current_tile_id = TileDataManager.instance.land_tiles[current_tile_index];
+	previous_tiles.push_back(current_tile_id);
+	setup(target_tile_id);
 
 func reset():
 	reset_bookmarks();
@@ -191,4 +211,10 @@ func previous_tile():
 	if current_tile_index <= 0: return;
 	
 	var next_tile_id = TileDataManager.instance.land_tiles[current_tile_index - 1];
+	setup(next_tile_id);
+
+func previously_visited_tile():
+	if previous_tiles.is_empty(): return;
+	
+	var next_tile_id = previous_tiles.pop_back();
 	setup(next_tile_id);

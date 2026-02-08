@@ -26,7 +26,7 @@ func setup(tile_data : CustomTileData) :
 	evolution_icon.texture.region = evolution_tile_data.get_texture_region();
 	frame_button.disabled = true;
 
-func setup_color(color: Color):
+func init_color(color: Color):
 	frame_button.self_modulate = color;
 
 func init_buttons(_on_click : Callable):
