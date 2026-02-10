@@ -36,12 +36,15 @@ func _input(event: InputEvent) -> void:
 	
 	if UserSettings.areInputBlocked : return;
 	
+	if event.is_action_released('test'):
+		SceneLoader.switch_scene_with_transition(SceneLoader.tile_codex_scene, Vector2i.LEFT);
+	
 	if event.is_action_pressed('left-click'):
 		if input_is_held() and !hold_input:
 			hold_input = true;
 
 	if event.is_action_released('left-click'):
-		CardSlotSelector.instance.on_card_interaction_input();
+		ClickManager.on_left_click();
 		reset_hold_input();
 
 	if event is InputEventKey and event.is_action_pressed('select-card-numbers'):

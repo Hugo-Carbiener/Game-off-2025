@@ -63,7 +63,7 @@ func get_valid_cells() -> Array[Vector2i] :
 	return result;
 
 func init_world():
-	place_tile(Vector2.ZERO, TileDataManager.instance.tile_dictionnary["beacon"], true);
+	place_tile(Vector2.ZERO, TileDataManager.tile_dictionnary["beacon"], true);
 	beacon_sprite.position = map_to_local(Vector2i.ZERO);
 
 func check_for_evolution(tile_position : Vector2i):
@@ -71,7 +71,7 @@ func check_for_evolution(tile_position : Vector2i):
 	if  tile_data == null or tile_data.evolutions.size() == 0 : return;
 	
 	for evolution in tile_data.evolutions:
-		var evolution_tile_data = TileDataManager.instance.tile_dictionnary.get(evolution);
+		var evolution_tile_data = TileDataManager.tile_dictionnary.get(evolution);
 		if evolution_tile_data == null:
 			print("Invalid evolution tile key : " + evolution + " for tile " + tile_data.name);
 			continue;
@@ -84,7 +84,7 @@ func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolut
 	is_evolving_tile = true;
 	clear_tile(tile_position);
 	await evolution_transition(tile_position, current_tile, evolution);
-	TileDataManager.instance.learn_evolution(evolution);
+	TileDataManager.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
 	is_evolving_tile = false;
 
@@ -147,7 +147,7 @@ func execute_tile_effects(tile_data : CustomTileData, monster : Monster):
 
 func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var world_pos = map_to_local(tilemap_position) + global_position/2;
-	var camera = get_viewport().get_camera_2d();
+	var camera = MainCamera.get_camera();
 	var viewport_coordinates = camera.get_canvas_transform() * world_pos;
 	return viewport_coordinates;
 

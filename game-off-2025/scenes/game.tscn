@@ -1,0 +1,408 @@
+[gd_scene load_steps=59 format=3 uid="uid://crymo458rjfyb"]
+
+[ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSlotSelector.gd" id="1_8qswn"]
+[ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
+[ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="3_i4re6"]
+[ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/Tilemap/MainTilemap.gd" id="4_pf7vy"]
+[ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="5_o8ni1"]
+[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="6_3hbvx"]
+[ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="7_q8j3a"]
+[ext_resource type="Texture2D" uid="uid://b85i6xlo841q1" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://c68d4kq0uchmv" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
+[ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/Tilemap/IndicationTilemap.gd" id="10_bk1p3"]
+[ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="11_n8ral"]
+[ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/Audio/AudioManager.gd" id="12_yd4ix"]
+[ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="13_66xif"]
+[ext_resource type="AudioStream" uid="uid://d8nj8pplxnbw" path="res://assets/audio/Combat_1.ogg" id="14_bnuda"]
+[ext_resource type="AudioStream" uid="uid://cdq5avugofp7r" path="res://assets/audio/Combat_2.ogg" id="15_0rmfi"]
+[ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_xbak0"]
+[ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/Input/MainInputManager.gd" id="17_3x28f"]
+[ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/BeaconManager.gd" id="18_l6q63"]
+[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/GameUI.gd" id="19_mmvbu"]
+[ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="20_weeiq"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="21_uxocx"]
+[ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="22_7nv0b"]
+[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="23_o8oq8"]
+[ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/Input/InteractionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
+[ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="25_2iuns"]
+[ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/InteractionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
+[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="27_753oq"]
+[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
+[ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
+[ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/Input/InteractionArea/RerollInteractionArea.gd" id="30_s0g06"]
+[ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="31_2gnni"]
+[ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="32_vgxg3"]
+[ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="33_4nbsr"]
+[ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="34_fkywm"]
+[ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/components/PauseScreen.tscn" id="35_dku7i"]
+[ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="36_veaf0"]
+[ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="37_flw08"]
+[ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/components/EvolutionWindow.tscn" id="38_84hbc"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
+[ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
+[ext_resource type="Texture2D" uid="uid://dp7hkpe8x4emk" path="res://assets/sprites/UI_mouse_hold.png" id="49_tc8uq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f1tp"]
+atlas = ExtResource("6_3hbvx")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qimb"]
+atlas = ExtResource("6_3hbvx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
+atlas = ExtResource("6_3hbvx")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x73tu"]
+atlas = ExtResource("8_ms3bu")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwaln"]
+atlas = ExtResource("8_ms3bu")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2fan"]
+atlas = ExtResource("8_ms3bu")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpe83"]
+atlas = ExtResource("9_7ixpq")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rsph"]
+atlas = ExtResource("9_7ixpq")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daolu"]
+atlas = ExtResource("9_7ixpq")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tl7n3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x73tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwaln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2fan")
+}],
+"loop": false,
+"name": &"breach_spawn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpe83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rsph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daolu")
+}],
+"loop": false,
+"name": &"breach_update",
+"speed": 5.0
+}]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_pdwbg"]
+fade_time = 0.0
+stream_count = 4
+stream_0 = ExtResource("13_66xif")
+stream_1 = ExtResource("14_bnuda")
+stream_2 = ExtResource("15_0rmfi")
+stream_3 = ExtResource("16_xbak0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
+shader = ExtResource("20_weeiq")
+shader_parameter/strength = 0.08
+shader_parameter/center = Vector2(0, 0)
+shader_parameter/radius = 0.25
+shader_parameter/light_opacity = 0.035
+shader_parameter/fall_off_treshold = 0.7
+shader_parameter/aberration = 0.425
+shader_parameter/width = 0.04
+shader_parameter/feather = 0.135
+
+[sub_resource type="LabelSettings" id="LabelSettings_t70y2"]
+font = ExtResource("23_o8oq8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kxyth"]
+font = ExtResource("23_o8oq8")
+font_size = 8
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_5grtr"]
+frames = 3
+speed_scale = -3.0
+frame_0/texture = ExtResource("32_vgxg3")
+frame_1/texture = ExtResource("33_4nbsr")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("34_fkywm")
+frame_2/duration = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
+shader = ExtResource("46_ja1h7")
+shader_parameter/main_tex = ExtResource("47_p4npv")
+shader_parameter/noise_tex = ExtResource("48_xjcjm")
+shader_parameter/time_scale = 15.25
+shader_parameter/center_offset = Vector2(0, 0.1)
+shader_parameter/noise_scale = 0.4110000195225
+shader_parameter/width_scale = 2.0850000515375
+shader_parameter/rotation_coef = 1.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Card selector manager" type="Node2D" parent="."]
+script = ExtResource("1_8qswn")
+
+[node name="Tilemaps" type="Node2D" parent="."]
+
+[node name="Background tilemap" type="TileMapLayer" parent="Tilemaps"]
+tile_set = ExtResource("2_rm0al")
+script = ExtResource("3_i4re6")
+
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
+tile_set = ExtResource("2_rm0al")
+script = ExtResource("4_pf7vy")
+beacon_sprite = NodePath("Beacon sprite")
+evolution_transition_duration = 1.0
+evolution_from_tile_sprite = NodePath("Evolution from tile sprite")
+evolution_to_tile_sprite = NodePath("Evolution to tile sprite")
+
+[node name="Beacon sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
+texture = ExtResource("5_o8ni1")
+offset = Vector2(0, -4)
+
+[node name="Evolution from tile sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
+visible = false
+texture = SubResource("AtlasTexture_0f1tp")
+
+[node name="Evolution to tile sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
+visible = false
+texture = SubResource("AtlasTexture_0qimb")
+
+[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite")]
+tile_set = ExtResource("2_rm0al")
+script = ExtResource("7_q8j3a")
+breach_tiles_per_maturity = Dictionary[int, String]({
+1: "large-breach",
+2: "small-breach"
+})
+breach_intro_animation_per_maturity = Dictionary[int, String]({
+1: "breach_update",
+2: "breach_spawn"
+})
+breach_animated_sprite = NodePath("Breach animations")
+monster_movement_duration = 0.3
+indicator_tilemap = NodePath("../Indication tilemap")
+monster_sprite = NodePath("Monster sprite")
+
+[node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
+visible = false
+texture = SubResource("AtlasTexture_20167")
+
+[node name="Breach animations" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
+sprite_frames = SubResource("SpriteFrames_tl7n3")
+animation = &"breach_spawn"
+
+[node name="Indication tilemap" type="TileMapLayer" parent="Tilemaps"]
+tile_set = ExtResource("2_rm0al")
+script = ExtResource("10_bk1p3")
+
+[node name="Game loop manager" type="Node2D" parent="."]
+visible = false
+script = ExtResource("11_n8ral")
+
+[node name="Audio manager" type="Node2D" parent="."]
+script = ExtResource("12_yd4ix")
+victory_sound = 5
+defeat_sound = 6
+main_audio_sequence = SubResource("AudioStreamPlaylist_pdwbg")
+
+[node name="Input manager" type="Node2D" parent="." node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("17_3x28f")
+progress_bar = NodePath("../UI/Input hold progress")
+hold_input_minimum_duration = 0.2
+hold_input_required_duration = 1.0
+
+[node name="Beacon manager" type="Node2D" parent="."]
+script = ExtResource("18_l6q63")
+
+[node name="UI" type="MarginContainer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_mmvbu")
+footer_container = NodePath("Screen container/Footer container")
+default_card_slot_modulate = Color(1, 1, 1, 1)
+disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
+card_slot_transition_duration = 0.2
+phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
+death_screen = NodePath("Death Screen")
+win_screen = NodePath("Win screen")
+pause_window = NodePath("Pause screen")
+evolution_window = NodePath("Evolution window")
+
+[node name="Shockwave texture" type="TextureRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_4gqpi")
+layout_mode = 2
+texture = ExtResource("21_uxocx")
+script = ExtResource("22_7nv0b")
+small_shockwave_duration = 2.0
+large_shockwave_duration = 2.5
+
+[node name="Screen container" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="PhaseMsg" type="Label" parent="UI/Screen container/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_t70y2")
+horizontal_alignment = 1
+
+[node name="Tilemap area" type="MarginContainer" parent="UI/Screen container" node_paths=PackedStringArray("main_tilemap")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("24_sxt1d")
+main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
+
+[node name="Footer container" type="MarginContainer" parent="UI/Screen container"]
+layout_mode = 2
+
+[node name="Footer hbox" type="HBoxContainer" parent="UI/Screen container/Footer container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+
+[node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("25_2iuns")
+region_rect = Rect2(0, 31.874634, 80, 48.125366)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+script = ExtResource("26_7gkqi")
+
+[node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+script = ExtResource("27_753oq")
+
+[node name="Stats area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
+layout_mode = 2
+texture = ExtResource("28_3x338")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer"]
+layout_mode = 2
+
+[node name="Stat window" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" instance=ExtResource("29_1yg85")]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 6
+
+[node name="Reroll window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" node_paths=PackedStringArray("reroll_animation")]
+layout_mode = 2
+script = ExtResource("30_s0g06")
+reroll_animation = NodePath("VBoxContainer/MarginContainer/TextureRect")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window"]
+layout_mode = 2
+
+[node name="Separator" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("31_2gnni")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
+layout_mode = 2
+text = "Reroll card:"
+label_settings = SubResource("LabelSettings_kxyth")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = SubResource("AnimatedTexture_5grtr")
+
+[node name="Pause screen" parent="UI" instance=ExtResource("35_dku7i")]
+layout_mode = 2
+
+[node name="Win screen" parent="UI" instance=ExtResource("36_veaf0")]
+visible = false
+layout_mode = 2
+
+[node name="Death Screen" parent="UI" instance=ExtResource("37_flw08")]
+visible = false
+layout_mode = 2
+
+[node name="Evolution window" parent="UI" instance=ExtResource("38_84hbc")]
+visible = false
+layout_mode = 2
+
+[node name="Background shader" type="TextureRect" parent="UI"]
+modulate = Color(0, 0, 0, 1)
+z_index = -100
+material = SubResource("ShaderMaterial_2rfjg")
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("21_uxocx")
+stretch_mode = 6
+
+[node name="Input hold progress" type="TextureProgressBar" parent="UI"]
+visible = false
+z_index = 1
+layout_mode = 2
+mouse_filter = 2
+value = 70.0
+fill_mode = 4
+texture_progress = ExtResource("49_tc8uq")

@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 class_name GameUI
 
 static var instance : GameUI;
@@ -53,7 +53,7 @@ func update_card_slot_position(margin : int):
 	footer_container.add_theme_constant_override("margin_bottom", margin);
 
 func on_evolution_discovered(tile_data : CustomTileData):
-	DragAndDropHandler.instance.cancel_drag();
+	CardSlotSelector.instance.unselect_card_slot();
 	evolution_window.setup(tile_data);
 	evolution_window.visible = true;
 

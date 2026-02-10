@@ -37,7 +37,7 @@ func on_monster_hover_in(cell: Vector2i):
 	is_monster_path_displayed = true;
 	
 	for trajectory_point in monster.trajectory:
-		place_tile(trajectory_point, TileDataManager.instance.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
+		place_tile(trajectory_point, TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_PATH_KEY));
 
 func on_monster_hover_out(cell: Vector2i):
 	if MonsterFactory.monsters.has(cell):
@@ -55,7 +55,7 @@ func display_valid_cells():
 	is_valid_tile_displayed = true;
 	var valid_cells = MainTilemap.instance.get_valid_cells();
 	for valid_cell in valid_cells:
-		place_tile(valid_cell, TileDataManager.instance.tile_dictionnary[VALID_CELL_TILE_KEY]);
+		place_tile(valid_cell, TileDataManager.tile_dictionnary[VALID_CELL_TILE_KEY]);
 
 func clear_valid_cells():
 	if is_valid_tile_displayed:
@@ -79,7 +79,7 @@ func display_tile_range(cell : Vector2i):
 	
 	is_tile_range_displayed = true;
 	for offset_coordinate in offset_coordinates:
-		place_tile(cell + offset_coordinate, TileDataManager.instance.tile_dictionnary[RANGE_TILE_KEY]);
+		place_tile(cell + offset_coordinate, TileDataManager.tile_dictionnary[RANGE_TILE_KEY]);
 
 func on_tile_hover_out(_cell: Vector2i):
 	if is_tile_range_displayed:

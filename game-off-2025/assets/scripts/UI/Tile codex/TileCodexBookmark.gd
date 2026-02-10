@@ -11,7 +11,7 @@ static func create_tile_codex_bookmark(target_tile_id: String) -> TileCodexBookm
 	return bookmark;
 
 func setup(target_tile_id: String):
-	var tile_data = TileDataManager.instance.tile_dictionnary[target_tile_id];
+	var tile_data = TileDataManager.tile_dictionnary[target_tile_id];
 	if tile_data == null:
 		printerr("Failed to find tile data " + target_tile_id + " while instancing tile codex bookmark.");
 		return;

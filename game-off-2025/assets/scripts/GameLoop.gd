@@ -52,6 +52,6 @@ static func resolution_phase():
 	start_phase(get_next_phase());
 
 func on_tile_placed(tile_amount : int):
-	if tile_amount >= TileDataManager.instance.world_tile_amount:
+	if tile_amount >= TileDataManager.world_tile_amount:
 		SignalBus.game_won.emit();
 		

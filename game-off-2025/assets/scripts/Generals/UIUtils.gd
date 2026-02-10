@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var main_menu_scene_path : String = "res://scenes/TitleScreen.tscn";
 

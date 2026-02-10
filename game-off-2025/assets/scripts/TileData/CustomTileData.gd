@@ -106,7 +106,7 @@ func parse_effects(_effects : Array) -> Array[TileEffect]:
 	return tile_effects;
 
 func get_texture_region() -> Rect2:
-	return Rect2(atlas_texture_coordinates.x, atlas_texture_coordinates.y , TileDataManager.instance.tile_size.x, TileDataManager.instance.tile_size.y);
+	return Rect2(atlas_texture_coordinates.x, atlas_texture_coordinates.y , TileDataManager.tile_size.x, TileDataManager.tile_size.y);
 
 func get_cells_in_range() -> Array[Vector2i]:
 	return effect_range.get_offset_coordinates();

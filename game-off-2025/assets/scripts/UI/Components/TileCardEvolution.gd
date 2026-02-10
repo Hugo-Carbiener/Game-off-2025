@@ -22,7 +22,7 @@ func with_clickable_evolutions(on_evolution_click : Callable) -> TileCardEvoluti
 func setup(tile_data : CustomTileData) :
 	tile_id = tile_data.id;
 	evolution_icon.texture = evolution_icon.texture.duplicate();
-	var evolution_tile_data = tile_data if TileDataManager.instance.known_evolution.has(tile_data.id) else TileDataManager.instance.tile_dictionnary["unknown"];
+	var evolution_tile_data = tile_data if TileDataManager.known_evolution.has(tile_data.id) else TileDataManager.tile_dictionnary["unknown"];
 	evolution_icon.texture.region = evolution_tile_data.get_texture_region();
 	frame_button.disabled = true;
 
@@ -30,14 +30,14 @@ func init_color(color: Color):
 	frame_button.self_modulate = color;
 
 func init_buttons(_on_click : Callable):
-	if TileDataManager.instance.known_evolution.has(tile_id):
+	if TileDataManager.known_evolution.has(tile_id):
 		frame_button.button_up.connect(_on_click.bind(tile_id));
 		frame_button.disabled = false;
 
 func update():
-	if !TileDataManager.instance.known_evolution.has(tile_id): return;
+	if !TileDataManager.known_evolution.has(tile_id): return;
 	
-	var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
+	var tile_data = TileDataManager.tile_dictionnary[tile_id];
 	if tile_data == null: return;
 	
 	evolution_icon.texture.region = tile_data.get_texture_region();

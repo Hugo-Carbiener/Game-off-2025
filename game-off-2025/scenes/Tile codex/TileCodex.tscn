@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=32 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
@@ -26,10 +26,26 @@
 [ext_resource type="Texture2D" uid="uid://bml77avxanc46" path="res://assets/sprites/UI_book-back-button-highlighted.png" id="24_g7s2b"]
 [ext_resource type="Texture2D" uid="uid://bc3ywu5bxciqp" path="res://assets/sprites/UI_book-close-button.png" id="25_08uid"]
 [ext_resource type="Texture2D" uid="uid://cq2wgtsre4est" path="res://assets/sprites/UI_book-close-button-highlighted.png" id="26_72rhy"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="27_v6eaw"]
+[ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="28_4nx1l"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jglyt"]
+shader = ExtResource("27_v6eaw")
+shader_parameter/main_tex = ExtResource("28_4nx1l")
+shader_parameter/noise_tex = ExtResource("29_414yg")
+shader_parameter/time_scale = 15.25
+shader_parameter/center_offset = Vector2(0, 0.1)
+shader_parameter/noise_scale = 0.4110000195225
+shader_parameter/width_scale = 2.0850000515375
+shader_parameter/rotation_coef = 1.0
 
 [node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "back_button", "close_button", "summary_bookmark", "damage_effect_tooltip")]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
 texture = ExtResource("1_on25x")
 script = ExtResource("2_rahan")
 left_page = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin")
@@ -93,7 +109,6 @@ theme_override_constants/margin_left = 25
 layout_mode = 2
 
 [node name="Summary page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -132,6 +147,7 @@ theme_override_constants/v_separation = 4
 columns = 8
 
 [node name="Left page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -247,6 +263,7 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Effects" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("14_2fjf8")
 
@@ -269,6 +286,7 @@ label_settings = ExtResource("10_ffusi")
 layout_mode = 2
 
 [node name="Evolutions" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("15_keuhg")
 
@@ -290,6 +308,7 @@ text = "Evolutions:"
 label_settings = ExtResource("10_ffusi")
 
 [node name="Requirements background" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("16_0pkkn")
 
@@ -386,5 +405,19 @@ text = "Close"
 label_settings = ExtResource("10_ffusi")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Background shader" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -100
+material = SubResource("ShaderMaterial_jglyt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("30_mui47")
+stretch_mode = 6
 
 [editable path="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark"]

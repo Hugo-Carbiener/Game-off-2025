@@ -40,11 +40,12 @@ var previous_tiles : Array[String];
 func _ready() -> void:
 	SignalBus.bookmark_clicked.connect(setup);
 	SignalBus.summary_element_clicked.connect(setup);
+	setup("");
 
 func setup(tile_id : String):
 	reset();
-	if TileDataManager.instance.tile_dictionnary.has(tile_id):
-		var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
+	if TileDataManager.tile_dictionnary.has(tile_id):
+		var tile_data = TileDataManager.tile_dictionnary[tile_id];
 		init_tile_detail_page(tile_data);
 	else:
 		init_summary();
@@ -57,7 +58,7 @@ func init_summary():
 	requirements_area.visible = false;
 	init_bookmarks("");
 	init_movement_buttons("");
-	for tile in TileDataManager.instance.land_tiles:
+	for tile in TileDataManager.land_tiles:
 		var summary_element = TileCodexSummaryElement.create_tile_codex_summary_element(tile);
 		summary_elements_container.add_child(summary_element);
 
@@ -91,7 +92,7 @@ func init_movement_buttons(tile_id : String):
 	close_button.visible = tile_id == "" or previous_tiles.is_empty();
 	back_button.visible = tile_id != "" and !previous_tiles.is_empty();
 	if close_button.visible and !close_button.button_up.has_connections():
-		close_button.button_up.connect(GameUI.instance.toggle_card_codex);
+		close_button.button_up.connect(SceneLoader.switch_scene_with_transition.bind(SceneLoader.game_scene, Vector2i.RIGHT));
 	if back_button.visible:
 		for connection in back_button.button_up.get_connections():
 			back_button.button_up.disconnect(connection["callable"]);
@@ -131,8 +132,8 @@ func init_card(tile_id : String):
 	tile_card = _tile_card;
 
 func init_number(tile_id : String):
-	current_tile_index = TileDataManager.instance.land_tiles.find(tile_id);
-	number_label.text = str(current_tile_index + 1) + "/" + str(TileDataManager.instance.land_tiles.size());
+	current_tile_index = TileDataManager.land_tiles.find(tile_id);
+	number_label.text = str(current_tile_index + 1) + "/" + str(TileDataManager.land_tiles.size());
 
 func init_stats(tile_data : CustomTileData):
 	damage_label.text = str(tile_data.damage);
@@ -153,7 +154,7 @@ func init_evolutions(tile_data : CustomTileData):
 	if !evolutions_area.visible: return;
 	
 	for evolution in tile_data.evolutions:
-		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution];
+		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution];
 		if evolution_tile_data == null: continue;
 		
 		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(evolution_tile_data).with_clickable_evolutions(on_evolution_click);
@@ -162,7 +163,7 @@ func init_evolutions(tile_data : CustomTileData):
 		tile_card_evolution.init_color(tile_data.color);
 
 func on_evolution_click(target_tile_id : String):
-	var current_tile_id = TileDataManager.instance.land_tiles[current_tile_index];
+	var current_tile_id = TileDataManager.land_tiles[current_tile_index];
 	previous_tiles.push_back(current_tile_id);
 	setup(target_tile_id);
 
@@ -202,15 +203,15 @@ func toggle_favorite(tile_id : String):
 	update_favorite_button_style(tile_id);
 
 func next_tile():
-	if current_tile_index + 1 >= TileDataManager.instance.land_tiles.size(): return;
+	if current_tile_index + 1 >= TileDataManager.land_tiles.size(): return;
 	
-	var next_tile_id = TileDataManager.instance.land_tiles[current_tile_index + 1];
+	var next_tile_id = TileDataManager.land_tiles[current_tile_index + 1];
 	setup(next_tile_id);
 
 func previous_tile():
 	if current_tile_index <= 0: return;
 	
-	var next_tile_id = TileDataManager.instance.land_tiles[current_tile_index - 1];
+	var next_tile_id = TileDataManager.land_tiles[current_tile_index - 1];
 	setup(next_tile_id);
 
 func previously_visited_tile():

@@ -13,7 +13,7 @@ static func create_tile_codex_summary_element(_tile_id : String) -> TileCodexSum
 
 func setup(_tile_id : String):
 	tile_id = _tile_id;
-	var tile_data = TileDataManager.instance.tile_dictionnary[tile_id];
+	var tile_data = TileDataManager.tile_dictionnary[tile_id];
 	if tile_data == null: return;
 	
 	tile_preview.texture.region = tile_data.get_texture_region();

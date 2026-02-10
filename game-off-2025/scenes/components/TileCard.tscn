@@ -1,15 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=21 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="4_eq3wv"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="4_eq3wv"]
 [ext_resource type="Texture2D" uid="uid://dkcxv38sgq7dq" path="res://assets/sprites/UI_card_background_border.png" id="4_ttman"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
 [ext_resource type="Texture2D" uid="uid://bqa4poxen4or5" path="res://assets/sprites/shader resources/shader_pattern_middle_gradient.png" id="5_tysvy"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="6_uila8"]
+[ext_resource type="Texture2D" uid="uid://bvqhu1pbds0yf" path="res://assets/sprites/UI_damage-icon.png" id="11_5onax"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="11_eq3wv"]
+[ext_resource type="Texture2D" uid="uid://ckhy411r42l1k" path="res://assets/sprites/UI_range-icon.png" id="12_m07nl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ga2n"]
 shader = ExtResource("4_eq3wv")
@@ -44,7 +46,15 @@ font_size = 8
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_icons", "card_description", "card_evolution_title", "tile_card_evolution_container")]
+[sub_resource type="LabelSettings" id="LabelSettings_tolko"]
+font = ExtResource("11_eq3wv")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_wjw0q"]
+font = ExtResource("11_eq3wv")
+font_size = 8
+
+[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_334as")
@@ -54,10 +64,14 @@ card_border = NodePath("Tile card/Border")
 card_count = NodePath("Tile card/VBoxContainer/Card amount margin/Card amount")
 card_name = NodePath("Tile card/VBoxContainer/Card name margin/Tile card name")
 card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/Tile preview")
-card_icons = NodePath("Tile card/VBoxContainer/Icons margin/HBoxContainer")
+card_effects_icons = NodePath("Tile card/VBoxContainer/Effects margin/HBoxContainer")
 card_description = NodePath("Tile card/VBoxContainer/Description margin/Card description")
 card_evolution_title = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions")
 tile_card_evolution_container = NodePath("Tile card/VBoxContainer/Evolution margin/VBoxContainer/Evolutions container")
+card_damage_label = NodePath("Tile card/VBoxContainer/Stats margin/Damage container/Text margin/Damage amount")
+card_damage_icon = NodePath("Tile card/VBoxContainer/Stats margin/Damage container/Damage icon")
+card_range_label = NodePath("Tile card/VBoxContainer/Stats margin/Range container/Text margin/Range amount")
+card_range_icon = NodePath("Tile card/VBoxContainer/Stats margin/Range container/Range icon")
 hover_offset = 5
 selection_offset = 30
 transition_duration = 0.05
@@ -133,12 +147,12 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_867uw")
 stretch_mode = 3
 
-[node name="Icons margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
+[node name="Effects margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Tile card/VBoxContainer/Icons margin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Tile card/VBoxContainer/Effects margin"]
 layout_mode = 2
 alignment = 1
 
@@ -166,6 +180,7 @@ theme_override_constants/margin_right = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tile card/VBoxContainer/Evolution margin"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="Evolutions" type="Label" parent="Tile card/VBoxContainer/Evolution margin/VBoxContainer"]
@@ -181,3 +196,51 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 3
+
+[node name="Stats margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 21
+theme_override_constants/margin_bottom = 22
+
+[node name="Damage container" type="HBoxContainer" parent="Tile card/VBoxContainer/Stats margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="Damage icon" type="TextureRect" parent="Tile card/VBoxContainer/Stats margin/Damage container"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 2
+texture = ExtResource("11_5onax")
+
+[node name="Text margin" type="MarginContainer" parent="Tile card/VBoxContainer/Stats margin/Damage container"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Damage amount" type="Label" parent="Tile card/VBoxContainer/Stats margin/Damage container/Text margin"]
+layout_mode = 2
+text = "2"
+label_settings = SubResource("LabelSettings_tolko")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Range container" type="HBoxContainer" parent="Tile card/VBoxContainer/Stats margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
+
+[node name="Text margin" type="MarginContainer" parent="Tile card/VBoxContainer/Stats margin/Range container"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Range amount" type="Label" parent="Tile card/VBoxContainer/Stats margin/Range container/Text margin"]
+layout_mode = 2
+text = "2-3"
+label_settings = SubResource("LabelSettings_wjw0q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Range icon" type="TextureRect" parent="Tile card/VBoxContainer/Stats margin/Range container"]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 2
+texture = ExtResource("12_m07nl")

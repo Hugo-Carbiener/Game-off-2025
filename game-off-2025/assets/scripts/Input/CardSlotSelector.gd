@@ -7,19 +7,8 @@ var card_slot_selected : int = -1;
 var card_slot_hovered : int = -1;
 
 func _ready() -> void:
-	super();
 	if instance == null:
 		instance = self;
-
-func on_card_interaction_input():
-	var interaction_area = get_interaction_area_on_cursor();
-	if interaction_area == null:
-		unselect_card_slot();
-		return;
-	
-	var keep_card = await interaction_area.interact();
-	if !keep_card : 
-		unselect_card_slot();
 
 func on_card_slot_selection():
 	if !card_is_hovered(): 

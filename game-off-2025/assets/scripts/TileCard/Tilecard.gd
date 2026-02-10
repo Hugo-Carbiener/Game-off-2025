@@ -13,10 +13,14 @@ var is_draggable : bool;
 @export var card_count : Label;
 @export var card_name : Label;
 @export var card_sprite : TextureRect;
-@export var card_icons : HBoxContainer;
+@export var card_effects_icons : HBoxContainer;
 @export var card_description : Label;
 @export var card_evolution_title : Label;
 @export var tile_card_evolution_container : GridContainer;
+@export var card_damage_label : Label;
+@export var card_damage_icon : TextureRect;
+@export var card_range_label : Label;
+@export var card_range_icon : TextureRect;
 @export_group("Variables")
 @export var hover_offset : int;
 @export var selection_offset : int;
@@ -40,12 +44,14 @@ func without_count_overlay() -> TileCard:
 	return self;
 
 func setup(_id : String, draggable : bool) :
-	var tile_data = TileDataManager.instance.tile_dictionnary[_id];
+	var tile_data = TileDataManager.tile_dictionnary[_id];
 	is_draggable = draggable;
 	set_meta('Draggable', is_draggable);
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
+	card_damage_label.text = str(tile_data.damage);
+	card_range_label.text = tile_data.effect_range.range_to_string();
 	card_sprite.texture.region = tile_data.get_texture_region();
 	card_border.visible = false;
 	init_signals();
@@ -54,8 +60,8 @@ func setup(_id : String, draggable : bool) :
 	init_color(tile_data.color);
 
 func reset():
-	for card_icon in card_icons.get_children():
-		card_icon.queue_free();
+	for card_effects_icon in card_effects_icons.get_children():
+		card_effects_icon.queue_free();
 	for tile_card_evolution in tile_card_evolutions:
 		tile_card_evolution.queue_free();
 	tile_card_evolutions.clear();
@@ -78,12 +84,18 @@ func init_color(color : Color) :
 	card_name.label_settings.font_color = color;
 	card_description.label_settings = card_description.label_settings.duplicate();
 	card_description.label_settings.font_color = color;
-	
+	card_damage_label.label_settings = card_damage_label.label_settings.duplicate();
+	card_damage_label.label_settings.font_color = color;
+	card_range_label.label_settings = card_range_label.label_settings.duplicate();
+	card_range_label.label_settings.font_color = color;
+
 	card_overlay.modulate = color;
 	card_count_overlay.modulate = color;
 	card_border.modulate = color;
-	for card_icon in card_icons.get_children():
-		card_icon.modulate = color;
+	card_damage_icon.modulate = color;
+	card_range_icon.modulate = color;
+	for card_effects_icon in card_effects_icons.get_children():
+		card_effects_icon.modulate = color;
 	
 	card_evolution_title.label_settings = card_evolution_title.label_settings.duplicate();
 	card_evolution_title.label_settings.font_color = color;
@@ -91,24 +103,19 @@ func init_color(color : Color) :
 		tile_card_evolution.init_color(color);
 
 func init_icons(tile_data : CustomTileData) :
-	var tile_damage_key = TileDataManager.tile_damages.find_key(tile_data.damage);
-	if tile_damage_key != "none":
-		var icon = TextureRect.new();
-		icon.texture = Constants.damage_icons[tile_damage_key];
-		card_icons.add_child(icon);
 	if !tile_data.effects.is_empty():
 		for effect in tile_data.effects:
 			for icon_res in effect.get_icons():
 				var icon = TextureRect.new();
 				icon.texture = icon_res;
-				card_icons.add_child(icon);
+				card_effects_icons.add_child(icon);
 
 func init_evolutions(tile_data : CustomTileData):
 	if tile_data.evolutions == null or tile_data.evolutions.is_empty() : 
 		card_evolution_title.visible = false;
 		return;
 	for evolution in tile_data.evolutions:
-		var evolution_tile_data = TileDataManager.instance.tile_dictionnary[evolution];
+		var evolution_tile_data = TileDataManager.tile_dictionnary[evolution];
 		if evolution_tile_data == null: return;
 		
 		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(evolution_tile_data);
@@ -180,7 +187,7 @@ func get_current_margin() -> int:
 func on_mouse_entered():
 	if UserSettings.areInputBlocked or !is_draggable: return;
 	if card_is_selected(): return;
-	if !TileDataManager.instance.tile_dictionnary[card_id].is_playable: return;
+	if !TileDataManager.tile_dictionnary[card_id].is_playable: return;
 	
 	var card_slot = TileCardFactory.instance.slots_per_card[card_id];
 	if card_slot == null: return;
