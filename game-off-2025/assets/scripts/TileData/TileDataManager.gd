@@ -26,6 +26,7 @@ var known_evolution : Array[String];
 
 func _ready() -> void:
 	load_tile_data();
+	load_devolutions();
 
 func load_tile_data():
 	var source : TileSetAtlasSource = tile_set.get_source(0);
@@ -68,6 +69,12 @@ func load_tile_data():
 		if !is_util:
 			land_tiles.append(custom_tile_data.id);
 		tile_dictionnary.set(custom_tile_data.id, custom_tile_data);
+
+func load_devolutions():
+	for tile_data in tile_dictionnary.values():
+		for devolution_candidate in tile_dictionnary.values():
+			if devolution_candidate.evolutions.has(tile_data.id):
+				tile_data.devolutions.push_back(devolution_candidate.id);
 
 func learn_evolution(tile_data : CustomTileData):
 	if known_evolution.has(tile_data.id): return;

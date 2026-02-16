@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=33 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/Tile codex/EffectTooltip.tscn" id="15_ffusi"]
 [ext_resource type="Texture2D" uid="uid://c7yqfqmuxr4sj" path="res://assets/sprites/UI_book-right-page-evolutions.png" id="15_keuhg"]
 [ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
+[ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="19_4nx1l"]
 [ext_resource type="Texture2D" uid="uid://brk8socub4rmk" path="res://assets/sprites/UI_book-right-page-filler.png" id="19_keuhg"]
 [ext_resource type="Texture2D" uid="uid://dt5j7lq8o77uj" path="res://assets/sprites/UI_book-next-page-disabled.png" id="21_keuhg"]
 [ext_resource type="Texture2D" uid="uid://cf6mwp5qst7td" path="res://assets/sprites/UI_book-back-button.png" id="23_gb3bu"]
@@ -41,7 +42,7 @@ shader_parameter/noise_scale = 0.4110000195225
 shader_parameter/width_scale = 2.0850000515375
 shader_parameter/rotation_coef = 1.0
 
-[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "back_button", "close_button", "summary_bookmark", "damage_effect_tooltip")]
+[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "damage_label", "range_label", "previous_button", "next_button", "favorite_button", "back_button", "close_button", "summary_bookmark", "damage_effect_tooltip", "requirements_tilemap")]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
@@ -70,6 +71,7 @@ back_button = NodePath("MarginContainer/VBoxContainer/Back_close button margin/B
 close_button = NodePath("MarginContainer/VBoxContainer/Back_close button margin/Close button")
 summary_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark")
 damage_effect_tooltip = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container/Effect tooltip")
+requirements_tilemap = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer/Tilemap margin/TileMapLayer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -109,6 +111,7 @@ theme_override_constants/margin_left = 25
 layout_mode = 2
 
 [node name="Summary page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -147,7 +150,6 @@ theme_override_constants/v_separation = 4
 columns = 8
 
 [node name="Left page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 144
 
@@ -263,7 +265,6 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Effects" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("14_2fjf8")
 
@@ -286,7 +287,6 @@ label_settings = ExtResource("10_ffusi")
 layout_mode = 2
 
 [node name="Evolutions" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("15_keuhg")
 
@@ -308,21 +308,39 @@ text = "Evolutions:"
 label_settings = ExtResource("10_ffusi")
 
 [node name="Requirements background" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("16_0pkkn")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
-layout_mode = 0
-offset_right = 72.0
-offset_bottom = 8.0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 18
+[node name="Requirements margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
 
-[node name="Requirements title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin"]
+layout_mode = 2
+
+[node name="Requirements title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer"]
 layout_mode = 2
 text = "Requirements:"
 label_settings = ExtResource("10_ffusi")
+
+[node name="Tilemap margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="TileMapLayer" type="TileMapLayer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer/Tilemap margin"]
+position = Vector2(0, -16)
+tile_set = ExtResource("19_4nx1l")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
 
 [node name="Filler" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
 layout_mode = 2

@@ -29,6 +29,7 @@ class_name TileCodex
 @export_group("Misc")
 @export var summary_bookmark : TileCodexBookmark;
 @export var damage_effect_tooltip : EffectTooltip;
+@export var requirements_tilemap : TileMapLayer;
  
 var current_tile_index : int = 0;
 var bookmarks : Array[TileCodexBookmark];
@@ -36,6 +37,7 @@ var tile_card : TileCard;
 var effect_tooltips : Array[EffectTooltip];
 var evolutions : Array[TileCardEvolution];
 var previous_tiles : Array[String];
+var timer : Timer;
 
 func _ready() -> void:
 	SignalBus.bookmark_clicked.connect(setup);
@@ -83,6 +85,7 @@ func init_left_page(tile_data : CustomTileData):
 func init_right_page(tile_data : CustomTileData):
 	init_effects(tile_data);
 	init_evolutions(tile_data);
+	init_requirements(tile_data);
 
 func init_movement_buttons(tile_id : String):
 	if !previous_button.button_up.has_connections():
@@ -167,6 +170,23 @@ func on_evolution_click(target_tile_id : String):
 	previous_tiles.push_back(current_tile_id);
 	setup(target_tile_id);
 
+func init_requirements(tile_data : CustomTileData):
+	if tile_data.requirement == null or !tile_data.requirement.has_requirement() or tile_data.devolutions.is_empty(): return; 
+	timer = Timer.new();
+	add_child(timer);
+	timer.timeout.connect(set_random_requirement_preview.bind(tile_data));
+	timer.start(Constants.requirements_update_delay)
+	set_random_requirement_preview(tile_data);
+
+func set_random_requirement_preview(tile_data : CustomTileData):
+	requirements_tilemap.clear();
+	var central_tile = TileDataManager.tile_dictionnary[tile_data.devolutions.pick_random()];
+	requirements_tilemap.set_cell(Vector2i.ZERO, 0, central_tile.atlas_coordinates);
+	var requirements = tile_data.requirement.get_requirement();
+	for cell_coordinates in requirements.keys():
+		var target_tile_data = TileDataManager.tile_dictionnary[requirements[cell_coordinates]];
+		requirements_tilemap.set_cell(cell_coordinates, 0, target_tile_data.atlas_coordinates);
+
 func reset():
 	reset_bookmarks();
 	if tile_card != null:
@@ -179,6 +199,8 @@ func reset():
 	evolutions.clear();
 	for summary_element in summary_elements_container.get_children():
 		summary_element.queue_free();
+	if timer != null:
+		timer.queue_free();
 
 func reset_bookmarks():
 	for bookmark in bookmarks:

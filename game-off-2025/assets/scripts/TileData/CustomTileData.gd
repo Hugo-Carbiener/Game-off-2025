@@ -11,6 +11,7 @@ var atlas_texture_coordinates : Vector2;
 var is_playable : bool;
 var is_util : bool;
 var evolutions : Array[String];
+var devolutions : Array[String];
 var requirement : TileRequirement;
 var effects : Array[TileEffect];
 var targetted_by : Array[Vector2i];
@@ -88,7 +89,7 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 		elif !is_sub_group and i == _requirement.length() - 1 :
 			var split_strings = _requirement.split(Constants.TILE_REQUIREMENT_LINK);
 			var requirement_string = TileRequirement.new();
-			requirement_string.relative_tilemap_coordinate = Constants.NEIGHBOR_TILE_COORDINATES_CODEX[split_strings[0]];
+			requirement_string.relative_tilemap_coordinates = Constants.NEIGHBOR_TILE_COORDINATES_CODEX[split_strings[0]];
 			requirement_string.possible_tiles = split_strings[1].split(Constants.TILE_REQUIREMENT_TILES_SEPARATOR);
 			return requirement_string;
 	print("Invalid tile requirement " + _requirement + " for tile " + name);

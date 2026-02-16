@@ -167,6 +167,9 @@ script = ExtResource("3_i4re6")
 
 [node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
 tile_set = ExtResource("2_rm0al")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
 script = ExtResource("4_pf7vy")
 beacon_sprite = NodePath("Beacon sprite")
 evolution_transition_duration = 1.0
@@ -187,6 +190,9 @@ texture = SubResource("AtlasTexture_0qimb")
 
 [node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite")]
 tile_set = ExtResource("2_rm0al")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
 script = ExtResource("7_q8j3a")
 breach_tiles_per_maturity = Dictionary[int, String]({
 1: "large-breach",
@@ -211,6 +217,9 @@ animation = &"breach_spawn"
 
 [node name="Indication tilemap" type="TileMapLayer" parent="Tilemaps"]
 tile_set = ExtResource("2_rm0al")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
 script = ExtResource("10_bk1p3")
 
 [node name="Game loop manager" type="Node2D" parent="."]

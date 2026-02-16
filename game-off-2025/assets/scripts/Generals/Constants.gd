@@ -42,6 +42,7 @@ const beacon_hp = 10;
 
 ## Tile codex
 const max_bookmarks = 5;
+const requirements_update_delay = 1.5;
 
 ## UI
 const scene_transition_duration = .75;
