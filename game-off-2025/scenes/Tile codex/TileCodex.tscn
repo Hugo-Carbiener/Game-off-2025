@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bml77avxanc46" path="res://assets/sprites/UI_book-back-button-highlighted.png" id="24_g7s2b"]
 [ext_resource type="Texture2D" uid="uid://bc3ywu5bxciqp" path="res://assets/sprites/UI_book-close-button.png" id="25_08uid"]
 [ext_resource type="Texture2D" uid="uid://cq2wgtsre4est" path="res://assets/sprites/UI_book-close-button-highlighted.png" id="26_72rhy"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="27_v6eaw"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="27_v6eaw"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="28_4nx1l"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
@@ -48,6 +48,7 @@ offset_top = -180.0
 offset_right = 320.0
 offset_bottom = 180.0
 texture = ExtResource("1_on25x")
+stretch_mode = 3
 script = ExtResource("2_rahan")
 left_page = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin")
 right_page = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin")
