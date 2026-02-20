@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq2wgtsre4est"
-path="res://.godot/imported/UI_book-close-button-highlighted.png-a46a8acf564680a6d4ae35f41eaf3d31.ctex"
+uid="uid://bqjswurku21ig"
+path="res://.godot/imported/UI_book-close-icon.png-aada634b814f36a6b802e4d51d0e1c7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_book-close-button-highlighted.png"
-dest_files=["res://.godot/imported/UI_book-close-button-highlighted.png-a46a8acf564680a6d4ae35f41eaf3d31.ctex"]
+source_file="res://assets/sprites/UI_book-close-icon.png"
+dest_files=["res://.godot/imported/UI_book-close-icon.png-aada634b814f36a6b802e4d51d0e1c7f.ctex"]
 
 [params]
 

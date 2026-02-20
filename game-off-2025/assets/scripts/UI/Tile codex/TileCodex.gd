@@ -24,10 +24,13 @@ class_name TileCodex
 @export var previous_button : TextureButton;
 @export var next_button : TextureButton;
 @export var favorite_button : ToggleButton;
-@export var back_button : TextureButton;
-@export var close_button : TextureButton;
-@export_group("Misc")
+@export_group("Bookmarks")
 @export var summary_bookmark : TileCodexBookmark;
+@export var close_bookmark : TileCodexBookmark;
+@export var close_bookmark_icon : TextureRect;
+@export var close_bookmark_texture : Texture2D;
+@export var return_bookmark_texture : Texture2D;
+@export_group("Misc")
 @export var damage_effect_tooltip : EffectTooltip;
 @export var requirements_tilemap : TileMapLayer;
  
@@ -59,7 +62,7 @@ func init_summary():
 	evolutions_area.visible = false;
 	requirements_area.visible = false;
 	init_bookmarks("");
-	init_movement_buttons("");
+	init_movement_buttons();
 	for tile in TileDataManager.land_tiles:
 		var summary_element = TileCodexSummaryElement.create_tile_codex_summary_element(tile);
 		summary_elements_container.add_child(summary_element);
@@ -72,7 +75,7 @@ func init_tile_detail_page(tile_data : CustomTileData):
 	requirements_area.visible = true;
 	init_left_page(tile_data);
 	init_right_page(tile_data);
-	init_movement_buttons(tile_data.id);
+	init_movement_buttons();
 
 func init_left_page(tile_data : CustomTileData):
 	init_bookmarks(tile_data.id);
@@ -87,24 +90,26 @@ func init_right_page(tile_data : CustomTileData):
 	init_evolutions(tile_data);
 	init_requirements(tile_data);
 
-func init_movement_buttons(tile_id : String):
+func init_movement_buttons():
 	if !previous_button.button_up.has_connections():
 		previous_button.button_up.connect(previous_tile);
 	if !next_button.button_up.has_connections():
 		next_button.button_up.connect(next_tile);
-	close_button.visible = tile_id == "" or previous_tiles.is_empty();
-	back_button.visible = tile_id != "" and !previous_tiles.is_empty();
-	if close_button.visible and !close_button.button_up.has_connections():
-		close_button.button_up.connect(SceneLoader.switch_scene_with_transition.bind(SceneLoader.game_scene, Vector2i.RIGHT));
-	if back_button.visible:
-		for connection in back_button.button_up.get_connections():
-			back_button.button_up.disconnect(connection["callable"]);
-		back_button.button_up.connect(previously_visited_tile);
 
 func init_summary_bookmark(tile_id : String):
 	summary_bookmark.button_pressed = tile_id == "";
 	if !summary_bookmark.button_up.has_connections():
 		summary_bookmark.button_up.connect(setup.bind(""));
+
+func init_close_bookmark(tile_id : String):
+	if previous_tiles.is_empty() or tile_id == "":
+		close_bookmark_icon.texture = close_bookmark_texture;
+		if !close_bookmark.button_up.has_connections():
+			close_bookmark.button_up.connect(close_codex);
+	else :
+		close_bookmark_icon.texture = return_bookmark_texture;
+		if !close_bookmark.button_up.has_connections():
+			close_bookmark.button_up.connect(return_to_previous_tile);
 
 func init_bookmarks(tile_id : String):
 	reset_bookmarks();
@@ -206,6 +211,8 @@ func reset_bookmarks():
 	for bookmark in bookmarks:
 		bookmark.queue_free();
 	bookmarks.clear();
+	for connection in close_bookmark.button_up.get_connections():
+		close_bookmark.button_up.disconnect(connection["callable"]);
 
 ## ACTIONS 
 
@@ -236,8 +243,11 @@ func previous_tile():
 	var next_tile_id = TileDataManager.land_tiles[current_tile_index - 1];
 	setup(next_tile_id);
 
-func previously_visited_tile():
+func return_to_previous_tile():
 	if previous_tiles.is_empty(): return;
 	
 	var next_tile_id = previous_tiles.pop_back();
 	setup(next_tile_id);
+
+func close_codex():
+	SceneLoader.switch_scene_with_transition(SceneLoader.game_scene, Vector2i.RIGHT);

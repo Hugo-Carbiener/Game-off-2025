@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bml77avxanc46"
-path="res://.godot/imported/UI_book-back-button-highlighted.png-0a36b0a35031f997204af3073c2282f9.ctex"
+uid="uid://b7misw4tf3iib"
+path="res://.godot/imported/UI_book-back-icon.png-392b7bd82d595a535c5f11827b0906e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_book-back-button-highlighted.png"
-dest_files=["res://.godot/imported/UI_book-back-button-highlighted.png-0a36b0a35031f997204af3073c2282f9.ctex"]
+source_file="res://assets/sprites/UI_book-back-icon.png"
+dest_files=["res://.godot/imported/UI_book-back-icon.png-392b7bd82d595a535c5f11827b0906e7.ctex"]
 
 [params]
 
