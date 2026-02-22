@@ -38,7 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="36_veaf0"]
 [ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="37_flw08"]
 [ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/components/EvolutionWindow.tscn" id="38_84hbc"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
 [ext_resource type="Texture2D" uid="uid://dp7hkpe8x4emk" path="res://assets/sprites/UI_mouse_hold.png" id="49_tc8uq"]

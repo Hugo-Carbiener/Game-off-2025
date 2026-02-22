@@ -18,8 +18,7 @@ class_name TileCodex
 @export_group("Texts")
 @export var title_label : Label;
 @export var number_label : Label;
-@export var damage_label : Label;
-@export var range_label : Label;
+@export var description_label : Label;
 @export_group("Buttons")
 @export var previous_button : TextureButton;
 @export var next_button : TextureButton;
@@ -34,6 +33,7 @@ class_name TileCodex
 @export var damage_effect_tooltip : EffectTooltip;
 @export var requirements_tilemap : TileMapLayer;
  
+var current_tile_data : CustomTileData;
 var current_tile_index : int = 0;
 var bookmarks : Array[TileCodexBookmark];
 var tile_card : TileCard;
@@ -50,8 +50,8 @@ func _ready() -> void:
 func setup(tile_id : String):
 	reset();
 	if TileDataManager.tile_dictionnary.has(tile_id):
-		var tile_data = TileDataManager.tile_dictionnary[tile_id];
-		init_tile_detail_page(tile_data);
+		current_tile_data = TileDataManager.tile_dictionnary[tile_id];
+		init_tile_detail_page(current_tile_data);
 	else:
 		init_summary();
 
@@ -73,6 +73,8 @@ func init_tile_detail_page(tile_data : CustomTileData):
 	effects_area.visible = true;
 	evolutions_area.visible = true;
 	requirements_area.visible = true;
+	if !TileDataManager.known_tiles.has(tile_data.id):
+		tile_data = TileDataManager.tile_dictionnary["unknown"];
 	init_left_page(tile_data);
 	init_right_page(tile_data);
 	init_movement_buttons();
@@ -83,7 +85,7 @@ func init_left_page(tile_data : CustomTileData):
 	init_title(tile_data.name);
 	init_card(tile_data.id);
 	init_number(tile_data.id);
-	init_stats(tile_data);
+	init_description(tile_data);
 
 func init_right_page(tile_data : CustomTileData):
 	init_effects(tile_data);
@@ -114,6 +116,7 @@ func init_close_bookmark(tile_id : String):
 func init_bookmarks(tile_id : String):
 	reset_bookmarks();
 	init_summary_bookmark(tile_id);
+	init_close_bookmark(tile_id);
 	for target_tile_id in UserSettings.tile_codex_bookmarks:
 		var bookmark = TileCodexBookmark.create_tile_codex_bookmark(target_tile_id);
 		if target_tile_id == tile_id:
@@ -140,12 +143,12 @@ func init_card(tile_id : String):
 	tile_card = _tile_card;
 
 func init_number(tile_id : String):
-	current_tile_index = TileDataManager.land_tiles.find(tile_id);
+	var tile_to_consider = current_tile_data.id if current_tile_data != null else tile_id;
+	current_tile_index = TileDataManager.land_tiles.find(tile_to_consider);
 	number_label.text = str(current_tile_index + 1) + "/" + str(TileDataManager.land_tiles.size());
 
-func init_stats(tile_data : CustomTileData):
-	damage_label.text = str(tile_data.damage);
-	range_label.text = tile_data.effect_range.range_to_string();
+func init_description(tile_data : CustomTileData):
+	description_label.text = tile_data.description;
 
 func init_effects(tile_data : CustomTileData):
 	effects_area.visible = tile_data.damage > 0 or !tile_data.effects.is_empty();
@@ -176,6 +179,7 @@ func on_evolution_click(target_tile_id : String):
 	setup(target_tile_id);
 
 func init_requirements(tile_data : CustomTileData):
+	requirements_area.visible = tile_data.requirement != null and tile_data.requirement.has_requirement();
 	if tile_data.requirement == null or !tile_data.requirement.has_requirement() or tile_data.devolutions.is_empty(): return; 
 	timer = Timer.new();
 	add_child(timer);
