@@ -3,7 +3,10 @@ extends Node2D
 var interaction_areas : Array[InteractionArea]; ## list of control able to receive the drop
 
 func _ready() -> void:
-	get_tree().current_scene.ready.connect(init_interaction_areas);
+	SignalBus.on_scene_loaded.connect(on_scene_loaded);
+
+func on_scene_loaded(_scene_key : SceneLoader.SCENES):
+	init_interaction_areas();
 
 func init_interaction_areas():
 	var nodes : Array;

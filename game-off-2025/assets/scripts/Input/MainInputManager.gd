@@ -37,7 +37,7 @@ func _input(event: InputEvent) -> void:
 	if UserSettings.areInputBlocked : return;
 	
 	if event.is_action_released('test'):
-		SceneLoader.switch_scene_with_transition(SceneLoader.tile_codex_scene, Vector2i.LEFT);
+		SceneLoader.switch_scene_with_transition(SceneLoader.load_codex_summary_scene(), Vector2i.LEFT);
 	
 	if event.is_action_pressed('left-click'):
 		if input_is_held() and !hold_input:

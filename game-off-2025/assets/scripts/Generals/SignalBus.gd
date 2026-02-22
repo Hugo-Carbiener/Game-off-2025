@@ -1,8 +1,7 @@
 extends Node2D
 
-# UI signals
-signal cards_amount_updated;
-signal reroll_amount_updated;
+# scene signals
+signal on_scene_loaded
 
 # Codex signals
 signal bookmark_clicked
@@ -24,6 +23,8 @@ signal tile_hovered_in
 signal tile_hovered_out
 
 # Game signals
+signal cards_amount_updated;
+signal reroll_amount_updated;
 signal play_phase_started;
 signal setup_phase_started;
 signal resolution_phase_started;

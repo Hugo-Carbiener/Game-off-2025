@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SceneData" load_steps=3 format=3 uid="uid://cavcpkq7tymek"]
+
+[ext_resource type="Script" uid="uid://drbtghhcemhev" path="res://assets/scripts/SceneData.gd" id="1_hr275"]
+[ext_resource type="Texture2D" uid="uid://do8b7tvf7ntqx" path="res://assets/sprites/UI_scene-fight-icon.png" id="1_lrlp5"]
+
+[resource]
+script = ExtResource("1_hr275")
+scene_buttons_targets = Dictionary[Vector2i, int]({
+Vector2i(1, 0): 1
+})
+scene_buttons_icons = Dictionary[Vector2i, Texture2D]({
+Vector2i(1, 0): ExtResource("1_lrlp5")
+})
+metadata/_custom_type_script = "uid://drbtghhcemhev"

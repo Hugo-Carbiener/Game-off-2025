@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=28 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
@@ -22,8 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="19_4nx1l"]
 [ext_resource type="Texture2D" uid="uid://brk8socub4rmk" path="res://assets/sprites/UI_book-right-page-filler.png" id="19_keuhg"]
-[ext_resource type="Texture2D" uid="uid://dt5j7lq8o77uj" path="res://assets/sprites/UI_book-next-page-disabled.png" id="21_keuhg"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="27_v6eaw"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="27_v6eaw"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="28_4nx1l"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
@@ -339,7 +338,7 @@ layout_mode = 2
 texture_normal = ExtResource("3_rahan")
 texture_pressed = ExtResource("4_mm6dg")
 texture_hover = ExtResource("4_mm6dg")
-texture_disabled = ExtResource("21_keuhg")
+texture_disabled = ExtResource("4_mm6dg")
 flip_h = true
 
 [node name="Next page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page buttons container/Buttons container"]
@@ -347,7 +346,7 @@ layout_mode = 2
 texture_normal = ExtResource("3_rahan")
 texture_pressed = ExtResource("4_mm6dg")
 texture_hover = ExtResource("4_mm6dg")
-texture_disabled = ExtResource("21_keuhg")
+texture_disabled = ExtResource("4_mm6dg")
 
 [node name="Background shader" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)

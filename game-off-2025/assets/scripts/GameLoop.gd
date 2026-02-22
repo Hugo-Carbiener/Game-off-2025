@@ -14,7 +14,7 @@ func _ready() -> void:
 	current_phase = PHASES.SETUP;
 	round_number = 0;
 	SignalBus.tile_placed.connect(on_tile_placed);
-	get_tree().current_scene.ready.connect(start_game);
+	get_parent().ready.connect(start_game);
 
 func start_game():
 	start_phase(current_phase);

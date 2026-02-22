@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt5j7lq8o77uj"
-path="res://.godot/imported/UI_book-next-page-disabled.png-eaa3bc5a7c216758a87465ed24596145.ctex"
+uid="uid://cxcrrwrg3yiyo"
+path="res://.godot/imported/UI_scene-codex-icon.png-aefcb6b31b4a692be863b877e4695bf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_book-next-page-disabled.png"
-dest_files=["res://.godot/imported/UI_book-next-page-disabled.png-eaa3bc5a7c216758a87465ed24596145.ctex"]
+source_file="res://assets/sprites/UI_scene-codex-icon.png"
+dest_files=["res://.godot/imported/UI_scene-codex-icon.png-aefcb6b31b4a692be863b877e4695bf7.ctex"]
 
 [params]
 

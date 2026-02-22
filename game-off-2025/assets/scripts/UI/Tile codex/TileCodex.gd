@@ -62,7 +62,7 @@ func init_summary():
 	evolutions_area.visible = false;
 	requirements_area.visible = false;
 	init_bookmarks("");
-	init_movement_buttons();
+	init_movement_buttons("");
 	for tile in TileDataManager.land_tiles:
 		var summary_element = TileCodexSummaryElement.create_tile_codex_summary_element(tile);
 		summary_elements_container.add_child(summary_element);
@@ -77,7 +77,7 @@ func init_tile_detail_page(tile_data : CustomTileData):
 		tile_data = TileDataManager.tile_dictionnary["unknown"];
 	init_left_page(tile_data);
 	init_right_page(tile_data);
-	init_movement_buttons();
+	init_movement_buttons(tile_data.id);
 
 func init_left_page(tile_data : CustomTileData):
 	init_bookmarks(tile_data.id);
@@ -92,11 +92,13 @@ func init_right_page(tile_data : CustomTileData):
 	init_evolutions(tile_data);
 	init_requirements(tile_data);
 
-func init_movement_buttons():
-	if !previous_button.button_up.has_connections():
-		previous_button.button_up.connect(previous_tile);
-	if !next_button.button_up.has_connections():
+func init_movement_buttons(tile_id : String):
+	next_button.disabled = current_tile_index == TileDataManager.land_tiles.size() - 1;
+	previous_button.disabled = tile_id == "";
+	if !next_button.disabled and !next_button.button_up.has_connections():
 		next_button.button_up.connect(next_tile);
+	if !previous_button.disabled and !previous_button.button_up.has_connections():
+		previous_button.button_up.connect(previous_tile);
 
 func init_summary_bookmark(tile_id : String):
 	summary_bookmark.button_pressed = tile_id == "";
@@ -242,9 +244,7 @@ func next_tile():
 	setup(next_tile_id);
 
 func previous_tile():
-	if current_tile_index <= 0: return;
-	
-	var next_tile_id = TileDataManager.land_tiles[current_tile_index - 1];
+	var next_tile_id = TileDataManager.land_tiles[current_tile_index - 1] if current_tile_index > 0 else "";
 	setup(next_tile_id);
 
 func return_to_previous_tile():
@@ -254,4 +254,4 @@ func return_to_previous_tile():
 	setup(next_tile_id);
 
 func close_codex():
-	SceneLoader.switch_scene_with_transition(SceneLoader.game_scene, Vector2i.RIGHT);
+	SceneLoader.switch_scene_with_transition(SceneLoader.load_game_scene(), Vector2i.RIGHT);
