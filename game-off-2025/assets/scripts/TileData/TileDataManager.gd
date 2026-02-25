@@ -83,4 +83,5 @@ func learn_evolution(tile_data : CustomTileData):
 	CardSlotSelector.instance.unselect_card_slot();
 	known_tiles.append(tile_data.id);
 	TileCardFactory.instance.update_tile_card_evolutions();
-	GameUI.instance.on_evolution_discovered(tile_data);
+	CardSlotSelector.instance.unselect_card_slot();
+	SceneLoader.switch_scene_with_transition(SceneLoader.load_codex_scene_at_page(tile_data.id), Vector2i.LEFT);

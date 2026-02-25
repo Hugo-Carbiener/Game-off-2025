@@ -32,6 +32,7 @@ class_name TileCodex
 @export_group("Misc")
 @export var damage_effect_tooltip : EffectTooltip;
 @export var requirements_tilemap : TileMapLayer;
+@export var requirement_timer : Timer;
  
 var current_tile_data : CustomTileData;
 var current_tile_index : int = 0;
@@ -42,10 +43,20 @@ var evolutions : Array[TileCardEvolution];
 var previous_tiles : Array[String];
 var timer : Timer;
 
+static func load_codex() -> CanvasItem:
+	var codex_scene = SceneLoader.tile_codex_scene.instantiate();
+	codex_scene.setup("");
+	return codex_scene;
+
+static func load_codex_at_page(tile_id : String) -> CanvasItem:
+	var codex_scene = SceneLoader.tile_codex_scene.instantiate();
+	codex_scene.setup(tile_id);
+	return codex_scene;
+
 func _ready() -> void:
+	tree_entered.connect(requirement_timer.start.bind(Constants.requirements_update_delay));
 	SignalBus.bookmark_clicked.connect(setup);
 	SignalBus.summary_element_clicked.connect(setup);
-	setup("");
 
 func setup(tile_id : String):
 	reset();
@@ -183,10 +194,7 @@ func on_evolution_click(target_tile_id : String):
 func init_requirements(tile_data : CustomTileData):
 	requirements_area.visible = tile_data.requirement != null and tile_data.requirement.has_requirement();
 	if tile_data.requirement == null or !tile_data.requirement.has_requirement() or tile_data.devolutions.is_empty(): return; 
-	timer = Timer.new();
-	add_child(timer);
-	timer.timeout.connect(set_random_requirement_preview.bind(tile_data));
-	timer.start(Constants.requirements_update_delay)
+	requirement_timer.timeout.connect(set_random_requirement_preview.bind(tile_data));	
 	set_random_requirement_preview(tile_data);
 
 func set_random_requirement_preview(tile_data : CustomTileData):
@@ -210,8 +218,8 @@ func reset():
 	evolutions.clear();
 	for summary_element in summary_elements_container.get_children():
 		summary_element.queue_free();
-	if timer != null:
-		timer.queue_free();
+	for connection in requirement_timer.timeout.get_connections():
+		requirement_timer.timeout.disconnect(connection)
 
 func reset_bookmarks():
 	for bookmark in bookmarks:

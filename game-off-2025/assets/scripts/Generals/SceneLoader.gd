@@ -46,7 +46,6 @@ func add_scene_to_tree(scene_key : SCENES, scene : CanvasItem) -> CanvasItem:
 	previous_scene = current_scene;
 	current_scene = scene;
 	root.add_child(scene);
-	root.move_child(scene, 0);
 	SignalBus.on_scene_loaded.emit(scene_key);
 	return scene;
 
@@ -59,4 +58,7 @@ func load_game_scene() -> CanvasItem:
 	return add_scene_to_tree(SCENES.GAME, game_scene.instantiate());
 
 func load_codex_summary_scene() -> CanvasItem:
-	return add_scene_to_tree(SCENES.CODEX_SUMMARY, tile_codex_scene.instantiate());
+	return add_scene_to_tree(SCENES.CODEX_SUMMARY, TileCodex.load_codex());
+
+func load_codex_scene_at_page(tile_id : String) -> CanvasItem:
+	return add_scene_to_tree(SCENES.CODEX_SUMMARY, TileCodex.load_codex_at_page(tile_id));

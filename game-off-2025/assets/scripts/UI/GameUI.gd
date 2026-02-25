@@ -14,7 +14,6 @@ var card_slot_disabled : bool = true;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var pause_window : PauseWindow;
-@export var evolution_window : EvolutionWindow;
 @export var tile_codex : TileCodex;
 
 func _ready() -> void:
@@ -51,11 +50,6 @@ func transition_card_slot(to : bool, color : Color):
 
 func update_card_slot_position(margin : int):
 	footer_container.add_theme_constant_override("margin_bottom", margin);
-
-func on_evolution_discovered(tile_data : CustomTileData):
-	CardSlotSelector.instance.unselect_card_slot();
-	evolution_window.setup(tile_data);
-	evolution_window.visible = true;
 
 func toggle_pause_window():
 	pause_window.visible = !pause_window.visible;

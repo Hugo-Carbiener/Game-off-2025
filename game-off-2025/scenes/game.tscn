@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=58 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSlotSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -37,7 +37,6 @@
 [ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/components/PauseScreen.tscn" id="35_dku7i"]
 [ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="36_veaf0"]
 [ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="37_flw08"]
-[ext_resource type="PackedScene" uid="uid://bvolln6vpyvh1" path="res://scenes/components/EvolutionWindow.tscn" id="38_84hbc"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
@@ -240,7 +239,7 @@ hold_input_required_duration = 1.0
 [node name="Beacon manager" type="Node2D" parent="."]
 script = ExtResource("18_l6q63")
 
-[node name="UI" type="MarginContainer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window", "evolution_window")]
+[node name="UI" type="MarginContainer" parent="." node_paths=PackedStringArray("footer_container", "phase_msg", "death_screen", "win_screen", "pause_window")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -259,7 +258,6 @@ phase_msg = NodePath("Screen container/MarginContainer/PhaseMsg")
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
 pause_window = NodePath("Pause screen")
-evolution_window = NodePath("Evolution window")
 
 [node name="Shockwave texture" type="TextureRect" parent="UI"]
 visible = false
@@ -390,10 +388,6 @@ visible = false
 layout_mode = 2
 
 [node name="Death Screen" parent="UI" instance=ExtResource("37_flw08")]
-visible = false
-layout_mode = 2
-
-[node name="Evolution window" parent="UI" instance=ExtResource("38_84hbc")]
 visible = false
 layout_mode = 2
 
