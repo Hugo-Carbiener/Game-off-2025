@@ -1,5 +1,8 @@
 extends Node2D
 
+# game signals
+signal game_saving
+
 # scene signals
 signal on_scene_loaded
 

@@ -11,14 +11,12 @@
 
 [node name="Main scene" type="Node2D"]
 
-[node name="Scene transition buttons" type="MarginContainer" parent="." node_paths=PackedStringArray("buttons", "button_icons")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Scene transition buttons" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("buttons", "button_icons")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -42,7 +40,7 @@ Vector2i(0, 1): NodePath("Scene transition bottom/Button icon"),
 Vector2i(1, 0): NodePath("Scene transition right/Button icon")
 }
 
-[node name="Scene transition right" type="TextureButton" parent="Scene transition buttons"]
+[node name="Scene transition right" type="TextureButton" parent="CanvasLayer/Scene transition buttons"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -52,7 +50,7 @@ texture_pressed = ExtResource("3_jlsqs")
 texture_hover = ExtResource("3_jlsqs")
 script = ExtResource("4_jlsqs")
 
-[node name="Button icon" type="TextureRect" parent="Scene transition buttons/Scene transition right"]
+[node name="Button icon" type="TextureRect" parent="CanvasLayer/Scene transition buttons/Scene transition right"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -67,7 +65,7 @@ grow_vertical = 2
 texture = ExtResource("4_q8u5g")
 stretch_mode = 3
 
-[node name="Scene transition left" type="TextureButton" parent="Scene transition buttons"]
+[node name="Scene transition left" type="TextureButton" parent="CanvasLayer/Scene transition buttons"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -78,7 +76,7 @@ texture_hover = ExtResource("3_jlsqs")
 flip_h = true
 script = ExtResource("4_jlsqs")
 
-[node name="Button icon" type="TextureRect" parent="Scene transition buttons/Scene transition left"]
+[node name="Button icon" type="TextureRect" parent="CanvasLayer/Scene transition buttons/Scene transition left"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -90,7 +88,7 @@ grow_vertical = 2
 texture = ExtResource("4_q8u5g")
 stretch_mode = 3
 
-[node name="Scene transition top" type="TextureButton" parent="Scene transition buttons"]
+[node name="Scene transition top" type="TextureButton" parent="CanvasLayer/Scene transition buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -101,7 +99,7 @@ texture_hover = ExtResource("6_wp0k4")
 flip_h = true
 script = ExtResource("4_jlsqs")
 
-[node name="Button icon" type="TextureRect" parent="Scene transition buttons/Scene transition top"]
+[node name="Button icon" type="TextureRect" parent="CanvasLayer/Scene transition buttons/Scene transition top"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -113,7 +111,7 @@ grow_horizontal = 2
 texture = ExtResource("7_bjd11")
 stretch_mode = 3
 
-[node name="Scene transition bottom" type="TextureButton" parent="Scene transition buttons"]
+[node name="Scene transition bottom" type="TextureButton" parent="CanvasLayer/Scene transition buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -125,7 +123,7 @@ flip_h = true
 flip_v = true
 script = ExtResource("4_jlsqs")
 
-[node name="Button icon" type="TextureRect" parent="Scene transition buttons/Scene transition bottom"]
+[node name="Button icon" type="TextureRect" parent="CanvasLayer/Scene transition buttons/Scene transition bottom"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

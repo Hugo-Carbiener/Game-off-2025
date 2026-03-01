@@ -30,6 +30,7 @@ SceneLoader="*res://assets/scripts/Generals/SceneLoader.gd"
 MainCamera="*res://assets/scripts/Generals/MainCamera.gd"
 ClickManager="*res://assets/scripts/Input/ClickManager.gd"
 TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
+UserData="*res://assets/scripts/Generals/UserData.gd"
 
 [debug]
 

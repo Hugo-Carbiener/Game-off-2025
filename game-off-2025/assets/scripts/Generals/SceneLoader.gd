@@ -29,12 +29,14 @@ func init_first_scene():
 	current_scene = load_game_scene();
 
 func switch_scene_with_transition(added_scene : CanvasItem, direction : Vector2i):
+	UserData.auto_save()
 	var offset = get_viewport_rect().size * Vector2(direction);
 	added_scene.position += offset;
 	await scene_transition(offset);
 	remove_previous_scene_from_tree();
 	added_scene.position -= offset;
 	MainCamera.get_camera().position -= offset;
+	
 
 func scene_transition(offset : Vector2):
 	var tween = get_tree().create_tween();

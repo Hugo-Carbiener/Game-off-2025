@@ -130,7 +130,7 @@ func init_bookmarks(tile_id : String):
 	reset_bookmarks();
 	init_summary_bookmark(tile_id);
 	init_close_bookmark(tile_id);
-	for target_tile_id in UserSettings.tile_codex_bookmarks:
+	for target_tile_id in UserData.tile_codex_save.bookmarks:
 		var bookmark = TileCodexBookmark.create_tile_codex_bookmark(target_tile_id);
 		if target_tile_id == tile_id:
 			bookmark.button_pressed = true;
@@ -145,7 +145,7 @@ func init_favorite_button(tile_id : String):
 	favorite_button.button_up.connect(toggle_favorite.bind(tile_id));
 
 func update_favorite_button_style(tile_id : String):
-	favorite_button.button_pressed = UserSettings.tile_codex_bookmarks.has(tile_id);
+	favorite_button.button_pressed = UserData.tile_codex_save.bookmarks.has(tile_id);
 
 func init_title(tile_name : String):
 	title_label.text = tile_name;
@@ -219,7 +219,7 @@ func reset():
 	for summary_element in summary_elements_container.get_children():
 		summary_element.queue_free();
 	for connection in requirement_timer.timeout.get_connections():
-		requirement_timer.timeout.disconnect(connection)
+		requirement_timer.timeout.disconnect(connection["callable"])
 
 func reset_bookmarks():
 	for bookmark in bookmarks:
@@ -232,16 +232,16 @@ func reset_bookmarks():
 
 func toggle_favorite(tile_id : String):
 	if !favorite_button.button_pressed:
-		UserSettings.tile_codex_bookmarks.erase(tile_id);
+		UserData.tile_codex_save.bookmarks.erase(tile_id);
 	else:
-		if UserSettings.tile_codex_bookmarks.size() >= Constants.max_bookmarks:
+		if UserData.tile_codex_save.bookmarks.size() >= Constants.max_bookmarks:
 			favorite_button.button_pressed = false;
 			printerr("Max bookmark amount reached.");
 			# TODO: Implement tooltip to warn player
 			return;
 			
-		if !UserSettings.tile_codex_bookmarks.has(tile_id):
-			UserSettings.tile_codex_bookmarks.push_back(tile_id);
+		if !UserData.tile_codex_save.bookmarks.has(tile_id):
+			UserData.tile_codex_save.bookmarks.push_back(tile_id);
 	init_bookmarks(tile_id);
 	update_favorite_button_style(tile_id);
 

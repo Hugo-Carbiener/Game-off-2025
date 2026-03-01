@@ -2,7 +2,7 @@ extends TilemapManager
 class_name MonsterFactory
 
 static var monsters : Dictionary[Vector2i, Monster];
-static var breaches : Dictionary[Vector2i, Breach];
+static var breaches : Dictionary[Vector2i, int];
 static var instance : MonsterFactory;
 
 @export_group("Breaches variables")
@@ -22,21 +22,18 @@ enum STATUS {
 }
 
 func _ready() -> void:
-	monsters.clear();
-	breaches.clear();
 	super();
 	if instance == null:
 		instance = self;
 
 func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(GameLoop.round_number, tilemap_position, get_monster_path(tilemap_position));
+	var monster = Monster.new(GameLoop.day_number, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
 
-func spawn_breach(tilemap_position: Vector2i):
-	var breach = Breach.new(Constants.breach_initial_maturity, tilemap_position);
-	breaches.set(tilemap_position, breach);
+func spawn_breach(tilemap_position: Vector2i, breach_maturity : int):
+	breaches.set(tilemap_position, breach_maturity);
 	var breach_tile_name = breach_tiles_per_maturity.get(Constants.breach_initial_maturity);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
 	
@@ -66,19 +63,30 @@ func remove_monster(tilemap_position: Vector2i):
 	monsters.erase(tilemap_position);
 	clear_tile(tilemap_position);
 
-func update_breach_tile(tilemap_position: Vector2i):
-	var breach = breaches.get(tilemap_position);
-	if breach == null: return;
+func update_breach(tilemap_position: Vector2i):
+	if !breaches.has(tilemap_position): return;
+	var breach_maturity = breaches.get(tilemap_position);
 	
-	var breach_tile_name = breach_tiles_per_maturity.get(breach.turn_remaining);
+	var breach_tile_name = breach_tiles_per_maturity.get(breach_maturity);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
 	set_cell(tilemap_position, 0, Vector2(-1,-1));
-	await MonsterFactory.instance.breach_transition(tilemap_position, breach.turn_remaining);
+	await MonsterFactory.instance.breach_transition(tilemap_position, breach_maturity);
 	set_cell(tilemap_position, 0, breach_tile_data.atlas_coordinates);
 
+func cover_breach(tilemap_position: Vector2i):
+	breaches.erase(tilemap_position);
+	clear_tile(tilemap_position);
+
 func on_setup():
-	for breach in breaches.values():
-		await breach.update();
+	for breach_position in breaches.keys():
+		var turn_remaining = breaches[breach_position];
+		turn_remaining -= 1;
+		breaches.set(breach_position, turn_remaining);
+		if turn_remaining == 0:
+			remove_breach(breach_position);
+			spawn_monster(breach_position);
+		else:
+			await update_breach(breach_position);
 	return;
 
 func on_resolution():
@@ -146,3 +154,9 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 
 func get_tilemap_hover_signals() -> Array[Signal]:
 	return [SignalBus.monster_hovered_in, SignalBus.monster_hovered_out];
+
+func load(_monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int]):
+	for monster_position in _monsters:
+		spawn_monster(monster_position);
+	for breach_position in _breaches.keys():
+		spawn_breach(breach_position, _breaches[breach_position]);

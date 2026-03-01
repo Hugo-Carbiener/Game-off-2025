@@ -1,5 +1,4 @@
-extends TileMapLayer
-class_name TilemapManager
+@abstract class_name TilemapManager extends TileMapLayer
 
 var source_id : int;
 var tiles : Dictionary[Vector2i, CustomTileData];

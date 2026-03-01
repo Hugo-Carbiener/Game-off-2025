@@ -10,14 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://b85i6xlo841q1" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://c68d4kq0uchmv" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
 [ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/Tilemap/IndicationTilemap.gd" id="10_bk1p3"]
-[ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/GameLoop.gd" id="11_n8ral"]
+[ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/Fight/GameLoop.gd" id="11_n8ral"]
 [ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/Audio/AudioManager.gd" id="12_yd4ix"]
 [ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="13_66xif"]
 [ext_resource type="AudioStream" uid="uid://d8nj8pplxnbw" path="res://assets/audio/Combat_1.ogg" id="14_bnuda"]
 [ext_resource type="AudioStream" uid="uid://cdq5avugofp7r" path="res://assets/audio/Combat_2.ogg" id="15_0rmfi"]
 [ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_xbak0"]
 [ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/Input/MainInputManager.gd" id="17_3x28f"]
-[ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/BeaconManager.gd" id="18_l6q63"]
+[ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/Fight/BeaconManager.gd" id="18_l6q63"]
 [ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/GameUI.gd" id="19_mmvbu"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="20_weeiq"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="21_uxocx"]
@@ -154,6 +154,7 @@ shader_parameter/width_scale = 2.0850000515375
 shader_parameter/rotation_coef = 1.0
 
 [node name="Game" type="Node2D"]
+script = ExtResource("11_n8ral")
 
 [node name="Card selector manager" type="Node2D" parent="."]
 script = ExtResource("1_8qswn")
@@ -220,9 +221,6 @@ occlusion_enabled = false
 collision_enabled = false
 navigation_enabled = false
 script = ExtResource("10_bk1p3")
-
-[node name="Game loop manager" type="Node2D" parent="."]
-script = ExtResource("11_n8ral")
 
 [node name="Audio manager" type="Node2D" parent="."]
 script = ExtResource("12_yd4ix")

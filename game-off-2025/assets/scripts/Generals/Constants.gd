@@ -1,5 +1,8 @@
 extends Node2D
 
+## Files
+const save_file = "user://game_save.save";
+
 ## Tiles
 const beacon_range = 5;
 const TILE_DICT_MONSTER_KEY = "monster";

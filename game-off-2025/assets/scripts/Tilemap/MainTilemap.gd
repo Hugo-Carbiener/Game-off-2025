@@ -26,8 +26,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	SignalBus.tile_placed.emit(tiles.size());
 	var breach = MonsterFactory.breaches.get(tile_position);
 	if breach != null:
-		breach.cover();
-	
+		MonsterFactory.instance.cover_breach(tile_position);
 	
 	await check_for_evolution(tile_position);
 	# update direct neighbors to check for an evolution
@@ -153,3 +152,16 @@ func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 
 func get_tilemap_hover_signals() -> Array[Signal]:
 	return [SignalBus.tile_hovered_in, SignalBus.tile_hovered_out];
+
+func load(_tiles : Dictionary[Vector2i, String]):
+	for tile_position in _tiles.keys():
+		var tile_data = TileDataManager.tile_dictionnary[_tiles[tile_position]];
+		if tile_data == null: continue;
+		
+		place_tile(tile_position, tile_data, true);
+
+func get_tiles_for_save() -> Dictionary[Vector2i, String]:
+	var _tiles : Dictionary[Vector2i, String];
+	for tile_position in tiles.keys():
+		_tiles.set(tile_position, tiles[tile_position].id);
+	return _tiles;

@@ -1,7 +1,6 @@
 extends Node2D
 
 var areInputBlocked = false;
-var tile_codex_bookmarks : Array[String];
 
 func _ready() -> void:
 	SignalBus.evolution_started.connect(func(): areInputBlocked = true);

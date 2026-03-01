@@ -6,7 +6,7 @@ var half_card_slot_model : PackedScene = preload("res://scenes/components/HalfCa
 
 static var instance : TileCardFactory;
 # Cards
-var cards_amount = {"total": 0};
+var cards_amount : Dictionary[String, int] = {"total": 0};
 var cards : Dictionary[String, TileCard];
 # Card slots
 var card_slots : Array[Control];
@@ -20,7 +20,7 @@ func _ready() -> void:
 	init_UI();
 	# init count with all playable card names
 	for id in TileDataManager.playable_tiles:
-		cards_amount[id] = 0;
+		cards_amount.set(id, 0);
 	
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
@@ -82,7 +82,7 @@ func free_card_slot(tile_id : String):
 	card_slot_used_amount -= 1;
 
 func draw_hand():
-	reroll_left = GameLoop.round_number;
+	reroll_left = GameLoop.day_number;
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 	
 	for i in Constants.base_card_per_round:
@@ -91,3 +91,12 @@ func draw_hand():
 func update_tile_card_evolutions():
 	for tile_card in cards.values():
 		tile_card.update_evolutions();
+
+func load(_cards : Dictionary[String, int]):
+	cards_amount = _cards;
+	for tile_id in _cards.keys():
+		if !TileDataManager.playable_tiles.has(tile_id): continue;
+		if _cards[tile_id] == 0: continue;
+		
+		fill_card_slot(tile_id);
+	SignalBus.cards_amount_updated.emit();
