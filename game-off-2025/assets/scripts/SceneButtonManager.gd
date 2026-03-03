@@ -10,7 +10,7 @@ static var instance : SceneButtonManager;
 func _ready() -> void:
 	if instance == null:
 		instance = self;
-	SignalBus.on_scene_loaded.connect(init_scene_buttons)
+	SignalBus.on_scene_loaded.connect(init_scene_buttons);
 
 func init_scene_buttons(scene_key : SceneLoader.SCENES):
 	reset_scene_buttons();

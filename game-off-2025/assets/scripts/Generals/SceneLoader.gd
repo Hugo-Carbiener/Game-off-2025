@@ -1,6 +1,7 @@
 extends Node2D
 
 var root : Node2D;
+var current_scene_key : SCENES;
 var current_scene : Node;
 var previous_scene : Node;
 var tile_codex_scene : PackedScene = preload("res://scenes/Tile codex/TileCodex.tscn");
@@ -36,7 +37,6 @@ func switch_scene_with_transition(added_scene : CanvasItem, direction : Vector2i
 	remove_previous_scene_from_tree();
 	added_scene.position -= offset;
 	MainCamera.get_camera().position -= offset;
-	
 
 func scene_transition(offset : Vector2):
 	var tween = get_tree().create_tween();
@@ -47,6 +47,7 @@ func scene_transition(offset : Vector2):
 func add_scene_to_tree(scene_key : SCENES, scene : CanvasItem) -> CanvasItem:
 	previous_scene = current_scene;
 	current_scene = scene;
+	current_scene_key = scene_key;
 	root.add_child(scene);
 	SignalBus.on_scene_loaded.emit(scene_key);
 	return scene;
