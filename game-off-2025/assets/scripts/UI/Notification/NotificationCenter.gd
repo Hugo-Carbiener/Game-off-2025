@@ -3,6 +3,8 @@ class_name NotificationCenter extends Control
 static var instance : NotificationCenter;
 
 @export var notification_container : VBoxContainer;
+@export_group("Notification icons")
+@export var warning_icon : Texture2D;
 
 func _ready() -> void:
 	if instance == null:
@@ -10,9 +12,9 @@ func _ready() -> void:
 
 func notify_new_tile(tile_data : CustomTileData):
 	var _notification = Notification.create_notification() \
-	.with_atlas_icon(tile_data) \
-	.with_text("New tile discovered") \
-	.with_button(load_scene.bind(SceneLoader.SCENES.CODEX_SUMMARY));
+		.with_atlas_icon(tile_data) \
+		.with_text("New tile discovered") \
+		.with_button(load_scene.bind(SceneLoader.SCENES.CODEX_SUMMARY));
 	notification_container.add_child(_notification);
 
 func load_scene(target_scene_key : SceneLoader.SCENES):
@@ -21,3 +23,9 @@ func load_scene(target_scene_key : SceneLoader.SCENES):
 	if direction == null: return;
 	
 	SceneButtonManager.instance.on_click(target_scene_key, direction);
+
+func notify_warning(text : String):
+	var _notification = Notification.create_notification() \
+		.with_icon(instance.warning_icon) \
+		.with_text(text);
+	notification_container.add_child(_notification);

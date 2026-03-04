@@ -85,4 +85,4 @@ func learn_evolution(tile_data : CustomTileData):
 	TileCardFactory.instance.update_tile_card_evolutions();
 	CardSlotSelector.instance.unselect_card_slot();
 	NotificationCenter.instance.notify_new_tile(tile_data);
-	#SceneLoader.switch_scene_with_transition(SceneLoader.load_codex_scene_at_page(tile_data.id), Vector2i.LEFT);
+	TileCodex.store_new_tile(tile_data.id);

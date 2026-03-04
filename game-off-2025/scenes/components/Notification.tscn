@@ -25,7 +25,7 @@ theme_override_constants/margin_right = -15
 script = ExtResource("1_up182")
 icon = NodePath("MarginContainer/HBoxContainer/Icon container/Icon")
 label = NodePath("MarginContainer/HBoxContainer/Label")
-button = NodePath("Border/TextureButton")
+button = NodePath("TextureButton")
 life_duration = 7.0
 hover_transition_duration = 0.1
 init_transition_duration = 0.2
@@ -33,11 +33,19 @@ end_of_life_duration = 0.5
 hover_margin = 5
 end_of_life_margin = 10
 
+[node name="Border" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_agkmb")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
@@ -56,27 +64,16 @@ stretch_mode = 3
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
-text = "New Tile Discovered"
+size_flags_horizontal = 3
+text = "An undiscovered card cannot be bookmarked"
 label_settings = SubResource("LabelSettings_i833m")
 vertical_alignment = 1
-autowrap_mode = 3
+autowrap_mode = 2
 
-[node name="Border" type="NinePatchRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_agkmb")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="TextureButton" type="TextureButton" parent="Border"]
+[node name="TextureButton" type="TextureButton" parent="."]
 self_modulate = Color(1, 1, 1, 0.14901961)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+mouse_filter = 1
 texture_pressed = ExtResource("5_t827f")
 texture_hover = ExtResource("5_t827f")
 stretch_mode = 0

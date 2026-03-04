@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://e3wskp2bkdnm"]
+[gd_scene load_steps=22 format=3 uid="uid://e3wskp2bkdnm"]
 
 [ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
+[ext_resource type="Texture2D" uid="uid://d33x0kakm2gem" path="res://assets/sprites/UI_card_background_chains.png" id="3_tolko"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="4_eq3wv"]
 [ext_resource type="Texture2D" uid="uid://dkcxv38sgq7dq" path="res://assets/sprites/UI_card_background_border.png" id="4_ttman"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
@@ -54,10 +55,12 @@ font_size = 8
 font = ExtResource("11_eq3wv")
 font_size = 8
 
-[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_chains", "card_overlay", "card_count_overlay", "card_border", "card_count", "card_name", "card_sprite", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
+offset_right = 112.0
+offset_bottom = 144.0
+pivot_offset = Vector2(56, 0)
 script = ExtResource("1_334as")
+card_chains = NodePath("Tile card/Chains")
 card_overlay = NodePath("Tile card/Overlay")
 card_count_overlay = NodePath("Tile card/Card count overlay")
 card_border = NodePath("Tile card/Border")
@@ -88,6 +91,14 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_7nrqj")
+stretch_mode = 2
+
+[node name="Chains" type="TextureRect" parent="Tile card"]
+modulate = Color(0, 0.4682628, 0.8059386, 1)
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 144.0
+texture = ExtResource("3_tolko")
 stretch_mode = 2
 
 [node name="Border" type="TextureRect" parent="Tile card"]
