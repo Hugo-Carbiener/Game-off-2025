@@ -72,7 +72,7 @@ func load_cards(_cards : Dictionary):
 
 func load_monsters(_monsters : Array):
 	for position in _monsters:
-		monsters.push_back(vector2i_from_str(position));
+		monsters.append(vector2i_from_str(position));
 
 func load_breaches(_breaches : Dictionary):
 	for key in _breaches.keys():

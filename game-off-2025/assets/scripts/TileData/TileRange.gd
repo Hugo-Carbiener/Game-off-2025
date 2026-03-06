@@ -53,5 +53,5 @@ func get_offset_coordinates() -> Array[Vector2i]:
 		for y in range(-max_range, max_range + 1):
 			var distance = abs(x) + abs(y);
 			if distance >= min_range && distance <= max_range:
-				res.push_back(Vector2i(x,y));
+				res.append(Vector2i(x,y));
 	return res;

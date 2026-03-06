@@ -129,7 +129,7 @@ func update_targetted_tiles(tile_position : Vector2i):
 		if !tiles.has(targetted_coordinates): continue;
 		
 		var targetted_tile = tiles[targetted_coordinates];
-		targetted_tile.targetted_by.push_back(targetted_coordinates);
+		targetted_tile.targetted_by.append(targetted_coordinates);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);

@@ -17,7 +17,7 @@ func init_interaction_areas():
 
 func find_interaction_areas(node: Node, result : Array) -> void:
 	if node is InteractionArea :
-		result.push_back(node);
+		result.append(node);
 	for child in node.get_children():
 		find_interaction_areas(child, result);
 

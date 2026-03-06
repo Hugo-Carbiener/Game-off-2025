@@ -6,7 +6,8 @@
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="4_yogbt"]
 [ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="5_t827f"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4k4td"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_867uw"]
+resource_local_to_scene = true
 atlas = ExtResource("3_t827f")
 region = Rect2(0, 0, 8, 8)
 
@@ -56,10 +57,10 @@ custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/Icon container"]
-custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-texture = SubResource("AtlasTexture_4k4td")
-stretch_mode = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_867uw")
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)

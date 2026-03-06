@@ -103,7 +103,7 @@ func parse_effects(_effects : Array) -> Array[TileEffect]:
 			printerr("Effect at path " + resource_path + " could not be loaded for tile " + self.id);
 			continue;
 		
-		tile_effects.push_back(effect);
+		tile_effects.append(effect);
 	return tile_effects;
 
 func get_texture_region() -> Rect2:

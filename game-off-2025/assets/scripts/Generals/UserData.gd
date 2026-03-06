@@ -44,3 +44,6 @@ func deserialize_save():
 		var module = modules[data_key];
 		module.from_JSON(json.data[data_key]);
 		module._is_init = true;
+
+func get_known_tiles() -> Array[String]:
+	return tile_codex_save.known_tiles;

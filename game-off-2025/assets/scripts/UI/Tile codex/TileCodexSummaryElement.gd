@@ -14,7 +14,7 @@ static func create_tile_codex_summary_element(_tile_id : String) -> TileCodexSum
 func setup(_tile_id : String):
 	tile_id = _tile_id;
 	var tile_data;
-	if TileDataManager.known_tiles.has(_tile_id):
+	if UserData.get_known_tiles().has(_tile_id):
 		tile_data = TileDataManager.tile_dictionnary[tile_id];
 		button_up.connect(on_click);
 		disabled = false;

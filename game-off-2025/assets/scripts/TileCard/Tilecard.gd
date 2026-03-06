@@ -45,7 +45,7 @@ func without_count_overlay() -> TileCard:
 	return self;
 
 func setup(_id : String, draggable : bool) :
-	var tile_data = TileDataManager.tile_dictionnary[_id] if TileDataManager.known_tiles.has(_id) else TileDataManager.tile_dictionnary["unknown"] ;
+	var tile_data = TileDataManager.tile_dictionnary[_id] if UserData.get_known_tiles().has(_id) else TileDataManager.tile_dictionnary["unknown"] ;
 	is_draggable = draggable;
 	set_meta('Draggable', is_draggable);
 	card_id = _id;
@@ -55,7 +55,7 @@ func setup(_id : String, draggable : bool) :
 	card_range_label.text = tile_data.effect_range.range_to_string();
 	card_sprite.texture.region = tile_data.get_texture_region();
 	card_border.visible = false;
-	card_chains.visible = !TileDataManager.known_tiles.has(_id);
+	card_chains.visible = !UserData.get_known_tiles().has(_id);
 	init_signals();
 	init_icons(tile_data);
 	init_evolutions(tile_data);

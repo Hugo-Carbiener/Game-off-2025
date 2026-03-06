@@ -21,8 +21,6 @@ var playable_tiles : Array[String];
 var land_tiles : Array[String];
 var tile_size : Vector2i;
 var world_tile_amount = 0;
-## tile evolutions
-var known_tiles : Array[String];
 
 func _ready() -> void:
 	load_tile_data();
@@ -66,7 +64,8 @@ func load_tile_data():
 		
 		if is_playable:
 			playable_tiles.append(custom_tile_data.id);
-			known_tiles.append(custom_tile_data.id);
+			if !UserData.get_known_tiles().has(custom_tile_data.id):
+				UserData.get_known_tiles().append(custom_tile_data.id);
 		if !is_util:
 			land_tiles.append(custom_tile_data.id);
 		tile_dictionnary.set(custom_tile_data.id, custom_tile_data);
@@ -75,13 +74,13 @@ func load_devolutions():
 	for tile_data in tile_dictionnary.values():
 		for devolution_candidate in tile_dictionnary.values():
 			if devolution_candidate.evolutions.has(tile_data.id):
-				tile_data.devolutions.push_back(devolution_candidate.id);
+				tile_data.devolutions.append(devolution_candidate.id);
 
 func learn_evolution(tile_data : CustomTileData):
-	if known_tiles.has(tile_data.id): return;
+	if UserData.get_known_tiles().has(tile_data.id): return;
 	
 	CardSlotSelector.instance.unselect_card_slot();
-	known_tiles.append(tile_data.id);
+	UserData.get_known_tiles().append(tile_data.id);
 	TileCardFactory.instance.update_tile_card_evolutions();
 	CardSlotSelector.instance.unselect_card_slot();
 	NotificationCenter.instance.notify_new_tile(tile_data);

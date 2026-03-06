@@ -74,7 +74,9 @@ func setup(tile_id : String):
 		init_summary();
 
 static func store_new_tile(tile_id):
-	UserData.tile_codex_save.pages_to_discover.push_back(tile_id);
+	if UserData.tile_codex_save.pages_to_discover.has(tile_id) : return;
+	
+	UserData.tile_codex_save.pages_to_discover.append(tile_id);
 
 func discover_new_tiles() -> bool:
 	if UserData.tile_codex_save.pages_to_discover.is_empty(): return false;
@@ -152,7 +154,7 @@ func init_bookmarks(tile_id : String):
 		if target_tile_id == tile_id:
 			bookmark.button_pressed = true;
 		bookmark_container.add_child(bookmark);
-		bookmarks.push_back(bookmark);
+		bookmarks.append(bookmark);
 
 func init_favorite_button(tile_id : String):
 	update_favorite_button_style(tile_id);
@@ -165,7 +167,7 @@ func update_favorite_button_style(tile_id : String):
 	favorite_button.button_pressed = UserData.tile_codex_save.bookmarks.has(tile_id);
 
 func init_title(tile_data : CustomTileData):
-	title_label.text = tile_data.name if TileDataManager.known_tiles.has(tile_data.id) else TileDataManager.tile_dictionnary["unknown"].name;
+	title_label.text = tile_data.name if UserData.get_known_tiles().has(tile_data.id) else TileDataManager.tile_dictionnary["unknown"].name;
 
 func init_card(tile_id : String):
 	if tile_card != null:
@@ -181,21 +183,21 @@ func init_number(tile_id : String):
 	number_label.text = str(current_tile_index + 1) + "/" + str(TileDataManager.land_tiles.size());
 
 func init_description(tile_data : CustomTileData):
-	var text = tile_data.description if TileDataManager.known_tiles.has(tile_data.id) else TileDataManager.tile_dictionnary["unknown"].description;
+	var text = tile_data.description if UserData.get_known_tiles().has(tile_data.id) else TileDataManager.tile_dictionnary["unknown"].description;
 	description_label.text = text;
 
 func init_effects(tile_data : CustomTileData):
-	effects_area.visible = TileDataManager.known_tiles.has(tile_data.id) and (tile_data.damage > 0 or !tile_data.effects.is_empty());
+	effects_area.visible = UserData.get_known_tiles().has(tile_data.id) and (tile_data.damage > 0 or !tile_data.effects.is_empty());
 	if !effects_area.visible: return;
 	
 	damage_effect_tooltip.visible = tile_data.damage > 0;
 	for effect in tile_data.effects:
 		var effect_toolitp = EffectTooltip.create_tooltip(effect);
 		effects_container.add_child(effect_toolitp);
-		effect_tooltips.push_back(effect_toolitp);
+		effect_tooltips.append(effect_toolitp);
 
 func init_evolutions(tile_data : CustomTileData):
-	evolutions_area.visible = TileDataManager.known_tiles.has(tile_data.id) and !tile_data.evolutions.is_empty();
+	evolutions_area.visible = UserData.get_known_tiles().has(tile_data.id) and !tile_data.evolutions.is_empty();
 	if !evolutions_area.visible: return;
 	
 	for evolution in tile_data.evolutions:
@@ -204,16 +206,16 @@ func init_evolutions(tile_data : CustomTileData):
 		
 		var tile_card_evolution = TileCardEvolution.create_tile_card_evolution(evolution_tile_data).with_clickable_evolutions(on_evolution_click);
 		evolutions_container.add_child(tile_card_evolution);
-		evolutions.push_back(tile_card_evolution);
+		evolutions.append(tile_card_evolution);
 		tile_card_evolution.init_color(tile_data.color);
 
 func on_evolution_click(target_tile_id : String):
 	var current_tile_id = TileDataManager.land_tiles[current_tile_index];
-	previous_tiles.push_back(current_tile_id);
+	previous_tiles.append(current_tile_id);
 	setup(target_tile_id);
 
 func init_requirements(tile_data : CustomTileData):
-	requirements_area.visible = TileDataManager.known_tiles.has(tile_data.id) and tile_data.requirement != null and tile_data.requirement.has_requirement();
+	requirements_area.visible = UserData.get_known_tiles().has(tile_data.id) and tile_data.requirement != null and tile_data.requirement.has_requirement();
 	if tile_data.requirement == null or !tile_data.requirement.has_requirement() or tile_data.devolutions.is_empty(): return; 
 	requirement_timer.timeout.connect(set_random_requirement_preview.bind(tile_data));
 	set_random_requirement_preview(tile_data);
@@ -250,15 +252,15 @@ func reset_bookmarks():
 		close_bookmark.button_up.disconnect(connection["callable"]);
 
 func reveal_card(tile_id : String):
-	TileDataManager.known_tiles.erase(tile_id);
+	UserData.get_known_tiles().erase(tile_id);
 	setup(tile_id);
 	var tween = get_tree().create_tween();
 	tween.set_parallel(true);
-	tween.tween_property(description_label, "self_modulate:a", 0, fade_out_duration).set_ease(Tween.EASE_IN);
 	tween.tween_property(title_label, "self_modulate:a", 0, fade_out_duration).set_ease(Tween.EASE_IN);
+	tween.tween_property(description_label, "self_modulate:a", 0, fade_out_duration).set_ease(Tween.EASE_IN);
 	tween.tween_property(tile_card, "scale", tile_card.scale * Vector2.DOWN, card_half_rotation_duration).set_delay(fade_out_duration - card_half_rotation_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
 	await tween.finished;
-	TileDataManager.known_tiles.push_back(tile_id);
+	UserData.get_known_tiles().append(tile_id);
 	setup(tile_id);
 	tile_card.scale = Vector2.DOWN;
 	title_label.self_modulate.a = 0.0;
@@ -292,13 +294,13 @@ func toggle_favorite(tile_id : String):
 			NotificationCenter.instance.notify_warning("Max bookmarks reached (Max: " + str(Constants.max_bookmarks) + ")");
 			return;
 		
-		if !TileDataManager.known_tiles.has(tile_id):
+		if !UserData.get_known_tiles().has(tile_id):
 			favorite_button.button_pressed = false;
 			NotificationCenter.instance.notify_warning("Cannot bookmark an undiscovered card");
 			return;
 		
 		if !UserData.tile_codex_save.bookmarks.has(tile_id):
-			UserData.tile_codex_save.bookmarks.push_back(tile_id);
+			UserData.tile_codex_save.bookmarks.append(tile_id);
 	init_bookmarks(tile_id);
 	update_favorite_button_style(tile_id);
 
