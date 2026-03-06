@@ -1,11 +1,11 @@
 [gd_scene load_steps=22 format=3 uid="uid://e3wskp2bkdnm"]
 
-[ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/TileCard/Tilecard.gd" id="1_334as"]
+[ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/tileCard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="3_ig78c"]
 [ext_resource type="Texture2D" uid="uid://d33x0kakm2gem" path="res://assets/sprites/UI_card_background_chains.png" id="3_tolko"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="4_eq3wv"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="4_eq3wv"]
 [ext_resource type="Texture2D" uid="uid://dkcxv38sgq7dq" path="res://assets/sprites/UI_card_background_border.png" id="4_ttman"]
 [ext_resource type="Texture2D" uid="uid://c8p88pkpkm4m" path="res://assets/sprites/UI_card_background_amount.png" id="4_yvvng"]
 [ext_resource type="Texture2D" uid="uid://bqa4poxen4or5" path="res://assets/sprites/shader resources/shader_pattern_middle_gradient.png" id="5_tysvy"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://3wsqc25g5gfo"]
 
-[ext_resource type="Script" uid="uid://jywjy6cy07lo" path="res://assets/scripts/UI/Components/EffectTooltip.gd" id="1_rwp0f"]
+[ext_resource type="Script" uid="uid://jywjy6cy07lo" path="res://assets/scripts/ui/components/EffectTooltip.gd" id="1_rwp0f"]
 [ext_resource type="Texture2D" uid="uid://bvqhu1pbds0yf" path="res://assets/sprites/UI_damage-icon.png" id="2_rwp0f"]
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="4_6ba7e"]
 

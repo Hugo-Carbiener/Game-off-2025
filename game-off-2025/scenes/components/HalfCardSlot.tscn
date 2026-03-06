@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://24tfy61vvx6s"]
 
-[ext_resource type="Script" uid="uid://bmeq2rcxpll5u" path="res://assets/scripts/UI/Components/CardSlot.gd" id="1_gc7ck"]
+[ext_resource type="Script" uid="uid://bmeq2rcxpll5u" path="res://assets/scripts/ui/components/CardSlot.gd" id="1_gc7ck"]
 [ext_resource type="Texture2D" uid="uid://dkyqqo8lf1gkk" path="res://assets/sprites/UI_half-card-slot.png" id="2_2tmfn"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_2cbqp"]
 

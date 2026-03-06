@@ -20,17 +20,17 @@ config/icon="uid://o6nlteqh8rve"
 
 [autoload]
 
-Constants="*res://assets/scripts/Generals/Constants.gd"
-SignalBus="*res://assets/scripts/Generals/SignalBus.gd"
-AudioUtils="*res://assets/scripts/Audio/AudioUtils.gd"
-UserSettings="*res://assets/scripts/Generals/UserSettings.gd"
-UIUtils="*res://assets/scripts/Generals/UIUtils.gd"
-AnimationUtils="*res://assets/scripts/Generals/AnimationUtils.gd"
-SceneLoader="*res://assets/scripts/Generals/SceneLoader.gd"
-MainCamera="*res://assets/scripts/Generals/MainCamera.gd"
-ClickManager="*res://assets/scripts/Input/ClickManager.gd"
-TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
-UserData="*res://assets/scripts/Generals/UserData.gd"
+Constants="*res://assets/scripts/generals/Constants.gd"
+SignalBus="*res://assets/scripts/generals/SignalBus.gd"
+AudioUtils="*res://assets/scripts/audio/AudioUtils.gd"
+UserSettings="*res://assets/scripts/generals/UserSettings.gd"
+UIUtils="*res://assets/scripts/generals/UIUtils.gd"
+AnimationUtils="*res://assets/scripts/generals/AnimationUtils.gd"
+SceneLoader="*res://assets/scripts/generals/SceneLoader.gd"
+MainCamera="*res://assets/scripts/generals/MainCamera.gd"
+ClickManager="*res://assets/scripts/input/ClickManager.gd"
+TileDataManager="*res://assets/scripts/tile data/TileDataManager.gd"
+UserData="*res://assets/scripts/generals/UserData.gd"
 
 [debug]
 

@@ -4,16 +4,17 @@
 [ext_resource type="Script" uid="uid://rrac236hvc27" path="res://assets/scripts/SceneButtonManager.gd" id="2_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://djnm1e1o7j1un" path="res://assets/sprites/UI_scene-transition-side.png" id="2_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://dbc80xtl0m4cm" path="res://assets/sprites/UI_scene-transition-side-highlight.png" id="3_jlsqs"]
-[ext_resource type="Script" uid="uid://do3wagk8yuui7" path="res://assets/scripts/UI/Components/Fader.gd" id="4_jlsqs"]
+[ext_resource type="Script" uid="uid://do3wagk8yuui7" path="res://assets/scripts/ui/components/Fader.gd" id="4_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://do8b7tvf7ntqx" path="res://assets/sprites/UI_scene-fight-icon.png" id="4_q8u5g"]
 [ext_resource type="Texture2D" uid="uid://ck0478qbdg62j" path="res://assets/sprites/UI_scene-transition-top.png" id="5_lhr70"]
 [ext_resource type="Texture2D" uid="uid://b2gg8v1ffs0ie" path="res://assets/sprites/UI_scene-transition-top-highlight.png" id="6_wp0k4"]
 [ext_resource type="Texture2D" uid="uid://cxcrrwrg3yiyo" path="res://assets/sprites/UI_scene-codex-icon.png" id="7_bjd11"]
-[ext_resource type="Script" uid="uid://dhji4s6y74axg" path="res://assets/scripts/UI/Notification/NotificationCenter.gd" id="9_q8u5g"]
+[ext_resource type="Script" uid="uid://dhji4s6y74axg" path="res://assets/scripts/ui/notification/NotificationCenter.gd" id="9_q8u5g"]
 [ext_resource type="Texture2D" uid="uid://wpmvpvlcuaru" path="res://assets/sprites/UI_warning-icon.png" id="10_lhr70"]
 
 [node name="Main scene" type="Node2D"]
 script = ExtResource("1_wp0k4")
+scene_to_load = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

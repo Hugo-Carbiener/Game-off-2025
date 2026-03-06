@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TileEffect" load_steps=2 format=3 uid="uid://l05dt4riv01c"]
 
-[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffect.gd" id="1_dw5sr"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile data/TileEffect.gd" id="1_dw5sr"]
 
 [resource]
 script = ExtResource("1_dw5sr")

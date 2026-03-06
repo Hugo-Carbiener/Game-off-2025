@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dx4n4q73n4oix"]
 
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="1_274dy"]
-[ext_resource type="Script" uid="uid://bqnen1bn2avb3" path="res://assets/scripts/UI/Components/DeathScreen.gd" id="2_8cwvy"]
+[ext_resource type="Script" uid="uid://bqnen1bn2avb3" path="res://assets/scripts/ui/components/DeathScreen.gd" id="2_8cwvy"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="2_tad7g"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="3_8cwvy"]
 [ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_fpwgu"]
