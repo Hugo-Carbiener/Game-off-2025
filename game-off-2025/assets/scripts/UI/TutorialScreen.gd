@@ -1,10 +1,10 @@
-extends Node
+extends Control
 class_name TutorialScreen
 
 @export var UI : Control;
 @export var text : Label;
 @export var press_next_key : Label;
-@export var next_scene : PackedScene;
+@export var next_scene_key : SceneLoader.SCENES;
 @export_group("Durations")
 @export var text_reveal_duration : float;
 @export var fade_out_duration : float;
@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 			return;
 	
 		await fade_out();
-		get_tree().change_scene_to_packed(next_scene);
+		SceneLoader.load_scene(next_scene_key);
 
 func text_reveal():
 	tween = get_tree().create_tween();

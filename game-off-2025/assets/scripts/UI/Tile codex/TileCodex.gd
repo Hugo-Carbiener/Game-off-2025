@@ -49,21 +49,14 @@ var evolutions : Array[TileCardEvolution];
 var previous_tiles : Array[String];
 var timer : Timer;
 
-static func load_codex() -> CanvasItem:
-	var codex_scene = SceneLoader.tile_codex_scene.instantiate();
-	codex_scene.setup("");
-	return codex_scene;
-
-static func load_codex_at_page(tile_id : String) -> CanvasItem:
-	var codex_scene = SceneLoader.tile_codex_scene.instantiate();
-	codex_scene.setup(tile_id);
-	return codex_scene;
-
 func _ready() -> void:
 	tree_entered.connect(requirement_timer.start.bind(Constants.requirements_update_delay));
 	SignalBus.bookmark_clicked.connect(setup);
 	SignalBus.summary_element_clicked.connect(setup);
-	await discover_new_tiles();
+	var displayed_new_cards = await discover_new_tiles();
+	
+	if !displayed_new_cards:
+		setup("");
 
 func setup(tile_id : String):
 	reset();
@@ -332,4 +325,4 @@ func open_codex_summary():
 func close_codex():
 	if UserSettings.areInputBlocked: return;
 	
-	SceneLoader.switch_scene_with_transition(SceneLoader.load_game_scene(), Vector2i.RIGHT);
+	SceneLoader.load_scene_with_transition(SceneLoader.SCENES.GAME, Vector2i.RIGHT);

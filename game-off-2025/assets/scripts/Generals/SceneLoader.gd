@@ -4,17 +4,32 @@ var root : Node2D;
 var current_scene_key : SCENES;
 var current_scene : Node;
 var previous_scene : Node;
+var title_screen_scene : PackedScene = preload("res://scenes/TitleScreen.tscn");
+var tutorial_1_scene : PackedScene = preload("res://scenes/Tutorial_1.tscn");
+var tutorial_2_scene : PackedScene = preload("res://scenes/Tutorial_2.tscn");
+var tutorial_3_scene : PackedScene = preload("res://scenes/Tutorial_3.tscn");
+var tutorial_4_scene : PackedScene = preload("res://scenes/Tutorial_4.tscn");
 var tile_codex_scene : PackedScene = preload("res://scenes/Tile codex/TileCodex.tscn");
 var game_scene : PackedScene = preload("res://scenes/game.tscn");
 
 enum SCENES {
+	TITLESCREEN,
+	TUTORIAL_1,
+	TUTORIAL_2,
+	TUTORIAL_3,
+	TUTORIAL_4,
 	CODEX_SUMMARY,
 	GAME
 }
 
-var scene_loaders : Dictionary[SCENES, Callable] = {
-	SCENES.CODEX_SUMMARY: load_codex_summary_scene,
-	SCENES.GAME: load_game_scene
+var scenes : Dictionary[SCENES, PackedScene] = {
+	SCENES.TITLESCREEN: title_screen_scene,
+	SCENES.TUTORIAL_1: tutorial_1_scene,
+	SCENES.TUTORIAL_2: tutorial_2_scene,
+	SCENES.TUTORIAL_3: tutorial_3_scene,
+	SCENES.TUTORIAL_4: tutorial_4_scene,
+	SCENES.CODEX_SUMMARY: tile_codex_scene,
+	SCENES.GAME: game_scene
 }
 
 var scene_data : Dictionary[SCENES, SceneData] = {
@@ -27,16 +42,27 @@ func _ready() -> void:
 
 func init_first_scene():
 	root = get_node("/root/Main scene");
-	current_scene = load_game_scene();
+	load_scene(Debug.instance.scene_to_load);
 
-func switch_scene_with_transition(added_scene : CanvasItem, direction : Vector2i):
-	UserData.auto_save()
+func load_scene_with_transition(scene_key : SCENES, direction : Vector2i)  -> CanvasItem:
+	UserData.auto_save();
+	
 	var offset = get_viewport_rect().size * Vector2(direction);
-	added_scene.position += offset;
+	add_scene_to_tree(scene_key);
+	current_scene.position += offset;
+	
 	await scene_transition(offset);
+	
 	remove_previous_scene_from_tree();
-	added_scene.position -= offset;
+	current_scene.position -= offset;
 	MainCamera.get_camera().position -= offset;
+	return current_scene;
+
+func load_scene(scene_key : SCENES):
+	UserData.auto_save();
+	
+	add_scene_to_tree(scene_key);
+	remove_previous_scene_from_tree();
 
 func scene_transition(offset : Vector2):
 	var tween = get_tree().create_tween();
@@ -44,24 +70,18 @@ func scene_transition(offset : Vector2):
 	await tween.finished;
 	return
 
-func add_scene_to_tree(scene_key : SCENES, scene : CanvasItem) -> CanvasItem:
+func add_scene_to_tree(scene_key : SCENES) -> CanvasItem:
+	if !scenes.has(scene_key):
+		printerr("Attempted to load inexistant scene  : " + str(scene_key));
+		return;
+	
 	previous_scene = current_scene;
-	current_scene = scene;
 	current_scene_key = scene_key;
-	root.add_child(scene);
+	current_scene = scenes[scene_key].instantiate();
+	root.add_child(current_scene);
 	SignalBus.on_scene_loaded.emit(scene_key);
-	return scene;
+	return current_scene;
 
 func remove_previous_scene_from_tree():
-	previous_scene.queue_free();
-
-## Scene specific accesses
-
-func load_game_scene() -> CanvasItem:
-	return add_scene_to_tree(SCENES.GAME, game_scene.instantiate());
-
-func load_codex_summary_scene() -> CanvasItem:
-	return add_scene_to_tree(SCENES.CODEX_SUMMARY, TileCodex.load_codex());
-
-func load_codex_scene_at_page(tile_id : String) -> CanvasItem:
-	return add_scene_to_tree(SCENES.CODEX_SUMMARY, TileCodex.load_codex_at_page(tile_id));
+	if previous_scene != null:
+		previous_scene.queue_free();

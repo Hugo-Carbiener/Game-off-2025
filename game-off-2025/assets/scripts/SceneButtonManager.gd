@@ -14,12 +14,17 @@ func _ready() -> void:
 
 func init_scene_buttons(scene_key : SceneLoader.SCENES):
 	reset_scene_buttons();
+	if !SceneLoader.scene_data.has(scene_key):
+		for button in buttons.values():
+			button.visible = false;
+		return;
+
 	var scene_data = SceneLoader.scene_data[scene_key];
 	var scene_button_targets = scene_data.scene_buttons_targets;
 	var scene_button_icons = scene_data.scene_buttons_icons;
 	for direction in buttons.keys():
 		var current_scene_button = buttons[direction];
-		current_scene_button.visible = scene_button_targets.has(direction) and scene_button_icons.has(direction);
+		current_scene_button.visible = buttons.has(direction) and scene_button_icons.has(direction);
 		if current_scene_button.visible:
 			var target_scene_key = scene_button_targets[direction];
 			current_scene_button.button_up.connect(on_click.bind(target_scene_key, direction));
@@ -32,5 +37,4 @@ func reset_scene_buttons():
 			current_scene_button.button_up.disconnect(connection["callable"]);
 
 func on_click(target_scene_key : SceneLoader.SCENES, direction : Vector2i):
-	var loader = SceneLoader.scene_loaders[target_scene_key];
-	SceneLoader.switch_scene_with_transition(loader.call(), direction);
+	SceneLoader.load_scene_with_transition(target_scene_key, direction);
