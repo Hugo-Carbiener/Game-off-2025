@@ -12,6 +12,8 @@ var tutorial_4_scene : PackedScene = preload("res://scenes/Tutorial_4.tscn");
 var tile_codex_scene : PackedScene = preload("res://scenes/Tile codex/TileCodex.tscn");
 var game_scene : PackedScene = preload("res://scenes/game.tscn");
 
+var default_game_scene = SCENES.GAME;
+
 enum SCENES {
 	TITLESCREEN,
 	TUTORIAL_1,
@@ -59,8 +61,6 @@ func load_scene_with_transition(scene_key : SCENES, direction : Vector2i)  -> Ca
 	return current_scene;
 
 func load_scene(scene_key : SCENES):
-	UserData.auto_save();
-	
 	add_scene_to_tree(scene_key);
 	remove_previous_scene_from_tree();
 
@@ -84,4 +84,5 @@ func add_scene_to_tree(scene_key : SCENES) -> CanvasItem:
 
 func remove_previous_scene_from_tree():
 	if previous_scene != null:
+		UserData.auto_save();
 		previous_scene.queue_free();

@@ -40,7 +40,6 @@
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
-[ext_resource type="Texture2D" uid="uid://dp7hkpe8x4emk" path="res://assets/sprites/UI_mouse_hold.png" id="49_tc8uq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0f1tp"]
 atlas = ExtResource("6_3hbvx")
@@ -48,6 +47,10 @@ region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0qimb"]
 atlas = ExtResource("6_3hbvx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ool0"]
+atlas = ExtResource("6_3hbvx")
+region = Rect2(8, 16, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("6_3hbvx")
@@ -165,13 +168,14 @@ script = ExtResource("1_8qswn")
 tile_set = ExtResource("2_rm0al")
 script = ExtResource("3_i4re6")
 
-[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "tile_feedback_sprite", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
 tile_set = ExtResource("2_rm0al")
 occlusion_enabled = false
 collision_enabled = false
 navigation_enabled = false
 script = ExtResource("4_pf7vy")
 beacon_sprite = NodePath("Beacon sprite")
+tile_feedback_sprite = NodePath("Tile animation sprite")
 evolution_transition_duration = 1.0
 evolution_from_tile_sprite = NodePath("Evolution from tile sprite")
 evolution_to_tile_sprite = NodePath("Evolution to tile sprite")
@@ -187,6 +191,10 @@ texture = SubResource("AtlasTexture_0f1tp")
 [node name="Evolution to tile sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
 visible = false
 texture = SubResource("AtlasTexture_0qimb")
+
+[node name="Tile animation sprite" type="Sprite2D" parent="Tilemaps/Main tilemap"]
+visible = false
+texture = SubResource("AtlasTexture_8ool0")
 
 [node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite")]
 tile_set = ExtResource("2_rm0al")
@@ -228,9 +236,8 @@ victory_sound = 5
 defeat_sound = 6
 main_audio_sequence = SubResource("AudioStreamPlaylist_pdwbg")
 
-[node name="Input manager" type="Node2D" parent="." node_paths=PackedStringArray("progress_bar")]
+[node name="Input manager" type="Node2D" parent="."]
 script = ExtResource("17_3x28f")
-progress_bar = NodePath("../UI/Input hold progress")
 hold_input_minimum_duration = 0.2
 hold_input_required_duration = 1.0
 
@@ -397,12 +404,3 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("21_uxocx")
 stretch_mode = 6
-
-[node name="Input hold progress" type="TextureProgressBar" parent="UI"]
-visible = false
-z_index = 1
-layout_mode = 2
-mouse_filter = 2
-value = 70.0
-fill_mode = 4
-texture_progress = ExtResource("49_tc8uq")

@@ -74,11 +74,11 @@ static func store_new_tile(tile_id):
 func discover_new_tiles() -> bool:
 	if UserData.tile_codex_save.pages_to_discover.is_empty(): return false;
 	
-	UserSettings.areInputBlocked = true;
+	UserSettings.are_input_blocked = true;
 	for tile_to_discover in UserData.tile_codex_save.pages_to_discover:
 		await reveal_card(tile_to_discover);
 	UserData.tile_codex_save.pages_to_discover.clear();
-	UserSettings.areInputBlocked = false;
+	UserSettings.are_input_blocked = false;
 	return true;
 
 func init_summary():
@@ -277,7 +277,7 @@ func reveal_card(tile_id : String):
 ## ACTIONS 
 
 func toggle_favorite(tile_id : String):
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	
 	if !favorite_button.button_pressed:
 		UserData.tile_codex_save.bookmarks.erase(tile_id);
@@ -298,31 +298,31 @@ func toggle_favorite(tile_id : String):
 	update_favorite_button_style(tile_id);
 
 func next_tile():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	if current_tile_index + 1 >= TileDataManager.land_tiles.size(): return;
 	
 	var next_tile_id = TileDataManager.land_tiles[current_tile_index + 1];
 	setup(next_tile_id);
 
 func previous_tile():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	
 	var next_tile_id = TileDataManager.land_tiles[current_tile_index - 1] if current_tile_index > 0 else "";
 	setup(next_tile_id);
 
 func return_to_previous_tile():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	if previous_tiles.is_empty(): return;
 	
 	var next_tile_id = previous_tiles.pop_back();
 	setup(next_tile_id);
 
 func open_codex_summary():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	
 	setup("");
 
 func close_codex():
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	
 	SceneLoader.load_scene_with_transition(SceneLoader.SCENES.GAME, Vector2i.RIGHT);

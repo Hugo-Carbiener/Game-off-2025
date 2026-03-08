@@ -1,11 +1,11 @@
 extends Node2D
 
-func blink_sprite(target : CanvasItem, duration : float) -> Tween:
+func blink_sprite(target : CanvasItem, color : Color = Color.WHITE) -> Tween:
 	var base_color = target.modulate;
+	var blink_color = Color(10, 10, 10, 1) * color;
 	var tween = get_tree().create_tween();
-	tween.tween_property(target, "modulate", Color(10, 10, 10, 1), duration/2).from(base_color);
-	tween.tween_property(target, "modulate", base_color
-	, duration/2).from(Color(10, 10, 10, 1));
+	tween.tween_property(target, "modulate", blink_color, Constants.blink_duration/2);
+	tween.tween_property(target, "modulate", base_color, Constants.blink_duration/2);
 	await tween.finished;
 	return tween;
 

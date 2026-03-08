@@ -15,6 +15,7 @@ func _ready() -> void:
 	day_number = 0;
 	SignalBus.game_saving.connect(save_fight); 
 	SignalBus.tile_placed.connect(on_tile_placed);
+	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[AudioUtils.MUSICS.START]), 2);
 	ready.connect(start_game);
 
 func start_game():
@@ -45,11 +46,14 @@ static func setup_phase():
 
 static func play_phase():
 	SignalBus.play_phase_started.emit();
+	await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 	await GameUI.instance.toggle_card_slots();
 
 static func resolution_phase():
 	SignalBus.resolution_phase_started.emit();
 	await GameUI.instance.toggle_card_slots();
+	await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
+
 	await MonsterFactory.instance.on_resolution();
 	start_phase(get_next_phase());
 
@@ -77,4 +81,3 @@ func load_fight():
 	MonsterFactory.instance.load(fight_save.monsters, fight_save.breaches);
 	MainTilemap.instance.load(fight_save.tiles);
 	BeaconManager.instance.health = fight_save.beacon_health;
-	

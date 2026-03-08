@@ -28,7 +28,7 @@ func clear_tilemap():
 	tiles.clear();
 	terrain_id_by_cell.clear();
 
-func is_valid_cell(_coordinates : Vector2) -> bool:
+func is_valid_cell(_coordinates : Vector2i) -> bool:
 	return true;
 
 func has_tile_at(coordinates : Vector2i) -> bool :

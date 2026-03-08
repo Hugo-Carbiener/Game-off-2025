@@ -37,6 +37,8 @@ func load_bookmarks(_bookmarks : Array):
 
 func load_known_tiles(_known_tiles : Array):
 	for tile in _known_tiles:
+		if UserData.get_known_tiles().has(tile): continue;
+		
 		known_tiles.append(str(tile));
 
 func load_pages_to_discover(_pages_to_discover : Array):

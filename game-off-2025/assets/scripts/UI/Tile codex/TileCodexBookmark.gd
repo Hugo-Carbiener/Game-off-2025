@@ -20,6 +20,6 @@ func setup(target_tile_id: String):
 	button_up.connect(on_click.bind(target_tile_id));
 
 func on_click(target_tile_id: String):
-	if UserSettings.areInputBlocked: return;
+	if UserSettings.are_input_blocked: return;
 	
 	SignalBus.bookmark_clicked.emit(target_tile_id);

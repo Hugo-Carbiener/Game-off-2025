@@ -49,3 +49,5 @@ const requirements_update_delay = 1.5;
 
 ## UI
 const scene_transition_duration = .75;
+const blink_duration = 0.1;
+const camera_transition_duration = 0.5;

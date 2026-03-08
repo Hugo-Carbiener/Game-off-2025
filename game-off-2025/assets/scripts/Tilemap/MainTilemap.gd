@@ -3,6 +3,7 @@ class_name MainTilemap
 
 static var instance : MainTilemap;
 @export var beacon_sprite : Sprite2D;
+@export var tile_feedback_sprite : Sprite2D;
 @export_group("Evolution transition")
 @export var evolution_transition_duration : float;
 @export var evolution_from_tile_sprite : Sprite2D;
@@ -17,8 +18,7 @@ func _ready() -> void:
 	init_world();
 
 func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = false) -> bool :
-	var monster = MonsterFactory.monsters.get(tile_position);
-	if  monster != null: return false;
+	if MonsterFactory.monsters.has(tile_position): return false;
 	
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 
@@ -38,11 +38,13 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	update_targetted_tiles(tile_position);
 	return true;
 
-func is_valid_cell(coordinates : Vector2) -> bool:
+func is_valid_cell(coordinates : Vector2i) -> bool:
 	if !cell_distance(coordinates, Vector2.ZERO) <= Constants.beacon_range:
 		return false;
 	
 	if has_tile_at(coordinates) : return false;
+	
+	if MonsterFactory.monsters.has(coordinates): return false;
 	
 	var has_neighbor = false;
 	for neighbor_coordinates in get_surrounding_cells(coordinates):
@@ -136,9 +138,24 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	if tile_data == null: return;
 	
 	monster.damage(tile_data.damage);
+	dispatch_tile_damage(tilemap_position, tile_data);
 	
 	execute_tile_effects(tile_data, monster);
 	# TODO: execute tile effects of tiles targetting this cell
+
+func dispatch_tile_damage(tilemap_position : Vector2i, tile_data : CustomTileData):
+	tile_feedback_sprite.texture.region = tile_data.get_texture_region();
+	tile_feedback_sprite.position = map_to_local(tilemap_position);
+	tile_feedback_sprite.visible = true;
+	#await AnimationUtils.blink_sprite(tile_feedback_sprite, Color.RED);
+	await test(tile_feedback_sprite);
+	tile_feedback_sprite.visible = false;
+
+func test(sprite : Sprite2D):
+	var tween = get_tree().create_tween();
+	tween.tween_property(sprite, "scale", 1.2 * Vector2.ONE, 0.1);
+	tween.tween_property(sprite, "scale", Vector2.ONE, 0.1);
+	await tween.finished;
 
 func execute_tile_effects(tile_data : CustomTileData, monster : Monster):
 	for effect in tile_data.effects:

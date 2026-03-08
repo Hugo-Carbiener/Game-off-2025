@@ -8,7 +8,6 @@ var modules : Dictionary[String, Save] = {
 };
 
 func _ready() -> void:
-	deserialize_save();
 	SignalBus.play_phase_started.connect(auto_save);
 
 func auto_save():
@@ -25,7 +24,7 @@ func serialize_save():
 	save_file.store_line("}");
 
 func deserialize_save():
-	if !FileAccess.file_exists(Constants.save_file): return;
+	if !has_save(): return;
 
 	var save_file = FileAccess.open(Constants.save_file, FileAccess.READ);
 	var json_string = save_file.get_as_text();
@@ -44,6 +43,14 @@ func deserialize_save():
 		var module = modules[data_key];
 		module.from_JSON(json.data[data_key]);
 		module._is_init = true;
+
+func delete_save():
+	if !has_save(): return;
+	
+	DirAccess.remove_absolute(Constants.save_file);
+
+func has_save() -> bool:
+	return FileAccess.file_exists(Constants.save_file);
 
 func get_known_tiles() -> Array[String]:
 	return tile_codex_save.known_tiles;

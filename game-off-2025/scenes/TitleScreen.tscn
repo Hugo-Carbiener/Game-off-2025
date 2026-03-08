@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://4gmgnnacxhrj"]
+[gd_scene load_steps=15 format=3 uid="uid://4gmgnnacxhrj"]
 
 [ext_resource type="Script" uid="uid://i47qge3oinkm" path="res://assets/scripts/ui/TitleScreen.gd" id="1_bxdlt"]
-[ext_resource type="Texture2D" uid="uid://b8e0ophfdelsq" path="res://assets/sprites/UI_button.png" id="4_ly5u4"]
-[ext_resource type="Texture2D" uid="uid://d4dgmcg3dj1ag" path="res://assets/sprites/UI_button_pressed.png" id="5_ncdcj"]
-[ext_resource type="Texture2D" uid="uid://dw5k4aoqcq88u" path="res://assets/sprites/UI_button_hover.png" id="6_gn1eu"]
 [ext_resource type="Texture2D" uid="uid://bgeied0od1vvq" path="res://assets/sprites/UI_title_2.png" id="6_l7b4h"]
+[ext_resource type="Texture2D" uid="uid://7bdy6q50f63t" path="res://assets/sprites/UI_multiple_button_pressed.png" id="7_2ktle"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="7_bch4e"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="8_bch4e"]
+[ext_resource type="Texture2D" uid="uid://bmh2tjmy141uk" path="res://assets/sprites/UI_multiple_button.png" id="8_l7b4h"]
 [ext_resource type="Texture2D" uid="uid://b1y7qobnmywul" path="res://assets/sprites/UI_volume_icon.png" id="8_mq2qu"]
 [ext_resource type="Texture2D" uid="uid://lpfbqrk7ohi2" path="res://assets/sprites/shader resources/shader_pattern_lines.png" id="9_bch4e"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="10_ae2uc"]
@@ -24,19 +23,17 @@ shader_parameter/noise_scale = 0.4110000195225
 shader_parameter/width_scale = 0.0
 shader_parameter/rotation_coef = 0.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_mq2qu"]
+[sub_resource type="LabelSettings" id="LabelSettings_3mdse"]
 font = ExtResource("7_bch4e")
-shadow_size = 0
 
-[node name="TitleScreen" type="MarginContainer" node_paths=PackedStringArray("start_button", "quit_button", "volume_slider")]
+[node name="TitleScreen" type="MarginContainer" node_paths=PackedStringArray("new_game_button", "continue_button", "quit_button", "volume_slider")]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
 offset_bottom = 180.0
 script = ExtResource("1_bxdlt")
-music = 4
-game_start_music = 3
-start_button = NodePath("Title and buttons/VBoxContainer/Buttons/VBoxContainer/Start game")
+new_game_button = NodePath("Title and buttons/VBoxContainer/Buttons/VBoxContainer/New game button")
+continue_button = NodePath("Title and buttons/VBoxContainer/Buttons/VBoxContainer/Continue button")
 quit_button = NodePath("Title and buttons/VBoxContainer/Buttons/VBoxContainer/Quit button")
 volume_slider = NodePath("Title and buttons/VBoxContainer/Volume slider/HBoxContainer/HSlider")
 next_scene_key = 1
@@ -71,49 +68,53 @@ stretch_mode = 2
 [node name="Buttons" type="MarginContainer" parent="Title and buttons/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 85
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title and buttons/VBoxContainer/Buttons"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Start game" type="TextureButton" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer"]
+[node name="New game button" type="TextureButton" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-texture_normal = ExtResource("4_ly5u4")
-texture_pressed = ExtResource("5_ncdcj")
-texture_hover = ExtResource("6_gn1eu")
-stretch_mode = 3
+texture_pressed = ExtResource("7_2ktle")
+texture_hover = ExtResource("8_l7b4h")
 
-[node name="Label" type="Label" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer/Start game"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Start"
-label_settings = SubResource("LabelSettings_mq2qu")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="New game label" type="Label" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer/New game button"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 124.0
+offset_bottom = 24.0
+text = "New game"
+label_settings = SubResource("LabelSettings_3mdse")
+
+[node name="Continue button" type="TextureButton" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer"]
+layout_mode = 2
+texture_pressed = ExtResource("7_2ktle")
+texture_hover = ExtResource("8_l7b4h")
+
+[node name="Continue label" type="Label" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer/Continue button"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 66.0
+offset_bottom = 24.0
+text = "Continue"
+label_settings = SubResource("LabelSettings_3mdse")
 
 [node name="Quit button" type="TextureButton" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-texture_normal = ExtResource("4_ly5u4")
-texture_pressed = ExtResource("5_ncdcj")
-texture_hover = ExtResource("6_gn1eu")
-stretch_mode = 3
+texture_pressed = ExtResource("7_2ktle")
+texture_hover = ExtResource("8_l7b4h")
 
-[node name="Label" type="Label" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer/Quit button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Quit label" type="Label" parent="Title and buttons/VBoxContainer/Buttons/VBoxContainer/Quit button"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 66.0
+offset_bottom = 24.0
 text = "Quit"
-label_settings = SubResource("LabelSettings_mq2qu")
-horizontal_alignment = 1
-vertical_alignment = 1
+label_settings = SubResource("LabelSettings_3mdse")
 
 [node name="Filler" type="MarginContainer" parent="Title and buttons/VBoxContainer"]
 layout_mode = 2

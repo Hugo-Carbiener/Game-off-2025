@@ -24,7 +24,7 @@ var musics = {
 
 @onready var tree := get_tree() # Gets the slightest of performance improvements by caching the SceneTree
 
-func play_music(sound: AudioStream, at : float = 0, autoplay := true):
+func play_music(sound: AudioStream, at : float = 0, autoplay := true) -> AudioStreamPlayer:
 	if player == null:
 		player = AudioStreamPlayer.new();
 		add_child(player);
@@ -58,18 +58,12 @@ func _play_sound(sound: AudioStream, _player : AudioStreamPlayer, autoplay := tr
 func play_sound(sound: AudioStream, autoplay := true) -> AudioStreamPlayer:
 	return _play_sound(sound, AudioStreamPlayer.new(), autoplay);
 
-func fade_in(audio_stream_player, seconds := 1.0, tween := create_tween()):
-	if not (audio_stream_player is AudioStreamPlayer or audio_stream_player is AudioStreamPlayer2D):
-		push_error("Non-AudioStreamPlayer[XD] provided to Audio.fade_in(...)")
-		return
+func fade_in(audio_stream_player : AudioStreamPlayer, seconds := 1.0, tween := create_tween()):
 	tween.tween_method(func(x): audio_stream_player.volume_db = linear_to_db(x), 0.0, db_to_linear(audio_stream_player.volume_db), seconds)
 	await tween.finished;
 	return;
 
-func fade_out(audio_stream_player, seconds := 1.0, tween := create_tween()):
-	if not (audio_stream_player is AudioStreamPlayer or audio_stream_player is AudioStreamPlayer2D or audio_stream_player is AudioStreamPlayer3D):
-		push_error("Non-AudioStreamPlayer[XD] provided to Audio.fade_out(...)")
-		return
+func fade_out(audio_stream_player : AudioStreamPlayer, seconds := 1.0, tween := create_tween()):
 	tween.tween_method(func(x): audio_stream_player.volume_db = linear_to_db(x), db_to_linear(audio_stream_player.volume_db), 0.0, seconds)
 	tween.tween_callback(func(): audio_stream_player.stop(); audio_stream_player.queue_free())
 	await tween.finished;

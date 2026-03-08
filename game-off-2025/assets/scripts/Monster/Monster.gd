@@ -44,7 +44,7 @@ func damage(damage_amount : int):
 		on_death();
 		return;
 	
-	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite, 0.1);
+	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite);
 
 func on_death():
 	TileCardFactory.instance.draw_random_card();

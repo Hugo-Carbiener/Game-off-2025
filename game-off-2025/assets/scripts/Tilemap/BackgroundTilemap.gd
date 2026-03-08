@@ -11,7 +11,7 @@ func _ready() -> void:
 			place_tile(coordinates, TileDataManager.tile_dictionnary["background"]);
 			TileDataManager.world_tile_amount += 1;
 
-func is_valid_cell(coordinates : Vector2) -> bool:
+func is_valid_cell(coordinates : Vector2i) -> bool:
 	if !cell_distance(coordinates, Vector2.ZERO) <= Constants.beacon_range:
 		return false;
 	return true;

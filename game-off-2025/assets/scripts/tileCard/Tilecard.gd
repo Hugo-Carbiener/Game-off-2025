@@ -188,7 +188,7 @@ func get_current_margin() -> int:
 	return 0;
 
 func on_mouse_entered():
-	if UserSettings.areInputBlocked or !is_draggable: return;
+	if UserSettings.are_input_blocked or !is_draggable: return;
 	if card_is_selected(): return;
 	if !TileDataManager.tile_dictionnary[card_id].is_playable: return;
 	

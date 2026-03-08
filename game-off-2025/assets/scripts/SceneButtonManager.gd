@@ -37,4 +37,6 @@ func reset_scene_buttons():
 			current_scene_button.button_up.disconnect(connection["callable"]);
 
 func on_click(target_scene_key : SceneLoader.SCENES, direction : Vector2i):
+	if UserSettings.are_input_blocked: return;
+	
 	SceneLoader.load_scene_with_transition(target_scene_key, direction);

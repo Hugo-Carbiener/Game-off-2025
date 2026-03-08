@@ -14,7 +14,6 @@ var card_slot_disabled : bool = true;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var pause_window : PauseWindow;
-@export var tile_codex : TileCodex;
 
 func _ready() -> void:
 	if instance == null:
@@ -23,16 +22,10 @@ func _ready() -> void:
 	SignalBus.game_lost.connect(on_game_lost);
 
 func on_game_lost():
-	death_screen.visible = true
+	death_screen.visible = true;
 
 func on_game_won():
-	win_screen.visible = true
-
-func toggle_card_codex():
-	tile_codex.visible = !tile_codex.visible;
-	UserSettings.areInputBlocked = pause_window.visible;
-	if tile_codex.visible and CardSlotSelector.instance.card_is_hovered():
-		tile_codex.setup(CardSlotSelector.instance.get_hovered_card().card_id);
+	win_screen.visible = true;
 
 func toggle_card_slots():
 	if card_slot_disabled:
@@ -46,14 +39,13 @@ func transition_card_slot(to : bool, color : Color):
 	tween.tween_property(footer_container, "modulate", color, card_slot_transition_duration).set_ease(Tween.EASE_IN);
 	tween.tween_callback(func(): card_slot_disabled = to);
 	await tween.finished;
-	return;
 
 func update_card_slot_position(margin : int):
 	footer_container.add_theme_constant_override("margin_bottom", margin);
 
 func toggle_pause_window():
 	pause_window.visible = !pause_window.visible;
-	UserSettings.areInputBlocked = pause_window.visible;
+	UserSettings.are_input_blocked = pause_window.visible;
 
 func displayPhaseMsg(text: String): 
 	phase_msg.modulate.a = 0;
