@@ -1,41 +1,25 @@
 extends Control
 class_name MonsterInfo
 
+const monster_info_scene = preload("res://scenes/components/MonsterInfo.tscn");
+
 @export var label : Label;
-@export var tile_preview : TextureRect;
-@export var icon_model : TextureRect;
+@export var icon : TextureRect;
 var added_icons : Array[TextureRect];
 
-func launch(tile_data : CustomTileData, text : String, icons : Array[Resource]):
-	init(tile_data, text, icons);
-	await start_lifetime();
+static func launch_monster_info(text : String, texture: Texture2D):
+	var monster_info = monster_info_scene.instantiate();
+	monster_info.setup(text, texture);
+	await monster_info.start_lifetime();
+	monster_info.queue_free();
 
-func init(tile_data : CustomTileData, text : String, icons : Array[Resource]):
-	visible = true;
-	icon_model.visible = true;
-	tile_preview.texture = tile_preview.texture.duplicate();
-	tile_preview.texture.region = tile_data.get_texture_region();
-	modulate = tile_data.color;
-	label.label_settings = label.label_settings.duplicate();
-	label.label_settings.font_color = tile_data.color;
+func setup(text : String, texture : Texture2D):
 	label.text = text;
-	
-	for child in get_children():
-		if child is TextureRect and added_icons.has(child):
-			child.queue_free();
-	
-	for icon in icons:
-		var icon_container = icon_model.duplicate();
-		added_icons.append(icon_container);
-		icon_container.texture = icon_container.texture.duplicate();
-		icon_container.texture = icon;
-		add_child(icon_container);
-	icon_model.visible = false;
+	icon.texture = texture;
 
 func start_lifetime():
 	var tween = get_tree().create_tween();
 	tween.set_parallel(true);
-	tween.tween_property(self, "modulate", Color(0, 0, 0, 0), Constants.monster_info_lifetime_duration).set_ease(Tween.EASE_IN);
-	tween.set_parallel(false);
-	tween.tween_callback(func(): visible = false);
+	tween.tween_property(self, "position", position + Constants.monster_info_lifetime_movement, Constants.monster_info_lifetime_duration).set_ease(Tween.EASE_OUT);
+	tween.tween_property(self, "modulate.a", 0, Constants.monster_info_lifetime_duration / 2.).set_delay(Constants.monster_info_lifetime_duration / 2.).set_ease(Tween.EASE_OUT);
 	await tween.finished;
