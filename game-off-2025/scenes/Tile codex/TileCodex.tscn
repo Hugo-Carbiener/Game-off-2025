@@ -75,7 +75,7 @@ requirement_shader = NodePath("MarginContainer/VBoxContainer/Page container/Righ
 fade_out_duration = 2.0
 fade_in_duration = 2.0
 new_page_pause_duration = 6.0
-card_half_rotation_duration = 0.5
+card_half_rotation_duration = 1.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

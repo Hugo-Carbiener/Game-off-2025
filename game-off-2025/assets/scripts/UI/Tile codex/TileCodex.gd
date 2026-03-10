@@ -164,11 +164,11 @@ func init_title(tile_data : CustomTileData):
 
 func init_card(tile_id : String):
 	if tile_card != null:
-		tile_card.queue_free();
+		tile_card.free();
 		
 	var _tile_card = TileCard.create_tile_card(tile_id, false).without_count_overlay();
-	tile_card_container.add_child(_tile_card);
 	tile_card = _tile_card;
+	tile_card_container.add_child(_tile_card);
 
 func init_number(tile_id : String):
 	var tile_to_consider = current_tile_data.id if current_tile_data != null else tile_id;
@@ -251,11 +251,11 @@ func reveal_card(tile_id : String):
 	tween.set_parallel(true);
 	tween.tween_property(title_label, "self_modulate:a", 0, fade_out_duration).set_ease(Tween.EASE_IN);
 	tween.tween_property(description_label, "self_modulate:a", 0, fade_out_duration).set_ease(Tween.EASE_IN);
-	tween.tween_property(tile_card, "scale", tile_card.scale * Vector2.DOWN, card_half_rotation_duration).set_delay(fade_out_duration - card_half_rotation_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
+	tween.tween_property(tile_card, "scale:x", 0.05, card_half_rotation_duration).set_delay(fade_out_duration - card_half_rotation_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
 	await tween.finished;
 	UserData.get_known_tiles().append(tile_id);
 	setup(tile_id);
-	tile_card.scale = Vector2.DOWN;
+	tile_card.modulate.a = 0;
 	title_label.self_modulate.a = 0.0;
 	description_label.self_modulate.a = 0.0;
 	effects_area.modulate.a = 0.0;
@@ -264,13 +264,14 @@ func reveal_card(tile_id : String):
 	requirement_shader.modulate.a = 0;
 	var _tween = get_tree().create_tween();
 	_tween.set_parallel(true);
-	_tween.tween_property(tile_card, "scale", Vector2.ONE, card_half_rotation_duration).from(Vector2.DOWN).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
+	_tween.tween_callback(func(): tile_card.modulate.a = 1);
 	_tween.tween_property(title_label, "self_modulate:a", 1.0, fade_in_duration).set_ease(Tween.EASE_IN);
 	_tween.tween_property(description_label, "self_modulate:a", 1.0, fade_in_duration).set_ease(Tween.EASE_IN);
 	_tween.tween_property(effects_area, "modulate:a", 1.0, fade_in_duration).set_ease(Tween.EASE_IN);
 	_tween.tween_property(evolutions_area, "modulate:a", 1.0, fade_in_duration).set_ease(Tween.EASE_IN);
 	_tween.tween_property(requirements_area, "modulate:a", 1.0, fade_in_duration).set_ease(Tween.EASE_IN);
 	_tween.tween_property(requirement_shader, "modulate:a", 1.0, fade_in_duration).set_delay(fade_in_duration).set_ease(Tween.EASE_OUT);
+	_tween.tween_property(tile_card, "scale:x", 1, card_half_rotation_duration).from(0.05)
 	_tween.tween_interval(new_page_pause_duration);
 	await _tween.finished;
 
