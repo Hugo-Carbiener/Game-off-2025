@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8ovysu01l6is"
-path="res://.godot/imported/UI_card_icon_high_damage.png-66004413dfe04f3a9570d8e58e04862a.ctex"
+uid="uid://d23rtj4f73eg"
+path="res://.godot/imported/UI_card_icon_slowness.png-305a8dd54067eb9ca132c1d4c1778e2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_card_icon_high_damage.png"
-dest_files=["res://.godot/imported/UI_card_icon_high_damage.png-66004413dfe04f3a9570d8e58e04862a.ctex"]
+source_file="res://assets/sprites/UI_card_icon_slowness.png"
+dest_files=["res://.godot/imported/UI_card_icon_slowness.png-305a8dd54067eb9ca132c1d4c1778e2b.ctex"]
 
 [params]
 

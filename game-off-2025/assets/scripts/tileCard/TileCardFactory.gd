@@ -1,7 +1,6 @@
 extends Control
 class_name TileCardFactory
 
-var card_slot_model : PackedScene = preload("res://scenes/components/CardSlot.tscn");
 var half_card_slot_model : PackedScene = preload("res://scenes/components/HalfCardSlot.tscn");
 
 static var instance : TileCardFactory;
@@ -30,8 +29,7 @@ func init_UI():
 		return;
 
 	for i in range(Constants.card_slot_amount):
-		var new_card_slot : CardSlot = half_card_slot_model.instantiate();
-		new_card_slot.setup(i + 1);
+		var new_card_slot = half_card_slot_model.instantiate();
 		add_child(new_card_slot);
 		card_slots.append(new_card_slot);
 
@@ -65,7 +63,7 @@ func free_card_slot(tile_id : String):
 	
 	var slot_index = slots_per_card.get(tile_id);
 	var card_slot = card_slots[slot_index];
-	var card = card_slot.get_children()[2];
+	var card = card_slot.get_children()[1];
 	card_slot.remove_child(card);
 	slots_per_card.erase(tile_id);
 	cards.erase(tile_id);
@@ -74,7 +72,7 @@ func free_card_slot(tile_id : String):
 	if slot_index + 1 < card_slot_used_amount :
 		for further_card_slot_index in range(slot_index + 1 , card_slot_used_amount):
 			var further_card_slot = card_slots[further_card_slot_index];
-			var further_card = further_card_slot.get_children()[2];
+			var further_card = further_card_slot.get_children()[1];
 			further_card_slot.remove_child(further_card);
 			card_slot.add_child(further_card);
 			slots_per_card.set(further_card.card_id, further_card_slot_index - 1);

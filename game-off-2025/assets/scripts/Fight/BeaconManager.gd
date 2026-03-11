@@ -14,8 +14,9 @@ func damage(damages: int):
 	if health <= 0: return;
 	
 	health = min(health - damages, Constants.beacon_hp);
+	MonsterInfo.launch_monster_info("-" + str(damage), TileDataManager.beacon_icon_small, MainTilemap.instance.beacon_sprite.position, self, Color.DARK_RED);
 	SignalBus.beacon_health_updated.emit(health);
-
+	
 	if health <= 0:
 		health = 0;
 		SignalBus.game_lost.emit()

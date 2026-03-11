@@ -1,21 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://c0h8chxj3ck5o"]
 
-[ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="1_6v762"]
 [ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/monster/MonsterInfo.gd" id="1_tc3cy"]
-[ext_resource type="Texture2D" uid="uid://c6n0sl523pkd0" path="res://assets/sprites/UI_card_icon_low_damage.png" id="2_mg4vn"]
+[ext_resource type="FontFile" uid="uid://cgqb76em68y4y" path="res://assets/fonts/Bytesized-Regular.ttf" id="2_enrbn"]
+[ext_resource type="Texture2D" uid="uid://dcesxu7twr8e6" path="res://assets/sprites/UI_damage-icon-small.png" id="3_enrbn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_py124"]
-font = ExtResource("1_6v762")
+font = ExtResource("2_enrbn")
 font_size = 8
-shadow_size = 0
 
-[node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "icon_model")]
+[node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "icon")]
+z_index = 10
 offset_right = 27.0
 offset_bottom = 16.0
 theme_override_constants/separation = 0
 script = ExtResource("1_tc3cy")
 label = NodePath("Label")
-icon_model = NodePath("Icon model")
+icon = NodePath("Icon")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -25,7 +25,9 @@ label_settings = SubResource("LabelSettings_py124")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon model" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
-texture = ExtResource("2_mg4vn")
-stretch_mode = 2
+texture = ExtResource("3_enrbn")
+expand_mode = 4
+stretch_mode = 5

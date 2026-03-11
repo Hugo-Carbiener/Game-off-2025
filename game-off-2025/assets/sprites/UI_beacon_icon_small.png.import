@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6n0sl523pkd0"
-path="res://.godot/imported/UI_card_icon_low_damage.png-cf9205249c214ce01fc457c6d5011d9c.ctex"
+uid="uid://b8avsefhe4ew0"
+path="res://.godot/imported/UI_beacon_icon_small.png-ef870575e719784ac9afb34f8acb1e46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_card_icon_low_damage.png"
-dest_files=["res://.godot/imported/UI_card_icon_low_damage.png-cf9205249c214ce01fc457c6d5011d9c.ctex"]
+source_file="res://assets/sprites/UI_beacon_icon_small.png"
+dest_files=["res://.godot/imported/UI_beacon_icon_small.png-ef870575e719784ac9afb34f8acb1e46.ctex"]
 
 [params]
 

@@ -138,7 +138,8 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	if tile_data == null: return;
 	
 	monster.damage(tile_data.damage);
-	dispatch_tile_damage(tilemap_position, tile_data);
+	if tile_data.damage > 0:
+		dispatch_tile_damage(tilemap_position, tile_data);
 	
 	execute_tile_effects(tile_data, monster);
 	# TODO: execute tile effects of tiles targetting this cell
@@ -146,6 +147,7 @@ func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 func dispatch_tile_damage(tilemap_position : Vector2i, tile_data : CustomTileData):
 	tile_feedback_sprite.texture.region = tile_data.get_texture_region();
 	tile_feedback_sprite.position = map_to_local(tilemap_position);
+	MonsterInfo.launch_monster_info("-" + str(tile_data.damage), TileDataManager.damage_icon_small, MonsterFactory.instance.monster_sprite.position, self);
 	tile_feedback_sprite.visible = true;
 	#await AnimationUtils.blink_sprite(tile_feedback_sprite, Color.RED);
 	await test(tile_feedback_sprite);
@@ -153,7 +155,7 @@ func dispatch_tile_damage(tilemap_position : Vector2i, tile_data : CustomTileDat
 
 func test(sprite : Sprite2D):
 	var tween = get_tree().create_tween();
-	tween.tween_property(sprite, "scale", 1.2 * Vector2.ONE, 0.1);
+	tween.tween_property(sprite, "scale", 1.5 * Vector2.ONE, 0.1);
 	tween.tween_property(sprite, "scale", Vector2.ONE, 0.1);
 	await tween.finished;
 

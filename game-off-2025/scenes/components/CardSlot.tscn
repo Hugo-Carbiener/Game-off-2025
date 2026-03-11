@@ -1,22 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfn4fasw36ooe"]
+[gd_scene load_steps=5 format=3 uid="uid://rn0m1f6x028y"]
 
-[ext_resource type="Script" uid="uid://bmeq2rcxpll5u" path="res://assets/scripts/ui/components/CardSlot.gd" id="1_4gamt"]
 [ext_resource type="Texture2D" uid="uid://c3nvi5jwleu0r" path="res://assets/sprites/UI_card_slot.png" id="1_mxh2e"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="2_or4gj"]
+
+[sub_resource type="GDScript" id="GDScript_4lryh"]
+script/source = "
+"
 
 [sub_resource type="LabelSettings" id="LabelSettings_4gamt"]
 line_spacing = 0.0
 font = ExtResource("2_or4gj")
 font_size = 8
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("key_label")]
+[node name="MarginContainer" type="MarginContainer"]
 offset_right = 96.0
 offset_bottom = 145.0
 size_flags_vertical = 8
 theme_override_constants/margin_left = -8
 theme_override_constants/margin_right = -8
-script = ExtResource("1_4gamt")
-key_label = NodePath("Shortcut key")
+script = SubResource("GDScript_4lryh")
 
 [node name="Card slot" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(0, 145)

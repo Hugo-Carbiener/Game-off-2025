@@ -30,7 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/input/interactionArea/RerollInteractionArea.gd" id="30_s0g06"]
-[ext_resource type="Texture2D" uid="uid://nmmva507sdns" path="res://assets/sprites/UI_card_separator.png" id="31_2gnni"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="32_vgxg3"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="33_4nbsr"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="34_fkywm"]
@@ -132,6 +131,9 @@ shader_parameter/feather = 0.135
 
 [sub_resource type="LabelSettings" id="LabelSettings_t70y2"]
 font = ExtResource("23_o8oq8")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7025r"]
+load_path = "res://.godot/imported/UI_card_separator.png-8fe55d67c3bbf758b524afb79eb63121.ctex"
 
 [sub_resource type="LabelSettings" id="LabelSettings_kxyth"]
 font = ExtResource("23_o8oq8")
@@ -367,7 +369,7 @@ layout_mode = 2
 
 [node name="Separator" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("31_2gnni")
+texture = SubResource("CompressedTexture2D_7025r")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
