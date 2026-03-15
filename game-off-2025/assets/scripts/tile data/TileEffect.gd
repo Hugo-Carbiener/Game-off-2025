@@ -22,6 +22,7 @@ enum EFFECT {
 	POISON,
 	ROOT,
 	GROW_BIOME,
+	GAIN_TEMPORARY_VOID_CHARGES,
 }
 
 var effect_actions : Dictionary[EFFECT, Callable] = {
@@ -32,6 +33,7 @@ var effect_actions : Dictionary[EFFECT, Callable] = {
 	EFFECT.POISON : poison,
 	EFFECT.ROOT : root,
 	EFFECT.GROW_BIOME : grow_biome,
+	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : gain_temporary_void_charge,
 }
 
 ## Descriptions
@@ -51,6 +53,7 @@ var effect_descriptions : Dictionary[EFFECT, String] = {
 	EFFECT.POISON : "applies poison for %s turns.",
 	EFFECT.ROOT : "roots enemies for %s turns.",
 	EFFECT.GROW_BIOME : "extends the biome with %s.",
+	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : "gains %s temporary void charges.",
 }
 
 ## Hide useless fields
@@ -64,6 +67,7 @@ const value_per_effect : Dictionary[EFFECT, StringName] = {
 	EFFECT.POISON : &"value",
 	EFFECT.ROOT : &"value",
 	EFFECT.GROW_BIOME : &"tile_value",
+	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : &"value",
 }
 
 func _validate_property(property : Dictionary) -> void:
@@ -112,6 +116,9 @@ func root(tile_position : Vector2i, tile_data : CustomTileData):
 	pass;
 
 func grow_biome(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
+
+func gain_temporary_void_charge(tile_position : Vector2i, tile_data : CustomTileData):
 	pass;
 
 func get_value() -> String:
