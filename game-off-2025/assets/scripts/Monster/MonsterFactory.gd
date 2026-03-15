@@ -14,13 +14,6 @@ static var instance : MonsterFactory;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
 
-## monster status
-enum STATUS {
-	WET,
-	POISON,
-	SPRAINED
-}
-
 func _ready() -> void:
 	super();
 	if instance == null:

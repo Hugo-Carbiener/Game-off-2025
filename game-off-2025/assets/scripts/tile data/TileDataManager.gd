@@ -26,6 +26,14 @@ var land_tiles : Array[String];
 var tile_size : Vector2i;
 var world_tile_amount = 0;
 
+enum TRIGGERS {
+	ON_MONSTER_WALK,
+	ON_RESOLUTION_START,
+	ON_RESOLUTION_END,
+	ON_MONSTER_DEATH,
+	ON_APPARITION
+}
+
 func _ready() -> void:
 	load_tile_data();
 	load_devolutions();

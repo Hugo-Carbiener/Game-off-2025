@@ -55,3 +55,6 @@ func get_offset_coordinates() -> Array[Vector2i]:
 			if distance >= min_range && distance <= max_range:
 				res.append(Vector2i(x,y));
 	return res;
+
+func is_ranged() -> bool:
+	return max_range > 0;

@@ -9,6 +9,7 @@ static var instance : MainTilemap;
 @export var evolution_from_tile_sprite : Sprite2D;
 @export var evolution_to_tile_sprite : Sprite2D;
 
+var tiles_dynamic_data : Dictionary[Vector2i, DynamicTileData];
 var is_evolving_tile = false;
 
 func _ready() -> void:
@@ -35,6 +36,7 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 		
 		await check_for_evolution(tile_position + neighbor_offset);
 	
+	tiles_dynamic_data.set(tile_position, DynamicTileData.new());
 	update_targetted_tiles(tile_position);
 	return true;
 
@@ -130,8 +132,8 @@ func update_targetted_tiles(tile_position : Vector2i):
 		var targetted_coordinates = tile_position + offset_coordinate;
 		if !tiles.has(targetted_coordinates): continue;
 		
-		var targetted_tile = tiles[targetted_coordinates];
-		targetted_tile.targetted_by.append(targetted_coordinates);
+		var targetted_tile_dynamic_data = tiles_dynamic_data[targetted_coordinates];
+		targetted_tile_dynamic_data.targetted_by.append(targetted_coordinates);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);
@@ -161,7 +163,8 @@ func test(sprite : Sprite2D):
 
 func execute_tile_effects(tile_data : CustomTileData, monster : Monster):
 	for effect in tile_data.effects:
-		effect.execute(monster);
+		# TODO new effects
+		effect.execute(Vector2(0,0), tile_data);
 
 func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var world_pos = map_to_local(tilemap_position) + global_position/2;

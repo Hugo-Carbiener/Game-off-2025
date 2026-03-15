@@ -14,7 +14,6 @@ var evolutions : Array[String];
 var devolutions : Array[String];
 var requirement : TileRequirement;
 var effects : Array[TileEffect];
-var targetted_by : Array[Vector2i];
 
 func _init(
 		_id: String,

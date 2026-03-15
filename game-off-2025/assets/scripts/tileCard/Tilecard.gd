@@ -108,10 +108,9 @@ func init_color(color : Color) :
 func init_icons(tile_data : CustomTileData) :
 	if !tile_data.effects.is_empty():
 		for effect in tile_data.effects:
-			for icon_res in effect.get_icons():
-				var icon = TextureRect.new();
-				icon.texture = icon_res;
-				card_effects_icons.add_child(icon);
+			var icon = TextureRect.new();
+			icon.texture = effect.icon;
+			card_effects_icons.add_child(icon);
 
 func init_evolutions(tile_data : CustomTileData):
 	if tile_data.evolutions == null or tile_data.evolutions.is_empty() : 

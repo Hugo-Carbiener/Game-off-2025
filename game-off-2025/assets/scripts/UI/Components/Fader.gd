@@ -10,6 +10,8 @@ func _ready() -> void:
 	mouse_exited.connect(on_mouse_exit);
 
 func on_mouse_enter():
+	if UserSettings.are_input_blocked: return;
+	
 	AnimationUtils.fade(self, Color(1.0, 1.0, 1.0, 1.0), 0.5);
 
 func on_mouse_exit():

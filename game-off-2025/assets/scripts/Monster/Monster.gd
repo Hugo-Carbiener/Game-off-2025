@@ -4,8 +4,6 @@ var health : int;
 var tilemap_position : Vector2i;
 var trajectory : Array[Vector2i];
 var position_in_trajectory : int;
-var status : MonsterFactory.STATUS;
-
 var reached_destination : Signal;
 
 func _init(_health: int, _tilemap_position: Vector2i, _trajectory : Array[Vector2i]):
@@ -50,6 +48,3 @@ func on_death():
 	TileCardFactory.instance.draw_random_card();
 	MonsterFactory.instance.clear_tile(tilemap_position);
 	MonsterFactory.monsters.erase(tilemap_position);
-
-func set_status(_status : MonsterFactory.STATUS):
-	status = _status;

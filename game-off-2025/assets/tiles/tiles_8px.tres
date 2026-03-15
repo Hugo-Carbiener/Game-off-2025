@@ -18,6 +18,7 @@ use_texture_padding = false
 1:0/0/custom_data_5 = Color(0.30980393, 0.5686275, 0.20784314, 1)
 1:0/0/custom_data_6 = true
 1:0/0/custom_data_7 = ["forest", "statue"]
+1:0/0/custom_data_9 = [&"res://assets/resources/effects/test.tres"]
 5:0/0 = 0
 5:0/0/custom_data_0 = "small-breach"
 5:0/0/custom_data_1 = "small-breach"
