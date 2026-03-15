@@ -5,18 +5,21 @@ var tilemap_position : Vector2i;
 var trajectory : Array[Vector2i];
 var position_in_trajectory : int;
 var reached_destination : Signal;
+var health_weakness : int;
+var damage_weakness : int;
 
 func _init(_health: int, _tilemap_position: Vector2i, _trajectory : Array[Vector2i]):
 	self.health = _health;
 	self.tilemap_position = _tilemap_position;
 	self.trajectory = _trajectory
 	self.position_in_trajectory = 0;
+	self.weakness = 0;
 
 func on_step_end():
 	tilemap_position = trajectory[position_in_trajectory];
 	
 	if is_at_destination():
-		BeaconManager.instance.damage(health);
+		BeaconManager.instance.damage(health - damage_weakness);
 		on_death();
 	
 	MainTilemap.instance.apply_tile_effects(tilemap_position, self);
@@ -37,7 +40,7 @@ func get_next_position() -> Vector2i:
 func damage(damage_amount : int):
 	if damage_amount == 0: return;
 	
-	health -= damage_amount;
+	health -= damage_amount + health_weakness;
 	if is_dead():
 		on_death();
 		return;

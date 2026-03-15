@@ -23,6 +23,8 @@ enum EFFECT {
 	ROOT,
 	GROW_BIOME,
 	GAIN_TEMPORARY_VOID_CHARGES,
+	MONSTER_WEAKNESS,
+	MONSTER_DAMAGE_REDUCTION,
 }
 
 var effect_actions : Dictionary[EFFECT, Callable] = {
@@ -34,6 +36,8 @@ var effect_actions : Dictionary[EFFECT, Callable] = {
 	EFFECT.ROOT : root,
 	EFFECT.GROW_BIOME : grow_biome,
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : gain_temporary_void_charge,
+	EFFECT.MONSTER_WEAKNESS : monster_weakness,
+	EFFECT.MONSTER_DAMAGE_REDUCTION : monster_damage_reduction,
 }
 
 ## Descriptions
@@ -54,6 +58,8 @@ var effect_descriptions : Dictionary[EFFECT, String] = {
 	EFFECT.ROOT : "roots enemies for %s turns.",
 	EFFECT.GROW_BIOME : "extends the biome with %s.",
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : "gains %s temporary void charges.",
+	EFFECT.MONSTER_WEAKNESS : "enemies in range take %s more damage.",
+	EFFECT.MONSTER_DAMAGE_REDUCTION : "enemies in range deal %s less damage.",
 }
 
 ## Hide useless fields
@@ -68,6 +74,8 @@ const value_per_effect : Dictionary[EFFECT, StringName] = {
 	EFFECT.ROOT : &"value",
 	EFFECT.GROW_BIOME : &"tile_value",
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : &"value",
+	EFFECT.MONSTER_WEAKNESS : &"value",
+	EFFECT.MONSTER_DAMAGE_REDUCTION : &"value",
 }
 
 func _validate_property(property : Dictionary) -> void:
@@ -120,6 +128,18 @@ func grow_biome(tile_position : Vector2i, tile_data : CustomTileData):
 
 func gain_temporary_void_charge(tile_position : Vector2i, tile_data : CustomTileData):
 	pass;
+
+func monster_weakness(tile_position : Vector2i, tile_data : CustomTileData):
+	for offset_coords in tile_data.get_cells_in_range():
+		if !MonsterFactory.monsters.has(tile_position + offset_coords): continue;
+		
+		MonsterFactory.monsters[tile_position + offset_coords].health_weakness += value;
+
+func monster_damage_reduction(tile_position : Vector2i, tile_data : CustomTileData):
+	for offset_coords in tile_data.get_cells_in_range():
+		if !MonsterFactory.monsters.has(tile_position + offset_coords): continue;
+		
+		MonsterFactory.monsters[tile_position + offset_coords].damage_weakness += value;
 
 func get_value() -> String:
 	if value != 0:
