@@ -29,7 +29,7 @@ AnimationUtils="*res://assets/scripts/generals/AnimationUtils.gd"
 SceneLoader="*res://assets/scripts/generals/SceneLoader.gd"
 MainCamera="*res://assets/scripts/generals/MainCamera.gd"
 ClickManager="*res://assets/scripts/input/ClickManager.gd"
-TileDataManager="*res://assets/scripts/tile data/TileDataManager.gd"
+TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
 UserData="*res://assets/scripts/generals/UserData.gd"
 
 [debug]
@@ -40,6 +40,7 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 

@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/Input/InteractionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
 [ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="25_2iuns"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/InteractionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
-[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/tileCard/TileCardFactory.gd" id="27_753oq"]
+[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="27_753oq"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/Input/InteractionArea/RerollInteractionArea.gd" id="30_s0g06"]
