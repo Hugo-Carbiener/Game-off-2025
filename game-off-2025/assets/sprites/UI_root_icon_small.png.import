@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6dcvpwdgskpq"
-path="res://.godot/imported/UI_card_icon_damage_neighbor.png-23be8601f7f37ffdd4daf17bfcf4a48b.ctex"
+uid="uid://deu5haqko5kfu"
+path="res://.godot/imported/UI_root_icon_small.png-15fb54dc7d71944ce2e05141731892e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_card_icon_damage_neighbor.png"
-dest_files=["res://.godot/imported/UI_card_icon_damage_neighbor.png-23be8601f7f37ffdd4daf17bfcf4a48b.ctex"]
+source_file="res://assets/sprites/UI_root_icon_small.png"
+dest_files=["res://.godot/imported/UI_root_icon_small.png-15fb54dc7d71944ce2e05141731892e4.ctex"]
 
 [params]
 

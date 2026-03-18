@@ -66,7 +66,7 @@ func load_scene(scene_key : SCENES):
 
 func scene_transition(offset : Vector2):
 	var tween = get_tree().create_tween();
-	tween.tween_property(MainCamera.get_camera(), "position", offset, Constants.scene_transition_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
+	tween.tween_property(MainCamera.get_camera(), "position", offset, Constants.default_transition_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
 	await tween.finished;
 	return
 

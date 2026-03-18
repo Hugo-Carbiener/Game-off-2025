@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp7hkpe8x4emk"
-path="res://.godot/imported/UI_mouse_hold.png-fbef7672466dc8ae66964ef01df8c760.ctex"
+uid="uid://dlavy28yjinvs"
+path="res://.godot/imported/UI_damage_increase_icon_small.png-5def19d26ca47ede9e7ba0318a29dcf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_mouse_hold.png"
-dest_files=["res://.godot/imported/UI_mouse_hold.png-fbef7672466dc8ae66964ef01df8c760.ctex"]
+source_file="res://assets/sprites/UI_damage_increase_icon_small.png"
+dest_files=["res://.godot/imported/UI_damage_increase_icon_small.png-5def19d26ca47ede9e7ba0318a29dcf7.ctex"]
 
 [params]
 

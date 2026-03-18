@@ -39,7 +39,7 @@ func breach_transition(tilemap_position : Vector2i, breach_maturity : int):
 	tween.tween_callback(func(): breach_animated_sprite.position = map_to_local(tilemap_position));
 	tween.tween_callback(func(): breach_animated_sprite.frame = 0);
 	tween.tween_callback(func(): breach_animated_sprite.animation = breach_intro_animation_per_maturity[breach_maturity]);
-	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.breach_transition_duration);
+	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.default_transition_duration);
 	tween.tween_callback(func(): breach_animated_sprite.visible = false);
 	await tween.finished;
 	return;

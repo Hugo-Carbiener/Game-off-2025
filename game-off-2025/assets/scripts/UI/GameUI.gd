@@ -9,8 +9,8 @@ static var instance : GameUI;
 @export_group("Transitions")
 @export var card_slot_transition_duration : float;
 var card_slot_disabled : bool = true;
-@export_group("UI")
-@export var phase_msg: Label;
+@export_group("Components")
+@export var phase_title: PhaseTitle;
 @export var death_screen : Control;
 @export var win_screen : Control;
 @export var pause_window : PauseWindow;
@@ -47,15 +47,5 @@ func toggle_pause_window():
 	pause_window.visible = !pause_window.visible;
 	UserSettings.are_input_blocked = pause_window.visible;
 
-func displayPhaseMsg(text: String): 
-	phase_msg.modulate.a = 0;
-	phase_msg.text = "";
-	phase_msg.text = text;
-	
-	var tween = get_tree().create_tween();
-	tween.tween_property(phase_msg, "modulate", Color.WHITE, 2).from(Color(1, 1, 1, 0)).set_ease(Tween.EASE_IN);
-	await tween.finished;
-	
-	await get_tree().create_timer(1.5).timeout
-	phase_msg.modulate.a = 0;
-	phase_msg.text = "";
+func display_phase_title(phase : GameLoop.PHASES):
+	await phase_title.launch(phase);

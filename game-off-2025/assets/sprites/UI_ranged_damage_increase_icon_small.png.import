@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doga57yq6ys4j"
-path="res://.godot/imported/UI_card_icon_heal.png-e6e16058b6a2c3211919b28cfbcb823b.ctex"
+uid="uid://cc2r60j2on7a6"
+path="res://.godot/imported/UI_ranged_damage_increase_icon_small.png-37958fc23a42d2f3dd3bdd86f0398100.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_card_icon_heal.png"
-dest_files=["res://.godot/imported/UI_card_icon_heal.png-e6e16058b6a2c3211919b28cfbcb823b.ctex"]
+source_file="res://assets/sprites/UI_ranged_damage_increase_icon_small.png"
+dest_files=["res://.godot/imported/UI_ranged_damage_increase_icon_small.png-37958fc23a42d2f3dd3bdd86f0398100.ctex"]
 
 [params]
 

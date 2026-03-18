@@ -20,6 +20,7 @@ func _ready() -> void:
 
 func start_game():
 	load_fight();
+	
 	start_phase(current_phase);
 
 static func get_next_phase() -> int:
@@ -27,17 +28,17 @@ static func get_next_phase() -> int:
  
 static func start_phase(phase: PHASES):
 	current_phase = phase;
-	#if phase != PHASES.RESOLUTION:
-		#await GameUI.instance.displayPhaseMsg( "Day " + str(day_number + 1) if phase == PHASES.SETUP else "Your turn!");
+	await GameUI.instance.display_phase_title(current_phase);
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():
+	UserSettings.are_input_blocked = true;
 	day_number += 1;
 	SignalBus.setup_phase_started.emit(day_number);
 	await MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
 	
-	ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
+	await ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
 	for i in range(day_number + Constants.breaches_spawn_increase_per_round):
 		var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
 		await MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()], Constants.breach_initial_maturity);
@@ -46,16 +47,22 @@ static func setup_phase():
 
 static func play_phase():
 	SignalBus.play_phase_started.emit();
-	await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 	await GameUI.instance.toggle_card_slots();
+	UserSettings.are_input_blocked = false;
 
 static func resolution_phase():
+	UserSettings.are_input_blocked = true;
 	SignalBus.resolution_phase_started.emit();
 	await GameUI.instance.toggle_card_slots();
-	await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
-
-	await MonsterFactory.instance.on_resolution();
-	start_phase(get_next_phase());
+	
+	if MonsterFactory.instance.monsters.is_empty(): 
+		start_phase(get_next_phase());
+	else:
+		await GameUI.instance.toggle_card_slots();
+		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
+		await MonsterFactory.instance.on_resolution();
+		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
+		start_phase(get_next_phase());
 
 func on_tile_placed(tile_amount : int):
 	if tile_amount >= TileDataManager.world_tile_amount:
