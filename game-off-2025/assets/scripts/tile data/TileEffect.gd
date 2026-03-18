@@ -25,6 +25,12 @@ enum EFFECT {
 	GAIN_TEMPORARY_VOID_CHARGES,
 	MONSTER_WEAKNESS,
 	MONSTER_DAMAGE_REDUCTION,
+	FIRE,
+	TEMPORARY_EVOLUTION,
+	BEACON_HEAL,
+	BEACON_SHIELD,
+	TRIGGER_RANDOM_TILE,
+	TRIGGER_ALL_TILES,
 }
 
 var effect_actions : Dictionary[EFFECT, Callable] = {
@@ -38,6 +44,12 @@ var effect_actions : Dictionary[EFFECT, Callable] = {
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : gain_temporary_void_charge,
 	EFFECT.MONSTER_WEAKNESS : monster_weakness,
 	EFFECT.MONSTER_DAMAGE_REDUCTION : monster_damage_reduction,
+	EFFECT.FIRE : fire,
+	EFFECT.TEMPORARY_EVOLUTION : temporary_evolution,
+	EFFECT.BEACON_HEAL : heal_beacon,
+	EFFECT.BEACON_SHIELD : shield_beacon,
+	EFFECT.TRIGGER_RANDOM_TILE : trigger_random_tile,
+	EFFECT.TRIGGER_ALL_TILES : trigger_all_tiles,
 }
 
 ## Descriptions
@@ -47,6 +59,7 @@ var trigger_descriptions : Dictionary[TileDataManager.TRIGGERS, String] = {
 	TileDataManager.TRIGGERS.ON_RESOLUTION_END : "At the end of the resolution phase",
 	TileDataManager.TRIGGERS.ON_MONSTER_DEATH : "When a monster dies in range",
 	TileDataManager.TRIGGERS.ON_APPARITION : "When this land tile is placed",
+	TileDataManager.TRIGGERS.ON_BEACON_DAMAGE : "When the beacon is damaged",
 }
 
 var effect_descriptions : Dictionary[EFFECT, String] = {
@@ -60,11 +73,16 @@ var effect_descriptions : Dictionary[EFFECT, String] = {
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : "gains %s temporary void charges.",
 	EFFECT.MONSTER_WEAKNESS : "enemies in range take %s more damage.",
 	EFFECT.MONSTER_DAMAGE_REDUCTION : "enemies in range deal %s less damage.",
+	EFFECT.FIRE : "applies fire for %s turns.",
+	EFFECT.TEMPORARY_EVOLUTION : "evolves the tile for %s turns.",
+	EFFECT.BEACON_HEAL : "heals the beacon for %s health points.",
+	EFFECT.BEACON_SHIELD : "shields the beacon for the turn for %s shield points.",
+	EFFECT.TRIGGER_RANDOM_TILE : "Triggers the effects of a random tile in range.",
+	EFFECT.TRIGGER_ALL_TILES : "Triggers the effects of all tiles in range.",
 }
 
 ## Hide useless fields
 const values_always_displayed : Array[StringName] = [&"trigger", &"title", &"description", &"icon", &"effect"];
-const values_group_always_displayed : Array[StringName] = [&"Effect variables", &"Trigger"];
 const value_per_effect : Dictionary[EFFECT, StringName] = {
 	EFFECT.INCREASE_TILE_DAMAGE : &"value",
 	EFFECT.INCREASE_RANGED_TILE_DAMAGE : &"value",
@@ -76,6 +94,12 @@ const value_per_effect : Dictionary[EFFECT, StringName] = {
 	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : &"value",
 	EFFECT.MONSTER_WEAKNESS : &"value",
 	EFFECT.MONSTER_DAMAGE_REDUCTION : &"value",
+	EFFECT.FIRE : &"value",
+	EFFECT.TEMPORARY_EVOLUTION : &"value",
+	EFFECT.BEACON_HEAL : &"value",
+	EFFECT.BEACON_SHIELD : &"value",
+	EFFECT.TRIGGER_RANDOM_TILE : &"value",
+	EFFECT.TRIGGER_ALL_TILES : &"value",
 }
 
 func _validate_property(property : Dictionary) -> void:
@@ -140,6 +164,24 @@ func monster_damage_reduction(tile_position : Vector2i, tile_data : CustomTileDa
 		if !MonsterFactory.monsters.has(tile_position + offset_coords): continue;
 		
 		MonsterFactory.monsters[tile_position + offset_coords].damage_weakness += value;
+
+func fire(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
+
+func temporary_evolution(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
+
+func heal_beacon(tile_position : Vector2i, tile_data : CustomTileData):
+	BeaconManager.instance.heal(value);
+
+func shield_beacon(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
+
+func trigger_random_tile(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
+
+func trigger_all_tiles(tile_position : Vector2i, tile_data : CustomTileData):
+	pass;
 
 func get_value() -> String:
 	if value != 0:
