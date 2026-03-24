@@ -62,6 +62,7 @@ static func resolution_phase():
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_START);
 		await MonsterFactory.instance.on_resolution();
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_END);
+		BeaconManager.instance.on_resolution_end();
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 		start_phase(get_next_phase());
 
