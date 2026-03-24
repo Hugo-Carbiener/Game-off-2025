@@ -1,14 +1,18 @@
 class_name DynamicTileData
 
-var tile_data : CustomTileData;
+# constants
 var targetted_by : Array[Vector2i];
-var damage_boost : int;
-var damage_multiplier : int;
-var range_boost : int;
+
+# temporary boosts
+var damage_boost : int = 0;
+var damage_multiplier : int = 1;
+var range_boost : int = 0;
 var previous_evolutions : Array[String];
+var base_tile : String = "";
 
-
-func on_evolution(base_tile_id : String):
-	previous_evolutions.append(base_tile_id);
-
-func on_devolution(evolved_tile_id : String)
+func on_resolution_end():
+	damage_boost = 0;
+	damage_multiplier = 1;
+	range_boost = 0;
+	previous_evolutions.clear();
+	base_tile = "";

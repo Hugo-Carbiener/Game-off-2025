@@ -108,7 +108,7 @@ func _validate_property(property : Dictionary) -> void:
 		property.usage &= ~PROPERTY_USAGE_EDITOR
 
 func execute(_trigger : TileDataManager.TRIGGERS, tile_position : Vector2i, tile_data : CustomTileData):
-	if trigger != _trigger: return;
+	if trigger != _trigger or _trigger == TileDataManager.TRIGGERS.ANY: return;
 	
 	if !effect_actions.has(effect):
 		printerr("Effect " + str(effect) + " has no action.");

@@ -41,6 +41,10 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	execute_tile_effects(TileDataManager.TRIGGERS.ON_TILE_PLACED, tile_position);
 	return true;
 
+func clear_tile(tile_position : Vector2i):
+	super(tile_position);
+	tiles_dynamic_data.erase(tile_position);
+
 func is_valid_cell(coordinates : Vector2i) -> bool:
 	if !cell_distance(coordinates, Vector2.ZERO) <= Constants.beacon_range:
 		return false;
@@ -81,16 +85,17 @@ func check_for_evolution(tile_position : Vector2i):
 			continue;
 		
 		if evolution_tile_data.requirement == null or evolution_tile_data.requirement.is_met(tile_position) :
-			await evolve_tile(tile_position, tile_data, evolution_tile_data);
+			await evolve_tile(tile_position, tile_data, evolution_tile_data, true);
 			return;
 
-func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolution : CustomTileData):
-	is_evolving_tile = true;
+func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolution : CustomTileData, is_true_evolution : bool = false):
 	clear_tile(tile_position);
 	await evolution_transition(tile_position, current_tile, evolution);
+	if is_true_evolution:
+		var dynamic_tile_data = tiles_dynamic_data[tile_position];
+		dynamic_tile_data.previous_evolutions.append(current_tile.id);
 	TileDataManager.learn_evolution(evolution);
 	place_tile(tile_position, evolution, true);
-	is_evolving_tile = false;
 
 func init_evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, to_tile : CustomTileData):
 	evolution_from_tile_sprite.position = map_to_local(tile_position);
@@ -103,6 +108,7 @@ func init_evolution_transition(tile_position : Vector2i, from_tile : CustomTileD
 	evolution_to_tile_sprite.modulate = Color(10, 10, 10, 0);
 
 func evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, to_tile : CustomTileData):
+	is_evolving_tile = true;
 	SignalBus.evolution_started.emit();
 	var tween = get_tree().create_tween();
 	tween.tween_callback(init_evolution_transition.bind(tile_position, from_tile, to_tile));
@@ -115,8 +121,8 @@ func evolution_transition(tile_position : Vector2i, from_tile : CustomTileData, 
 	tween.tween_callback(func(): evolution_from_tile_sprite.visible = false);
 	tween.tween_callback(func(): evolution_to_tile_sprite.visible = false);
 	await tween.finished;
+	is_evolving_tile = false;
 	SignalBus.evolution_finished.emit();
-	return;
 
 func is_currently_evolving_tile() -> bool:
 	return is_evolving_tile;
