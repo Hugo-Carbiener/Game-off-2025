@@ -20,6 +20,9 @@ func damage(damages: int):
 	if health <= 0:
 		health = 0;
 		SignalBus.game_lost.emit()
+	else:
+		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_BEACON_DAMAGE);
+
 
 func heal(heal_amount: int):
 	if health <= 0: return;

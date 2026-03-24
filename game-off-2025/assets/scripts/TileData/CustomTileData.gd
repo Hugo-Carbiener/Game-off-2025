@@ -110,3 +110,7 @@ func get_texture_region() -> Rect2:
 
 func get_cells_in_range() -> Array[Vector2i]:
 	return effect_range.get_offset_coordinates();
+
+func execute_effects(trigger : TileDataManager.TRIGGERS, tile_position : Vector2i):
+	for effect in effects:
+		effect.execute(trigger, tile_position, self);

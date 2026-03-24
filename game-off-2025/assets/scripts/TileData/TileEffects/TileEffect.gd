@@ -70,7 +70,7 @@ var trigger_descriptions : Dictionary[TileDataManager.TRIGGERS, String] = {
 	TileDataManager.TRIGGERS.ON_RESOLUTION_START : "At the start of the resolution phase",
 	TileDataManager.TRIGGERS.ON_RESOLUTION_END : "At the end of the resolution phase",
 	TileDataManager.TRIGGERS.ON_MONSTER_DEATH : "When a monster dies in range",
-	TileDataManager.TRIGGERS.ON_APPARITION : "When this land tile is placed",
+	TileDataManager.TRIGGERS.ON_TILE_PLACED : "When this land tile is placed",
 	TileDataManager.TRIGGERS.ON_BEACON_DAMAGE : "When the beacon is damaged",
 }
 
@@ -107,7 +107,9 @@ func _validate_property(property : Dictionary) -> void:
 	else:
 		property.usage &= ~PROPERTY_USAGE_EDITOR
 
-func execute(tile_position : Vector2i, tile_data : CustomTileData):
+func execute(_trigger : TileDataManager.TRIGGERS, tile_position : Vector2i, tile_data : CustomTileData):
+	if trigger != _trigger: return;
+	
 	if !effect_actions.has(effect):
 		printerr("Effect " + str(effect) + " has no action.");
 		return;

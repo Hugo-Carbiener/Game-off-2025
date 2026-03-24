@@ -48,6 +48,7 @@ func damage(damage_amount : int):
 	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite);
 
 func on_death():
+	MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_DEATH, tilemap_position);
 	TileCardFactory.instance.draw_random_card();
 	MonsterFactory.instance.clear_tile(tilemap_position);
 	MonsterFactory.monsters.erase(tilemap_position);

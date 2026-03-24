@@ -53,14 +53,15 @@ static func play_phase():
 static func resolution_phase():
 	UserSettings.are_input_blocked = true;
 	SignalBus.resolution_phase_started.emit();
-	await GameUI.instance.toggle_card_slots();
 	
 	if MonsterFactory.instance.monsters.is_empty(): 
 		start_phase(get_next_phase());
 	else:
 		await GameUI.instance.toggle_card_slots();
 		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
+		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_START);
 		await MonsterFactory.instance.on_resolution();
+		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_END);
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 		start_phase(get_next_phase());
 

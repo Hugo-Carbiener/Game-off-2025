@@ -9,6 +9,12 @@ func blink_sprite(target : CanvasItem, color : Color = Color.WHITE) -> Tween:
 	await tween.finished;
 	return tween;
 
+func bounce_sprite(sprite : Sprite2D, factor : float):
+	var tween = get_tree().create_tween();
+	tween.tween_property(sprite, "scale", factor * Vector2.ONE, Constants.blink_duration);
+	tween.tween_property(sprite, "scale", Vector2.ONE, Constants.blink_duration);
+	await tween.finished;
+
 func fade(target : CanvasItem, to : Color, duration : float) -> Tween:
 	var tween = get_tree().create_tween();
 	tween.tween_property(target, "modulate", to, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
