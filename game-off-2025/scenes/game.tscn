@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=63 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSlotSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="7_q8j3a"]
 [ext_resource type="Texture2D" uid="uid://b85i6xlo841q1" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://c68d4kq0uchmv" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
+[ext_resource type="Texture2D" uid="uid://ddy8axxx70ty1" path="res://assets/sprites/animations_damage.png" id="9_8ool0"]
 [ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/Tilemap/IndicationTilemap.gd" id="10_bk1p3"]
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/Fight/GameLoop.gd" id="11_n8ral"]
 [ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/Audio/AudioManager.gd" id="12_yd4ix"]
@@ -51,6 +52,35 @@ atlas = ExtResource("6_3hbvx")
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ool0"]
 atlas = ExtResource("6_3hbvx")
 region = Rect2(8, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr1ej"]
+atlas = ExtResource("9_8ool0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
+atlas = ExtResource("9_8ool0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sl42"]
+atlas = ExtResource("9_8ool0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaba0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr1ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05nbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sl42")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 15.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
 atlas = ExtResource("6_3hbvx")
@@ -196,7 +226,7 @@ texture = SubResource("AtlasTexture_0qimb")
 visible = false
 texture = SubResource("AtlasTexture_8ool0")
 
-[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite")]
+[node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("breach_animated_sprite", "indicator_tilemap", "monster_sprite", "monster_damage_animated_sprite")]
 tile_set = ExtResource("2_rm0al")
 occlusion_enabled = false
 collision_enabled = false
@@ -211,15 +241,22 @@ breach_intro_animation_per_maturity = Dictionary[int, String]({
 2: "breach_spawn"
 })
 breach_animated_sprite = NodePath("Breach animations")
-monster_movement_duration = 0.3
+monster_movement_duration = 0.5
 indicator_tilemap = NodePath("../Indication tilemap")
 monster_sprite = NodePath("Monster sprite")
+monster_damage_animated_sprite = NodePath("Damage animation")
+
+[node name="Damage animation" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_oaba0")
+animation = &"damage"
 
 [node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 texture = SubResource("AtlasTexture_20167")
 
 [node name="Breach animations" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_tl7n3")
 animation = &"breach_spawn"
 
@@ -396,4 +433,5 @@ texture = ExtResource("21_uxocx")
 stretch_mode = 6
 
 [node name="Phase title" parent="UI" instance=ExtResource("40_m4url")]
+visible = false
 layout_mode = 2

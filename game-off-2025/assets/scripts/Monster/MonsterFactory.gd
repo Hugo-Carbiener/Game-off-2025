@@ -9,18 +9,26 @@ static var instance : MonsterFactory;
 @export var breach_tiles_per_maturity : Dictionary[int, String];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
 @export var breach_animated_sprite : AnimatedSprite2D;
-@export_group("Monster path variables")
+@export_group("Monster variables")
 @export var monster_movement_duration : float;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
+@export var monster_damage_animated_sprite : AnimatedSprite2D;
 
 func _ready() -> void:
 	super();
 	if instance == null:
 		instance = self;
+	init_sprites();
+	spawn_monster(Vector2i(0,4))
+
+func init_sprites():
+	monster_sprite.visible = false;
+	breach_animated_sprite.visible = false;
+	monster_damage_animated_sprite.visible = false;
 
 func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(GameLoop.day_number, tilemap_position, get_monster_path(tilemap_position));
+	var monster = Monster.new(5, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
@@ -90,7 +98,7 @@ func on_resolution():
 		await execute_monster_trajectory(monster);
 
 func execute_monster_trajectory(monster : Monster):
-	on_move_start(monster);
+	on_step_start(monster);
 	for monster_destination in monster.trajectory:
 		var to = monster_destination;
 		if monster.is_at_destination() or monster.is_dead():
@@ -98,18 +106,28 @@ func execute_monster_trajectory(monster : Monster):
 	
 		var tween = get_tree().create_tween();
 		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration);
-		tween.tween_callback(func(): monster.on_step_end());
 		await tween.finished;
+		await on_step_end(monster);
 	on_move_end();
 
-func on_move_start(_monster : Monster):
+func on_step_start(_monster : Monster):
 	monster_sprite.position = map_to_local(_monster.tilemap_position);
 	monster_sprite.visible = true;
 	clear_tile(_monster.tilemap_position);
 	monsters.erase(_monster.tilemap_position);
 
+func on_step_end(monster : Monster):
+	await monster.on_step_end();
+
 func on_move_end():
 	monster_sprite.visible = false;
+
+func dispatch_monster_damage(monster : Monster):
+	monster_damage_animated_sprite.visible = true;
+	monster_damage_animated_sprite.position = map_to_local(monster.tilemap_position);
+	monster_damage_animated_sprite.play();
+	await monster_damage_animated_sprite.animation_finished;
+	monster_damage_animated_sprite.visible = false;
 
 ## MONSTER PATH
 

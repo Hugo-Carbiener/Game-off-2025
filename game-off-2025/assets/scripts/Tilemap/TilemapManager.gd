@@ -34,11 +34,11 @@ func is_valid_cell(_coordinates : Vector2i) -> bool:
 func has_tile_at(coordinates : Vector2i) -> bool :
 	return get_cell_source_id(coordinates) != -1 && tiles.has(coordinates);
 
-func cell_distance(from : Vector2, to : Vector2) -> int:
+static func cell_distance(from : Vector2, to : Vector2) -> int:
 	var vec_distance = abs(from - to);
 	return floor(sqrt(pow(vec_distance.x, 2) + pow(vec_distance.y, 2)));
 
-func cell_manhattan_distance(from : Vector2, to : Vector2) -> int:
+static func cell_manhattan_distance(from : Vector2, to : Vector2) -> int:
 	var vec_distance = abs(from - to);
 	return vec_distance.x + vec_distance.y;
 
@@ -109,3 +109,12 @@ func check_for_tile_hover(event : InputEvent):
 # Returns a list of signals : [signal_hover_in, signal_over_out]
 func get_tilemap_hover_signals() -> Array[Signal]:
 	return [];
+
+func hide_tile(tilemap_position : Vector2i):
+	set_cell(tilemap_position, source_id, Vector2i(-1, -1));
+
+func show_tile(tilemap_position : Vector2i):
+	if !tiles.has(tilemap_position): return;
+	
+	var tile_data = tiles[tilemap_position];
+	set_cell(tilemap_position, source_id, tile_data.atlas_coordinates);

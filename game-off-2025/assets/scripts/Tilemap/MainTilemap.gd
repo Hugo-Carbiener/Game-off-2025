@@ -29,6 +29,13 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 	if breach != null:
 		MonsterFactory.instance.cover_breach(tile_position);
 	
+	if !tiles_dynamic_data.has(tile_position):
+		tiles_dynamic_data.set(tile_position, DynamicTileData.new());
+	
+	update_targetted_tiles(tile_position);
+	update_targetting_tiles(tile_position);
+	execute_tile_effects(TileDataManager.TRIGGERS.ON_TILE_PLACED, tile_position);
+	
 	await check_for_evolution(tile_position);
 	# update direct neighbors to check for an evolution
 	for neighbor_offset in get_neighbor_tile_coordinate_offset_within_range(1):
@@ -36,9 +43,6 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 		
 		await check_for_evolution(tile_position + neighbor_offset);
 	
-	tiles_dynamic_data.set(tile_position, DynamicTileData.new());
-	update_targetted_tiles(tile_position);
-	execute_tile_effects(TileDataManager.TRIGGERS.ON_TILE_PLACED, tile_position);
 	return true;
 
 func clear_tile(tile_position : Vector2i):
@@ -71,6 +75,7 @@ func get_valid_cells() -> Array[Vector2i] :
 	return result;
 
 func init_world():
+	print("init world")
 	place_tile(Vector2.ZERO, TileDataManager.tile_dictionnary["beacon"], true);
 	beacon_sprite.position = map_to_local(Vector2i.ZERO);
 
@@ -89,7 +94,6 @@ func check_for_evolution(tile_position : Vector2i):
 			return;
 
 func evolve_tile(tile_position : Vector2i, current_tile : CustomTileData, evolution : CustomTileData, is_true_evolution : bool = false):
-	clear_tile(tile_position);
 	await evolution_transition(tile_position, current_tile, evolution);
 	if is_true_evolution:
 		var dynamic_tile_data = tiles_dynamic_data[tile_position];
@@ -137,27 +141,59 @@ func update_targetted_tiles(tile_position : Vector2i):
 
 	for offset_coordinate in offset_coordinates:
 		var targetted_coordinates = tile_position + offset_coordinate;
-		if !tiles.has(targetted_coordinates): continue;
+		if !tiles.has(targetted_coordinates) or offset_coordinate == Vector2i(0,0): continue;
 		
 		var targetted_tile_dynamic_data = tiles_dynamic_data[targetted_coordinates];
-		targetted_tile_dynamic_data.targetted_by.append(targetted_coordinates);
+		if !targetted_tile_dynamic_data.targetted_by.has(tile_position):
+			targetted_tile_dynamic_data.targetted_by.append(tile_position);
+
+func update_targetting_tiles(tile_position : Vector2i):
+	var dynamic_tile_data = tiles_dynamic_data[tile_position];
+	if dynamic_tile_data == null: return;
+	
+	dynamic_tile_data.targetted_by.clear();
+	for target_tile_coordinates in tiles.keys():
+		if target_tile_coordinates == tile_position: continue;
+		
+		var distance = cell_manhattan_distance(tile_position, target_tile_coordinates);
+		var target_tile_data = tiles[target_tile_coordinates];
+		if distance < target_tile_data.effect_range.min_range or distance > target_tile_data.effect_range.max_range: continue;
+		
+		dynamic_tile_data.targetted_by.append(target_tile_coordinates);
 
 func apply_tile_effects(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);
 	if tile_data == null: return;
 	
-	monster.damage(tile_data.damage);
-	if tile_data.damage > 0:
-		dispatch_tile_damage(tilemap_position, tile_data);
+	await on_tile_damage(tilemap_position, tilemap_position);
+	await monster.damage(tile_data.damage, tilemap_position);
 	execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);
+	
+	# execute ranged tiles damage and effect
+	var dynamic_tile_data = tiles_dynamic_data[tilemap_position];
+	if dynamic_tile_data == null: return;
+	
+	for targetting_tile_coordinates in dynamic_tile_data.targetted_by:
+		var targetting_tile_data = tiles[targetting_tile_coordinates];
+		await on_tile_damage(tilemap_position, targetting_tile_coordinates);
+		await monster.damage(targetting_tile_data.damage, targetting_tile_coordinates);
+		execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, targetting_tile_coordinates);
 
-func dispatch_tile_damage(tilemap_position : Vector2i, tile_data : CustomTileData):
+func on_tile_damage(damage_position : Vector2i, tile_position : Vector2i):
+	var tile_data = tiles[tile_position];
+	if tile_data == null: return;
+	
+	await dispatch_tile_damage(damage_position, tile_position, tile_data);
+	return;
+
+func dispatch_tile_damage(damage_position : Vector2i, tile_position : Vector2i,tile_data : CustomTileData):
 	tile_feedback_sprite.texture.region = tile_data.get_texture_region();
-	tile_feedback_sprite.position = map_to_local(tilemap_position);
-	MonsterInfo.launch_monster_info("-" + str(tile_data.damage), TileDataManager.damage_icon_small, MonsterFactory.instance.monster_sprite.position, self);
+	tile_feedback_sprite.position = map_to_local(tile_position);
 	tile_feedback_sprite.visible = true;
-	#await AnimationUtils.blink_sprite(tile_feedback_sprite, Color.RED);
+	hide_tile(tile_position);
+	print("bounce " + str(tile_position));
 	await AnimationUtils.bounce_sprite(tile_feedback_sprite, 1.5);
+	show_tile(tile_position);
 	tile_feedback_sprite.visible = false;
 
 func execute_tile_effects(trigger : TileDataManager.TRIGGERS, tilemap_position : Vector2i):

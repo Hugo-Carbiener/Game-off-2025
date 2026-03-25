@@ -15,7 +15,9 @@ const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 
 static var damage_icon : Texture2D = preload("res://assets/sprites/UI_damage-icon.png");
 static var damage_icon_small : Texture2D = preload("res://assets/sprites/UI_damage-icon-small.png");
+static var ranged_damage_icon_small : Texture2D = preload("res://assets/sprites/UI_ranged_damage_icon_small.png");
 static var beacon_icon_small : Texture2D = preload("res://assets/sprites/UI_beacon_icon_small.png");
+static var heal_icon_small : Texture2D = preload("res://assets/sprites/UI_heal_icon_small.png");
 
 ## tile stats
 const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 4};
