@@ -86,12 +86,21 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 				requirement_or.requirements.append(parse_requirements(split_string))
 			return requirement_or;
 		elif !is_sub_group and i == _requirement.length() - 1 :
-			var split_strings = _requirement.split(Constants.TILE_REQUIREMENT_LINK);
-			var requirement_string = TileRequirement.new();
-			requirement_string.relative_tilemap_coordinates = Constants.NEIGHBOR_TILE_COORDINATES_CODEX[split_strings[0]];
-			requirement_string.possible_tiles = split_strings[1].split(Constants.TILE_REQUIREMENT_TILES_SEPARATOR);
-			return requirement_string;
+			
+			return null;
 	print("Invalid tile requirement " + _requirement + " for tile " + name);
+	return null;
+
+func parse_requirement(requirement_string : String) -> TileRequirement:
+	var cardinal_requirement_search = TileDataManager.cardinal_tile_requirement_regex.search(requirement_string);
+	if cardinal_requirement_search != null: 
+		return CardinalTileRequirement.parse(cardinal_requirement_search.get_string(1), cardinal_requirement_search.get_string(2));
+
+	var tile_amount_requirement_search = TileDataManager.tile_amount_requirement_regex.search(requirement_string);
+	if tile_amount_requirement_search != null: 
+		return TileAmountRequirement.parse(tile_amount_requirement_search.get_string(1), tile_amount_requirement_search.get_string(2), tile_amount_requirement_search.get_string(3));
+	
+	printerr("Could not parse tile requirement " + requirement_string + " for tile " + id + ".");
 	return null;
 
 func parse_effects(_effects : Array) -> Array[TileEffect]:

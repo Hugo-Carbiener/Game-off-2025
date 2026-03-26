@@ -7,7 +7,7 @@ const save_file = "user://game_save.save";
 const beacon_range = 5;
 const TILE_DICT_MONSTER_KEY = "monster";
 const TILE_DICT_MONSTER_PATH_KEY = "monster-path";
-const TILE_REQUIREMENT_LINK = '=';
+const CARDINAL_TILE_REQUIREMENT_LINK = '=';
 const TILE_REQUIREMENT_AND = '&';
 const TILE_REQUIREMENT_OR = '|';
 const TILE_REQUIREMENT_TILES_SEPARATOR = ',';

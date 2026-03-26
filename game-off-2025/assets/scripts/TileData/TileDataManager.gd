@@ -19,8 +19,6 @@ static var ranged_damage_icon_small : Texture2D = preload("res://assets/sprites/
 static var beacon_icon_small : Texture2D = preload("res://assets/sprites/UI_beacon_icon_small.png");
 static var heal_icon_small : Texture2D = preload("res://assets/sprites/UI_heal_icon_small.png");
 
-## tile stats
-const tile_damages = {"none" = 0, "low" = 1, "medium" = 2, "high" = 4};
 ## tiles 
 var tile_dictionnary : Dictionary[String, CustomTileData];
 var playable_tiles : Array[String];
@@ -38,9 +36,17 @@ enum TRIGGERS {
 	ON_BEACON_DAMAGE,
 }
 
+# regex 
+var cardinal_tile_requirement_regex : RegEx = RegEx.new();
+var tile_amount_requirement_regex : RegEx = RegEx.new();
+
 func _ready() -> void:
 	load_tile_data();
 	load_devolutions();
+
+func load_regexes():
+	cardinal_tile_requirement_regex.compile("^([NESW])=((?:\\w+,?)+)$");
+	tile_amount_requirement_regex.compile("^(\\d+)((?:\\w+,?)+)(\\d+)$");
 
 func load_tile_data():
 	var source : TileSetAtlasSource = tile_set.get_source(0);
@@ -51,7 +57,7 @@ func load_tile_data():
 		var tile_id = tile_data.get_custom_data(TILE_CUSTOM_DATA_ID_KEY);
 		var tile_color = tile_data.get_custom_data(TILE_CUSTOM_DATA_COLOR_KEY);
 		var tile_name = tile_data.get_custom_data(TILE_CUSTOM_DATA_NAME_KEY);
-		var tile_damage = tile_damages.get(tile_data.get_custom_data(TILE_CUSTOM_DATA_DAMAGE_KEY));
+		var tile_damage = tile_data.get_custom_data(TILE_CUSTOM_DATA_DAMAGE_KEY);
 		var tile_range = tile_data.get_custom_data(TILE_CUSTOM_DATA_RANGE_KEY);
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
 		var is_playable = tile_data.get_custom_data(TILE_CUSTOM_DATA_PLAYABLE_KEY);
