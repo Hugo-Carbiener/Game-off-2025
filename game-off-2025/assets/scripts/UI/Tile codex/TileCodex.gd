@@ -50,7 +50,6 @@ var previous_tiles : Array[String];
 var timer : Timer;
 
 func _ready() -> void:
-	tree_entered.connect(requirement_timer.start.bind(Constants.requirements_update_delay));
 	SignalBus.bookmark_clicked.connect(setup);
 	SignalBus.summary_element_clicked.connect(setup);
 	var displayed_new_cards = await discover_new_tiles();
@@ -211,6 +210,7 @@ func init_requirements(tile_data : CustomTileData):
 	requirements_area.visible = UserData.get_known_tiles().has(tile_data.id) and tile_data.requirement != null and tile_data.requirement.has_requirement();
 	if tile_data.requirement == null or !tile_data.requirement.has_requirement() or tile_data.devolutions.is_empty(): return; 
 	requirement_timer.timeout.connect(set_random_requirement_preview.bind(tile_data));
+	requirement_timer.start(Constants.requirements_update_delay);
 	set_random_requirement_preview(tile_data);
 
 func set_random_requirement_preview(tile_data : CustomTileData):
@@ -234,8 +234,10 @@ func reset():
 	evolutions.clear();
 	for summary_element in summary_elements_container.get_children():
 		summary_element.queue_free();
+	for connection in tree_entered.get_connections():
+		tree_entered.disconnect(connection["callable"]);
 	for connection in requirement_timer.timeout.get_connections():
-		requirement_timer.timeout.disconnect(connection["callable"])
+		requirement_timer.timeout.disconnect(connection["callable"]);
 
 func reset_bookmarks():
 	for bookmark in bookmarks:

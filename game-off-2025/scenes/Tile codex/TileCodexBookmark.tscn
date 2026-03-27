@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cj110c2dk0d7o"]
 
-[ext_resource type="Script" uid="uid://phb0fm833q10" path="res://assets/scripts/ui/Tile codex/TileCodexBookmark.gd" id="1_47cgr"]
+[ext_resource type="Script" uid="uid://phb0fm833q10" path="res://assets/scripts/UI/Tile codex/TileCodexBookmark.gd" id="1_47cgr"]
 [ext_resource type="Texture2D" uid="uid://up2y061uhkdy" path="res://assets/sprites/UI_book-mark.png" id="2_ij2qk"]
 [ext_resource type="Texture2D" uid="uid://d2diwwy06u6p0" path="res://assets/sprites/UI_book-mark-pressed.png" id="3_47cgr"]
 [ext_resource type="Texture2D" uid="uid://duw4yaov5rkdr" path="res://assets/sprites/UI_book-mark-hovered.png" id="4_ij2qk"]
-[ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="5_47cgr"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="5_47cgr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_47cgr"]
 resource_local_to_scene = true

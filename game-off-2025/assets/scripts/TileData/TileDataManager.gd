@@ -41,12 +41,13 @@ var cardinal_tile_requirement_regex : RegEx = RegEx.new();
 var tile_amount_requirement_regex : RegEx = RegEx.new();
 
 func _ready() -> void:
+	load_regexes();
 	load_tile_data();
 	load_devolutions();
 
 func load_regexes():
-	cardinal_tile_requirement_regex.compile("^([NESW])=((?:\\w+,?)+)$");
-	tile_amount_requirement_regex.compile("^(\\d+)((?:\\w+,?)+)(\\d+)$");
+	cardinal_tile_requirement_regex.compile("^([NESW]{1,2})=((?:\\w+,?)+)$");
+	tile_amount_requirement_regex.compile("^(\\d+)((?:\\w+-?,?)+)(\\d+)$");
 
 func load_tile_data():
 	var source : TileSetAtlasSource = tile_set.get_source(0);
@@ -84,10 +85,10 @@ func load_tile_data():
 			print("Error: tile " + tile_id + " registered twice");
 			return
 		
+		UserData.get_known_tiles().append(custom_tile_data.id);
 		if is_playable:
 			playable_tiles.append(custom_tile_data.id);
-			if !UserData.get_known_tiles().has(custom_tile_data.id):
-				UserData.get_known_tiles().append(custom_tile_data.id);
+			#if !UserData.get_known_tiles().has(custom_tile_data.id):
 		if !is_util:
 			land_tiles.append(custom_tile_data.id);
 		tile_dictionnary.set(custom_tile_data.id, custom_tile_data);

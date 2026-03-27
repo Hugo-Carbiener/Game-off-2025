@@ -24,9 +24,9 @@ func _ready() -> void:
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func init_UI():
-	if Constants.card_slot_amount < TileDataManager.playable_tiles.size():
-		printerr("Warning: not enough slots for all playable cards");
-		return;
+	#if Constants.card_slot_amount < TileDataManager.playable_tiles.size():
+	#	printerr("Warning: not enough slots for all playable cards");
+	#	return;
 
 	for i in range(Constants.card_slot_amount):
 		var new_card_slot = half_card_slot_model.instantiate();

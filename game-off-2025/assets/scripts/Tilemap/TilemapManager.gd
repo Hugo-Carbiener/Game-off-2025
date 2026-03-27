@@ -43,7 +43,7 @@ static func cell_manhattan_distance(from : Vector2, to : Vector2) -> int:
 	return vec_distance.x + vec_distance.y;
 
 # Return an array of vectors describing the neighbor coordinates of a tile in (0, 0) within a given range
-func get_neighbor_tile_coordinate_offset_within_range(tile_range : int) -> Array[Vector2i]:
+static func get_neighbor_tile_coordinate_offset_within_range(tile_range : int) -> Array[Vector2i]:
 	var neighbor_offset_coordinates : Array[Vector2i];
 	var for_range = range(tile_range * -1, tile_range + 1);
 	for x in for_range:
@@ -51,6 +51,18 @@ func get_neighbor_tile_coordinate_offset_within_range(tile_range : int) -> Array
 			var coordinates = Vector2i(x, y);
 			if coordinates == Vector2i.ZERO : continue;
 			if cell_manhattan_distance(Vector2i.ZERO, coordinates) <= tile_range:
+				neighbor_offset_coordinates.append(coordinates);
+	return neighbor_offset_coordinates;
+	
+# Return an array of vectors describing the neighbor coordinates of a tile in (0, 0) at a given range
+static func get_neighbor_tile_coordinate_offset_at_range(tile_range : int) -> Array[Vector2i]:
+	var neighbor_offset_coordinates : Array[Vector2i];
+	var for_range = range(tile_range * -1, tile_range + 1);
+	for x in for_range:
+		for y in for_range:
+			var coordinates = Vector2i(x, y);
+			if coordinates == Vector2i.ZERO : continue;
+			if cell_manhattan_distance(Vector2i.ZERO, coordinates) == tile_range:
 				neighbor_offset_coordinates.append(coordinates);
 	return neighbor_offset_coordinates;
 

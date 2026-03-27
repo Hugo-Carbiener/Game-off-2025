@@ -8,7 +8,11 @@ func _init(_relative_tilemap_coordinates : Vector2i, _possible_tiles : PackedStr
 	self.possible_tiles = _possible_tiles;
 
 static func parse(cardinal_point_string : String, possible_tiles_string : String) -> CardinalTileRequirement:
-	return CardinalTileRequirement.new(Constants.NEIGHBOR_TILE_COORDINATES_CODEX[cardinal_point_string], possible_tiles_string[1].split(Constants.TILE_REQUIREMENT_TILES_SEPARATOR));
+	var target_coordinates : Vector2i = Vector2i.ZERO;
+	for cardinal_direction in cardinal_point_string.split():
+		target_coordinates += Constants.NEIGHBOR_TILE_COORDINATES_CODEX[cardinal_direction];
+	return CardinalTileRequirement.new(target_coordinates, possible_tiles_string.split(Constants.TILE_REQUIREMENT_TILES_SEPARATOR));
+
 
 func is_met(tilemap_position : Vector2i) -> bool:
 	var tile_position_to_consider = tilemap_position + relative_tilemap_coordinates;

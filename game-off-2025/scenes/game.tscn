@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=64 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSlotSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/Tilemap/MainTilemap.gd" id="4_pf7vy"]
 [ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="5_o8ni1"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="6_3hbvx"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="7_pr1ej"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="7_q8j3a"]
 [ext_resource type="Texture2D" uid="uid://b85i6xlo841q1" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://c68d4kq0uchmv" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
@@ -43,11 +44,12 @@
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0f1tp"]
-atlas = ExtResource("6_3hbvx")
+atlas = ExtResource("7_pr1ej")
 region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0qimb"]
-atlas = ExtResource("6_3hbvx")
+atlas = ExtResource("7_pr1ej")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ool0"]
 atlas = ExtResource("6_3hbvx")

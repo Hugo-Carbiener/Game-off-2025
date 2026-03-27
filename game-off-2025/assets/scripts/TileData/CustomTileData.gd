@@ -86,8 +86,7 @@ func parse_requirements(_requirement : String) -> TileRequirement:
 				requirement_or.requirements.append(parse_requirements(split_string))
 			return requirement_or;
 		elif !is_sub_group and i == _requirement.length() - 1 :
-			
-			return null;
+			return parse_requirement(_requirement);
 	print("Invalid tile requirement " + _requirement + " for tile " + name);
 	return null;
 

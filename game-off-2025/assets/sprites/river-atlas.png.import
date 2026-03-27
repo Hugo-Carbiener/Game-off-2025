@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnufikewing6c"
-path="res://.godot/imported/river-terrain-atlas-export.png-3c890d7e2b259a0ac8fa37b113c1c9c9.ctex"
+uid="uid://cy0rm4isjbxdb"
+path="res://.godot/imported/river-atlas.png-be48ec43c5e0dd1e0485743daee28f2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/river-terrain-atlas-export.png"
-dest_files=["res://.godot/imported/river-terrain-atlas-export.png-3c890d7e2b259a0ac8fa37b113c1c9c9.ctex"]
+source_file="res://assets/sprites/river-atlas.png"
+dest_files=["res://.godot/imported/river-atlas.png-be48ec43c5e0dd1e0485743daee28f2b.ctex"]
 
 [params]
 

@@ -75,7 +75,6 @@ func get_valid_cells() -> Array[Vector2i] :
 	return result;
 
 func init_world():
-	print("init world")
 	place_tile(Vector2.ZERO, TileDataManager.tile_dictionnary["beacon"], true);
 	beacon_sprite.position = map_to_local(Vector2i.ZERO);
 

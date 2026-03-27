@@ -38,7 +38,6 @@ static func setup_phase():
 	await MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
 	
-	await ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
 	for i in range(day_number + Constants.breaches_spawn_increase_per_round):
 		var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
 		await MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()], Constants.breach_initial_maturity);

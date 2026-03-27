@@ -146,10 +146,7 @@ func on_card_used(tilemap_position : Vector2i):
 	
 	# If hand is empty, next phase
 	if TileCardFactory.instance.cards_amount.total == 0:
-		ShockWave.instance.execute_large_shockwave(MainTilemap.instance.tilemap_to_viewport(Vector2i.ZERO));
 		GameLoop.start_phase(GameLoop.get_next_phase());
-	else :
-		await ShockWave.instance.execute_small_shockwave(MainTilemap.instance.tilemap_to_viewport(tilemap_position));
 
 func on_card_reroll():
 	if TileCardFactory.instance.reroll_left == 0:
