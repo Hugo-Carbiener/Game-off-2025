@@ -19,7 +19,7 @@ func interact():
 			keep_card_selected = false;
 		else: 
 			keep_card_selected = true;
-		selected_card.on_card_used(tile_position);
+		selected_card.on_card_used();
 	else: 
 		
 		keep_card_selected = false;

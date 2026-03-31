@@ -133,7 +133,7 @@ func update_evolutions():
 		tile_card_evolution.update();
 
 # Called before a card is destroyed
-func on_card_used(tilemap_position : Vector2i):
+func on_card_used():
 	TileCardFactory.instance.cards_amount[card_id] -= 1;
 	TileCardFactory.instance.cards_amount.total -= 1;
 	update_card_amount();
