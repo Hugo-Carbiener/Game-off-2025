@@ -1,28 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://3wsqc25g5gfo"]
+[gd_scene load_steps=5 format=3 uid="uid://3wsqc25g5gfo"]
 
 [ext_resource type="Script" uid="uid://jywjy6cy07lo" path="res://assets/scripts/ui/components/EffectTooltip.gd" id="1_rwp0f"]
-[ext_resource type="Texture2D" uid="uid://bvqhu1pbds0yf" path="res://assets/sprites/UI_damage-icon.png" id="2_rwp0f"]
+[ext_resource type="Texture2D" uid="uid://dlavy28yjinvs" path="res://assets/sprites/UI_damage_increase_icon_small.png" id="2_nmpmi"]
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="4_6ba7e"]
+[ext_resource type="LabelSettings" uid="uid://cim6v58ulrs2m" path="res://assets/fonts/SmallFont.tres" id="4_airge"]
 
-[node name="Effect tooltip" type="MarginContainer" node_paths=PackedStringArray("icon", "description_label")]
+[node name="Effect tooltip" type="MarginContainer" node_paths=PackedStringArray("icon", "title_label", "description_label")]
 custom_minimum_size = Vector2(150, 0)
 offset_right = 150.0
 offset_bottom = 20.0
 script = ExtResource("1_rwp0f")
-icon = NodePath("HBoxContainer/Icon")
-description_label = NodePath("HBoxContainer/Description")
+icon = NodePath("VBoxContainer/MarginContainer/Title container/Icon")
+title_label = NodePath("VBoxContainer/MarginContainer/Title container/MarginContainer/Title")
+description_label = NodePath("VBoxContainer/Description")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 2
 
-[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_rwp0f")
+theme_override_constants/margin_left = 4
+
+[node name="Title container" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/MarginContainer/Title container"]
+layout_mode = 2
+texture = ExtResource("2_nmpmi")
 stretch_mode = 3
 
-[node name="Description" type="Label" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/Title container"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Deals damage to enemies walking over it"
+theme_override_constants/margin_top = 1
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer/Title container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Attack"
 label_settings = ExtResource("4_6ba7e")
+
+[node name="Description" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+text = "Deals damage to monsters in range"
+label_settings = ExtResource("4_airge")
 autowrap_mode = 3

@@ -5,6 +5,7 @@ const effect_tooltip_scene: PackedScene = preload("res://scenes/tile codex/Effec
 
 @export_group("Components")
 @export var icon : TextureRect;
+@export var title_label : Label; 
 @export var description_label : Label; 
 
 static func create_tooltip(effect : TileEffect) -> EffectTooltip:
@@ -14,4 +15,5 @@ static func create_tooltip(effect : TileEffect) -> EffectTooltip:
 
 func setup(effect : TileEffect):
 	icon.texture = effect.icon;
+	title_label.text = effect.title;
 	description_label.text = effect.get_description();

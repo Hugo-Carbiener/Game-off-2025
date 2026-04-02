@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://bm4c04cu43xrt"]
+
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffects/TileEffect.gd" id="1_gd0jm"]
+[ext_resource type="Texture2D" uid="uid://obvoi35bh8yr" path="res://assets/sprites/UI_place_tile_icon_small.png" id="1_yhjko"]
+
+[resource]
+script = ExtResource("1_gd0jm")
+tile_value = "lava"
+trigger = 5
+title = "Eruption"
+icon = ExtResource("1_yhjko")
+effect = 17
+metadata/_custom_type_script = "uid://dop7as4nabpyj"
