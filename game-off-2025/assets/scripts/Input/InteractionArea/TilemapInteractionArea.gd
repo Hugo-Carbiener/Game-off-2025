@@ -5,7 +5,7 @@ class_name TilemapInteractionArea
 
 func interact():
 	## place corresponding tile in the tilemap
-	var selected_card = CardSlotSelector.instance.get_selected_card();
+	var selected_card = CardSelector.instance.get_selected_card();
 	if selected_card == null: return false;
 	
 	var tile_data = TileDataManager.tile_dictionnary[selected_card.card_id];
@@ -14,15 +14,9 @@ func interact():
 	var keep_card_selected = true;
 	
 	if placed_tile:
-		if TileCardFactory.instance.cards_amount[selected_card.card_id] == 1:
-			CardSlotSelector.instance.unselect_card_slot();
-			keep_card_selected = false;
-		else: 
-			keep_card_selected = true;
 		selected_card.on_card_used();
 	else: 
-		
 		keep_card_selected = false;
 	
 	if !keep_card_selected:
-		CardSlotSelector.instance.unselect_card_slot();
+		CardSelector.instance.unselect_card();

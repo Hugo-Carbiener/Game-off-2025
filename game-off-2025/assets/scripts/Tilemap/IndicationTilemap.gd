@@ -62,8 +62,8 @@ func clear_valid_cells():
 		clear_tilemap();
 		is_valid_tile_displayed = false;
 
-func update_valid_cells(_card_amount : int = 0):
-	if CardSlotSelector.instance.card_is_selected():
+func update_valid_cells(_tilecard : TileCard = null):
+	if CardSelector.instance.card_is_selected():
 		if is_valid_tile_displayed:
 			clear_tilemap();
 			is_valid_tile_displayed = false;

@@ -33,6 +33,8 @@ func init_buttons(_on_click : Callable):
 	if UserData.get_known_tiles().has(tile_id):
 		frame_button.button_up.connect(_on_click.bind(tile_id));
 		frame_button.disabled = false;
+		mouse_filter = Control.MOUSE_FILTER_PASS;
+		mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_INHERITED;
 
 func update():
 	if !UserData.get_known_tiles().has(tile_id): return;

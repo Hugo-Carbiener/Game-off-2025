@@ -23,7 +23,6 @@ const tilemap_offset = Vector2(0, -0.2);
 
 ## Card hand
 const base_card_per_round = 5;
-const card_slot_amount = 5;
 
 ## Breaches
 const breaches_spawn_increase_per_round = 1;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://6ep3d1ypq83u"]
 
-[ext_resource type="Script" uid="uid://bv26rsn1e63wx" path="res://assets/scripts/UI/Components/TileCardEvolution.gd" id="1_n71ee"]
+[ext_resource type="Script" uid="uid://bv26rsn1e63wx" path="res://assets/scripts/ui/components/TileCardEvolution.gd" id="1_n71ee"]
 [ext_resource type="Texture2D" uid="uid://bv2o0o60tyeff" path="res://assets/sprites/UI_tile_preview_frame.png" id="1_ufn6l"]
 [ext_resource type="Texture2D" uid="uid://bfurl82a6jrxn" path="res://assets/sprites/UI_tile_evolution_background_frame.png" id="2_5uqgx"]
 [ext_resource type="Texture2D" uid="uid://dqa2hrahbo4qj" path="res://assets/sprites/UI_tile_preview_frame_highlight.png" id="3_xy11a"]
@@ -12,6 +12,8 @@ region = Rect2(72, 0, 8, 8)
 
 [node name="Evolution" type="MarginContainer" node_paths=PackedStringArray("frame_button", "evolution_icon")]
 size_flags_vertical = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1

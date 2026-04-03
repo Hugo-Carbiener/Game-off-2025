@@ -102,9 +102,9 @@ func load_devolutions():
 func learn_evolution(tile_data : CustomTileData):
 	if UserData.get_known_tiles().has(tile_data.id): return;
 	
-	CardSlotSelector.instance.unselect_card_slot();
+	CardSelector.instance.unselect_card();
 	UserData.get_known_tiles().append(tile_data.id);
 	TileCardFactory.instance.update_tile_card_evolutions();
-	CardSlotSelector.instance.unselect_card_slot();
+	CardSelector.instance.unselect_card();
 	NotificationCenter.instance.notify_new_tile(tile_data);
 	TileCodex.store_new_tile(tile_data.id);

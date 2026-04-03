@@ -27,8 +27,8 @@ class_name TileCodex
 @export var summary_bookmark : TileCodexBookmark;
 @export var close_bookmark : TileCodexBookmark;
 @export var close_bookmark_icon : TextureRect;
+@export var close_bookmark_tile_icon : TextureRect;
 @export var close_bookmark_texture : Texture2D;
-@export var return_bookmark_texture : Texture2D;
 @export_group("Misc")
 @export var damage_effect_tooltip : EffectTooltip;
 @export var requirements_tilemap : TileMapLayer;
@@ -129,11 +129,19 @@ func init_summary_bookmark(tile_id : String):
 
 func init_close_bookmark(tile_id : String):
 	if previous_tiles.is_empty() or tile_id == "":
+		close_bookmark_icon.visible = true;
+		close_bookmark_tile_icon.visible = false;
+		close_bookmark_icon.texture = Texture2D.new();
 		close_bookmark_icon.texture = close_bookmark_texture;
 		if !close_bookmark.button_up.has_connections():
 			close_bookmark.button_up.connect(close_codex);
-	else :
-		close_bookmark_icon.texture = return_bookmark_texture;
+	else:
+		var tile_data = TileDataManager.tile_dictionnary[previous_tiles[previous_tiles.size() - 1]];
+		if tile_data == null: return;
+		
+		close_bookmark_icon.visible = false;
+		close_bookmark_tile_icon.visible = true;
+		close_bookmark_tile_icon.texture.region = tile_data.get_texture_region();
 		if !close_bookmark.button_up.has_connections():
 			close_bookmark.button_up.connect(return_to_previous_tile);
 
@@ -165,7 +173,7 @@ func init_card(tile_id : String):
 	if tile_card != null:
 		tile_card.free();
 		
-	var _tile_card = TileCard.create_tile_card(tile_id, false).without_count_overlay();
+	var _tile_card = TileCard.create_tile_card(tile_id, false);
 	tile_card = _tile_card;
 	tile_card_container.add_child(_tile_card);
 

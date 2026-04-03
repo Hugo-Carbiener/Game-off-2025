@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcrlwcxsrpbqu"]
+[gd_scene load_steps=30 format=3 uid="uid://bcrlwcxsrpbqu"]
 
 [ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
 [ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cj110c2dk0d7o" path="res://scenes/tile codex/TileCodexBookmark.tscn" id="3_s8rmu"]
 [ext_resource type="Texture2D" uid="uid://wu51wc6rfonh" path="res://assets/sprites/UI_book-summary-icon.png" id="4_keuhg"]
 [ext_resource type="Texture2D" uid="uid://c4vv43yh2yj6h" path="res://assets/sprites/UI_book-next-page-highlighted.png" id="4_mm6dg"]
-[ext_resource type="Texture2D" uid="uid://b7misw4tf3iib" path="res://assets/sprites/UI_book-back-icon.png" id="4_v6eaw"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="5_jri3d"]
 [ext_resource type="Texture2D" uid="uid://c8t0pynnj7cko" path="res://assets/sprites/UI_book-summary-BG.png" id="5_qftpp"]
 [ext_resource type="Texture2D" uid="uid://b1xbcmasxlyhd" path="res://assets/sprites/UI_book-favorite-inactive.png" id="5_v50lp"]
 [ext_resource type="Texture2D" uid="uid://osh2ul4q2jpc" path="res://assets/sprites/UI_book-favorite-active.png" id="6_2iigh"]
@@ -28,6 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5swi3"]
+atlas = ExtResource("5_jri3d")
+region = Rect2(0, 0, 8, 8)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g7s2b"]
 shader = ExtResource("27_v6eaw")
 shader_parameter/main_tex = ExtResource("28_4nx1l")
@@ -38,7 +42,7 @@ shader_parameter/noise_scale = 0.6490000308275
 shader_parameter/width_scale = 1.8550000881125
 shader_parameter/rotation_coef = 0.5850000277875
 
-[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "description_label", "previous_button", "next_button", "favorite_button", "summary_bookmark", "close_bookmark", "close_bookmark_icon", "damage_effect_tooltip", "requirements_tilemap", "requirement_timer", "requirement_shader")]
+[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "description_label", "previous_button", "next_button", "favorite_button", "summary_bookmark", "close_bookmark", "close_bookmark_icon", "close_bookmark_tile_icon", "damage_effect_tooltip", "requirements_tilemap", "requirement_timer", "requirement_shader")]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
@@ -66,8 +70,8 @@ favorite_button = NodePath("MarginContainer/VBoxContainer/Page container/Left pa
 summary_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark")
 close_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark")
 close_bookmark_icon = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin/Icon")
+close_bookmark_tile_icon = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin/Tile icon")
 close_bookmark_texture = ExtResource("3_72rhy")
-return_bookmark_texture = ExtResource("4_v6eaw")
 damage_effect_tooltip = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container/Effect tooltip")
 requirements_tilemap = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer/Tilemap margin/TileMapLayer")
 requirement_timer = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Timer")
@@ -103,10 +107,23 @@ layout_mode = 2
 toggle_mode = false
 
 [node name="Icon margin" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark" index="0"]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
 theme_override_constants/margin_top = -1
 
 [node name="Icon" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin" index="0"]
 texture = ExtResource("3_72rhy")
+
+[node name="Tile icon" type="TextureRect" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin" index="1"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5swi3")
+stretch_mode = 3
 
 [node name="Summary bookmark" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container" instance=ExtResource("3_s8rmu")]
 layout_mode = 2
@@ -206,11 +223,11 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_top = 7
+theme_override_constants/margin_top = 23
 
 [node name="Number container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = -3
+theme_override_constants/margin_top = 13
 
 [node name="Number" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Number container"]
 layout_mode = 2

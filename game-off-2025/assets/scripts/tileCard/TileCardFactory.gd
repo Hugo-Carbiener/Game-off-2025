@@ -5,79 +5,37 @@ var half_card_slot_model : PackedScene = preload("res://scenes/components/HalfCa
 
 static var instance : TileCardFactory;
 # Cards
-var cards_amount : Dictionary[String, int] = {"total": 0};
-var cards : Dictionary[String, TileCard];
-# Card slots
-var card_slots : Array[Control];
-var slots_per_card : Dictionary[String, int];
-var card_slot_used_amount = 0;
+var cards : Array[TileCard];
 var reroll_left: int = 0;
 
 func _ready() -> void:
 	if instance == null:
 		instance = self;
-	init_UI();
-	# init count with all playable card names
-	for id in TileDataManager.playable_tiles:
-		cards_amount.set(id, 0);
 	
+	SignalBus.card_used.connect(on_card_used)
 	SignalBus.reroll_amount_updated.emit(reroll_left);
-
-func init_UI():
-	#if Constants.card_slot_amount < TileDataManager.playable_tiles.size():
-	#	printerr("Warning: not enough slots for all playable cards");
-	#	return;
-
-	for i in range(Constants.card_slot_amount):
-		var new_card_slot = half_card_slot_model.instantiate();
-		add_child(new_card_slot);
-		card_slots.append(new_card_slot);
 
 func list_children():
 	return get_children();
 
-func draw_random_card(index = null) :
-	if index == null: 
-		index = randi() % TileDataManager.playable_tiles.size();
+func draw_random_card() :
+	var index = randi() % TileDataManager.playable_tiles.size();
 	var random_id: String = TileDataManager.playable_tiles[index];
-	
-	# if card already in hand, stop here
-	if TileCardFactory.instance.cards_amount[random_id] == 0:
-		fill_card_slot(random_id);
-	
-	cards_amount[random_id] += 1; 
-	cards_amount.total += 1;
-	
-	SignalBus.cards_amount_updated.emit();
+	draw_card(random_id);
 
-func fill_card_slot(tile_id : String):
-	var slot_index = card_slot_used_amount;
+func draw_card(tile_id : String):
 	var tile_card = TileCard.create_tile_card(tile_id);
-	cards.set(tile_id ,tile_card);
-	card_slots[slot_index].add_child(tile_card);
-	slots_per_card.set(tile_id, slot_index);
-	card_slot_used_amount += 1;
+	cards.append(tile_card);
+	add_child(tile_card);
 
-func free_card_slot(tile_id : String):
-	if !slots_per_card.has(tile_id): return;
+func on_card_used(tilecard : TileCard):
+	var tilecard_index = cards.find(tilecard);
+	if tilecard_index == -1: 
+		#printerr("Attempted to use card " + tilecard.name + " but was not found in hand" + get_cards_string());
+		return;
 	
-	var slot_index = slots_per_card.get(tile_id);
-	var card_slot = card_slots[slot_index];
-	var card = card_slot.get_children()[1];
-	card_slot.remove_child(card);
-	slots_per_card.erase(tile_id);
-	cards.erase(tile_id);
-	card.queue_free()
-	
-	if slot_index + 1 < card_slot_used_amount :
-		for further_card_slot_index in range(slot_index + 1 , card_slot_used_amount):
-			var further_card_slot = card_slots[further_card_slot_index];
-			var further_card = further_card_slot.get_children()[1];
-			further_card_slot.remove_child(further_card);
-			card_slot.add_child(further_card);
-			slots_per_card.set(further_card.card_id, further_card_slot_index - 1);
-			card_slot = further_card_slot;
-	card_slot_used_amount -= 1;
+	var card_to_remove = cards.pop_at(tilecard_index);
+	card_to_remove.queue_free();
 
 func draw_hand():
 	reroll_left = GameLoop.day_number;
@@ -87,14 +45,17 @@ func draw_hand():
 		TileCardFactory.instance.draw_random_card();
 
 func update_tile_card_evolutions():
-	for tile_card in cards.values():
+	for tile_card in cards:
 		tile_card.update_evolutions();
 
-func load(_cards : Dictionary[String, int]):
-	cards_amount = _cards;
-	for tile_id in _cards.keys():
+func load_cards(_cards : Array[String]):
+	for tile_id in _cards:
 		if !TileDataManager.playable_tiles.has(tile_id): continue;
-		if _cards[tile_id] == 0: continue;
 		
-		fill_card_slot(tile_id);
-	SignalBus.cards_amount_updated.emit();
+		draw_card(tile_id);
+
+func get_cards_for_save() -> Array[String]:
+	var cards_for_save : Array[String];
+	for tilecard in cards:
+		cards_for_save.append(tilecard.card_id);
+	return cards_for_save;

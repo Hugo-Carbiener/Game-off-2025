@@ -1,6 +1,6 @@
-[gd_scene load_steps=66 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=67 format=3 uid="uid://crymo458rjfyb"]
 
-[ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSlotSelector.gd" id="1_8qswn"]
+[ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
 [ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/tilemap/BackgroundTilemap.gd" id="3_i4re6"]
 [ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/tilemap/MainTilemap.gd" id="4_pf7vy"]
@@ -26,19 +26,20 @@
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="22_7nv0b"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="23_o8oq8"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/input/interactionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
-[ext_resource type="Texture2D" uid="uid://8wrimgcq3drq" path="res://assets/sprites/UI_half-frame.png" id="25_2iuns"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/input/interactionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/tileCard/TileCardFactory.gd" id="27_753oq"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
+[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/components/TileCard.tscn" id="28_pr1ej"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
-[ext_resource type="PackedScene" uid="uid://e3wskp2bkdnm" path="res://scenes/components/TileCard.tscn" id="29_05nbr"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/input/interactionArea/RerollInteractionArea.gd" id="30_s0g06"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="32_vgxg3"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="33_4nbsr"]
 [ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="34_fkywm"]
 [ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/components/PauseScreen.tscn" id="35_dku7i"]
+[ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="36_0sl42"]
 [ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="36_veaf0"]
 [ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="37_flw08"]
+[ext_resource type="Script" uid="uid://cgm8i2fa6gg8f" path="res://assets/scripts/tileCard/DiscardPile.gd" id="37_oaba0"]
 [ext_resource type="PackedScene" uid="uid://n0tesceeiak6" path="res://scenes/components/PhaseTitle.tscn" id="40_m4url"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
@@ -163,11 +164,6 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oaba0"]
-resource_local_to_scene = true
-atlas = ExtResource("7_pr1ej")
-region = Rect2(0, 0, 8, 8)
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7025r"]
 load_path = "res://.godot/imported/UI_card_separator.png-8fe55d67c3bbf758b524afb79eb63121.ctex"
 
@@ -183,6 +179,10 @@ frame_1/texture = ExtResource("33_4nbsr")
 frame_1/duration = 1.0
 frame_2/texture = ExtResource("34_fkywm")
 frame_2/duration = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_458eo"]
+atlas = ExtResource("7_pr1ej")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rfjg"]
 shader = ExtResource("46_ja1h7")
@@ -301,9 +301,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_mmvbu")
 footer_container = NodePath("Screen container/Footer container")
-default_card_slot_modulate = Color(1, 1, 1, 1)
-disabled_card_slot_modulate = Color(0.27022192, 0.27022192, 0.2702219, 1)
-card_slot_transition_duration = 0.2
 phase_title = NodePath("Phase title")
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
@@ -331,26 +328,16 @@ main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 
 [node name="Footer container" type="MarginContainer" parent="UI/Screen container"]
 layout_mode = 2
+theme_override_constants/margin_bottom = 20
 
 [node name="Footer hbox" type="HBoxContainer" parent="UI/Screen container/Footer container"]
 layout_mode = 2
 theme_override_constants/separation = 0
+alignment = 1
 
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 8
-
-[node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_vertical = 8
-texture = ExtResource("25_2iuns")
-region_rect = Rect2(0, 31.874634, 80, 48.125366)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
 layout_mode = 2
@@ -362,27 +349,24 @@ script = ExtResource("26_7gkqi")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_constants/separation = -80
+theme_override_constants/separation = -30
+alignment = 1
 script = ExtResource("27_753oq")
 
-[node name="Tile card" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("29_05nbr")]
+[node name="Tile card" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("28_pr1ej")]
 layout_mode = 2
 
-[node name="Tile card2" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("29_05nbr")]
-layout_mode = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_right = 60
-
-[node name="Tile preview" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container/Tile card2/Tile card/VBoxContainer/Tile preview margin" index="0"]
-texture = SubResource("AtlasTexture_oaba0")
-
-[node name="Tile card3" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("29_05nbr")]
+[node name="Tile card2" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("28_pr1ej")]
 layout_mode = 2
 
-[node name="Tile card4" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("29_05nbr")]
+[node name="Tile card3" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("28_pr1ej")]
+layout_mode = 2
+
+[node name="Tile card4" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container" instance=ExtResource("28_pr1ej")]
 layout_mode = 2
 
 [node name="Stats area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
@@ -437,6 +421,20 @@ size_flags_horizontal = 4
 layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
 
+[node name="Discard area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="Discard icon" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Discard area" node_paths=PackedStringArray("tile_preview")]
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("36_0sl42")
+script = ExtResource("37_oaba0")
+tile_preview = NodePath("Tile preview")
+
+[node name="Tile preview" type="Sprite2D" parent="UI/Screen container/Footer container/Footer hbox/Discard area/Discard icon"]
+texture = SubResource("AtlasTexture_458eo")
+
 [node name="Pause screen" parent="UI" instance=ExtResource("35_dku7i")]
 layout_mode = 2
 
@@ -460,5 +458,3 @@ stretch_mode = 6
 [node name="Phase title" parent="UI" instance=ExtResource("40_m4url")]
 visible = false
 layout_mode = 2
-
-[editable path="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer/Card container/Tile card2"]

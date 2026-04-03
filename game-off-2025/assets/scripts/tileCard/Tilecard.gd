@@ -9,11 +9,10 @@ var is_draggable : bool;
 @export_group("Components")
 @export var card_chains : TextureRect;
 @export var card_overlay : TextureRect;
-@export var card_count_overlay : TextureRect;
 @export var card_border : TextureRect;
-@export var card_count : Label;
 @export var card_name : Label;
 @export var card_sprite : TextureRect;
+@export var card_mouse_detector : TileCardMouseDetector;
 @export var card_effects_icons : HBoxContainer;
 @export var card_description : Label;
 @export var card_evolution_title : Label;
@@ -23,8 +22,9 @@ var is_draggable : bool;
 @export var card_range_label : Label;
 @export var card_range_icon : TextureRect;
 @export_group("Variables")
-@export var hover_offset : int;
-@export var selection_offset : int;
+@export var card_hover_bottom_offset : int;
+@export var card_selection_bottom_offset : int;
+@export var card_side_offset : int;
 @export var transition_duration : float;
 
 var tile_card_evolutions : Array[TileCardEvolution];
@@ -37,11 +37,6 @@ static func create_tile_card(id : String, draggable : bool = true) -> TileCard:
 
 func with_clickable_evolutions(on_evolution_click : Callable) -> TileCard:
 	init_evolutions_click(on_evolution_click);
-	return self;
-
-func without_count_overlay() -> TileCard:
-	card_count.modulate = Color(0);
-	card_count_overlay.modulate = Color(0);
 	return self;
 
 func setup(_id : String, draggable : bool) :
@@ -68,17 +63,14 @@ func reset():
 		tile_card_evolution.queue_free();
 	tile_card_evolutions.clear();
 
-	if SignalBus.cards_amount_updated.is_connected(update_card_amount):
-		SignalBus.cards_amount_updated.disconnect(update_card_amount);
-	if 	mouse_entered.is_connected(on_mouse_entered):
-		mouse_entered.disconnect(on_mouse_entered);
+	if card_mouse_detector.mouse_entered.is_connected(on_mouse_entered):
+		card_mouse_detector.mouse_entered.disconnect(on_mouse_entered);
 	if mouse_exited.is_connected(on_mouse_exit):
 		mouse_exited.disconnect(on_mouse_exit);
 
 func init_signals():
-	SignalBus.cards_amount_updated.connect(update_card_amount);
-	mouse_entered.connect(on_mouse_entered);
-	mouse_exited.connect(on_mouse_exit);
+	card_mouse_detector.mouse_entered.connect(on_mouse_entered);
+	card_mouse_detector.mouse_exited.connect(on_mouse_exit);
 
 func init_color(color : Color) :
 	card_color = color;
@@ -93,7 +85,6 @@ func init_color(color : Color) :
 
 	card_overlay.modulate = color;
 	card_chains.modulate = color;
-	card_count_overlay.modulate = color;
 	card_border.modulate = color;
 	card_damage_icon.modulate = color;
 	card_range_icon.modulate = color;
@@ -134,71 +125,66 @@ func update_evolutions():
 
 # Called before a card is destroyed
 func on_card_used():
-	TileCardFactory.instance.cards_amount[card_id] -= 1;
-	TileCardFactory.instance.cards_amount.total -= 1;
-	update_card_amount();
-	
-	# destroy if it was the last card
-	if (TileCardFactory.instance.cards_amount[card_id] == 0):
-		TileCardFactory.instance.free_card_slot(card_id);
-	
-	SignalBus.card_used.emit(MainTilemap.instance.tiles.size());
-	
-	# If hand is empty, next phase
-	if TileCardFactory.instance.cards_amount.total == 0:
-		GameLoop.start_phase(GameLoop.get_next_phase());
+	SignalBus.card_used.emit(self);
 
 func on_card_reroll():
-	if TileCardFactory.instance.reroll_left == 0:
-		return;
-		
-	TileCardFactory.instance.reroll_left -= 1;
-	SignalBus.reroll_amount_updated.emit(TileCardFactory.instance.reroll_left);
-	TileCardFactory.instance.cards_amount[card_id] -= 1;
-	TileCardFactory.instance.cards_amount.total -= 1;
-	update_card_amount();
-	
-	if (TileCardFactory.instance.cards_amount[card_id] == 0):
-		TileCardFactory.instance.free_card_slot(card_id);
-	
-	SignalBus.card_used.emit(MainTilemap.instance.tiles.size());
+	print("Not implemented");
+	#if TileCardFactory.instance.reroll_left == 0:
+		#return;
+		#
+	#TileCardFactory.instance.reroll_left -= 1;
+	#SignalBus.reroll_amount_updated.emit(TileCardFactory.instance.reroll_left);
+	#TileCardFactory.instance.cards_amount[card_id] -= 1;
+	#TileCardFactory.instance.cards_amount.total -= 1;
+	#
+	#if (TileCardFactory.instance.cards_amount[card_id] == 0):
+		#TileCardFactory.instance.free_card_slot(card_id);
+	#
+	#SignalBus.card_used.emit(self);
+#
+	#TileCardFactory.instance.draw_random_card();
 
-	TileCardFactory.instance.draw_random_card();
+func update_card_bottom_margin(bottom_target_margin : int):
+	add_theme_constant_override("margin_bottom", bottom_target_margin);
 
-func update_card_amount():
-	if !TileCardFactory.instance.cards_amount.has(card_id): return;
-	card_count.text = "x" + str(TileCardFactory.instance.cards_amount[card_id]);
-
-func update_card_margin(margin : int):
-	add_theme_constant_override("margin_bottom", margin);
+func update_card_side_margins(side_target_margin : int):
+	add_theme_constant_override("margin_left", side_target_margin);
+	add_theme_constant_override("margin_right", side_target_margin);
 
 func transition_card_margin():
 	var tween = get_tree().create_tween();
-	tween.tween_method(update_card_margin, get_theme_constant("margin_bottom"), get_current_margin(), transition_duration).set_ease(Tween.EASE_IN_OUT);
+	tween.set_parallel(true);
+	tween.tween_method(update_card_bottom_margin, get_theme_constant("margin_bottom"), get_current_bottom_margin(), transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
+	tween.tween_method(update_card_side_margins, get_theme_constant("margin_left"), get_current_side_margin(), transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
 
-func get_current_margin() -> int:
+func get_current_bottom_margin() -> int:
 	if card_is_selected():
-		return selection_offset;
+		return card_selection_bottom_offset;
 	if card_is_hovered():
-		return hover_offset;
+		return card_hover_bottom_offset;
+	return 0;
+
+func get_current_side_margin() -> int:
+	if card_is_selected() or card_is_hovered():
+		return card_side_offset;
 	return 0;
 
 func on_mouse_entered():
 	if UserSettings.are_input_blocked or !is_draggable: return;
-	if card_is_selected(): return;
+	if card_is_selected() or CardSelector.instance.card_is_selected(): return;
 	if !TileDataManager.tile_dictionnary[card_id].is_playable: return;
 	
-	var card_slot = TileCardFactory.instance.slots_per_card[card_id];
-	if card_slot == null: return;
+	var card_index = TileCardFactory.instance.cards.find(self);
+	if card_index == -1: return;
 	
-	CardSlotSelector.instance.card_slot_hovered = card_slot;
+	CardSelector.instance.card_index_hovered = card_index;
 	transition_card_margin();
 
 func on_mouse_exit():
 	if !is_draggable: return;
-	if card_is_selected(): return;
+	if card_is_selected() or CardSelector.instance.card_is_selected(): return;
 
-	CardSlotSelector.instance.card_slot_hovered = -1;
+	CardSelector.instance.card_index_hovered = -1;
 	transition_card_margin();
 
 func on_selection():
@@ -210,7 +196,7 @@ func on_unselection():
 	card_border.visible = false;
 
 func card_is_selected() -> bool:
-	return CardSlotSelector.instance.get_selected_card() == self;
+	return CardSelector.instance.get_selected_card() == self;
 
 func card_is_hovered() -> bool:
-	return CardSlotSelector.instance.get_hovered_card() == self;
+	return CardSelector.instance.get_hovered_card() == self;

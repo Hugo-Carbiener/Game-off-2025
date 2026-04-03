@@ -14,6 +14,7 @@ func _ready() -> void:
 	current_phase = PHASES.SETUP;
 	day_number = 0;
 	SignalBus.game_saving.connect(save_fight); 
+	SignalBus.card_used.connect(on_card_used);
 	SignalBus.tile_placed.connect(on_tile_placed);
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[AudioUtils.MUSICS.START]), 2);
 	ready.connect(start_game);
@@ -46,7 +47,6 @@ static func setup_phase():
 
 static func play_phase():
 	SignalBus.play_phase_started.emit();
-	await GameUI.instance.toggle_card_slots();
 	UserSettings.are_input_blocked = false;
 
 static func resolution_phase():
@@ -56,13 +56,16 @@ static func resolution_phase():
 	if MonsterFactory.instance.monsters.is_empty(): 
 		start_phase(get_next_phase());
 	else:
-		await GameUI.instance.toggle_card_slots();
 		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_START);
 		await MonsterFactory.instance.on_resolution();
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_END);
 		BeaconManager.instance.on_resolution_end();
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
+		start_phase(get_next_phase());
+
+func on_card_used(_tilecard : TileCard):
+	if TileCardFactory.instance.cards.is_empty():
 		start_phase(get_next_phase());
 
 func on_tile_placed(tile_amount : int):
@@ -74,7 +77,7 @@ func save_fight():
 		day_number, 
 		current_phase,
 		MainTilemap.instance.get_tiles_for_save(),
-		TileCardFactory.instance.cards_amount,
+		TileCardFactory.instance.get_cards_for_save(),
 		MonsterFactory.instance.monsters.keys(),
 		MonsterFactory.instance.breaches,
 		BeaconManager.instance.health);
@@ -85,7 +88,7 @@ func load_fight():
 	
 	day_number = fight_save.day;
 	current_phase = fight_save.phase;
-	TileCardFactory.instance.load(fight_save.cards);
+	TileCardFactory.instance.load_cards(fight_save.cards);
 	MonsterFactory.instance.load(fight_save.monsters, fight_save.breaches);
 	MainTilemap.instance.load(fight_save.tiles);
 	BeaconManager.instance.health = fight_save.beacon_health;

@@ -5,7 +5,7 @@ const KEY_NAME = "fight"
 var day : int; 
 var phase : GameLoop.PHASES;
 var tiles : Dictionary[Vector2i, String];
-var cards : Dictionary[String, int];
+var cards : Array[String];
 var monsters : Array[Vector2i];
 var breaches : Dictionary[Vector2i, int];
 var beacon_health : int;
@@ -27,7 +27,7 @@ var loaders : Dictionary[String, Callable] = {
 		load_beacon_health
 }
 
-func update(_day: int, _phase: GameLoop.PHASES, _tiles : Dictionary[Vector2i, String], _cards : Dictionary[String, int], _monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int], _beacon_health : int):
+func update(_day: int, _phase: GameLoop.PHASES, _tiles : Dictionary[Vector2i, String], _cards : Array[String], _monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int], _beacon_health : int):
 	self.day = _day;
 	self.phase = _phase;
 	self.tiles = _tiles;
@@ -66,9 +66,9 @@ func load_tiles(_tiles : Dictionary):
 	for key in _tiles.keys():
 		tiles.set(vector2i_from_str(key), str(_tiles[key]));
 
-func load_cards(_cards : Dictionary):
-	for key in _cards.keys():
-		cards.set(str(key), int(_cards[key]));
+func load_cards(_cards : Array):
+	for tile_id in _cards:
+		cards.append(str(tile_id));
 
 func load_monsters(_monsters : Array):
 	for position in _monsters:
