@@ -14,7 +14,7 @@ func _ready() -> void:
 	current_phase = PHASES.SETUP;
 	day_number = 0;
 	SignalBus.game_saving.connect(save_fight); 
-	SignalBus.card_used.connect(on_card_used);
+	SignalBus.card_discarded.connect(on_card_discarded);
 	SignalBus.tile_placed.connect(on_tile_placed);
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[AudioUtils.MUSICS.START]), 2);
 	ready.connect(start_game);
@@ -64,7 +64,8 @@ static func resolution_phase():
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 		start_phase(get_next_phase());
 
-func on_card_used(_tilecard : TileCard):
+func on_card_discarded(_tilecard : TileCard):
+	# if hand is empty next phase
 	if TileCardFactory.instance.cards.is_empty():
 		start_phase(get_next_phase());
 

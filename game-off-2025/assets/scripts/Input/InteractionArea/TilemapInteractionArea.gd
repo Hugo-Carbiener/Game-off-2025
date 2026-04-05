@@ -14,7 +14,7 @@ func interact():
 	var keep_card_selected = true;
 	
 	if placed_tile:
-		selected_card.on_card_used();
+		selected_card.discard();
 	else: 
 		keep_card_selected = false;
 	

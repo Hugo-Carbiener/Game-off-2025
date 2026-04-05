@@ -11,7 +11,7 @@ signal bookmark_clicked
 signal summary_element_clicked
 
 # World signals
-signal card_used; # TileCard
+signal card_discarded; # TileCard
 signal tile_placed;
 signal evolution_started;
 signal evolution_finished;

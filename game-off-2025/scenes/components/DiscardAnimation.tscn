@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddn7ti4jwyn3p"]
+
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="1_rf4t1"]
+[ext_resource type="Texture2D" uid="uid://begebsrjpuntw" path="res://assets/sprites/animations_discard_particle.png" id="2_7gpb6"]
+[ext_resource type="Script" uid="uid://byd8t6gbkftkw" path="res://assets/scripts/ui/components/DiscardAnimation.gd" id="2_stp7i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_458eo"]
+atlas = ExtResource("1_rf4t1")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pf7vy"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_458eo"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Discard animation" type="Sprite2D" node_paths=PackedStringArray("particle_system")]
+texture = SubResource("AtlasTexture_458eo")
+script = ExtResource("2_stp7i")
+particle_system = NodePath("Particles")
+trajectory_variance = 2.0
+trajectory_amplitude = 100.0
+discard_animation_duration = 0.75
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_pf7vy")
+emitting = false
+amount = 16
+texture = ExtResource("2_7gpb6")
+lifetime = 0.5
+one_shot = true
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_458eo")
+anim_speed_min = 1.0
+anim_speed_max = 1.0

@@ -25,7 +25,8 @@ var is_draggable : bool;
 @export var card_hover_bottom_offset : int;
 @export var card_selection_bottom_offset : int;
 @export var card_side_offset : int;
-@export var transition_duration : float;
+@export var selectiony_transition_duration : float;
+@export var card_discarded_transition_duration : float;
 
 var tile_card_evolutions : Array[TileCardEvolution];
 var card_tile_sprite_atlas_coordinates : Vector2i;
@@ -124,8 +125,10 @@ func update_evolutions():
 		tile_card_evolution.update();
 
 # Called before a card is destroyed
-func on_card_used():
-	SignalBus.card_used.emit(self);
+func discard():
+	SignalBus.card_discarded.emit(self);
+	await AnimationUtils.shrink(self, card_discarded_transition_duration);
+	queue_free();
 
 func on_card_reroll():
 	print("Not implemented");
@@ -140,7 +143,7 @@ func on_card_reroll():
 	#if (TileCardFactory.instance.cards_amount[card_id] == 0):
 		#TileCardFactory.instance.free_card_slot(card_id);
 	#
-	#SignalBus.card_used.emit(self);
+	#SignalBus.card_discarded.emit(self);
 #
 	#TileCardFactory.instance.draw_random_card();
 
@@ -154,8 +157,8 @@ func update_card_side_margins(side_target_margin : int):
 func transition_card_margin():
 	var tween = get_tree().create_tween();
 	tween.set_parallel(true);
-	tween.tween_method(update_card_bottom_margin, get_theme_constant("margin_bottom"), get_current_bottom_margin(), transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
-	tween.tween_method(update_card_side_margins, get_theme_constant("margin_left"), get_current_side_margin(), transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
+	tween.tween_method(update_card_bottom_margin, get_theme_constant("margin_bottom"), get_current_bottom_margin(), selectiony_transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
+	tween.tween_method(update_card_side_margins, get_theme_constant("margin_left"), get_current_side_margin(), selectiony_transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
 
 func get_current_bottom_margin() -> int:
 	if card_is_selected():
@@ -171,7 +174,7 @@ func get_current_side_margin() -> int:
 
 func on_mouse_entered():
 	if UserSettings.are_input_blocked or !is_draggable: return;
-	if card_is_selected() or CardSelector.instance.card_is_selected(): return;
+	if card_is_selected(): return;
 	if !TileDataManager.tile_dictionnary[card_id].is_playable: return;
 	
 	var card_index = TileCardFactory.instance.cards.find(self);
@@ -182,7 +185,7 @@ func on_mouse_entered():
 
 func on_mouse_exit():
 	if !is_draggable: return;
-	if card_is_selected() or CardSelector.instance.card_is_selected(): return;
+	if card_is_selected(): return;
 
 	CardSelector.instance.card_index_hovered = -1;
 	transition_card_margin();

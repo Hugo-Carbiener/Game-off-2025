@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func init_signals():
 	# Valid cells
-	SignalBus.card_used.connect(update_valid_cells);
+	SignalBus.card_discarded.connect(update_valid_cells);
 	SignalBus.evolution_started.connect(clear_tilemap);
 	SignalBus.resolution_phase_started.connect(clear_tilemap);
 	# Monster paths

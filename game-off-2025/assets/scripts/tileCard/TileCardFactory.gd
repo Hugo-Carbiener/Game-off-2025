@@ -1,10 +1,8 @@
 extends Control
 class_name TileCardFactory
 
-var half_card_slot_model : PackedScene = preload("res://scenes/components/HalfCardSlot.tscn");
-
 static var instance : TileCardFactory;
-# Cards
+
 var cards : Array[TileCard];
 var reroll_left: int = 0;
 
@@ -12,7 +10,7 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 	
-	SignalBus.card_used.connect(on_card_used)
+	SignalBus.card_discarded.connect(on_card_discarded)
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func list_children():
@@ -28,14 +26,11 @@ func draw_card(tile_id : String):
 	cards.append(tile_card);
 	add_child(tile_card);
 
-func on_card_used(tilecard : TileCard):
+func on_card_discarded(tilecard : TileCard):
 	var tilecard_index = cards.find(tilecard);
 	if tilecard_index == -1: 
-		#printerr("Attempted to use card " + tilecard.name + " but was not found in hand" + get_cards_string());
 		return;
-	
-	var card_to_remove = cards.pop_at(tilecard_index);
-	card_to_remove.queue_free();
+	cards.pop_at(tilecard_index);
 
 func draw_hand():
 	reroll_left = GameLoop.day_number;

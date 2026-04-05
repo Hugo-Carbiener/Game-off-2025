@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca3trttlhmjj2"
-path="res://.godot/imported/animations_small_to_large_breach.png-e5611f1a120f210897869122e3be6bbe.ctex"
+uid="uid://begebsrjpuntw"
+path="res://.godot/imported/animations_discard_particle.png-f2b400067c4ce8328b18f0edf265ef60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animations_small_to_large_breach.png"
-dest_files=["res://.godot/imported/animations_small_to_large_breach.png-e5611f1a120f210897869122e3be6bbe.ctex"]
+source_file="res://assets/sprites/animations_discard_particle.png"
+dest_files=["res://.godot/imported/animations_discard_particle.png-f2b400067c4ce8328b18f0edf265ef60.ctex"]
 
 [params]
 

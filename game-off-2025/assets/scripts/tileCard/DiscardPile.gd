@@ -1,24 +1,11 @@
-class_name DiscardPile extends Control
+class_name DiscardPile extends Node2D
 
-@export var tile_preview : Sprite2D;
+var cards : Array[String];
 
 func _ready() -> void:
-	SignalBus.card_used.connect(on_card_used);
+	SignalBus.card_discarded.connect(discard);
 
-func on_card_used(_tile_card : TileCard):
-	var tween = get_tree().create_tween();
-	tween.tween_callback(on_transition_start.bind(_tile_card));
-	tween.set_parallel(true);
-	tween.tween_property(tile_preview, "position", position, Constants.default_transition_duration).set_ease(Tween.EASE_OUT);
-	tween.tween_callback(on_transition_end);
-
-func on_transition_start(tile_card : TileCard):
-	var tile_data = TileDataManager.tile_dictionnary[tile_card.card_id];
-	if tile_data == null: return;
-	
-	tile_preview.texture.region = tile_data.get_texture_region();
-	tile_preview.position = get_local_mouse_position();
-	tile_preview.visible = true;
-
-func on_transition_end():
-	tile_preview.visible = false;
+func discard(tile_card : TileCard):
+	cards.append(tile_card.card_id);
+	await DiscardAnimation.launch_discard_animation(tile_card, tile_card.card_sprite.global_position, global_position, self);
+	AnimationUtils.bounce(self, 1.5);

@@ -9,7 +9,7 @@ var card_index_hovered : int = -1;
 func _ready() -> void:
 	if instance == null:
 		instance = self;
-	SignalBus.card_used.connect(on_card_used);
+	SignalBus.card_discarded.connect(on_card_discarded);
 
 func on_card_selection():
 	if !card_is_hovered(): 
@@ -27,8 +27,6 @@ func on_card_selection():
 		unselect_card();
 
 func select_card(card_index : int):
-	if cursor_preview != null:
-		cursor_preview.queue_free();
 	card_index_selected = card_index;
 	
 	var card_selected = get_selected_card();
@@ -38,23 +36,27 @@ func select_card(card_index : int):
 	
 	SignalBus.card_selected.emit();
 	card_selected.on_selection();
-	cursor_preview = card_selected.card_sprite.duplicate();
+	
+	var tile_data = TileDataManager.tile_dictionnary[card_selected.card_id];
+	if tile_data == null: return;
+	
+	cursor_preview.texture.region = tile_data.get_texture_region();
 	cursor_preview_anchor_offset = Vector2(card_selected.card_sprite.size.x/2, card_selected.card_sprite.global_position.y - card_selected.global_position.y);
 	cursor_preview.position = get_local_mouse_position();
-	get_tree().current_scene.add_child(cursor_preview);
+	cursor_preview.visible = true;
 
 func unselect_card():
 	if !card_is_selected(): return;
 	
 	var selected_card = get_selected_card();
-	if selected_card == null : return null;
-	
 	card_index_selected = -1;
+	if selected_card != null :
+		selected_card.on_unselection();
+	
 	SignalBus.card_unselected.emit();
-	selected_card.on_unselection();
-	cursor_preview.queue_free();
+	cursor_preview.visible = false;
 
-func on_card_used(_tile_card : TileCard):
+func on_card_discarded(_tile_card : TileCard):
 	unselect_card();
 
 func get_selected_card() -> TileCard:

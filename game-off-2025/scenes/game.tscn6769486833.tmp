@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=65 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -43,10 +43,6 @@
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
-atlas = ExtResource("7_pr1ej")
-region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0f1tp"]
 atlas = ExtResource("7_pr1ej")
@@ -196,13 +192,8 @@ shader_parameter/rotation_coef = 1.0
 [node name="Game" type="Node2D"]
 script = ExtResource("11_n8ral")
 
-[node name="Card selector manager" type="Node2D" parent="." node_paths=PackedStringArray("cursor_preview")]
+[node name="Card selector manager" type="Node2D" parent="."]
 script = ExtResource("1_8qswn")
-cursor_preview = NodePath("Cursor tile preview")
-
-[node name="Cursor tile preview" type="Sprite2D" parent="Card selector manager"]
-visible = false
-texture = SubResource("AtlasTexture_05nbr")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
@@ -415,11 +406,13 @@ texture = SubResource("AnimatedTexture_5grtr")
 
 [node name="Discard area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
-size_flags_vertical = 8
 theme_override_constants/margin_right = 20
 
-[node name="Discard icon" type="Sprite2D" parent="UI/Screen container/Footer container/Footer hbox/Discard area"]
+[node name="Discard icon" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Discard area"]
+layout_mode = 2
+size_flags_vertical = 8
 texture = ExtResource("36_0sl42")
+stretch_mode = 2
 script = ExtResource("37_oaba0")
 
 [node name="Pause screen" parent="UI" instance=ExtResource("35_dku7i")]

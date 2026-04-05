@@ -191,7 +191,7 @@ func dispatch_tile_damage(damage_position : Vector2i, tile_position : Vector2i,t
 	tile_feedback_sprite.visible = true;
 	hide_tile(tile_position);
 	print("bounce " + str(tile_position));
-	await AnimationUtils.bounce_sprite(tile_feedback_sprite, 1.5);
+	await AnimationUtils.bounce(tile_feedback_sprite, 1.5);
 	show_tile(tile_position);
 	tile_feedback_sprite.visible = false;
 
@@ -210,8 +210,7 @@ func execute_all_tile_effects(trigger : TileDataManager.TRIGGERS):
 
 func tilemap_to_viewport(tilemap_position : Vector2i) -> Vector2:
 	var world_pos = map_to_local(tilemap_position) + global_position/2;
-	var camera = MainCamera.get_camera();
-	var viewport_coordinates = camera.get_canvas_transform() * world_pos;
+	var viewport_coordinates = MainCamera.world_to_viewport(world_pos);
 	return viewport_coordinates;
 
 func get_tilemap_hover_signals() -> Array[Signal]:

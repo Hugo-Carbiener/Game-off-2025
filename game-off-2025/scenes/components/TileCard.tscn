@@ -60,7 +60,7 @@ card_chains = NodePath("Tile card/Chains")
 card_overlay = NodePath("Tile card/Overlay")
 card_border = NodePath("Tile card/Border")
 card_name = NodePath("Tile card/VBoxContainer/Card name margin/Tile card name")
-card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/Tile preview")
+card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/HBoxContainer/Tile preview")
 card_mouse_detector = NodePath("Tile card")
 card_effects_icons = NodePath("Tile card/VBoxContainer/Effects margin/HBoxContainer")
 card_description = NodePath("Tile card/VBoxContainer/Description margin/Card description")
@@ -73,7 +73,8 @@ card_range_icon = NodePath("Tile card/VBoxContainer/Stats margin/Range container
 card_hover_bottom_offset = 20
 card_selection_bottom_offset = 40
 card_side_offset = 40
-transition_duration = 0.15
+selectiony_transition_duration = 0.15
+card_discarded_transition_duration = 0.2
 
 [node name="Tile card" type="TextureRect" parent="."]
 layout_mode = 2
@@ -138,10 +139,21 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/margin_top = 7
 
-[node name="Tile preview" type="TextureRect" parent="Tile card/VBoxContainer/Tile preview margin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Tile card/VBoxContainer/Tile preview margin"]
+layout_mode = 2
+
+[node name="Left space" type="Control" parent="Tile card/VBoxContainer/Tile preview margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tile preview" type="TextureRect" parent="Tile card/VBoxContainer/Tile preview margin/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_867uw")
 stretch_mode = 3
+
+[node name="Right space" type="Control" parent="Tile card/VBoxContainer/Tile preview margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Effects margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2

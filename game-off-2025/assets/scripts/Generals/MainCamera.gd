@@ -9,3 +9,9 @@ func zoom_transition(center : Vector2, target_zoom : Vector2):
 	tween.tween_property(self, "position", center, Constants.camera_transition_duration);
 	tween.tween_property(self, "zoom", target_zoom, Constants.camera_transition_duration);
 	await tween.finished;
+
+func world_to_viewport(world_position : Vector2) -> Vector2:
+	return get_canvas_transform() * world_position;
+
+func viewport_to_world(viewport_position : Vector2) -> Vector2:
+	return viewport_position + self.position;
