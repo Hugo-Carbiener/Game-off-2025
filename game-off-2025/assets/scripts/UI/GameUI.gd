@@ -7,6 +7,8 @@ static var instance : GameUI;
 @export_group("Transitions")
 @export var card_hand_transition_duration : float;
 var card_hand_disabled : bool = true;
+@export_group("Buttons")
+@export var end_turn_button : TextureButton;
 @export_group("Components")
 @export var phase_title: PhaseTitle;
 @export var death_screen : Control;
@@ -18,6 +20,7 @@ func _ready() -> void:
 		instance = self;
 	SignalBus.game_won.connect(on_game_won);
 	SignalBus.game_lost.connect(on_game_lost);
+	end_turn_button.button_down.connect(on_turn_end);
 
 func on_game_lost():
 	death_screen.visible = true;
@@ -34,3 +37,8 @@ func toggle_pause_window():
 
 func display_phase_title(phase : GameLoop.PHASES):
 	await phase_title.launch(phase);
+
+func on_turn_end():
+	if UserSettings.are_input_blocked: return;
+	
+	SignalBus.play_phase_ended.emit();

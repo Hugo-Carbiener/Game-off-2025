@@ -13,8 +13,8 @@ static var day_number : int;
 func _ready() -> void:
 	current_phase = PHASES.SETUP;
 	day_number = 0;
+	SignalBus.play_phase_ended.connect(end_turn);
 	SignalBus.game_saving.connect(save_fight); 
-	SignalBus.card_discarded.connect(on_card_discarded);
 	SignalBus.tile_placed.connect(on_tile_placed);
 	AudioUtils.fade_in(AudioUtils.play_music(AudioUtils.musics[AudioUtils.MUSICS.START]), 2);
 	ready.connect(start_game);
@@ -26,7 +26,7 @@ func start_game():
 
 static func get_next_phase() -> int:
 	return PHASES.values()[(current_phase + 1) % PHASES.size()];
- 
+
 static func start_phase(phase: PHASES):
 	current_phase = phase;
 	await GameUI.instance.display_phase_title(current_phase);
@@ -64,9 +64,7 @@ static func resolution_phase():
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 		start_phase(get_next_phase());
 
-func on_card_discarded(_tilecard : TileCard):
-	# if hand is empty next phase
-	if TileCardFactory.instance.cards.is_empty():
+func end_turn():
 		start_phase(get_next_phase());
 
 func on_tile_placed(tile_amount : int):

@@ -3,6 +3,8 @@ class_name TileCardFactory
 
 static var instance : TileCardFactory;
 
+@export var card_count_label : Label;
+
 var cards : Array[TileCard];
 var reroll_left: int = 0;
 
@@ -10,7 +12,8 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 	
-	SignalBus.card_discarded.connect(on_card_discarded)
+	SignalBus.card_drawn.connect(on_card_drawn);
+	SignalBus.card_discarded.connect(on_card_discarded);
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func list_children():
@@ -26,8 +29,12 @@ func draw_card(tile_id : String):
 	cards.append(tile_card);
 	add_child(tile_card);
 
-func on_card_discarded(tilecard : TileCard):
-	var tilecard_index = cards.find(tilecard);
+func on_card_drawn(tile_card : TileCard):
+	update_card_count_label();
+
+func on_card_discarded(tile_card : TileCard):
+	update_card_count_label();
+	var tilecard_index = cards.find(tile_card);
 	if tilecard_index == -1: 
 		return;
 	cards.pop_at(tilecard_index);
@@ -42,6 +49,9 @@ func draw_hand():
 func update_tile_card_evolutions():
 	for tile_card in cards:
 		tile_card.update_evolutions();
+
+func update_card_count_label():
+	card_count_label.text = str(cards.size()) + " / " + str(Constants.base_card_hand_size);
 
 func load_cards(_cards : Array[String]):
 	for tile_id in _cards:

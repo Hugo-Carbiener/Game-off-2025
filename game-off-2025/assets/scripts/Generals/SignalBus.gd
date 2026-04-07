@@ -11,6 +11,7 @@ signal bookmark_clicked
 signal summary_element_clicked
 
 # World signals
+signal card_drawn; # TileCard
 signal card_discarded; # TileCard
 signal tile_placed;
 signal evolution_started;
@@ -28,6 +29,7 @@ signal tile_hovered_out
 # Game signals
 signal reroll_amount_updated;
 signal play_phase_started;
+signal play_phase_ended;
 signal setup_phase_started;
 signal resolution_phase_started;
 signal game_won;
