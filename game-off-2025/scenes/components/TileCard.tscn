@@ -74,7 +74,7 @@ card_hover_bottom_offset = 20
 card_selection_bottom_offset = 40
 card_side_offset = 40
 selectiony_transition_duration = 0.15
-card_discarded_transition_duration = 0.2
+card_movement_transition_duration = 0.2
 
 [node name="Tile card" type="TextureRect" parent="."]
 layout_mode = 2

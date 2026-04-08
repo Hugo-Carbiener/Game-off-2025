@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=69 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -27,6 +27,7 @@
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="23_o8oq8"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/input/interactionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/input/interactionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
+[ext_resource type="Script" uid="uid://grmlnq63qpfq" path="res://assets/scripts/tileCard/DrawPile.gd" id="27_458eo"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/tileCard/TileCardFactory.gd" id="27_753oq"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
@@ -347,9 +348,10 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_left = 20
 
-[node name="Discard icon2" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
+[node name="Draw icon" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
 layout_mode = 2
 texture = ExtResource("36_0sl42")
+script = ExtResource("27_458eo")
 
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
@@ -364,7 +366,7 @@ script = ExtResource("26_7gkqi")
 [node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer" node_paths=PackedStringArray("card_count_label")]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 0
 theme_override_constants/separation = -30
 alignment = 1
 script = ExtResource("27_753oq")
@@ -428,6 +430,7 @@ texture = SubResource("AnimatedTexture_5grtr")
 
 [node name="Right area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 theme_override_constants/margin_right = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Right area"]

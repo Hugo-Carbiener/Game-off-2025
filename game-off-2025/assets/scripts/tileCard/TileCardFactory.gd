@@ -12,7 +12,6 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 	
-	SignalBus.card_drawn.connect(on_card_drawn);
 	SignalBus.card_discarded.connect(on_card_discarded);
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
@@ -27,10 +26,7 @@ func draw_random_card() :
 func draw_card(tile_id : String):
 	var tile_card = TileCard.create_tile_card(tile_id);
 	cards.append(tile_card);
-	add_child(tile_card);
-
-func on_card_drawn(tile_card : TileCard):
-	update_card_count_label();
+	SignalBus.card_drawn.emit(tile_card);
 
 func on_card_discarded(tile_card : TileCard):
 	update_card_count_label();
@@ -43,8 +39,10 @@ func draw_hand():
 	reroll_left = GameLoop.day_number;
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 	
-	for i in Constants.base_card_per_round:
-		TileCardFactory.instance.draw_random_card();
+	var tween = get_tree().create_tween();
+	tween.set_loops(Constants.base_card_per_round);
+	tween.tween_callback(TileCardFactory.instance.draw_random_card);
+	tween.tween_interval(Constants.card_draw_interval);
 
 func update_tile_card_evolutions():
 	for tile_card in cards:

@@ -26,7 +26,7 @@ var is_draggable : bool;
 @export var card_selection_bottom_offset : int;
 @export var card_side_offset : int;
 @export var selectiony_transition_duration : float;
-@export var card_discarded_transition_duration : float;
+@export var card_movement_transition_duration : float;
 
 var tile_card_evolutions : Array[TileCardEvolution];
 var card_tile_sprite_atlas_coordinates : Vector2i;
@@ -44,6 +44,7 @@ func setup(_id : String, draggable : bool) :
 	var tile_data = TileDataManager.tile_dictionnary[_id] if UserData.get_known_tiles().has(_id) else TileDataManager.tile_dictionnary["unknown"] ;
 	is_draggable = draggable;
 	set_meta('Draggable', is_draggable);
+	pivot_offset = size / 2;
 	card_id = _id;
 	card_name.text = tile_data.name;
 	card_description.text = tile_data.description;
@@ -127,7 +128,7 @@ func update_evolutions():
 # Called before a card is destroyed
 func discard():
 	SignalBus.card_discarded.emit(self);
-	await AnimationUtils.shrink(self, card_discarded_transition_duration);
+	await AnimationUtils.shrink(self, card_movement_transition_duration);
 	queue_free();
 
 func on_card_reroll():

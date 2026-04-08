@@ -21,7 +21,6 @@ func _ready() -> void:
 
 func start_game():
 	load_fight();
-	
 	start_phase(current_phase);
 
 static func get_next_phase() -> int:

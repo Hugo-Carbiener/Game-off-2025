@@ -8,5 +8,5 @@ func _ready() -> void:
 
 func discard(tile_card : TileCard):
 	cards.append(tile_card.card_id);
-	await DiscardAnimation.launch_discard_animation(tile_card, tile_card.card_sprite.global_position, global_position + size / 2, self);
+	await CardMovementAnimation.launch_card_movement_animation(tile_card, tile_card.card_sprite.global_position, global_position + size / 2, self);
 	AnimationUtils.bounce(self, 1.5);
