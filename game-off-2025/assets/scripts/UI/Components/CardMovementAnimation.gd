@@ -23,8 +23,8 @@ func setup(tile_card : TileCard):
 func start_lifetime(from : Vector2, to : Vector2):
 	var curve = create_curve(from, to);
 	var tween = get_tree().create_tween();
-	tween.tween_callback(func(): visible = true);
 	tween.tween_callback(func(): particle_system.restart());
+	tween.tween_callback(func(): visible = true);
 	tween.tween_method(
 		func(t: float): 
 			global_position = curve.sample(0, t),

@@ -128,7 +128,7 @@ func update_evolutions():
 # Called before a card is destroyed
 func discard():
 	SignalBus.card_discarded.emit(self);
-	await AnimationUtils.shrink(self, card_movement_transition_duration);
+	await AnimationUtils.animate_scale(self, scale, Vector2.ZERO, card_movement_transition_duration);
 	queue_free();
 
 func on_card_reroll():

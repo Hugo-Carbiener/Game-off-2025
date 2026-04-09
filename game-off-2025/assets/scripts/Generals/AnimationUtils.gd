@@ -21,14 +21,8 @@ func fade(target : CanvasItem, to : Color, duration : float) -> Tween:
 	await tween.finished;
 	return tween;
 
-func shrink(target : CanvasItem, duration : float) -> Tween:
+func animate_scale(target : CanvasItem, from : Vector2, to : Vector2, duration : float):
 	var tween = get_tree().create_tween();
-	tween.tween_property(target, "scale", Vector2.ZERO, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
-	await tween.finished;
-	return tween;
-
-func expand(target : CanvasItem, duration : float) -> Tween:
-	var tween = get_tree().create_tween();
-	tween.tween_property(target, "scale", Vector2.ONE, duration).from(Vector2.ZERO).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	tween.tween_property(target, "scale", to, duration).from(from).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN);
 	await tween.finished;
 	return tween;

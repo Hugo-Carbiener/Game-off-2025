@@ -1,4 +1,4 @@
-class_name DiscardPile extends Control
+class_name DiscardPile extends TextureButton
 
 var cards : Array[String];
 

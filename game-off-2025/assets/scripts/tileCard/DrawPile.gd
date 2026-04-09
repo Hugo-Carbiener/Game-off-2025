@@ -1,4 +1,4 @@
-class_name DrawPile extends Control
+class_name DrawPile extends TextureButton
 
 var cards : Array[String];
 
