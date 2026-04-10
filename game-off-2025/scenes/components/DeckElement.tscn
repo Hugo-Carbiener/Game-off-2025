@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq3vompu23bqu"]
+
+[ext_resource type="Script" uid="uid://bh1qc06klpxhs" path="res://assets/scripts/UI/Components/DeckElement.gd" id="1_0d5qf"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="2_ftgsm"]
+[ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="3_gl5vu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d5qf"]
+resource_local_to_scene = true
+atlas = ExtResource("2_ftgsm")
+region = Rect2(24, 0, 8, 8)
+
+[node name="Deck element" type="MarginContainer" node_paths=PackedStringArray("tile_icon", "draw_rate_text")]
+offset_right = 35.0
+offset_bottom = 8.0
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+script = ExtResource("1_0d5qf")
+tile_icon = NodePath("HBox container/Tile icon margin/Tile preview")
+draw_rate_text = NodePath("HBox container/Draw rate")
+
+[node name="HBox container" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Tile icon margin" type="MarginContainer" parent="HBox container"]
+layout_mode = 2
+theme_override_constants/margin_top = -1
+
+[node name="Tile preview" type="TextureRect" parent="HBox container/Tile icon margin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0d5qf")
+stretch_mode = 2
+
+[node name="Separator" type="Label" parent="HBox container"]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("3_gl5vu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Draw rate" type="Label" parent="HBox container"]
+layout_mode = 2
+text = "10%"
+label_settings = ExtResource("3_gl5vu")
+horizontal_alignment = 1
+vertical_alignment = 1

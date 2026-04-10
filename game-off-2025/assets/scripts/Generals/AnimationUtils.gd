@@ -1,5 +1,18 @@
 extends Node2D
 
+func add_child_fade_in(parent : CanvasItem, child : CanvasItem, duration : float):
+	child.modulate.a = 0;
+	var tween = get_tree().create_tween();
+	tween.tween_callback(func(): parent.add_child(child));
+	tween.tween_property(child, "modulate:a", 1., duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	await tween.finished;
+
+func delete_child_fade_out(child : CanvasItem, duration : float):
+	var tween = get_tree().create_tween();
+	tween.tween_property(child, "modulate:a", 0., duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	tween.tween_callback(func(): child.queue_free());
+	await tween.finished;
+
 func blink_sprite(target : CanvasItem, color : Color = Color.WHITE) -> Tween:
 	var base_color = target.modulate;
 	var blink_color = Color(10, 10, 10, 1) * color;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=78 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -28,11 +28,14 @@
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/Input/InteractionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/InteractionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
 [ext_resource type="Texture2D" uid="uid://8xgdvra6jr5m" path="res://assets/sprites/UI_draw-pile.png" id="26_fedci"]
+[ext_resource type="Texture2D" uid="uid://cfxm7h2ti0t1s" path="res://assets/sprites/UI_draw-detail-frame.png" id="26_o8ni1"]
 [ext_resource type="Texture2D" uid="uid://dqgv8g0hv0xy5" path="res://assets/sprites/UI_draw-pile-hovered.png" id="27_8qswn"]
 [ext_resource type="Script" uid="uid://grmlnq63qpfq" path="res://assets/scripts/TileCard/DrawPile.gd" id="27_458eo"]
 [ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="27_753oq"]
+[ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="27_q8j3a"]
 [ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
 [ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
+[ext_resource type="Texture2D" uid="uid://c0xbceog06bo" path="res://assets/sprites/UI_folding-menu-icon.png" id="29_ms3bu"]
 [ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/Input/InteractionArea/RerollInteractionArea.gd" id="30_s0g06"]
 [ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="32_vgxg3"]
 [ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="33_4nbsr"]
@@ -358,16 +361,66 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Draw area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_left = 20
 
-[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = -6
+alignment = 2
+
+[node name="Deck window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="Deck window background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
+layout_mode = 2
+texture = ExtResource("26_o8ni1")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Deck element container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window/Deck element container"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+alignment = 2
+
+[node name="Title" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window/Deck element container/VBoxContainer"]
+layout_mode = 2
+text = "Cards"
+label_settings = ExtResource("27_q8j3a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Folding icon menu" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("29_ms3bu")
+stretch_mode = 2
+
+[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer" node_paths=PackedStringArray("folding_icon", "deck_window", "deck_element_container_window")]
+layout_mode = 2
+size_flags_horizontal = 0
 texture_normal = ExtResource("26_fedci")
 texture_pressed = ExtResource("27_8qswn")
 texture_hover = ExtResource("27_8qswn")
 script = ExtResource("27_458eo")
+folding_icon = NodePath("../Folding icon menu")
+deck_window = NodePath("../Deck window")
+deck_element_container_window = NodePath("../Deck window/Deck element container/VBoxContainer")
 
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
@@ -445,7 +498,9 @@ layout_mode = 2
 texture = SubResource("AnimatedTexture_5grtr")
 
 [node name="Right area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_vertical = 8
 size_flags_stretch_ratio = 0.0
 theme_override_constants/margin_right = 20
 

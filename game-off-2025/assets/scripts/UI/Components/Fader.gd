@@ -15,4 +15,4 @@ func on_mouse_enter():
 	AnimationUtils.fade(self, Color(1.0, 1.0, 1.0, 1.0), 0.5);
 
 func on_mouse_exit():
-		AnimationUtils.fade(self, initial_color, 0.25);
+	AnimationUtils.fade(self, initial_color, 0.25);
