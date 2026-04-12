@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://wrhxwkdhajrx"]
 
 [ext_resource type="Texture2D" uid="uid://deu5haqko5kfu" path="res://assets/sprites/UI_root_icon_small.png" id="1_v4p0x"]
-[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffects/TileEffect.gd" id="2_b036l"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="2_b036l"]
 
 [resource]
 script = ExtResource("2_b036l")

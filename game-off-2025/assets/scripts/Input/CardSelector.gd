@@ -35,6 +35,7 @@ func on_multi_card_selection_interaction():
 	if cards_selected.has(hovered_card):
 		cards_selected.erase(hovered_card);
 		hovered_card.on_unselection();
+		SignalBus.card_multi_selected.emit();
 	else :
 		multi_select_card(hovered_card);
 

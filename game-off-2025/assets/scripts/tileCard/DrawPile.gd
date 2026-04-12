@@ -3,7 +3,11 @@ class_name DrawPile extends TextureButton
 var cards : Dictionary[String, int] = {
 	"grove" : 2,
 	"mountain" : 1,
-	"road" : 1
+	"road" : 1,
+	"brambles" : 1,
+	"chasm" : 1,
+	"great-tree" : 1,
+	"lava" : 1,
 }
 var detail_is_active : bool = false;
 
@@ -36,7 +40,7 @@ func open_deck():
 	var card_amount = get_deck_size();
 	var deck_elements : Array[DeckElement];
 	for tile_id in cards.keys():
-		deck_elements.append(DeckElement.create_deck_element(tile_id, int((float(cards[tile_id]) / card_amount) * 100)));
+		deck_elements.append(DeckElement.create_deck_element(tile_id, (float(cards[tile_id]) / card_amount) * 100));
 	deck_window.modulate.a = 0;
 	deck_window.visible = true;
 	await AnimationUtils.fade(deck_window, Color.WHITE, 0.1);

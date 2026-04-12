@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://b4y4uitsu8smd"]
 
 [ext_resource type="Texture2D" uid="uid://c8i2i6duy04be" path="res://assets/sprites/UI_damage_multiplication_icon_small.png" id="1_a43ar"]
-[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/TileData/TileEffects/TileEffect.gd" id="1_p7ipi"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="1_p7ipi"]
 
 [resource]
 script = ExtResource("1_p7ipi")

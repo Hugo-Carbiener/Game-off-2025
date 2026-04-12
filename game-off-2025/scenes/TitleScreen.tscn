@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bgeied0od1vvq" path="res://assets/sprites/UI_title_2.png" id="6_l7b4h"]
 [ext_resource type="Texture2D" uid="uid://7bdy6q50f63t" path="res://assets/sprites/UI_multiple_button_pressed.png" id="7_2ktle"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="7_bch4e"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="8_bch4e"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="8_bch4e"]
 [ext_resource type="Texture2D" uid="uid://bmh2tjmy141uk" path="res://assets/sprites/UI_multiple_button.png" id="8_l7b4h"]
 [ext_resource type="Texture2D" uid="uid://b1y7qobnmywul" path="res://assets/sprites/UI_volume_icon.png" id="8_mq2qu"]
 [ext_resource type="Texture2D" uid="uid://lpfbqrk7ohi2" path="res://assets/sprites/shader resources/shader_pattern_lines.png" id="9_bch4e"]

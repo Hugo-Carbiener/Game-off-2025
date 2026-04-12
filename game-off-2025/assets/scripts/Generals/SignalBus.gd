@@ -22,10 +22,8 @@ signal beacon_health_updated;
 signal card_selected
 signal card_multi_selected
 signal card_unselected
-signal monster_hovered_in
-signal monster_hovered_out
-signal tile_hovered_in
-signal tile_hovered_out
+signal tile_selected
+signal tile_unselected
 
 # Game signals
 signal reroll_amount_updated;

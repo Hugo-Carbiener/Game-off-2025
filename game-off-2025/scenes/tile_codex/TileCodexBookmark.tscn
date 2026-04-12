@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cj110c2dk0d7o"]
+
+[ext_resource type="Script" uid="uid://phb0fm833q10" path="res://assets/scripts/ui/tile_codex/TileCodexBookmark.gd" id="1_47cgr"]
+[ext_resource type="Texture2D" uid="uid://up2y061uhkdy" path="res://assets/sprites/UI_book-mark.png" id="2_ij2qk"]
+[ext_resource type="Texture2D" uid="uid://d2diwwy06u6p0" path="res://assets/sprites/UI_book-mark-pressed.png" id="3_47cgr"]
+[ext_resource type="Texture2D" uid="uid://duw4yaov5rkdr" path="res://assets/sprites/UI_book-mark-hovered.png" id="4_ij2qk"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="5_47cgr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47cgr"]
+resource_local_to_scene = true
+atlas = ExtResource("5_47cgr")
+region = Rect2(0, 0, 8, 8)
+
+[node name="Bookmark" type="TextureButton" node_paths=PackedStringArray("icon")]
+offset_right = 16.0
+offset_bottom = 16.0
+toggle_mode = true
+texture_normal = ExtResource("2_ij2qk")
+texture_pressed = ExtResource("3_47cgr")
+texture_hover = ExtResource("4_ij2qk")
+script = ExtResource("1_47cgr")
+icon = NodePath("Icon margin/Icon")
+
+[node name="Icon margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 4
+
+[node name="Icon" type="TextureRect" parent="Icon margin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_47cgr")
+stretch_mode = 3

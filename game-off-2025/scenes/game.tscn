@@ -1,49 +1,43 @@
-[gd_scene load_steps=84 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=88 format=3 uid="uid://crymo458rjfyb"]
 
-[ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/Input/CardSelector.gd" id="1_8qswn"]
+[ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
-[ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/Tilemap/BackgroundTilemap.gd" id="3_i4re6"]
-[ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/Tilemap/MainTilemap.gd" id="4_pf7vy"]
+[ext_resource type="Script" uid="uid://c2ayteykc244a" path="res://assets/scripts/tilemap/BackgroundTilemap.gd" id="3_i4re6"]
+[ext_resource type="Script" uid="uid://dd71adnv80cfb" path="res://assets/scripts/input/TileSelector.gd" id="4_bk1p3"]
+[ext_resource type="Script" uid="uid://ssg3yda2ifbk" path="res://assets/scripts/tilemap/MainTilemap.gd" id="4_pf7vy"]
 [ext_resource type="Texture2D" uid="uid://bh7v6by5k7f6q" path="res://assets/sprites/UI_beacon.png" id="5_o8ni1"]
 [ext_resource type="Texture2D" uid="uid://dpvjqv7m73m31" path="res://assets/sprites/tiles_8px.png" id="6_3hbvx"]
 [ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="7_pr1ej"]
-[ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/Monster/MonsterFactory.gd" id="7_q8j3a"]
+[ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/monster/MonsterFactory.gd" id="7_q8j3a"]
 [ext_resource type="Texture2D" uid="uid://6dt0o348y1jn" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://d257gag4ejxp5" path="res://assets/sprites/animations_monster_damage.png" id="9_0sl42"]
 [ext_resource type="Texture2D" uid="uid://ca3trttlhmjj2" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
-[ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/Tilemap/IndicationTilemap.gd" id="10_bk1p3"]
-[ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/Fight/GameLoop.gd" id="11_n8ral"]
-[ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/Audio/AudioManager.gd" id="12_yd4ix"]
+[ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/tilemap/IndicationTilemap.gd" id="10_bk1p3"]
+[ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/fight/GameLoop.gd" id="11_n8ral"]
+[ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/audio/AudioManager.gd" id="12_yd4ix"]
 [ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="13_66xif"]
 [ext_resource type="AudioStream" uid="uid://d8nj8pplxnbw" path="res://assets/audio/Combat_1.ogg" id="14_bnuda"]
 [ext_resource type="AudioStream" uid="uid://cdq5avugofp7r" path="res://assets/audio/Combat_2.ogg" id="15_0rmfi"]
 [ext_resource type="AudioStream" uid="uid://de04vnq11djci" path="res://assets/audio/Combat_3.ogg" id="16_xbak0"]
-[ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/Input/MainInputManager.gd" id="17_3x28f"]
-[ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/Fight/BeaconManager.gd" id="18_l6q63"]
-[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/UI/GameUI.gd" id="19_mmvbu"]
+[ext_resource type="Script" uid="uid://c4mvvpie27xr7" path="res://assets/scripts/input/MainInputManager.gd" id="17_3x28f"]
+[ext_resource type="Script" uid="uid://cd840encbco1n" path="res://assets/scripts/fight/BeaconManager.gd" id="18_l6q63"]
+[ext_resource type="Script" uid="uid://blaoo15856psr" path="res://assets/scripts/ui/GameUI.gd" id="19_mmvbu"]
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="20_weeiq"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="21_uxocx"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="22_7nv0b"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="23_o8oq8"]
-[ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/Input/InteractionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
-[ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/Input/InteractionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
+[ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/input/InteractionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
+[ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/input/InteractionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
 [ext_resource type="Texture2D" uid="uid://8xgdvra6jr5m" path="res://assets/sprites/UI_draw-pile.png" id="26_fedci"]
-[ext_resource type="Texture2D" uid="uid://cfxm7h2ti0t1s" path="res://assets/sprites/UI_draw-detail-frame.png" id="26_o8ni1"]
 [ext_resource type="Texture2D" uid="uid://dqgv8g0hv0xy5" path="res://assets/sprites/UI_draw-pile-hovered.png" id="27_8qswn"]
-[ext_resource type="Script" uid="uid://grmlnq63qpfq" path="res://assets/scripts/TileCard/DrawPile.gd" id="27_458eo"]
-[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/TileCard/TileCardFactory.gd" id="27_753oq"]
+[ext_resource type="Script" uid="uid://grmlnq63qpfq" path="res://assets/scripts/tilecard/DrawPile.gd" id="27_458eo"]
+[ext_resource type="Script" uid="uid://dwuyw0kmwplbe" path="res://assets/scripts/tilecard/TileCardFactory.gd" id="27_753oq"]
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="27_q8j3a"]
-[ext_resource type="Texture2D" uid="uid://doaxf0v7tmkwl" path="res://assets/sprites/UI_frame.png" id="28_3x338"]
-[ext_resource type="PackedScene" uid="uid://d3gxvk1q7bain" path="res://scenes/components/StatWindow.tscn" id="29_1yg85"]
 [ext_resource type="Texture2D" uid="uid://c0xbceog06bo" path="res://assets/sprites/UI_folding-menu-icon.png" id="29_ms3bu"]
-[ext_resource type="Script" uid="uid://b0n83r1leqsi1" path="res://assets/scripts/Input/InteractionArea/RerollInteractionArea.gd" id="30_s0g06"]
-[ext_resource type="Texture2D" uid="uid://cuvnox40urp51" path="res://assets/sprites/reroll_breach1.png" id="32_vgxg3"]
-[ext_resource type="Texture2D" uid="uid://ck3he48mojj3v" path="res://assets/sprites/reroll_breach2.png" id="33_4nbsr"]
-[ext_resource type="Texture2D" uid="uid://dbmpc5ohwo7gc" path="res://assets/sprites/reroll_breach3.png" id="34_fkywm"]
 [ext_resource type="PackedScene" uid="uid://btmpdbhdpo5uj" path="res://scenes/components/PauseScreen.tscn" id="35_dku7i"]
 [ext_resource type="PackedScene" uid="uid://dx4n4q73n4oix" path="res://scenes/components/WinScreen.tscn" id="36_veaf0"]
 [ext_resource type="PackedScene" uid="uid://v1xgibbdcoov" path="res://scenes/components/DeathScreen.tscn" id="37_flw08"]
-[ext_resource type="Script" uid="uid://cgm8i2fa6gg8f" path="res://assets/scripts/TileCard/DiscardPile.gd" id="37_oaba0"]
+[ext_resource type="Script" uid="uid://cgm8i2fa6gg8f" path="res://assets/scripts/tilecard/DiscardPile.gd" id="37_oaba0"]
 [ext_resource type="Texture2D" uid="uid://bvh6ix8u70euo" path="res://assets/sprites/UI_long-button.png" id="38_rm0al"]
 [ext_resource type="Texture2D" uid="uid://dsmltbqvhya3j" path="res://assets/sprites/UI_long-button-hovered.png" id="39_i4re6"]
 [ext_resource type="FontFile" uid="uid://olkliva202j2" path="res://assets/fonts/Tiny5-Regular.ttf" id="39_rm0al"]
@@ -54,9 +48,20 @@
 [ext_resource type="LabelSettings" uid="uid://cim6v58ulrs2m" path="res://assets/fonts/SmallFont.tres" id="47_3hbvx"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
-[ext_resource type="Script" uid="uid://b81pu688kc1xg" path="res://assets/scripts/UI/Components/DiscardWindow.gd" id="55_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://dafaeoeyontpg" path="res://assets/sprites/UI_tile-selection-frame.png" id="53_66xif"]
+[ext_resource type="Script" uid="uid://dl2gj0p4i3tav" path="res://assets/scripts/ui/components/TileSelectionDetail.gd" id="53_bnuda"]
+[ext_resource type="Texture2D" uid="uid://bmmr8hkgyxehc" path="res://assets/sprites/UI_heal_icon_small.png" id="54_bnuda"]
+[ext_resource type="Texture2D" uid="uid://t8exnna177y" path="res://assets/sprites/UI_monster_weakness_icon_small.png" id="55_0rmfi"]
+[ext_resource type="Script" uid="uid://b81pu688kc1xg" path="res://assets/scripts/ui/components/DiscardWindow.gd" id="55_ms3bu"]
 [ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="56_7ixpq"]
-[ext_resource type="Script" uid="uid://cmw5n7xeysab5" path="res://assets/scripts/Input/InteractionArea/CardSelectionInteractionArea.gd" id="58_bk1p3"]
+[ext_resource type="LabelSettings" uid="uid://s4dlujfsvabf" path="res://assets/fonts/SmallFontMalus.tres" id="56_xbak0"]
+[ext_resource type="Texture2D" uid="uid://dcesxu7twr8e6" path="res://assets/sprites/UI_damage-icon-small.png" id="57_3x28f"]
+[ext_resource type="Script" uid="uid://cmw5n7xeysab5" path="res://assets/scripts/input/InteractionArea/CardSelectionInteractionArea.gd" id="58_bk1p3"]
+[ext_resource type="LabelSettings" uid="uid://dnwuw0nlmuh0u" path="res://assets/fonts/SmallFontBonus.tres" id="58_l6q63"]
+[ext_resource type="Texture2D" uid="uid://kyqkfohb45yn" path="res://assets/sprites/UI_ranged_damage_icon_small.png" id="59_mmvbu"]
+[ext_resource type="Texture2D" uid="uid://bjvgirw6c04t6" path="res://assets/sprites/UI_poison_icon_small.png" id="60_weeiq"]
+[ext_resource type="Texture2D" uid="uid://b8avsefhe4ew0" path="res://assets/sprites/UI_beacon_icon_small.png" id="61_bnuda"]
+[ext_resource type="Texture2D" uid="uid://cxcrrwrg3yiyo" path="res://assets/sprites/UI_scene-codex-icon.png" id="61_uxocx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
 atlas = ExtResource("7_pr1ej")
@@ -181,22 +186,6 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7025r"]
-load_path = "res://.godot/imported/UI_card_separator.png-8fe55d67c3bbf758b524afb79eb63121.ctex"
-
-[sub_resource type="LabelSettings" id="LabelSettings_kxyth"]
-font = ExtResource("23_o8oq8")
-font_size = 8
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_5grtr"]
-frames = 3
-speed_scale = -3.0
-frame_0/texture = ExtResource("32_vgxg3")
-frame_1/texture = ExtResource("33_4nbsr")
-frame_1/duration = 1.0
-frame_2/texture = ExtResource("34_fkywm")
-frame_2/duration = 1.0
-
 [sub_resource type="LabelSettings" id="LabelSettings_o8ni1"]
 font = ExtResource("23_o8oq8")
 font_size = 8
@@ -226,16 +215,28 @@ outline_color = Color(0, 0, 0, 1)
 font = ExtResource("23_o8oq8")
 font_size = 8
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nv0b"]
+atlas = ExtResource("7_pr1ej")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66xif"]
+resource_local_to_scene = true
+atlas = ExtResource("7_pr1ej")
+region = Rect2(24, 0, 8, 8)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("11_n8ral")
 
-[node name="Card selector manager" type="Node2D" parent="." node_paths=PackedStringArray("cursor_preview")]
+[node name="Card selector" type="Node2D" parent="." node_paths=PackedStringArray("cursor_preview")]
 script = ExtResource("1_8qswn")
 cursor_preview = NodePath("Cursor tile preview")
 
-[node name="Cursor tile preview" type="Sprite2D" parent="Card selector manager"]
+[node name="Cursor tile preview" type="Sprite2D" parent="Card selector"]
 visible = false
 texture = SubResource("AtlasTexture_05nbr")
+
+[node name="Tile selector" type="Node2D" parent="."]
+script = ExtResource("4_bk1p3")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
@@ -366,6 +367,8 @@ main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 
 [node name="Footer container" type="MarginContainer" parent="UI/Screen container"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
 theme_override_constants/margin_bottom = 20
 
 [node name="Footer hbox" type="HBoxContainer" parent="UI/Screen container/Footer container"]
@@ -393,7 +396,7 @@ size_flags_vertical = 3
 
 [node name="Deck window background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
 layout_mode = 2
-texture = ExtResource("26_o8ni1")
+texture = ExtResource("53_66xif")
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
@@ -438,77 +441,28 @@ deck_element_container_window = NodePath("../Deck window/Deck element container/
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
-layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 script = ExtResource("26_7gkqi")
 
-[node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/MarginContainer" node_paths=PackedStringArray("card_count_label")]
+[node name="Control" type="Control" parent="UI/Screen container/Footer container/Footer hbox/Card area container"]
 layout_mode = 2
+
+[node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/Control" node_paths=PackedStringArray("card_count_label")]
+z_index = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/separation = -30
 alignment = 1
 script = ExtResource("27_753oq")
 card_count_label = NodePath("../../../Right area/VBoxContainer/HBoxContainer/Card hand count")
-
-[node name="Stats area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="Frame background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
-layout_mode = 2
-texture = ExtResource("28_3x338")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer"]
-layout_mode = 2
-
-[node name="Stat window" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" instance=ExtResource("29_1yg85")]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 14
-theme_override_constants/margin_right = 6
-
-[node name="Reroll window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer" node_paths=PackedStringArray("reroll_animation")]
-layout_mode = 2
-script = ExtResource("30_s0g06")
-reroll_animation = NodePath("VBoxContainer/MarginContainer/TextureRect")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window"]
-layout_mode = 2
-
-[node name="Separator" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_7025r")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
-layout_mode = 2
-text = "Reroll card:"
-label_settings = SubResource("LabelSettings_kxyth")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Stats area/MarginContainer/VBoxContainer/Reroll window/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = SubResource("AnimatedTexture_5grtr")
 
 [node name="Right area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 custom_minimum_size = Vector2(100, 0)
@@ -607,7 +561,7 @@ visible = false
 layout_mode = 2
 script = ExtResource("55_ms3bu")
 title_label = NodePath("VBoxContainer/Title")
-card_container = NodePath("VBoxContainer/Card container")
+card_container = NodePath("VBoxContainer/Control/Card container")
 card_amount_label = NodePath("VBoxContainer/Card amount")
 validate_button = NodePath("VBoxContainer/MarginContainer/Validate button")
 
@@ -631,8 +585,18 @@ label_settings = SubResource("LabelSettings_bk1p3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Card container" type="HBoxContainer" parent="UI/Discard window/VBoxContainer"]
+[node name="Control" type="Control" parent="UI/Discard window/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="Card container" type="HBoxContainer" parent="UI/Discard window/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 theme_override_constants/separation = -30
@@ -672,3 +636,271 @@ text = "Validate"
 label_settings = SubResource("LabelSettings_7ixpq")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Tile selection detail" type="MarginContainer" parent="UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "codex_link_button", "health_line_container", "health_weakness_line_container", "damage_line_container", "range_line_container", "effects_line_container", "trajectory_line_container", "trajectory_preview_line_container", "codex_link_container")]
+visible = false
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+script = ExtResource("53_bnuda")
+selection_preview = NodePath("MarginContainer/VBoxContainer/Main line/Preview")
+title_label = NodePath("MarginContainer/VBoxContainer/Main line/Title")
+health_label = NodePath("MarginContainer/VBoxContainer/Health line container/Health line/Health/Health label")
+weakness_label = NodePath("MarginContainer/VBoxContainer/Health line container/Health line/Weakness/Weakness")
+damage_label = NodePath("MarginContainer/VBoxContainer/Damage line container/Damage line/Damage label")
+damage_boost_label = NodePath("MarginContainer/VBoxContainer/Damage line container/Damage line/Damage boost")
+damage_multiplier_label = NodePath("MarginContainer/VBoxContainer/Damage line container/Damage line/Damage multiplier")
+damage_decrease_label = NodePath("MarginContainer/VBoxContainer/Damage line container/Damage line/Damage decrease")
+range_label = NodePath("MarginContainer/VBoxContainer/Range line container/Range line/Range/Range label")
+range_boost_label = NodePath("MarginContainer/VBoxContainer/Range line container/Range line/Range boost/Range boost")
+effects_container = NodePath("MarginContainer/VBoxContainer/Effects line container/Effects line/Effects container")
+trajectory_container = NodePath("MarginContainer/VBoxContainer/Trajectory line container/Trajectory line/Tiles container")
+trajectory_preview_container = NodePath("MarginContainer/VBoxContainer/Trajectory preview line container/Trajectory line/Tiles container")
+codex_link_button = NodePath("MarginContainer/VBoxContainer/Codex link/Codex button")
+health_line_container = NodePath("MarginContainer/VBoxContainer/Health line container")
+health_weakness_line_container = NodePath("MarginContainer/VBoxContainer/Health line container/Health line/Weakness")
+damage_line_container = NodePath("MarginContainer/VBoxContainer/Damage line container")
+range_line_container = NodePath("MarginContainer/VBoxContainer/Range line container")
+effects_line_container = NodePath("MarginContainer/VBoxContainer/Effects line container")
+trajectory_line_container = NodePath("MarginContainer/VBoxContainer/Trajectory line container")
+trajectory_preview_line_container = NodePath("MarginContainer/VBoxContainer/Trajectory preview line container")
+codex_link_container = NodePath("MarginContainer/VBoxContainer/Codex link")
+
+[node name="Frame background" type="NinePatchRect" parent="UI/Tile selection detail"]
+layout_mode = 2
+texture = ExtResource("53_66xif")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Tile selection detail"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Tile selection detail/MarginContainer"]
+layout_mode = 2
+
+[node name="Main line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Preview" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Main line"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = SubResource("AtlasTexture_7nv0b")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Main line"]
+layout_mode = 2
+text = "Great tree"
+label_settings = ExtResource("27_q8j3a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Health line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Health" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line"]
+layout_mode = 2
+
+[node name="Health icon" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line/Health"]
+layout_mode = 2
+texture = ExtResource("54_bnuda")
+stretch_mode = 2
+
+[node name="Health label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line/Health"]
+layout_mode = 2
+text = "99"
+label_settings = ExtResource("47_3hbvx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Weakness" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line"]
+layout_mode = 2
+
+[node name="Weakness icon" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line/Weakness"]
+layout_mode = 2
+texture = ExtResource("55_0rmfi")
+stretch_mode = 2
+
+[node name="Weakness" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container/Health line/Weakness"]
+layout_mode = 2
+text = "- 99"
+label_settings = ExtResource("56_xbak0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Damage line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Damage line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container"]
+layout_mode = 2
+
+[node name="Damage icon" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container/Damage line"]
+layout_mode = 2
+texture = ExtResource("57_3x28f")
+stretch_mode = 2
+
+[node name="Damage label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container/Damage line"]
+layout_mode = 2
+text = "99"
+label_settings = ExtResource("47_3hbvx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Damage boost" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container/Damage line"]
+layout_mode = 2
+text = "+ 99"
+label_settings = ExtResource("58_l6q63")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Damage multiplier" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container/Damage line"]
+layout_mode = 2
+text = "x 99"
+label_settings = ExtResource("58_l6q63")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Damage decrease" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container/Damage line"]
+layout_mode = 2
+text = "- 99"
+label_settings = ExtResource("56_xbak0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Range line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Range line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container"]
+layout_mode = 2
+
+[node name="Range" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container/Range line"]
+layout_mode = 2
+
+[node name="Range icon" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container/Range line/Range"]
+layout_mode = 2
+texture = ExtResource("59_mmvbu")
+stretch_mode = 2
+
+[node name="Range label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container/Range line/Range"]
+layout_mode = 2
+text = "8-9"
+label_settings = ExtResource("47_3hbvx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Range boost" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container/Range line"]
+layout_mode = 2
+
+[node name="Range boost" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container/Range line/Range boost"]
+layout_mode = 2
+text = "+99"
+label_settings = ExtResource("58_l6q63")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Effects line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+
+[node name="Effects line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container/Effects line"]
+layout_mode = 2
+text = "Effects:"
+label_settings = ExtResource("47_3hbvx")
+
+[node name="Effects container" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container/Effects line"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Icon 1" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container/Effects line/Effects container"]
+layout_mode = 2
+texture = ExtResource("60_weeiq")
+stretch_mode = 2
+
+[node name="Icon 2" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container/Effects line/Effects container"]
+layout_mode = 2
+texture = ExtResource("60_weeiq")
+stretch_mode = 2
+
+[node name="Icon 3" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container/Effects line/Effects container"]
+layout_mode = 2
+texture = ExtResource("60_weeiq")
+stretch_mode = 2
+
+[node name="Trajectory line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+
+[node name="Trajectory line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container/Trajectory line"]
+layout_mode = 2
+text = "Trajectory:"
+label_settings = ExtResource("47_3hbvx")
+
+[node name="Tiles container" type="GridContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container/Trajectory line"]
+layout_mode = 2
+columns = 5
+
+[node name="Tile preview" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container/Trajectory line/Tiles container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_66xif")
+stretch_mode = 3
+
+[node name="Tile preview2" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container/Trajectory line/Tiles container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_66xif")
+stretch_mode = 3
+
+[node name="Beacon tile preview" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container/Trajectory line"]
+layout_mode = 2
+texture = ExtResource("61_bnuda")
+stretch_mode = 3
+
+[node name="Trajectory preview line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+
+[node name="Trajectory line" type="VBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory preview line container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory preview line container/Trajectory line"]
+layout_mode = 2
+text = "Preview:"
+label_settings = ExtResource("47_3hbvx")
+
+[node name="Tiles container" type="VBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory preview line container/Trajectory line"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="Codex link" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -8
+theme_override_constants/margin_bottom = -8
+
+[node name="Codex button" type="TextureButton" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Codex link"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("61_uxocx")

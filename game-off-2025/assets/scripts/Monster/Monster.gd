@@ -23,14 +23,9 @@ func on_step_end():
 		BeaconManager.instance.damage(health - damage_weakness);
 		on_death();
 	
-	await MainTilemap.instance.apply_tile_effects(tilemap_position, self);
+	await MainTilemap.instance.apply_tile_damage_and_effects(tilemap_position, self);
+	await MainTilemap.instance.apply_ranged_tile_damage_and_effects(tilemap_position, self);
 	position_in_trajectory +=1;
-
-func is_dead() -> bool:
-	return health <= 0;
-
-func is_at_destination() -> bool:
-	return tilemap_position == Vector2i.ZERO;
 
 func get_next_position() -> Vector2i:
 	var trajectory_idx = trajectory.find(tilemap_position);
@@ -43,7 +38,8 @@ func damage(damage_amount : int, damage_source_position : Vector2i):
 	
 	health -= damage_amount + health_weakness;
 	
-	var monster_info_texture = TileDataManager.damage_icon_small if damage_source_position == tilemap_position else TileDataManager.ranged_damage_icon_small;
+	var is_ranged = damage_source_position != tilemap_position;
+	var monster_info_texture = TileDataManager.ranged_damage_icon_small if is_ranged else TileDataManager.damage_icon_small;
 	MonsterInfo.launch_monster_info("-" + str(damage_amount), monster_info_texture, MainTilemap.instance.map_to_local(damage_source_position), MonsterFactory.instance);
 	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite);
 	await MonsterFactory.instance.dispatch_monster_damage(self);
@@ -57,3 +53,9 @@ func on_death():
 	TileCardFactory.instance.draw_random_card();
 	MonsterFactory.instance.clear_tile(tilemap_position);
 	MonsterFactory.monsters.erase(tilemap_position);
+
+func is_dead() -> bool:
+	return health <= 0;
+
+func is_at_destination() -> bool:
+	return tilemap_position == Vector2i.ZERO;

@@ -20,7 +20,6 @@ func _ready() -> void:
 	if instance == null:
 		instance = self;
 	init_sprites();
-	spawn_monster(Vector2i(0,4))
 
 func init_sprites():
 	monster_sprite.visible = false;
@@ -98,7 +97,7 @@ func on_resolution():
 		await execute_monster_trajectory(monster);
 
 func execute_monster_trajectory(monster : Monster):
-	on_step_start(monster);
+	on_move_start(monster);
 	for monster_destination in monster.trajectory:
 		var to = monster_destination;
 		if monster.is_at_destination() or monster.is_dead():
@@ -110,7 +109,7 @@ func execute_monster_trajectory(monster : Monster):
 		await on_step_end(monster);
 	on_move_end();
 
-func on_step_start(_monster : Monster):
+func on_move_start(_monster : Monster):
 	monster_sprite.position = map_to_local(_monster.tilemap_position);
 	monster_sprite.visible = true;
 	clear_tile(_monster.tilemap_position);
@@ -162,9 +161,6 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 			y0 += sy;
 			continue;
 	return cells;
-
-func get_tilemap_hover_signals() -> Array[Signal]:
-	return [SignalBus.monster_hovered_in, SignalBus.monster_hovered_out];
 
 func load(_monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int]):
 	for monster_position in _monsters:

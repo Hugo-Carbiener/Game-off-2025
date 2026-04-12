@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://n0tesceeiak6"]
 
 [ext_resource type="Texture2D" uid="uid://c1u5yut1yp8k2" path="res://assets/sprites/UI_phase-title.png" id="1_4c1t8"]
-[ext_resource type="Script" uid="uid://bath1cacdlwtb" path="res://assets/scripts/UI/Components/PhaseTitle.gd" id="1_m144r"]
+[ext_resource type="Script" uid="uid://bath1cacdlwtb" path="res://assets/scripts/ui/components/PhaseTitle.gd" id="1_m144r"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="2_m144r"]
 [ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="2_xa5vh"]
 

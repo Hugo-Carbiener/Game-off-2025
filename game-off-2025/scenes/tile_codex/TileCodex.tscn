@@ -1,0 +1,415 @@
+[gd_scene load_steps=30 format=3 uid="uid://bcrlwcxsrpbqu"]
+
+[ext_resource type="Texture2D" uid="uid://baqqo12gmg3m8" path="res://assets/sprites/UI_book-background.png" id="1_on25x"]
+[ext_resource type="Texture2D" uid="uid://b3fuyn2l08np3" path="res://assets/sprites/UI_book-left-page-bg.png" id="2_4f30n"]
+[ext_resource type="Script" uid="uid://bmne3slcqxwie" path="res://assets/scripts/ui/tile_codex/TileCodex.gd" id="2_rahan"]
+[ext_resource type="Texture2D" uid="uid://bqjswurku21ig" path="res://assets/sprites/UI_book-close-icon.png" id="3_72rhy"]
+[ext_resource type="Texture2D" uid="uid://gc2duhs13dlt" path="res://assets/sprites/UI_book-next-page.png" id="3_rahan"]
+[ext_resource type="PackedScene" uid="uid://cj110c2dk0d7o" path="res://scenes/tile_codex/TileCodexBookmark.tscn" id="3_s8rmu"]
+[ext_resource type="Texture2D" uid="uid://wu51wc6rfonh" path="res://assets/sprites/UI_book-summary-icon.png" id="4_keuhg"]
+[ext_resource type="Texture2D" uid="uid://c4vv43yh2yj6h" path="res://assets/sprites/UI_book-next-page-highlighted.png" id="4_mm6dg"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="5_jri3d"]
+[ext_resource type="Texture2D" uid="uid://c8t0pynnj7cko" path="res://assets/sprites/UI_book-summary-BG.png" id="5_qftpp"]
+[ext_resource type="Texture2D" uid="uid://b1xbcmasxlyhd" path="res://assets/sprites/UI_book-favorite-inactive.png" id="5_v50lp"]
+[ext_resource type="Texture2D" uid="uid://osh2ul4q2jpc" path="res://assets/sprites/UI_book-favorite-active.png" id="6_2iigh"]
+[ext_resource type="Texture2D" uid="uid://cnkoeggd3iwyc" path="res://assets/sprites/UI_book-favorite-inactive-highlighted.png" id="7_alp4d"]
+[ext_resource type="Script" uid="uid://ctpn4t63tm4ud" path="res://assets/scripts/ui/components/ToggleButton.gd" id="8_alp4d"]
+[ext_resource type="Texture2D" uid="uid://1apjfaxjnqup" path="res://assets/sprites/UI_book-favorite-active-highlighted.png" id="9_cs6d5"]
+[ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="10_ffusi"]
+[ext_resource type="Texture2D" uid="uid://b1ewahacht5i3" path="res://assets/sprites/UI_book-right-page-effects.png" id="14_2fjf8"]
+[ext_resource type="LabelSettings" uid="uid://c46nqmt1mo3q5" path="res://assets/fonts/TileCodexFontOutlined.tres" id="15_08uid"]
+[ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/tile_codex/EffectTooltip.tscn" id="15_ffusi"]
+[ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="15_g7s2b"]
+[ext_resource type="Texture2D" uid="uid://c7yqfqmuxr4sj" path="res://assets/sprites/UI_book-right-page-evolutions.png" id="15_keuhg"]
+[ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
+[ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="19_4nx1l"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="27_v6eaw"]
+[ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="28_4nx1l"]
+[ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
+[ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5swi3"]
+atlas = ExtResource("5_jri3d")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7s2b"]
+shader = ExtResource("27_v6eaw")
+shader_parameter/main_tex = ExtResource("28_4nx1l")
+shader_parameter/noise_tex = ExtResource("29_414yg")
+shader_parameter/time_scale = 15.25
+shader_parameter/center_offset = Vector2(0, 0)
+shader_parameter/noise_scale = 0.6490000308275
+shader_parameter/width_scale = 1.8550000881125
+shader_parameter/rotation_coef = 0.5850000277875
+
+[node name="Tile codex" type="TextureRect" node_paths=PackedStringArray("left_page", "right_page", "summary_left_page", "effects_area", "evolutions_area", "requirements_area", "bookmark_container", "tile_card_container", "effects_container", "evolutions_container", "summary_elements_container", "title_label", "number_label", "description_label", "previous_button", "next_button", "favorite_button", "summary_bookmark", "close_bookmark", "close_bookmark_icon", "close_bookmark_tile_icon", "damage_effect_tooltip", "requirements_tilemap", "requirement_timer", "requirement_shader")]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+texture = ExtResource("1_on25x")
+stretch_mode = 3
+script = ExtResource("2_rahan")
+left_page = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin")
+right_page = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin")
+summary_left_page = NodePath("MarginContainer/VBoxContainer/Page container/Summary page margin")
+effects_area = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects")
+evolutions_area = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions")
+requirements_area = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background")
+bookmark_container = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container")
+tile_card_container = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Tile card container")
+effects_container = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container")
+evolutions_container = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin/Evolutions container")
+summary_elements_container = NodePath("MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page/VBoxContainer/Tiles margin/GridContainer")
+title_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Title")
+number_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Number container/Number")
+description_label = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/MarginContainer/Description")
+previous_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Previous page button")
+next_button = NodePath("MarginContainer/VBoxContainer/Page buttons container/Buttons container/Next page button")
+favorite_button = NodePath("MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Favorite container/Favorite button")
+summary_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark")
+close_bookmark = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark")
+close_bookmark_icon = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin/Icon")
+close_bookmark_tile_icon = NodePath("MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin/Tile icon")
+close_bookmark_texture = ExtResource("3_72rhy")
+damage_effect_tooltip = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container/Effect tooltip")
+requirements_tilemap = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer/Tilemap margin/TileMapLayer")
+requirement_timer = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Timer")
+requirement_shader = NodePath("MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Background shader")
+fade_out_duration = 2.0
+fade_in_duration = 2.0
+new_page_pause_duration = 6.0
+card_half_rotation_duration = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Bookmarks margin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 145
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_bottom = 15
+
+[node name="Bookmark container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Bookmarks margin"]
+layout_mode = 2
+
+[node name="Close bookmark" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container" instance=ExtResource("3_s8rmu")]
+layout_mode = 2
+toggle_mode = false
+
+[node name="Icon margin" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark" index="0"]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+theme_override_constants/margin_top = -1
+
+[node name="Icon" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin" index="0"]
+texture = ExtResource("3_72rhy")
+
+[node name="Tile icon" type="TextureRect" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark/Icon margin" index="1"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5swi3")
+stretch_mode = 3
+
+[node name="Summary bookmark" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container" instance=ExtResource("3_s8rmu")]
+layout_mode = 2
+
+[node name="Icon margin" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark" index="0"]
+theme_override_constants/margin_top = -1
+
+[node name="Icon" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark/Icon margin" index="0"]
+texture = ExtResource("4_keuhg")
+
+[node name="Separator" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Page container" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Summary page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 144
+
+[node name="Summary page" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Summary page margin"]
+layout_mode = 2
+texture = ExtResource("5_qftpp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 21
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page/VBoxContainer/Title margin"]
+layout_mode = 2
+text = "Tile collection"
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tiles margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 33
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/Page container/Summary page margin/Summary page/VBoxContainer/Tiles margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 8
+
+[node name="Left page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+layout_mode = 2
+theme_override_constants/margin_left = 144
+
+[node name="Left page" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Left page margin"]
+layout_mode = 2
+texture = ExtResource("2_4f30n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Favorite container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 144
+theme_override_constants/margin_bottom = 1
+
+[node name="Favorite button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Favorite container"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("5_v50lp")
+texture_pressed = ExtResource("6_2iigh")
+texture_hover = ExtResource("7_alp4d")
+script = ExtResource("8_alp4d")
+pressed_hovered_texture = ExtResource("9_cs6d5")
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "River"
+label_settings = ExtResource("15_08uid")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tile card container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 23
+
+[node name="Number container" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 13
+
+[node name="Number" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/Number container"]
+layout_mode = 2
+text = "1/20"
+label_settings = ExtResource("15_08uid")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 6
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/Page container/Left page margin/Left page/VBoxContainer/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore "
+label_settings = ExtResource("10_ffusi")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 2
+
+[node name="Right page margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_right = 140
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin"]
+z_index = -10
+layout_mode = 2
+texture = ExtResource("15_g7s2b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Effects" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_2fjf8")
+
+[node name="Effects content margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects"]
+layout_mode = 0
+offset_right = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="Effects container" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Effects title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container"]
+layout_mode = 2
+text = "Effects:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Effect tooltip" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container" instance=ExtResource("15_ffusi")]
+layout_mode = 2
+
+[node name="Evolutions" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_keuhg")
+
+[node name="Evolutions content margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+
+[node name="Evolutions container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Evolutions title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Evolutions/Evolutions content margin/Evolutions container"]
+layout_mode = 2
+text = "Evolutions:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Requirements background" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_0pkkn")
+
+[node name="Timer" type="Timer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
+
+[node name="Background shader" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
+self_modulate = Color(0.19076231, 0.19076234, 0.19076231, 1)
+z_index = -1
+material = SubResource("ShaderMaterial_g7s2b")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_g7s2b")
+
+[node name="Background color" type="TextureRect" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Background shader"]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_g7s2b")
+
+[node name="Requirements margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin"]
+layout_mode = 2
+
+[node name="Requirements title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer"]
+layout_mode = 2
+text = "Requirements:"
+label_settings = ExtResource("10_ffusi")
+
+[node name="Tilemap margin" type="MarginContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="TileMapLayer" type="TileMapLayer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Requirements background/Requirements margin/VBoxContainer/Tilemap margin"]
+position = Vector2(0, -16)
+tile_set = ExtResource("19_4nx1l")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
+
+[node name="Page buttons container" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="Buttons container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Page buttons container"]
+layout_mode = 2
+theme_override_constants/separation = 350
+alignment = 1
+
+[node name="Previous page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page buttons container/Buttons container"]
+layout_mode = 2
+texture_normal = ExtResource("3_rahan")
+texture_pressed = ExtResource("4_mm6dg")
+texture_hover = ExtResource("4_mm6dg")
+texture_disabled = ExtResource("4_mm6dg")
+flip_h = true
+
+[node name="Next page button" type="TextureButton" parent="MarginContainer/VBoxContainer/Page buttons container/Buttons container"]
+layout_mode = 2
+texture_normal = ExtResource("3_rahan")
+texture_pressed = ExtResource("4_mm6dg")
+texture_hover = ExtResource("4_mm6dg")
+texture_disabled = ExtResource("4_mm6dg")
+
+[node name="Background shader" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -100
+material = SubResource("ShaderMaterial_g7s2b")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("30_mui47")
+stretch_mode = 6
+
+[editable path="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Close bookmark"]
+[editable path="MarginContainer/VBoxContainer/Bookmarks margin/Bookmark container/Summary bookmark"]

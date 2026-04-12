@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cq3vompu23bqu"]
 
-[ext_resource type="Script" uid="uid://bh1qc06klpxhs" path="res://assets/scripts/UI/Components/DeckElement.gd" id="1_0d5qf"]
+[ext_resource type="Script" uid="uid://bh1qc06klpxhs" path="res://assets/scripts/ui/components/DeckElement.gd" id="1_0d5qf"]
 [ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="2_ftgsm"]
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="3_gl5vu"]
 

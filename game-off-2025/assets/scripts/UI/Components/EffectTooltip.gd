@@ -1,7 +1,7 @@
 extends Control
 class_name EffectTooltip
 
-const effect_tooltip_scene: PackedScene = preload("res://scenes/tile codex/EffectTooltip.tscn");
+const effect_tooltip_scene: PackedScene = preload("res://scenes/tile_codex/EffectTooltip.tscn");
 
 @export_group("Components")
 @export var icon : TextureRect;

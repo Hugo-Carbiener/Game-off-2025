@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxor6x8isljpn"]
+
+[ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/monster/MonsterInfo.gd" id="1_iq0ew"]
+[ext_resource type="Script" uid="uid://bjrjbt1u6gkl2" path="res://assets/scripts/ui/components/MonsterTrajectoryPreviewElement.gd" id="1_kjqii"]
+[ext_resource type="FontFile" uid="uid://cgqb76em68y4y" path="res://assets/fonts/Bytesized-Regular.ttf" id="2_inyu4"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="2_iqmrv"]
+[ext_resource type="Texture2D" uid="uid://dcesxu7twr8e6" path="res://assets/sprites/UI_damage-icon-small.png" id="3_40v4y"]
+[ext_resource type="FontFile" uid="uid://olkliva202j2" path="res://assets/fonts/Tiny5-Regular.ttf" id="3_ush01"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlk11"]
+resource_local_to_scene = true
+atlas = ExtResource("2_iqmrv")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l4pmo"]
+font = ExtResource("3_ush01")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_py124"]
+font = ExtResource("2_inyu4")
+font_size = 8
+
+[node name="MonsterTrajectoryPreviewElement" type="HBoxContainer" node_paths=PackedStringArray("ranged_offset", "tile_preview", "preview_damage_separator", "monster_damage_info", "damage_effect_separator", "effect_container")]
+offset_right = 96.0
+offset_bottom = 10.0
+script = ExtResource("1_kjqii")
+ranged_offset = NodePath("Ranged offset")
+tile_preview = NodePath("Tile preview")
+preview_damage_separator = NodePath("Separator")
+monster_damage_info = NodePath("Monster info")
+damage_effect_separator = NodePath("Separator2")
+effect_container = NodePath("Effects container")
+
+[node name="Ranged offset" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="Tile preview" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wlk11")
+stretch_mode = 3
+
+[node name="Separator" type="Label" parent="."]
+layout_mode = 2
+text = " | "
+label_settings = SubResource("LabelSettings_l4pmo")
+
+[node name="Monster info" type="HBoxContainer" parent="." node_paths=PackedStringArray("label", "icon")]
+z_index = 10
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_iq0ew")
+label = NodePath("Label")
+icon = NodePath("Icon")
+
+[node name="Label" type="Label" parent="Monster info"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "10"
+label_settings = SubResource("LabelSettings_py124")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Monster info"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("3_40v4y")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Separator2" type="Label" parent="."]
+layout_mode = 2
+text = " | "
+label_settings = SubResource("LabelSettings_l4pmo")
+
+[node name="Effects container" type="HBoxContainer" parent="."]
+layout_mode = 2

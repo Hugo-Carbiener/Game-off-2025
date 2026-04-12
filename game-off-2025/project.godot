@@ -29,7 +29,7 @@ AnimationUtils="*res://assets/scripts/generals/AnimationUtils.gd"
 SceneLoader="*res://assets/scripts/generals/SceneLoader.gd"
 MainCamera="*res://assets/scripts/generals/MainCamera.gd"
 ClickManager="*res://assets/scripts/input/ClickManager.gd"
-TileDataManager="*res://assets/scripts/TileData/TileDataManager.gd"
+TileDataManager="*res://assets/scripts/tile_data/TileDataManager.gd"
 UserData="*res://assets/scripts/generals/UserData.gd"
 
 [debug]

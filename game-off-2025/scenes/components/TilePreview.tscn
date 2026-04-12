@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyned2px3tmt2"]
+
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="1_7o0ps"]
+[ext_resource type="Script" uid="uid://cvfg02hcy1pfs" path="res://assets/scripts/ui/components/TilePreview.gd" id="2_b85ku"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q31m2"]
+atlas = ExtResource("1_7o0ps")
+region = Rect2(8, 0, 8, 8)
+
+[node name="Tile preview" type="TextureRect"]
+texture = SubResource("AtlasTexture_q31m2")
+stretch_mode = 3
+script = ExtResource("2_b85ku")
