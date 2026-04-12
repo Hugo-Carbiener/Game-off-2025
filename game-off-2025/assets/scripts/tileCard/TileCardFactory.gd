@@ -15,9 +15,6 @@ func _ready() -> void:
 	SignalBus.card_discarded.connect(on_card_discarded);
 	SignalBus.reroll_amount_updated.emit(reroll_left);
 
-func list_children():
-	return get_children();
-
 func draw_random_card() :
 	var index = randi() % TileDataManager.playable_tiles.size();
 	var random_id: String = TileDataManager.playable_tiles[index];
@@ -62,3 +59,6 @@ func get_cards_for_save() -> Array[String]:
 	for tilecard in cards:
 		cards_for_save.append(tilecard.card_id);
 	return cards_for_save;
+
+func get_hand_size() -> int:
+	return cards.size();

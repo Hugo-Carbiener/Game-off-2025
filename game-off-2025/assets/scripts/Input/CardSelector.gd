@@ -4,6 +4,7 @@ class_name CardSelector
 static var instance : CardSelector;
 
 var card_index_selected : int = -1;
+var cards_selected : Array[TileCard];
 var card_index_hovered : int = -1;
 
 func _ready() -> void:
@@ -11,7 +12,7 @@ func _ready() -> void:
 		instance = self;
 	SignalBus.card_discarded.connect(on_card_discarded);
 
-func on_card_selection():
+func on_card_selection_interaction():
 	if !card_is_hovered(): 
 		unselect_card();
 		return;
@@ -25,6 +26,17 @@ func on_card_selection():
 		select_card(card_index_hovered);
 	else :
 		unselect_card();
+
+func on_multi_card_selection_interaction():
+	if !card_is_hovered(): 
+		return;
+	
+	var hovered_card = get_hovered_card();
+	if cards_selected.has(hovered_card):
+		cards_selected.erase(hovered_card);
+		hovered_card.on_unselection();
+	else :
+		multi_select_card(hovered_card);
 
 func select_card(card_index : int):
 	card_index_selected = card_index;
@@ -45,6 +57,11 @@ func select_card(card_index : int):
 	cursor_preview.position = get_local_mouse_position();
 	cursor_preview.visible = true;
 
+func multi_select_card(tile_card : TileCard):
+	cards_selected.append(tile_card);
+	SignalBus.card_multi_selected.emit();
+	tile_card.on_selection();
+
 func unselect_card():
 	if !card_is_selected(): return;
 	
@@ -57,7 +74,11 @@ func unselect_card():
 	cursor_preview.visible = false;
 
 func on_card_discarded(_tile_card : TileCard):
-	unselect_card();
+	if _tile_card == get_selected_card():
+		unselect_card();
+
+func clear_multi_card_selection():
+	cards_selected.clear();
 
 func get_selected_card() -> TileCard:
 	if !card_is_selected() : return null;
@@ -70,7 +91,7 @@ func get_hovered_card() -> TileCard:
 	return TileCardFactory.instance.cards[card_index_hovered];
 
 func card_is_selected() -> bool:
-	return card_index_selected != -1 and card_index_selected < TileCardFactory.instance.cards.size();
+	return card_index_selected != -1 and card_index_selected < TileCardFactory.instance.get_hand_size();
 
 func card_is_hovered() -> bool:
-	return card_index_hovered != -1 and card_index_hovered < TileCardFactory.instance.cards.size();
+	return card_index_hovered != -1 and card_index_hovered < TileCardFactory.instance.get_hand_size();

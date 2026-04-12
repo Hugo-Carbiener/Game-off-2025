@@ -20,6 +20,7 @@ signal beacon_health_updated;
 
 # Hover signals
 signal card_selected
+signal card_multi_selected
 signal card_unselected
 signal monster_hovered_in
 signal monster_hovered_out

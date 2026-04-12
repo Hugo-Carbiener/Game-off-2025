@@ -13,6 +13,8 @@ func init_interaction_areas():
 	interaction_areas.clear();
 	find_interaction_areas(get_tree().get_root(), nodes);
 	for node in nodes :
+		if !node.visible: continue;
+		
 		interaction_areas.append(node);
 
 func find_interaction_areas(node: Node, result : Array) -> void:

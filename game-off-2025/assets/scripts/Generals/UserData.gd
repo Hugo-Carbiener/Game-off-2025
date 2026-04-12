@@ -23,6 +23,7 @@ func serialize_save():
 		save_file.store_line('"' + module.get_key() + '":' + save_data + EOL);
 	save_file.store_line("}");
 
+
 func deserialize_save():
 	if !has_save(): return;
 

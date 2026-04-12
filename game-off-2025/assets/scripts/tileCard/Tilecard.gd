@@ -162,21 +162,22 @@ func transition_card_margin():
 	tween.tween_method(update_card_side_margins, get_theme_constant("margin_left"), get_current_side_margin(), selectiony_transition_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT);
 
 func get_current_bottom_margin() -> int:
-	if card_is_selected():
+	if card_is_selected() or card_is_multi_selected():
 		return card_selection_bottom_offset;
 	if card_is_hovered():
 		return card_hover_bottom_offset;
 	return 0;
 
 func get_current_side_margin() -> int:
-	if card_is_selected() or card_is_hovered():
+	if card_is_selected():
+		return card_side_offset;
+	if card_is_hovered():
 		return card_side_offset;
 	return 0;
 
 func on_mouse_entered():
 	if UserSettings.are_input_blocked or !is_draggable: return;
 	if card_is_selected(): return;
-	if !TileDataManager.tile_dictionnary[card_id].is_playable: return;
 	
 	var card_index = TileCardFactory.instance.cards.find(self);
 	if card_index == -1: return;
@@ -201,6 +202,9 @@ func on_unselection():
 
 func card_is_selected() -> bool:
 	return CardSelector.instance.get_selected_card() == self;
+
+func card_is_multi_selected() -> bool:
+	return CardSelector.instance.cards_selected.has(self);
 
 func card_is_hovered() -> bool:
 	return CardSelector.instance.get_hovered_card() == self;

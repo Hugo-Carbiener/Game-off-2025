@@ -1,6 +1,10 @@
 extends InteractionArea
 class_name TilemapInteractionArea
 
+## Describes an Interaction Area that holds the main tilemap. 
+##
+## On click, a tile is placed if the cell is valid and if a card is currently selected. 
+
 @export var main_tilemap : MainTilemap;
 
 func interact():
