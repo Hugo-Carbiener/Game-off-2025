@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxor6x8isljpn"]
 
-[ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/monster/MonsterInfo.gd" id="1_iq0ew"]
+[ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/ui/components/MonsterTextDamage.gd" id="1_iq0ew"]
 [ext_resource type="Script" uid="uid://bjrjbt1u6gkl2" path="res://assets/scripts/ui/components/MonsterTrajectoryPreviewElement.gd" id="1_kjqii"]
 [ext_resource type="FontFile" uid="uid://cgqb76em68y4y" path="res://assets/fonts/Bytesized-Regular.ttf" id="2_inyu4"]
 [ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="2_iqmrv"]

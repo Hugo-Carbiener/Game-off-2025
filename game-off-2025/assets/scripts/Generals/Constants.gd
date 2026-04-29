@@ -33,8 +33,8 @@ const breach_transition_duration = .75;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;
-const monster_info_lifetime_duration = 1.5;
-const monster_info_lifetime_movement = Vector2(0, -5.0);
+const monster_movement_duration = 0.5;
+const monster_info_lifetime_duration = 0.5;
 
 ## Beacon
 const beacon_hp = 10;

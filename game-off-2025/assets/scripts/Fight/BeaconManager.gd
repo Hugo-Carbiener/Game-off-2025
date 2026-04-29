@@ -15,7 +15,6 @@ func damage(damage_amount: int):
 	if health <= 0: return;
 	
 	health = min(health - damage_amount, Constants.beacon_hp);
-	MonsterInfo.launch_monster_info("-" + str(damage_amount), TileDataManager.beacon_icon_small, MainTilemap.instance.map_to_local(Vector2i.ZERO), MainTilemap.instance, Color.DARK_RED);
 	SignalBus.beacon_health_updated.emit(health);
 	
 	if health <= 0:
@@ -29,7 +28,6 @@ func heal(heal_amount: int):
 	
 	health = min(health + heal_amount, Constants.beacon_hp);
 	SignalBus.beacon_health_updated.emit(health);
-	MonsterInfo.launch_monster_info("+" + str(heal_amount), TileDataManager.heal_icon_small, MainTilemap.instance.beacon_sprite.position, MainTilemap.instance, Color.LIGHT_GREEN);
 
 func add_shield(shield_amount : int):
 	if health <= 0: return;

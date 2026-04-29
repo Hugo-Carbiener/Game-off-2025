@@ -28,9 +28,9 @@ func bounce(target : CanvasItem, factor : float):
 	tween.tween_property(target, "scale", Vector2.ONE, Constants.blink_duration);
 	await tween.finished;
 
-func fade(target : CanvasItem, to : Color, duration : float) -> Tween:
+func fade(target : CanvasItem, to : Color, duration : float, delay : float = 0.) -> Tween:
 	var tween = get_tree().create_tween();
-	tween.tween_property(target, "modulate", to, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	tween.tween_property(target, "modulate", to, duration).set_delay(delay).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
 	await tween.finished;
 	return tween;
 

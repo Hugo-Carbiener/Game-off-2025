@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://nau284i7g1yp"]
 
-[ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/monster/MonsterInfo.gd" id="1_wwip8"]
-[ext_resource type="FontFile" uid="uid://cgqb76em68y4y" path="res://assets/fonts/Bytesized-Regular.ttf" id="2_d5w6u"]
-[ext_resource type="Texture2D" uid="uid://dcesxu7twr8e6" path="res://assets/sprites/UI_damage-icon-small.png" id="3_je05t"]
+[ext_resource type="Script" uid="uid://1bi010j8qfeg" path="res://assets/scripts/ui/components/MonsterTextDamage.gd" id="1_n4x70"]
+[ext_resource type="FontFile" uid="uid://cgqb76em68y4y" path="res://assets/fonts/Bytesized-Regular.ttf" id="2_l8jte"]
+[ext_resource type="Texture2D" uid="uid://dcesxu7twr8e6" path="res://assets/sprites/UI_damage-icon-small.png" id="3_6t5hj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_py124"]
-font = ExtResource("2_d5w6u")
+font = ExtResource("2_l8jte")
 font_size = 8
 
-[node name="Monster info" type="HBoxContainer" node_paths=PackedStringArray("label", "icon")]
+[node name="Monster text damage" type="HBoxContainer" node_paths=PackedStringArray("label", "icon")]
 z_index = 10
 offset_right = 27.0
 offset_bottom = 16.0
 theme_override_constants/separation = 0
-script = ExtResource("1_wwip8")
+script = ExtResource("1_n4x70")
 label = NodePath("Label")
 icon = NodePath("Icon")
 
@@ -28,6 +28,6 @@ vertical_alignment = 1
 [node name="Icon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
-texture = ExtResource("3_je05t")
+texture = ExtResource("3_6t5hj")
 expand_mode = 4
 stretch_mode = 5

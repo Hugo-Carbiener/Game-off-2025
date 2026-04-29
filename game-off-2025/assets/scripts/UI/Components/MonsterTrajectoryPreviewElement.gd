@@ -6,7 +6,7 @@ const monster_trajectory_preview_scene : PackedScene = preload("res://scenes/com
 @export var ranged_offset : MarginContainer;
 @export var tile_preview : TextureRect;
 @export var preview_damage_separator : Label;
-@export var monster_damage_info : MonsterInfo;
+@export var monster_damage_info : MonsterTextDamage;
 @export var damage_effect_separator : Label;
 @export var effect_container : HBoxContainer;
 

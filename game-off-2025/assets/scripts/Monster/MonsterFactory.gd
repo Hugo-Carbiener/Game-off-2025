@@ -4,13 +4,13 @@ class_name MonsterFactory
 static var monsters : Dictionary[Vector2i, Monster];
 static var breaches : Dictionary[Vector2i, int];
 static var instance : MonsterFactory;
-
+@export_group("Components")
+@export var monster_health_indicator : MonsterHealthIndicator;
 @export_group("Breaches variables")
 @export var breach_tiles_per_maturity : Dictionary[int, String];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
 @export var breach_animated_sprite : AnimatedSprite2D;
 @export_group("Monster variables")
-@export var monster_movement_duration : float;
 @export var indicator_tilemap : TileMapLayer;
 @export var monster_sprite : Sprite2D;
 @export var monster_damage_animated_sprite : AnimatedSprite2D;
@@ -104,7 +104,9 @@ func execute_monster_trajectory(monster : Monster):
 			break;
 	
 		var tween = get_tree().create_tween();
-		tween.tween_property(monster_sprite, "position", map_to_local(to), monster_movement_duration);
+		tween.set_parallel(true);
+		tween.tween_property(monster_sprite, "position", map_to_local(to), Constants.monster_movement_duration);
+		tween.tween_property(monster_health_indicator, "position", map_to_local(to), Constants.monster_movement_duration);
 		await tween.finished;
 		await on_step_end(monster);
 	on_move_end();
@@ -112,21 +114,25 @@ func execute_monster_trajectory(monster : Monster):
 func on_move_start(_monster : Monster):
 	monster_sprite.position = map_to_local(_monster.tilemap_position);
 	monster_sprite.visible = true;
+	monster_health_indicator.position = monster_sprite.position;
+	monster_health_indicator.visible = true;
 	clear_tile(_monster.tilemap_position);
 	monsters.erase(_monster.tilemap_position);
+
+func on_move_end():
+	monster_sprite.visible = false;
+	monster_health_indicator.visible = false;
 
 func on_step_end(monster : Monster):
 	await monster.on_step_end();
 
-func on_move_end():
-	monster_sprite.visible = false;
-
-func dispatch_monster_damage(monster : Monster):
+func dispatch_monster_damage(monster : Monster, damage_amount : int, is_ranged : bool):
 	monster_damage_animated_sprite.visible = true;
 	monster_damage_animated_sprite.position = map_to_local(monster.tilemap_position);
 	monster_damage_animated_sprite.play();
 	await monster_damage_animated_sprite.animation_finished;
 	monster_damage_animated_sprite.visible = false;
+	monster_health_indicator.on_damage(monster, damage_amount, is_ranged);
 
 ## MONSTER PATH
 

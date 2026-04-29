@@ -1,6 +1,7 @@
 class_name Monster
 
 var health : int;
+var max_health : int;
 var tilemap_position : Vector2i;
 var trajectory : Array[Vector2i];
 var position_in_trajectory : int;
@@ -10,6 +11,7 @@ var damage_weakness : int;
 
 func _init(_health: int, _tilemap_position: Vector2i, _trajectory : Array[Vector2i]):
 	self.health = _health;
+	self.max_health = _health;
 	self.tilemap_position = _tilemap_position;
 	self.trajectory = _trajectory
 	self.position_in_trajectory = 0;
@@ -40,9 +42,9 @@ func damage(damage_amount : int, damage_source_position : Vector2i):
 	
 	var is_ranged = damage_source_position != tilemap_position;
 	var monster_info_texture = TileDataManager.ranged_damage_icon_small if is_ranged else TileDataManager.damage_icon_small;
-	MonsterInfo.launch_monster_info("-" + str(damage_amount), monster_info_texture, MainTilemap.instance.map_to_local(damage_source_position), MonsterFactory.instance);
+	#MonsterInfo.launch_monster_info("-" + str(damage_amount), monster_info_texture, MainTilemap.instance.map_to_local(damage_source_position), MonsterFactory.instance);
 	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite);
-	await MonsterFactory.instance.dispatch_monster_damage(self);
+	await MonsterFactory.instance.dispatch_monster_damage(self, damage_amount, is_ranged);
 	
 	if is_dead():
 		on_death();

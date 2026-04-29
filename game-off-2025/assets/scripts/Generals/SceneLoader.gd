@@ -12,7 +12,7 @@ var tutorial_4_scene : PackedScene = preload("res://scenes/Tutorial_4.tscn");
 var tile_codex_scene : PackedScene = preload("res://scenes/tile_codex/TileCodex.tscn");
 var game_scene : PackedScene = preload("res://scenes/game.tscn");
 
-var default_game_scene = SCENES.TUTORIAL_1;
+var default_game_scene = SCENES.GAME;
 
 enum SCENES {
 	TITLESCREEN,
