@@ -18,6 +18,7 @@ particles_anim_loop = false
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Card movement animation" type="Sprite2D" node_paths=PackedStringArray("particle_system")]
+z_index = 1
 texture = SubResource("AtlasTexture_458eo")
 script = ExtResource("2_wxuj5")
 particle_system = NodePath("Particles")

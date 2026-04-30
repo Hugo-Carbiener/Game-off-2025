@@ -23,6 +23,8 @@ func draw_random_card() :
 func draw_card(tile_id : String):
 	var tile_card = TileCard.create_tile_card(tile_id);
 	cards.append(tile_card);
+	tile_card.modulate.a = 0; # hide the car while it was not dispatched
+	TileCardFactory.instance.add_child(tile_card);
 	SignalBus.card_drawn.emit(tile_card);
 
 func on_card_discarded(tile_card : TileCard):

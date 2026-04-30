@@ -111,13 +111,14 @@ func execute_monster_trajectory(monster : Monster):
 		await on_step_end(monster);
 	on_move_end();
 
-func on_move_start(_monster : Monster):
-	monster_sprite.position = map_to_local(_monster.tilemap_position);
+func on_move_start(monster : Monster):
+	monster_sprite.position = map_to_local(monster.tilemap_position);
 	monster_sprite.visible = true;
 	monster_health_indicator.position = monster_sprite.position;
+	monster_health_indicator.setup(monster);
 	monster_health_indicator.visible = true;
-	clear_tile(_monster.tilemap_position);
-	monsters.erase(_monster.tilemap_position);
+	clear_tile(monster.tilemap_position);
+	monsters.erase(monster.tilemap_position);
 
 func on_move_end():
 	monster_sprite.visible = false;

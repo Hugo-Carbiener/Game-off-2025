@@ -18,6 +18,7 @@ func setup(tile_card : TileCard):
 	var tile_data = TileDataManager.tile_dictionnary[tile_card.card_id];
 	if tile_data == null: return;
 	
+	texture = texture.duplicate();
 	texture.region = tile_data.get_texture_region();
 
 func start_lifetime(from : Vector2, to : Vector2):
