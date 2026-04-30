@@ -15,4 +15,7 @@ static func create_deck_element(tile_id : String, draw_rate : float) -> DeckElem
 
 func setup(tile_card : CustomTileData, draw_rate : float):
 	tile_icon.texture.region = tile_card.get_texture_region();
-	draw_rate_text.text = str(draw_rate) + "%";
+	draw_rate_text.text = str(round_to_dec(draw_rate, 3)) + "%";
+
+func round_to_dec(num, digit):
+	return round(num * pow(10.0, digit)) / pow(10.0, digit)

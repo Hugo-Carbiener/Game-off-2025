@@ -1,14 +1,6 @@
 class_name DrawPile extends TextureButton
 
-var cards : Dictionary[String, int] = {
-	"grove" : 2,
-	"mountain" : 1,
-	"road" : 1,
-	"brambles" : 1,
-	"chasm" : 1,
-	"great-tree" : 1,
-	"lava" : 1,
-}
+var cards : Dictionary[String, int];
 var detail_is_active : bool = false;
 
 @export var folding_icon : TextureRect;
@@ -19,6 +11,8 @@ func _ready() -> void:
 	pivot_offset = size / 2;
 	SignalBus.card_drawn.connect(on_card_drawn);
 	button_down.connect(on_click);
+	for playable_tile in TileDataManager.playable_tiles:
+		cards.set(playable_tile, 1);
 
 func on_card_drawn(tile_card : TileCard):
 	# dispatch at the end of the frame so that the Hbox layout has time to be computed
@@ -39,16 +33,18 @@ func on_click():
 	folding_icon.flip_v = detail_is_active;
 
 func open_deck():
-	var card_amount = get_deck_size();
 	var deck_elements : Array[DeckElement];
 	for tile_id in cards.keys():
-		deck_elements.append(DeckElement.create_deck_element(tile_id, (float(cards[tile_id]) / card_amount) * 100));
+		deck_elements.append(DeckElement.create_deck_element(tile_id, get_card_probability(tile_id)));
 	deck_window.modulate.a = 0;
 	deck_window.visible = true;
 	await AnimationUtils.fade(deck_window, Color.WHITE, 0.1);
 	for deck_element in deck_elements:
 		if deck_element == null: continue;
 		await AnimationUtils.add_child_fade_in(deck_element_container_window, deck_element, 0.1);
+
+func get_card_probability(tile_id : String) -> float:
+	return float(cards[tile_id]) / get_deck_size() * 100;
 
 func close_deck():
 	var container_children = deck_element_container_window.get_children();

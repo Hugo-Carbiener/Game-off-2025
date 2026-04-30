@@ -511,6 +511,7 @@ vertical_alignment = 1
 [node name="Discard icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("discard_pile_size_label", "discard_window")]
 layout_mode = 2
 size_flags_vertical = 8
+disabled = true
 texture_normal = ExtResource("40_rm0al")
 texture_pressed = ExtResource("41_i4re6")
 texture_hover = ExtResource("41_i4re6")
