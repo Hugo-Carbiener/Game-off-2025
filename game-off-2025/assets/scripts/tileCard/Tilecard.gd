@@ -24,7 +24,8 @@ var is_draggable : bool;
 @export_group("Variables")
 @export var card_hover_bottom_offset : int;
 @export var card_selection_bottom_offset : int;
-@export var card_side_offset : int;
+@export var card_hover_side_offset : int;
+@export var card_selection_side_offset : int;
 @export var selectiony_transition_duration : float;
 @export var card_movement_transition_duration : float;
 
@@ -170,9 +171,9 @@ func get_current_bottom_margin() -> int:
 
 func get_current_side_margin() -> int:
 	if card_is_selected():
-		return card_side_offset;
+		return card_selection_side_offset;
 	if card_is_hovered():
-		return card_side_offset;
+		return card_hover_side_offset;
 	return 0;
 
 func on_mouse_entered():
@@ -183,13 +184,14 @@ func on_mouse_entered():
 	if card_index == -1: return;
 	
 	CardSelector.instance.card_index_hovered = card_index;
+	z_index = 1;
 	transition_card_margin();
 
 func on_mouse_exit():
 	if !is_draggable: return;
-	if card_is_selected(): return;
 
 	CardSelector.instance.card_index_hovered = -1;
+	z_index = 0;
 	transition_card_margin();
 
 func on_selection():
@@ -198,6 +200,7 @@ func on_selection():
 
 func on_unselection():
 	transition_card_margin();
+	z_index = 0;
 	card_border.visible = false;
 
 func card_is_selected() -> bool:
