@@ -21,7 +21,6 @@ func _ready() -> void:
 
 func start_game():
 	load_fight();
-	MonsterFactory.instance.spawn_monster(Vector2i(0, 4));
 	start_phase(current_phase);
 
 static func get_next_phase() -> int:

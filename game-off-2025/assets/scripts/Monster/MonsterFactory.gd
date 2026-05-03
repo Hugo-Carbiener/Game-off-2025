@@ -27,7 +27,7 @@ func init_sprites():
 	monster_damage_animated_sprite.visible = false;
 
 func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(5, tilemap_position, get_monster_path(tilemap_position));
+	var monster = Monster.new(GameLoop.day_number, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);

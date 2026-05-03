@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=92 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -63,6 +63,8 @@
 [ext_resource type="Texture2D" uid="uid://bjvgirw6c04t6" path="res://assets/sprites/UI_poison_icon_small.png" id="60_weeiq"]
 [ext_resource type="Texture2D" uid="uid://b8avsefhe4ew0" path="res://assets/sprites/UI_beacon_icon_small.png" id="61_bnuda"]
 [ext_resource type="Texture2D" uid="uid://cxcrrwrg3yiyo" path="res://assets/sprites/UI_scene-codex-icon.png" id="61_uxocx"]
+[ext_resource type="Script" uid="uid://0d1cr3at8ybj" path="res://assets/scripts/ui/components/HeaderWindow.gd" id="64_3x28f"]
+[ext_resource type="Texture2D" uid="uid://co75t33d86syt" path="res://assets/sprites/UI_monster.png" id="64_xbak0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
 atlas = ExtResource("7_pr1ej")
@@ -224,6 +226,10 @@ region = Rect2(16, 0, 8, 8)
 resource_local_to_scene = true
 atlas = ExtResource("7_pr1ej")
 region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0rmfi"]
+font = ExtResource("23_o8oq8")
+font_size = 8
 
 [node name="Game" type="Node2D"]
 script = ExtResource("11_n8ral")
@@ -912,3 +918,65 @@ theme_override_constants/margin_bottom = -8
 layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("61_uxocx")
+
+[node name="Header" type="MarginContainer" parent="UI" node_paths=PackedStringArray("beacon_health_text", "monster_health_text")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("64_3x28f")
+beacon_health_text = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health")
+monster_health_text = NodePath("Inner container/Header container/Monster health container/Monster health text margin/monster health")
+
+[node name="Frame background" type="NinePatchRect" parent="UI/Header"]
+layout_mode = 2
+texture = ExtResource("53_66xif")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Inner container" type="MarginContainer" parent="UI/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 16
+
+[node name="Header container" type="HBoxContainer" parent="UI/Header/Inner container"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Beacon health container" type="HBoxContainer" parent="UI/Header/Inner container/Header container"]
+layout_mode = 2
+
+[node name="Beacon icon" type="TextureRect" parent="UI/Header/Inner container/Header container/Beacon health container"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_o8ni1")
+stretch_mode = 3
+
+[node name="Beacon health text margin" type="MarginContainer" parent="UI/Header/Inner container/Header container/Beacon health container"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+
+[node name="Beacon health" type="Label" parent="UI/Header/Inner container/Header container/Beacon health container/Beacon health text margin"]
+layout_mode = 2
+text = "999/999"
+label_settings = SubResource("LabelSettings_0rmfi")
+vertical_alignment = 1
+
+[node name="Monster health container" type="HBoxContainer" parent="UI/Header/Inner container/Header container"]
+layout_mode = 2
+
+[node name="Monster icon" type="TextureRect" parent="UI/Header/Inner container/Header container/Monster health container"]
+layout_mode = 2
+texture = ExtResource("64_xbak0")
+stretch_mode = 3
+
+[node name="Monster health text margin" type="MarginContainer" parent="UI/Header/Inner container/Header container/Monster health container"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+
+[node name="monster health" type="Label" parent="UI/Header/Inner container/Header container/Monster health container/Monster health text margin"]
+layout_mode = 2
+text = "999"
+label_settings = SubResource("LabelSettings_0rmfi")
+vertical_alignment = 1

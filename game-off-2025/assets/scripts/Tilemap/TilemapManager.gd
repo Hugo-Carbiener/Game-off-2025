@@ -109,3 +109,4 @@ func show_tile(tilemap_position : Vector2i):
 	
 	var tile_data = tiles[tilemap_position];
 	set_cell(tilemap_position, source_id, tile_data.atlas_coordinates);
+	update_terrain_tiles(tilemap_position);
