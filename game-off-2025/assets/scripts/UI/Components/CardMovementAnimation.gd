@@ -32,7 +32,7 @@ func start_lifetime(from : Vector2, to : Vector2):
 			0.0,    # Start value
 			1.0,    # End value
 			card_movement_animation_duration
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN);
 	await particle_system.finished;
 	queue_free();
 

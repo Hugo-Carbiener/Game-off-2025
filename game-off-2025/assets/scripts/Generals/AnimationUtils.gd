@@ -36,6 +36,6 @@ func fade(target : CanvasItem, to : Color, duration : float, delay : float = 0.)
 
 func animate_scale(target : CanvasItem, from : Vector2, to : Vector2, duration : float):
 	var tween = get_tree().create_tween();
-	tween.tween_property(target, "scale", to, duration).from(from).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN);
+	tween.tween_property(target, "scale", to, duration).from(from).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
 	await tween.finished;
 	return tween;
