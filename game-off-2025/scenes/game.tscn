@@ -391,7 +391,7 @@ alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
 layout_mode = 2
@@ -400,10 +400,10 @@ theme_override_constants/separation = -6
 alignment = 2
 
 [node name="Deck window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
+theme_override_constants/margin_bottom = 4
 
 [node name="Deck window background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
 layout_mode = 2
@@ -418,7 +418,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window/Deck element container"]
 custom_minimum_size = Vector2(36, 0)
@@ -482,7 +482,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.0
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Right area"]
 layout_mode = 2
@@ -490,6 +490,7 @@ alignment = 2
 
 [node name="End turn button" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 texture_normal = ExtResource("38_rm0al")
 texture_pressed = ExtResource("39_i4re6")
 texture_hover = ExtResource("39_i4re6")
@@ -508,10 +509,10 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer"]
 layout_mode = 2
+alignment = 2
 
 [node name="Card hand count" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "10/7"
 label_settings = SubResource("LabelSettings_pf7vy")
 horizontal_alignment = 2
@@ -657,8 +658,8 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
 script = ExtResource("53_bnuda")
 selection_preview = NodePath("MarginContainer/VBoxContainer/Main line/Preview")
 title_label = NodePath("MarginContainer/VBoxContainer/Main line/Title")
@@ -919,12 +920,15 @@ layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("61_uxocx")
 
-[node name="Header" type="MarginContainer" parent="UI" node_paths=PackedStringArray("beacon_health_text", "monster_health_text")]
+[node name="Header" type="MarginContainer" parent="UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "monster_health_text")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
 script = ExtResource("64_3x28f")
 beacon_health_text = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health")
+beacon_health_bar = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health bar")
 monster_health_text = NodePath("Inner container/Header container/Monster health container/Monster health text margin/monster health")
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Header"]
@@ -953,15 +957,27 @@ size_flags_vertical = 4
 texture = ExtResource("5_o8ni1")
 stretch_mode = 3
 
-[node name="Beacon health text margin" type="MarginContainer" parent="UI/Header/Inner container/Header container/Beacon health container"]
+[node name="Beacon health text margin" type="VBoxContainer" parent="UI/Header/Inner container/Header container/Beacon health container"]
 layout_mode = 2
-theme_override_constants/margin_top = 6
+alignment = 1
 
 [node name="Beacon health" type="Label" parent="UI/Header/Inner container/Header container/Beacon health container/Beacon health text margin"]
 layout_mode = 2
 text = "999/999"
 label_settings = SubResource("LabelSettings_0rmfi")
 vertical_alignment = 1
+
+[node name="Beacon health bar" type="TextureProgressBar" parent="UI/Header/Inner container/Header container/Beacon health container/Beacon health text margin"]
+layout_mode = 2
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = ExtResource("56_7ixpq")
+texture_progress = ExtResource("56_7ixpq")
+tint_under = Color(0.29586652, 0.2958665, 0.2958665, 1)
+tint_over = Color(1, 1, 1, 0)
 
 [node name="Monster health container" type="HBoxContainer" parent="UI/Header/Inner container/Header container"]
 layout_mode = 2
