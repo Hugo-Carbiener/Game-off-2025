@@ -12,7 +12,7 @@ func _ready() -> void:
 func on_mouse_enter():
 	if UserSettings.are_input_blocked: return;
 	
-	AnimationUtils.fade(self, Color(1.0, 1.0, 1.0, 1.0), 0.5);
+	AnimationUtils.fade(self, Color(1.0, 1.0, 1.0, 1.0), 0.25);
 
 func on_mouse_exit():
 	AnimationUtils.fade(self, initial_color, 0.25);

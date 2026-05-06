@@ -400,6 +400,7 @@ theme_override_constants/separation = -6
 alignment = 2
 
 [node name="Deck window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
@@ -569,6 +570,7 @@ stretch_mode = 6
 
 [node name="Phase title" parent="UI" instance=ExtResource("40_m4url")]
 visible = false
+z_index = 1
 layout_mode = 2
 
 [node name="Discard window" type="MarginContainer" parent="UI" node_paths=PackedStringArray("title_label", "card_container", "card_amount_label", "validate_button")]
