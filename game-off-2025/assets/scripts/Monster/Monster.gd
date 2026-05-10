@@ -25,8 +25,10 @@ func on_step_end():
 		BeaconManager.instance.damage(health - damage_weakness);
 		on_death();
 	
-	await MainTilemap.instance.apply_tile_damage_and_effects(tilemap_position, self);
-	await MainTilemap.instance.apply_ranged_tile_damage_and_effects(tilemap_position, self);
+	await MainTilemap.instance.apply_tile_damage(tilemap_position, self);
+	await MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);	
+	await MainTilemap.instance.apply_ranged_tile_damage(tilemap_position, self);
+	await MainTilemap.instance.execute_ranged_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);
 	position_in_trajectory +=1;
 
 func get_next_position() -> Vector2i:

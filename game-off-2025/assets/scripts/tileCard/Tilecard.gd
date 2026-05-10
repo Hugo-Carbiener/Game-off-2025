@@ -133,23 +133,6 @@ func discard():
 	await AnimationUtils.animate_scale(self, scale, Vector2.ZERO, card_movement_transition_duration);
 	queue_free();
 
-func on_card_reroll():
-	print("Not implemented");
-	#if TileCardFactory.instance.reroll_left == 0:
-		#return;
-		#
-	#TileCardFactory.instance.reroll_left -= 1;
-	#SignalBus.reroll_amount_updated.emit(TileCardFactory.instance.reroll_left);
-	#TileCardFactory.instance.cards_amount[card_id] -= 1;
-	#TileCardFactory.instance.cards_amount.total -= 1;
-	#
-	#if (TileCardFactory.instance.cards_amount[card_id] == 0):
-		#TileCardFactory.instance.free_card_slot(card_id);
-	#
-	#SignalBus.card_discarded.emit(self);
-#
-	#TileCardFactory.instance.draw_random_card();
-
 func update_card_bottom_margin(bottom_target_margin : int):
 	add_theme_constant_override("margin_bottom", bottom_target_margin);
 

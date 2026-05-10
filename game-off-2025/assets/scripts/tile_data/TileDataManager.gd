@@ -19,6 +19,7 @@ static var damage_icon_small : Texture2D = preload("res://assets/sprites/UI_dama
 static var ranged_damage_icon_small : Texture2D = preload("res://assets/sprites/UI_ranged_damage_icon_small.png");
 static var beacon_icon_small : Texture2D = preload("res://assets/sprites/UI_beacon_icon_small.png");
 static var heal_icon_small : Texture2D = preload("res://assets/sprites/UI_heal_icon_small.png");
+static var burst_icon_small : Texture2D = preload("res://assets/sprites/UI_burst_icon_small.png");
 
 ## tiles 
 var tile_dictionnary : Dictionary[String, CustomTileData];
@@ -34,6 +35,7 @@ enum TRIGGERS {
 	ON_RESOLUTION_END,
 	ON_MONSTER_DEATH,
 	ON_TILE_PLACED,
+	ON_TILE_DESTROYED,
 	ON_BEACON_DAMAGE,
 }
 

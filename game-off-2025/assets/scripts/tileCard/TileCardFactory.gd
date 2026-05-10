@@ -13,7 +13,6 @@ func _ready() -> void:
 		instance = self;
 	
 	SignalBus.card_discarded.connect(on_card_discarded);
-	SignalBus.reroll_amount_updated.emit(reroll_left);
 
 func draw_random_card() :
 	var index = randi() % TileDataManager.playable_tiles.size();
@@ -28,15 +27,14 @@ func draw_card(tile_id : String):
 	SignalBus.card_drawn.emit(tile_card);
 
 func on_card_discarded(tile_card : TileCard):
-	update_card_count_label();
 	var tilecard_index = cards.find(tile_card);
 	if tilecard_index == -1: 
 		return;
 	cards.pop_at(tilecard_index);
+	update_card_count_label();
 
 func draw_hand():
-	reroll_left = GameLoop.day_number;
-	SignalBus.reroll_amount_updated.emit(reroll_left);
+	reroll_left = GameLoop.current_day;
 	
 	var tween = get_tree().create_tween();
 	tween.set_loops(Constants.base_card_per_round);

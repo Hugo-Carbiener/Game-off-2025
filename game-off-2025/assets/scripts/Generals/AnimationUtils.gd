@@ -1,5 +1,10 @@
 extends Node2D
 
+func move(target : CanvasItem, offset : Vector2, duration : float):
+	var tween = get_tree().create_tween();
+	tween.tween_property(target, "position", position + offset, duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN);
+	await tween.finished;
+
 func add_child_fade_in(parent : CanvasItem, child : CanvasItem, duration : float):
 	child.modulate.a = 0;
 	var tween = get_tree().create_tween();
@@ -37,5 +42,16 @@ func fade(target : CanvasItem, to : Color, duration : float, delay : float = 0.)
 func animate_scale(target : CanvasItem, from : Vector2, to : Vector2, duration : float):
 	var tween = get_tree().create_tween();
 	tween.tween_property(target, "scale", to, duration).from(from).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT);
+	await tween.finished;
+	return tween;
+
+func animate_integer(label : Label, from : int, to : int):
+	var tween = get_tree().create_tween();
+	tween.tween_method(
+		func(value): label.text = str(round(value)), # The update function
+		from,                                        # Start value
+		to,                                          # End value
+		Constants.integer_animation_duration * abs(from - to)                                     # Time in seconds
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	await tween.finished;
 	return tween;

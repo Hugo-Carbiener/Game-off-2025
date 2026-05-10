@@ -2,12 +2,11 @@ extends TilemapManager
 class_name MonsterFactory
 
 static var monsters : Dictionary[Vector2i, Monster];
-static var breaches : Dictionary[Vector2i, int];
+static var breaches : Dictionary[Vector2i, Breach];
 static var instance : MonsterFactory;
 @export_group("Components")
 @export var monster_health_indicator : MonsterHealthIndicator;
 @export_group("Breaches variables")
-@export var breach_tiles_per_maturity : Dictionary[int, String];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
 @export var breach_animated_sprite : AnimatedSprite2D;
 @export_group("Monster variables")
@@ -27,29 +26,35 @@ func init_sprites():
 	monster_damage_animated_sprite.visible = false;
 
 func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(GameLoop.day_number, tilemap_position, get_monster_path(tilemap_position));
+	var monster = Monster.new(10, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
 
-func spawn_breach(tilemap_position: Vector2i, breach_maturity : int):
-	breaches.set(tilemap_position, breach_maturity);
-	var breach_tile_name = breach_tiles_per_maturity.get(Constants.breach_initial_maturity);
-	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
-	
-	await breach_transition(tilemap_position, Constants.breach_initial_maturity);
-	place_tile(tilemap_position, breach_tile_data);
+func spawn_monsters():
+	for breach in breaches.values():
+		if !breach.is_mature(): continue;
+		spawn_monster(breach.tilemap_position);
 
-func breach_transition(tilemap_position : Vector2i, breach_maturity : int):
+func spawn_breach(tilemap_position: Vector2i, turn_delay : int):
+	var breach = await Breach.new(tilemap_position, turn_delay);
+	breaches.set(tilemap_position, breach);
+	var breach_tile_data = TileDataManager.tile_dictionnary.get("small-breach");
+	place_tile(tilemap_position, breach_tile_data);
+	SignalBus.breach_spawned.emit();
+
+func breach_transition(tilemap_position : Vector2i, is_spawn : bool):
 	var tween = get_tree().create_tween();
+	var animation_name = "breach_spawn" if is_spawn else "breach_update";
+	tween.tween_callback(func(): if !is_spawn: hide_tile(tilemap_position));
 	tween.tween_callback(func(): breach_animated_sprite.visible = true);
-	tween.tween_callback(func(): breach_animated_sprite.position = map_to_local(tilemap_position));
+	tween.tween_callback(func(): breach_animated_sprite.position = MonsterFactory.instance.map_to_local(tilemap_position));
 	tween.tween_callback(func(): breach_animated_sprite.frame = 0);
-	tween.tween_callback(func(): breach_animated_sprite.animation = breach_intro_animation_per_maturity[breach_maturity]);
-	tween.tween_property(breach_animated_sprite, "frame", breach_animated_sprite.sprite_frames.get_frame_count(breach_intro_animation_per_maturity[breach_maturity]), Constants.default_transition_duration);
+	tween.tween_callback(func(): breach_animated_sprite.animation = animation_name);
+	tween.tween_property(breach_animated_sprite, "frame", MonsterFactory.instance.breach_animated_sprite.sprite_frames.get_frame_count(animation_name), Constants.default_transition_duration);
 	tween.tween_callback(func(): breach_animated_sprite.visible = false);
+	tween.tween_callback(func(): if !is_spawn: show_tile(tilemap_position));
 	await tween.finished;
-	return;
 
 func remove_breach(tilemap_position: Vector2i):
 	if !breaches.has(tilemap_position): return;
@@ -63,34 +68,19 @@ func remove_monster(tilemap_position: Vector2i):
 	monsters.erase(tilemap_position);
 	clear_tile(tilemap_position);
 
-func update_breach(tilemap_position: Vector2i):
-	if !breaches.has(tilemap_position): return;
-	var breach_maturity = breaches.get(tilemap_position);
-	
-	var breach_tile_name = breach_tiles_per_maturity.get(breach_maturity);
-	var breach_tile_data = TileDataManager.tile_dictionnary.get(breach_tile_name);
-	set_cell(tilemap_position, 0, Vector2(-1,-1));
-	await MonsterFactory.instance.breach_transition(tilemap_position, breach_maturity);
-	set_cell(tilemap_position, 0, breach_tile_data.atlas_coordinates);
-
-func cover_breach(tilemap_position: Vector2i):
-	breaches.erase(tilemap_position);
-	clear_tile(tilemap_position);
-
 func on_setup():
-	for breach_position in breaches.keys():
-		var turn_remaining = breaches[breach_position];
-		turn_remaining -= 1;
-		breaches.set(breach_position, turn_remaining);
-		if turn_remaining == 0:
-			remove_breach(breach_position);
-			spawn_monster(breach_position);
-		else:
-			await update_breach(breach_position);
-	return;
+	if GameLoop.is_breach_spawn_day():
+		var breach_max_range = min(Constants.beacon_range, Constants.breach_min_spawn_range + breaches.size());
+		var valid_breach_positions = MainTilemap.instance.get_valid_monster_spawn_positions(Constants.breach_min_spawn_range, breach_max_range);
+		var breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];
+		MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
+	
+	for breach in breaches.values():
+		await breach.update_breach();
 
 func on_resolution():
-	# Get monsters from furthest to closest 
+	spawn_monsters();
+	# Get monsters from closest to furthest  
 	var sorted_monsters = monsters.values();
 	sorted_monsters.sort_custom(func(a,b) : return cell_manhattan_distance(monsters.find_key(a), Vector2i.ZERO) < cell_manhattan_distance(monsters.find_key(b), Vector2i.ZERO))
 	for monster in sorted_monsters:
@@ -108,7 +98,7 @@ func execute_monster_trajectory(monster : Monster):
 		tween.tween_property(monster_sprite, "position", map_to_local(to), Constants.monster_movement_duration);
 		tween.tween_property(monster_health_indicator, "position", map_to_local(to), Constants.monster_movement_duration);
 		await tween.finished;
-		await on_step_end(monster);
+		await on_step_end(monster, monster_destination);
 	on_move_end();
 
 func on_move_start(monster : Monster):
@@ -124,7 +114,9 @@ func on_move_end():
 	monster_sprite.visible = false;
 	monster_health_indicator.visible = false;
 
-func on_step_end(monster : Monster):
+func on_step_end(monster : Monster, tilemap_position : Vector2i):
+	if breaches.has(tilemap_position):
+		show_tile(tilemap_position);
 	await monster.on_step_end();
 
 func dispatch_monster_damage(monster : Monster, damage_amount : int, is_ranged : bool):
@@ -172,5 +164,6 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 func load(_monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int]):
 	for monster_position in _monsters:
 		spawn_monster(monster_position);
-	for breach_position in _breaches.keys():
-		spawn_breach(breach_position, _breaches[breach_position]);
+		#TODO : save breaches
+	#for breach_position in _breaches.keys():
+		#spawn_breach(breach_position, _breaches[breach_position]);

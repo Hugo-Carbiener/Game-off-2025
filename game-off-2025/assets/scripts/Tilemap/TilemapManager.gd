@@ -65,9 +65,9 @@ static func get_neighbor_tile_coordinate_offset_at_range(tile_range : int) -> Ar
 				neighbor_offset_coordinates.append(coordinates);
 	return neighbor_offset_coordinates;
 
-func get_valid_monster_spawn_positions() -> Array[Vector2i]:
+func get_valid_monster_spawn_positions(min_tile_range : int, max_tile_range : int) -> Array[Vector2i]:
 	var monster_spawn_tile_range = Constants.monster_spawn_max_tile_distance;
-	var neighbor_offsets_at_range = get_neighbor_tile_coordinate_offset_within_range(Constants.monster_spawn_max_tile_distance);
+	var neighbor_offsets_at_range = get_neighbor_tile_coordinate_offset_within_range(max_tile_range);
 	var placed_cell_count = get_used_cells().size();
 	var theoric_tile_range = min(placed_cell_count - 1, Constants.beacon_range) + monster_spawn_tile_range;
 	var valid_spawns : Array[Vector2i];
@@ -76,6 +76,7 @@ func get_valid_monster_spawn_positions() -> Array[Vector2i]:
 		for y in for_range:
 			var coordinates = Vector2i(x, y);
 			if has_tile_at(coordinates) : continue;
+			if cell_distance(Vector2i.ZERO, coordinates) < min_tile_range: continue;
 			if MonsterFactory.instance.breaches.has(coordinates): continue;
 			if MonsterFactory.instance.monsters.has(coordinates): continue;
 			

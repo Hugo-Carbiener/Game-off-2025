@@ -19,12 +19,12 @@ func on_card_drawn(tile_card : TileCard):
 	call_deferred("dispatch_drawn_card", tile_card);
 
 func dispatch_drawn_card(tile_card : TileCard):
+	TileCardFactory.instance.update_card_count_label();
 	AnimationUtils.bounce(self, 1.5);
 	await CardMovementAnimation.launch_card_movement_animation(tile_card, global_position + size / 2, tile_card.card_sprite.global_position, self);
 	AnimationUtils.animate_scale(tile_card, Vector2.ZERO, Vector2.ONE, tile_card.card_movement_transition_duration);
 	await AnimationUtils.fade(tile_card, Color.WHITE, tile_card.card_movement_transition_duration);
 	tile_card.modulate.a = 1;
-	TileCardFactory.instance.update_card_count_label();
 
 func on_click():
 	detail_is_active = !detail_is_active;

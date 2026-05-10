@@ -43,6 +43,5 @@ func validate():
 	for tile_card in CardSelector.instance.cards_selected:
 		var tween = get_tree().create_tween();
 		tween.tween_callback(func(): tile_card.discard());
-		tween.tween_interval(0.1);
 		await tween.finished;
 	CardSelector.instance.clear_multi_card_selection();

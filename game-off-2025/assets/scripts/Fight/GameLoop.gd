@@ -8,11 +8,11 @@ static var phase_start_sequences = {
 	PHASES.RESOLUTION : Callable(resolution_phase)
 }
 static var current_phase : PHASES;
-static var day_number : int;
+static var current_day : int;
 
 func _ready() -> void:
 	current_phase = PHASES.SETUP;
-	day_number = 0;
+	current_day = 0;
 	SignalBus.play_phase_ended.connect(end_turn);
 	SignalBus.game_saving.connect(save_fight); 
 	SignalBus.tile_placed.connect(on_tile_placed);
@@ -33,14 +33,10 @@ static func start_phase(phase: PHASES):
 
 static func setup_phase():
 	UserSettings.are_input_blocked = true;
-	day_number += 1;
-	SignalBus.setup_phase_started.emit(day_number);
+	current_day += 1;
+	SignalBus.setup_phase_started.emit(current_day);
 	await MonsterFactory.instance.on_setup();
 	TileCardFactory.instance.draw_hand();
-	
-	for i in range(day_number + Constants.breaches_spawn_increase_per_round):
-		var valid_monster_spawns = MainTilemap.instance.get_valid_monster_spawn_positions();
-		await MonsterFactory.instance.spawn_breach(valid_monster_spawns[randi() % valid_monster_spawns.size()], Constants.breach_initial_maturity);
 		
 	start_phase(get_next_phase());
 
@@ -50,18 +46,16 @@ static func play_phase():
 
 static func resolution_phase():
 	UserSettings.are_input_blocked = true;
-	SignalBus.resolution_phase_started.emit();
 	
-	if MonsterFactory.instance.monsters.is_empty(): 
-		start_phase(get_next_phase());
-	else:
+	if need_resolution_phase():
+		SignalBus.resolution_phase_started.emit();
 		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_START);
 		await MonsterFactory.instance.on_resolution();
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_END);
 		BeaconManager.instance.on_resolution_end();
 		await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
-		start_phase(get_next_phase());
+	start_phase(get_next_phase());
 
 func end_turn():
 		start_phase(get_next_phase());
@@ -70,21 +64,31 @@ func on_tile_placed(tile_amount : int):
 	if tile_amount >= TileDataManager.world_tile_amount:
 		SignalBus.game_won.emit();
 
+static func is_breach_spawn_day() -> bool:
+	return current_day % Constants.breach_spawn_step ==  Constants.first_breach_spawn_round;
+
+static func need_resolution_phase() -> bool:
+	if MonsterFactory.breaches.is_empty(): return false;
+	
+	for breach in MonsterFactory.breaches.values():
+		if breach.is_mature(): return true;
+	return false;
+
 func save_fight():
 		UserData.fight_save.update(
-		day_number, 
+		current_day, 
 		current_phase,
 		MainTilemap.instance.get_tiles_for_save(),
 		TileCardFactory.instance.get_cards_for_save(),
 		MonsterFactory.instance.monsters.keys(),
-		MonsterFactory.instance.breaches,
+		{}, #TODO : save breaches
 		BeaconManager.instance.health);
 
 func load_fight():
 	var fight_save = UserData.fight_save;
 	if !fight_save.is_init(): return;
 	
-	day_number = fight_save.day;
+	current_day = fight_save.day;
 	current_phase = fight_save.phase;
 	TileCardFactory.instance.load_cards(fight_save.cards);
 	MonsterFactory.instance.load(fight_save.monsters, fight_save.breaches);

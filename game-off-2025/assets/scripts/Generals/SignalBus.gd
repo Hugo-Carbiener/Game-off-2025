@@ -17,6 +17,8 @@ signal tile_placed;
 signal evolution_started;
 signal evolution_finished;
 signal beacon_health_updated;
+signal breach_spawned;
+signal breach_instability_changed;
 
 # Hover signals
 signal card_selected
@@ -26,7 +28,6 @@ signal tile_selected
 signal tile_unselected
 
 # Game signals
-signal reroll_amount_updated;
 signal play_phase_started;
 signal play_phase_ended;
 signal setup_phase_started;

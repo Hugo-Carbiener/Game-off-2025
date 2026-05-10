@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=92 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -64,7 +64,7 @@
 [ext_resource type="Texture2D" uid="uid://b8avsefhe4ew0" path="res://assets/sprites/UI_beacon_icon_small.png" id="61_bnuda"]
 [ext_resource type="Texture2D" uid="uid://cxcrrwrg3yiyo" path="res://assets/sprites/UI_scene-codex-icon.png" id="61_uxocx"]
 [ext_resource type="Script" uid="uid://0d1cr3at8ybj" path="res://assets/scripts/ui/components/HeaderWindow.gd" id="64_3x28f"]
-[ext_resource type="PackedScene" uid="uid://e545ju0p8qeo" path="res://scenes/components/InstabilityMeter.tscn" id="64_mmvbu"]
+[ext_resource type="Texture2D" uid="uid://co75t33d86syt" path="res://assets/sprites/UI_monster.png" id="64_xbak0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
 atlas = ExtResource("7_pr1ej")
@@ -227,21 +227,9 @@ resource_local_to_scene = true
 atlas = ExtResource("7_pr1ej")
 region = Rect2(24, 0, 8, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_weeiq"]
-atlas = ExtResource("7_pr1ej")
-region = Rect2(96, 0, 8, 8)
-
 [sub_resource type="LabelSettings" id="LabelSettings_0rmfi"]
 font = ExtResource("23_o8oq8")
 font_size = 8
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbak0"]
-atlas = ExtResource("7_pr1ej")
-region = Rect2(96, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3x28f"]
-atlas = ExtResource("7_pr1ej")
-region = Rect2(112, 0, 8, 8)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("11_n8ral")
@@ -319,7 +307,7 @@ texture = SubResource("AtlasTexture_20167")
 [node name="Breach animations" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_tl7n3")
-animation = &"breach_spawn"
+animation = &"breach_update"
 
 [node name="MonsterHealthIndicator" parent="Tilemaps/Monster tilemap" instance=ExtResource("14_0rmfi")]
 visible = false
@@ -522,7 +510,7 @@ alignment = 2
 
 [node name="Card hand count" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "0/7"
+text = "10/7"
 label_settings = SubResource("LabelSettings_pf7vy")
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -662,7 +650,8 @@ label_settings = SubResource("LabelSettings_7ixpq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tile selection detail" type="MarginContainer" parent="UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "maturity_counter_label", "instability_meter", "codex_link_button", "lines_list", "health_weakness_line_container", "effects_line_container", "monster_spawned_line", "maturity_line")]
+[node name="Tile selection detail" type="MarginContainer" parent="UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "codex_link_button", "health_line_container", "health_weakness_line_container", "damage_line_container", "range_line_container", "effects_line_container", "trajectory_line_container", "trajectory_preview_line_container", "codex_link_container")]
+visible = false
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -683,14 +672,15 @@ range_boost_label = NodePath("MarginContainer/VBoxContainer/Range line container
 effects_container = NodePath("MarginContainer/VBoxContainer/Effects line container/Effects line/Effects container")
 trajectory_container = NodePath("MarginContainer/VBoxContainer/Trajectory line container/Trajectory line/Tiles container")
 trajectory_preview_container = NodePath("MarginContainer/VBoxContainer/Trajectory preview line container/Trajectory line/Tiles container")
-maturity_counter_label = NodePath("MarginContainer/VBoxContainer/Maturity line container/Maturity line/Maturity value")
-instability_meter = NodePath("MarginContainer/VBoxContainer/Instability line container/Instability line/Instability meter container")
 codex_link_button = NodePath("MarginContainer/VBoxContainer/Codex link/Codex button")
-lines_list = [NodePath("MarginContainer/VBoxContainer/Main line"), NodePath("MarginContainer/VBoxContainer/Health line container"), NodePath("MarginContainer/VBoxContainer/Damage line container"), NodePath("MarginContainer/VBoxContainer/Range line container"), NodePath("MarginContainer/VBoxContainer/Effects line container"), NodePath("MarginContainer/VBoxContainer/Trajectory line container"), NodePath("MarginContainer/VBoxContainer/Trajectory preview line container"), NodePath("MarginContainer/VBoxContainer/Maturity line container"), NodePath("MarginContainer/VBoxContainer/Monster spawn line container"), NodePath("MarginContainer/VBoxContainer/Instability line container"), NodePath("MarginContainer/VBoxContainer/Codex link")]
+health_line_container = NodePath("MarginContainer/VBoxContainer/Health line container")
 health_weakness_line_container = NodePath("MarginContainer/VBoxContainer/Health line container/Health line/Weakness")
+damage_line_container = NodePath("MarginContainer/VBoxContainer/Damage line container")
+range_line_container = NodePath("MarginContainer/VBoxContainer/Range line container")
 effects_line_container = NodePath("MarginContainer/VBoxContainer/Effects line container")
-monster_spawned_line = NodePath("MarginContainer/VBoxContainer/Monster spawn line container")
-maturity_line = NodePath("MarginContainer/VBoxContainer/Maturity line container")
+trajectory_line_container = NodePath("MarginContainer/VBoxContainer/Trajectory line container")
+trajectory_preview_line_container = NodePath("MarginContainer/VBoxContainer/Trajectory preview line container")
+codex_link_container = NodePath("MarginContainer/VBoxContainer/Codex link")
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Tile selection detail"]
 layout_mode = 2
@@ -712,7 +702,6 @@ layout_mode = 2
 
 [node name="Main line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
-metadata/types = ["monster", "tile", "breach"]
 
 [node name="Preview" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Main line"]
 custom_minimum_size = Vector2(16, 16)
@@ -730,7 +719,6 @@ vertical_alignment = 1
 [node name="Health line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-metadata/types = ["monster"]
 
 [node name="Health line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Health line container"]
 layout_mode = 2
@@ -769,7 +757,6 @@ vertical_alignment = 1
 [node name="Damage line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-metadata/types = ["monster", "tile"]
 
 [node name="Damage line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Damage line container"]
 layout_mode = 2
@@ -810,7 +797,6 @@ vertical_alignment = 1
 [node name="Range line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-metadata/types = ["tile"]
 
 [node name="Range line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Range line container"]
 layout_mode = 2
@@ -843,7 +829,6 @@ vertical_alignment = 1
 [node name="Effects line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
-metadata/types = ["tile"]
 
 [node name="Effects line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Effects line container"]
 layout_mode = 2
@@ -876,7 +861,6 @@ stretch_mode = 2
 [node name="Trajectory line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
-metadata/types = ["monster"]
 
 [node name="Trajectory line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory line container"]
 layout_mode = 2
@@ -908,7 +892,6 @@ stretch_mode = 3
 [node name="Trajectory preview line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
-metadata/types = ["monster"]
 
 [node name="Trajectory line" type="VBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Trajectory preview line container"]
 layout_mode = 2
@@ -923,72 +906,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 1
 
-[node name="Maturity line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-metadata/types = ["breach"]
-
-[node name="Maturity line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Maturity line container"]
-layout_mode = 2
-
-[node name="Maturity text" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Maturity line container/Maturity line"]
-layout_mode = 2
-text = "Days until active:"
-label_settings = ExtResource("47_3hbvx")
-
-[node name="Maturity value" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Maturity line container/Maturity line"]
-layout_mode = 2
-text = "99"
-label_settings = ExtResource("47_3hbvx")
-
-[node name="Monster spawn line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-metadata/types = ["breach"]
-
-[node name="Monster spawn line" type="HBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Monster spawn line container"]
-layout_mode = 2
-
-[node name="Monster spawn text" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Monster spawn line container/Monster spawn line"]
-layout_mode = 2
-text = "Next monster spawned:"
-label_settings = ExtResource("47_3hbvx")
-
-[node name="Monster icon" type="TextureRect" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Monster spawn line container/Monster spawn line"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_weeiq")
-stretch_mode = 3
-
-[node name="Instability line container" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-metadata/types = ["breach"]
-
-[node name="Instability line" type="VBoxContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Instability line container"]
-layout_mode = 2
-
-[node name="Instability text" type="Label" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Instability line container/Instability line"]
-layout_mode = 2
-text = "Instability: "
-label_settings = ExtResource("47_3hbvx")
-
-[node name="Instability meter container" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Instability line container/Instability line" instance=ExtResource("64_mmvbu")]
-layout_mode = 2
-
 [node name="Codex link" type="MarginContainer" parent="UI/Tile selection detail/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -8
 theme_override_constants/margin_bottom = -8
-metadata/types = ["tile"]
 
 [node name="Codex button" type="TextureButton" parent="UI/Tile selection detail/MarginContainer/VBoxContainer/Codex link"]
 layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("61_uxocx")
 
-[node name="Header" type="MarginContainer" parent="UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "monster_health_text", "breach_amount_text")]
+[node name="Header" type="MarginContainer" parent="UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "monster_health_text")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -998,7 +928,6 @@ script = ExtResource("64_3x28f")
 beacon_health_text = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health")
 beacon_health_bar = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health bar")
 monster_health_text = NodePath("Inner container/Header container/Monster health container/Monster health text margin/monster health")
-breach_amount_text = NodePath("Inner container/Header container/Breach amount container/Breach amount text margin/Beach amount")
 
 [node name="Frame background" type="NinePatchRect" parent="UI/Header"]
 layout_mode = 2
@@ -1053,33 +982,15 @@ layout_mode = 2
 
 [node name="Monster icon" type="TextureRect" parent="UI/Header/Inner container/Header container/Monster health container"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_xbak0")
+texture = ExtResource("64_xbak0")
 stretch_mode = 3
 
 [node name="Monster health text margin" type="MarginContainer" parent="UI/Header/Inner container/Header container/Monster health container"]
 layout_mode = 2
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_top = 6
 
 [node name="monster health" type="Label" parent="UI/Header/Inner container/Header container/Monster health container/Monster health text margin"]
 layout_mode = 2
 text = "999"
-label_settings = SubResource("LabelSettings_0rmfi")
-vertical_alignment = 1
-
-[node name="Breach amount container" type="HBoxContainer" parent="UI/Header/Inner container/Header container"]
-layout_mode = 2
-
-[node name="Breach icon" type="TextureRect" parent="UI/Header/Inner container/Header container/Breach amount container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_3x28f")
-stretch_mode = 5
-
-[node name="Breach amount text margin" type="MarginContainer" parent="UI/Header/Inner container/Header container/Breach amount container"]
-layout_mode = 2
-theme_override_constants/margin_top = 4
-
-[node name="Beach amount" type="Label" parent="UI/Header/Inner container/Header container/Breach amount container/Breach amount text margin"]
-layout_mode = 2
-text = "0/5"
 label_settings = SubResource("LabelSettings_0rmfi")
 vertical_alignment = 1

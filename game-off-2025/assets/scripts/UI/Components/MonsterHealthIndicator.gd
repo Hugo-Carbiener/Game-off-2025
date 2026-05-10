@@ -9,13 +9,11 @@ func setup(monster : Monster):
 		monster_damage.queue_free();
 
 func on_damage(monster : Monster, damage_amount : int, is_ranged: bool):
-	var monster_health_ratio = float(monster.health) / float(monster.max_health);
-	monster_health.setup(str(monster.health), TileDataManager.heal_icon_small, Color.WHITE.lerp(Color.DARK_RED, monster_health_ratio));
-	AnimationUtils.bounce(monster_health, 1.2);
-	instantiate_damage_element(damage_amount, is_ranged);
+	await instantiate_damage_element(damage_amount, is_ranged);
+	AnimationUtils.animate_integer(monster_health.label, monster.health, max(0, monster.health - damage_amount));
 
 func instantiate_damage_element(damage_amount : int, is_ranged: bool):
 	var icon = TileDataManager.damage_icon_small if not is_ranged else TileDataManager.ranged_damage_icon_small;
 	var monster_damage = MonsterTextDamage.create_monster_text_damage("-" + str(damage_amount), icon);
 	monster_damage_container.add_child(monster_damage);
-	monster_damage.start_lifetime();
+	await monster_damage.start_lifetime();

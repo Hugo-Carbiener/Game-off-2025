@@ -1,28 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bemepffm03jl6"]
+[gd_scene load_steps=3 format=3 uid="uid://bemepffm03jl6"]
 
 [ext_resource type="Script" uid="uid://db72atvb3eb2p" path="res://assets/scripts/ui/components/MonsterHealthIndicator.gd" id="1_bpdvi"]
 [ext_resource type="PackedScene" uid="uid://nau284i7g1yp" path="res://scenes/components/MonsterTextDamage.tscn" id="1_lhfe6"]
-[ext_resource type="Texture2D" uid="uid://bmmr8hkgyxehc" path="res://assets/sprites/UI_heal_icon_small.png" id="2_bpdvi"]
 
 [node name="MonsterHealthIndicator" type="MarginContainer" node_paths=PackedStringArray("monster_health", "monster_damage_container")]
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 0
 script = ExtResource("1_bpdvi")
-monster_health = NodePath("Global container/Monster health")
+monster_health = NodePath("Global container/Monster text damage")
 monster_damage_container = NodePath("Global container/Damage container")
 
 [node name="Global container" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Monster health" parent="Global container" instance=ExtResource("1_lhfe6")]
+[node name="Monster text damage" parent="Global container" instance=ExtResource("1_lhfe6")]
 layout_mode = 2
-
-[node name="Icon" parent="Global container/Monster health" index="1"]
-texture = ExtResource("2_bpdvi")
 
 [node name="Damage container" type="VBoxContainer" parent="Global container"]
 layout_mode = 2
 theme_override_constants/separation = 0
-
-[editable path="Global container/Monster health"]

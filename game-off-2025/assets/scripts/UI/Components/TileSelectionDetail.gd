@@ -1,5 +1,10 @@
 class_name TileSelectionDetail extends Control
 
+const METADATA_KEY = "types";
+const METADATA_VALUE_MONSTER = "monster";
+const METADATA_VALUE_TILE = "tile";
+const METADATA_VALUE_BREACH = "breach";
+
 @export_group("Components")
 @export var selection_preview : TextureRect;
 @export var title_label : Label;
@@ -14,20 +19,20 @@ class_name TileSelectionDetail extends Control
 @export var effects_container : HBoxContainer;
 @export var trajectory_container : GridContainer;
 @export var trajectory_preview_container : VBoxContainer;
+@export var maturity_counter_label : Label;
+@export var instability_meter : InstabilityMeter;
 @export var codex_link_button : TextureButton;
 @export_group("Component groups")
-@export var health_line_container : Control;
+@export var lines_list : Array[Control];
 @export var health_weakness_line_container : Control;
-@export var damage_line_container : Control;
-@export var range_line_container : Control;
 @export var effects_line_container : Control;
-@export var trajectory_line_container : Control;
-@export var trajectory_preview_line_container : Control;
-@export var codex_link_container : Control;
+@export var monster_spawned_line : Control;
+@export var maturity_line : Control;
 
 func _ready() -> void:
 	SignalBus.tile_selected.connect(on_tile_selection);
 	SignalBus.tile_unselected.connect(on_tile_unselection);
+	SignalBus.breach_instability_changed.connect(on_breach_instability_changed);
 
 func on_tile_selection(tile_position : Vector2i):
 	if MonsterFactory.monsters.has(tile_position):
@@ -38,7 +43,7 @@ func on_tile_selection(tile_position : Vector2i):
 		var dynamic_tile_data = MainTilemap.instance.tiles_dynamic_data[tile_position];
 		setup_from_tile(tile_data, dynamic_tile_data);
 	elif MonsterFactory.breaches.has(tile_position):
-		setup_from_breach();
+		setup_from_breach(MonsterFactory.breaches[tile_position]);
 	else:
 		return;
 	visible = true;
@@ -69,15 +74,10 @@ func setup_from_tile(tile_data : CustomTileData, tile_dynamic_data : DynamicTile
 	
 	for connection in codex_link_button.button_up.get_connections():
 		codex_link_button.button_up.disconnect(connection["callable"]);
-	#codex_link_button.button_up.connect()
+	#codex_link_button.button_up.connect() #TODO : link codex button
 	
-	health_line_container.visible = false;
-	damage_line_container.visible = true;
-	range_line_container.visible = true;
+	setup_visibility(METADATA_VALUE_TILE);
 	effects_line_container.visible = !tile_data.effects.is_empty();
-	trajectory_line_container.visible = false;
-	trajectory_preview_line_container.visible = false;
-	codex_link_container.visible = true;
 
 func setup_from_monster(monster : Monster):
 	selection_preview.texture.region = TileDataManager.tile_dictionnary[Constants.TILE_DICT_MONSTER_KEY].get_texture_region();
@@ -92,14 +92,8 @@ func setup_from_monster(monster : Monster):
 	range_boost_label.text = "";
 	
 	setup_monster_trajectory(monster);
-	health_line_container.visible = true;
+	setup_visibility(METADATA_VALUE_MONSTER);
 	health_weakness_line_container.visible = monster.health_weakness > 0;
-	damage_line_container.visible = true;
-	range_line_container.visible = false;
-	effects_line_container.visible = false;
-	trajectory_line_container.visible = true;
-	trajectory_preview_line_container.visible = true;
-	codex_link_container.visible = false;
 
 func setup_monster_trajectory(monster : Monster):
 	reset_trajectory();
@@ -134,5 +128,23 @@ func reset_trajectory():
 	for child in trajectory_preview_container.get_children():
 		child.queue_free();
 
-func setup_from_breach():
-	pass;
+func setup_from_breach(breach : Breach):
+	var breach_tile_name = Constants.TILE_DICT_SMALL_BREACH_KEY if !breach.is_mature() else Constants.TILE_DICT_LARGE_BREACH_KEY;
+	selection_preview.texture.region = TileDataManager.tile_dictionnary[breach_tile_name].get_texture_region();
+	title_label.text = "Breach";
+	
+	maturity_counter_label.text = str(Constants.breach_setup_delay - breach.age);
+	instability_meter.setup(breach.instability);
+	setup_visibility(METADATA_VALUE_BREACH);
+	monster_spawned_line.visible = breach.is_mature();
+	maturity_line.visible = !breach.is_mature();
+
+func on_breach_instability_changed(tilemap_position : Vector2i, instability_value : int):
+	if visible == false or tilemap_position != TileSelector.instance.selected_tile: return
+	
+	instability_meter.update_value(instability_value);
+
+func setup_visibility(type : String):
+	for line in lines_list:
+		var metadata = line.get_meta("types");
+		line.visible = metadata.has(type);
