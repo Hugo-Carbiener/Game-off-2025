@@ -36,7 +36,7 @@ static func setup_phase():
 	current_day += 1;
 	SignalBus.setup_phase_started.emit(current_day);
 	await MonsterFactory.instance.on_setup();
-	TileCardFactory.instance.draw_hand();
+	await TileCardFactory.instance.draw_hand();
 		
 	start_phase(get_next_phase());
 

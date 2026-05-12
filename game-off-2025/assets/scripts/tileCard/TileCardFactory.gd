@@ -40,6 +40,7 @@ func draw_hand():
 	tween.set_loops(Constants.base_card_per_round);
 	tween.tween_callback(TileCardFactory.instance.draw_random_card);
 	tween.tween_interval(Constants.card_draw_interval);
+	await tween.finished;
 
 func update_tile_card_evolutions():
 	for tile_card in cards:

@@ -12,9 +12,10 @@ func _ready() -> void:
 	update_card_amount();
 
 func discard(tile_card : TileCard):
-	cards.append(tile_card.card_id);
+	var card_id = tile_card.card_id;
 	await CardMovementAnimation.launch_card_movement_animation(tile_card, tile_card.card_sprite.global_position, global_position + size / 2, self);
 	AnimationUtils.bounce(self, 1.5);
+	cards.append(card_id);
 	update_card_amount();
 
 func update_card_amount():

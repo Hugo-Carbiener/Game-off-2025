@@ -45,8 +45,8 @@ func gain_instability(instability_amount : int):
 		burst_breach();
 
 func destroy_tiles_around():
-	for x in range(-1, 1, 1):
-		for y in range(-1, 1, 1):
+	for x in range(-1, 2, 1):
+		for y in range(-1, 2, 1):
 			if x == 0 and y == 0: continue;
 			
 			var coordinates = tilemap_position + Vector2i(x, y);
@@ -56,8 +56,8 @@ func destroy_tiles_around():
 
 func select_tiles_around():
 	var valid_cells : Array[Vector2i];
-	for x in range(-1, 1, 1):
-		for y in range(-1, 1, 1):
+	for x in range(-1, 2, 1):
+		for y in range(-1, 2, 1):
 			if x == 0 and y == 0: continue;
 			
 			var coordinates =  tilemap_position + Vector2i(x, y);
@@ -65,7 +65,7 @@ func select_tiles_around():
 			
 			valid_cells.append(coordinates);
 	valid_cells.shuffle();
-	target_cells = valid_cells.slice(0, Constants.breach_target_cells_amount + 1);
+	target_cells = valid_cells.slice(0, Constants.breach_target_cells_amount);
 
 func seal_breach():
 	pass;
