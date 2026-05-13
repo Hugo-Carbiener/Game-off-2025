@@ -3,6 +3,7 @@ class_name ProgressBarKnob extends NinePatchRect
 @export var progress_bar : TextureProgressBar;
 
 func _ready():
+	pivot_offset.x = size.x / 2;
 	update_position();
 
 func update_position():

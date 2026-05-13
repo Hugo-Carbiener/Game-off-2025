@@ -663,7 +663,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Tile selection detail" type="MarginContainer" parent="UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "maturity_counter_label", "instability_meter", "codex_link_button", "lines_list", "health_weakness_line_container", "effects_line_container", "monster_spawned_line", "maturity_line")]
-visible = false
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 8

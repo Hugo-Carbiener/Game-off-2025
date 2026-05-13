@@ -28,10 +28,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("debug-instability-increase"):
 		for breach in MonsterFactory.breaches.values():
 			breach.gain_instability(5);
+			breach.check_state();
 	
 	if event.is_action_released("debug-instability-decrease"):
 		for breach in MonsterFactory.breaches.values():
 			breach.gain_instability(-5);
+			breach.check_state();
 	
 	if event.is_action_released("debug-spawn-monster"):
 		var pos = Vector2i(randi() % (Constants.beacon_range * 2) - Constants.beacon_range, randi() % (Constants.beacon_range * 2) - Constants.beacon_range);

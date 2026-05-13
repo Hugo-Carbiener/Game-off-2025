@@ -35,8 +35,9 @@ const breach_setup_delay = 2;
 const first_breach_spawn_round = 2;
 const breach_spawn_step = 3;
 const breach_min_spawn_range = 3;
-const breach_max_instability = 50;
-const breach_starting_instability = 25;
+const breach_max_instability = 30;
+const breach_starting_instability = 10;
+const breach_daily_instability_gain = 5;
 const breach_target_cells_amount = 4;
 
 ## Monsters

@@ -19,12 +19,25 @@ func update_breach():
 	if !is_mature() and age >= Constants.breach_setup_delay:
 		await mature_tile();
 		return;
+	
+	if is_mature():
+		gain_instability(Constants.breach_daily_instability_gain);
+		for target_cell in target_cells:
+			if !MainTilemap.instance.has_tile_at(target_cell): continue;
+			
+			await MainTilemap.instance.apply_tile_breach_damage(target_cell, self);
+		
+		for target_cell in target_cells:
+			if !MainTilemap.instance.has_tile_at(target_cell): continue;
+		
+			await MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_BREACH_INTERACTION, target_cell);
 
 func mature_tile():
 	await MonsterFactory.instance.breach_transition(tilemap_position, false);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get("large-breach");
 	MonsterFactory.instance.place_tile(tilemap_position, breach_tile_data);
 	gain_instability(Constants.breach_starting_instability);
+	check_state();
 
 func is_mature() -> bool:
 	return age > Constants.breach_setup_delay;
@@ -38,7 +51,8 @@ func gain_instability(instability_amount : int):
 	var text_damage = MonsterTextDamage.create_animated_monster_text_damage(text, TileDataManager.burst_icon_small, true);
 	text_damage.position = MonsterFactory.instance.map_to_local(tilemap_position);
 	MonsterFactory.instance.add_child(text_damage);
-	
+
+func check_state():
 	if instability == 0:
 		seal_breach();
 	if instability == Constants.breach_max_instability:
@@ -71,4 +85,6 @@ func seal_breach():
 	pass;
 
 func burst_breach():
-	pass;
+	destroy_tiles_around();
+	for target_cell in target_cells:
+		MonsterFactory.instance.spawn_monster(target_cell);

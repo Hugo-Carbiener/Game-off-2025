@@ -142,7 +142,7 @@ func setup_from_breach(breach : Breach):
 func on_breach_instability_changed(tilemap_position : Vector2i, instability_value : int):
 	if visible == false or tilemap_position != TileSelector.instance.selected_tile: return
 	
-	instability_meter.update_value(instability_value);
+	instability_meter.transition_value(instability_value);
 
 func setup_visibility(type : String):
 	for line in lines_list:

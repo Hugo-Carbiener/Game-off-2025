@@ -12,14 +12,19 @@ static func create_instability_meter(base_value : int) -> InstabilityMeter:
 	return instability_meter;
 
 func setup(base_value : int):
+	meter.max_value = Constants.breach_max_instability;
+	meter.min_value = 0;
+	update_value(base_value);
+
+func update_value(base_value : int):
 	meter.value = base_value;
 	knob.update_position();
 
-func update_value(to : int):
+func transition_value(to : int):
 	var start_value = meter.value;
 	var tween = get_tree().create_tween();
 	tween.tween_method(
-	setup,
+	update_value,
 	start_value,
 	to,
 	transition_duration);    

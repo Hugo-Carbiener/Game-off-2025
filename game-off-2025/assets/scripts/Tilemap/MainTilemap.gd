@@ -188,8 +188,16 @@ func apply_tile_damage(tilemap_position : Vector2i, monster : Monster):
 	if tile_data == null: return;
 	
 	if monster != null:
-		await dispatch_tile_damage(tilemap_position, tile_data);
+		await bounce_tile(tilemap_position, tile_data);
 		await monster.damage(tile_data.damage, tilemap_position);
+
+func apply_tile_breach_damage(tilemap_position : Vector2i, breach : Breach):
+	var tile_data = tiles.get(tilemap_position);
+	if tile_data == null: return;
+	
+	if breach != null:
+		breach.gain_instability(-1 * tile_data.damage);
+		await bounce_tile(tilemap_position, tile_data);
 
 func apply_ranged_tile_damage(tilemap_position : Vector2i, monster : Monster):
 	var tile_data = tiles.get(tilemap_position);
@@ -200,10 +208,10 @@ func apply_ranged_tile_damage(tilemap_position : Vector2i, monster : Monster):
 	
 	for targetting_tile_coordinates in dynamic_tile_data.targetted_by:
 		var targetting_tile_data = tiles[targetting_tile_coordinates];
-		await dispatch_tile_damage(targetting_tile_coordinates, tile_data);
+		await bounce_tile(targetting_tile_coordinates, tile_data);
 		await monster.damage(targetting_tile_data.damage, targetting_tile_coordinates);
 
-func dispatch_tile_damage(tile_position : Vector2i,tile_data : CustomTileData):
+func bounce_tile(tile_position : Vector2i,tile_data : CustomTileData):
 	tile_feedback_sprite.texture.region = tile_data.get_texture_region();
 	tile_feedback_sprite.position = map_to_local(tile_position);
 	tile_feedback_sprite.visible = true;
