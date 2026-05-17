@@ -6,7 +6,6 @@ static var instance : TileCardFactory;
 @export var card_count_label : Label;
 
 var cards : Array[TileCard];
-var reroll_left: int = 0;
 
 func _ready() -> void:
 	if instance == null:
@@ -34,8 +33,6 @@ func on_card_discarded(tile_card : TileCard):
 	update_card_count_label();
 
 func draw_hand():
-	reroll_left = GameLoop.current_day;
-	
 	var tween = get_tree().create_tween();
 	tween.set_loops(Constants.base_card_per_round);
 	tween.tween_callback(TileCardFactory.instance.draw_random_card);

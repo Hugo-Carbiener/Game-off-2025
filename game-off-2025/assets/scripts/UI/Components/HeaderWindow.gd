@@ -4,15 +4,20 @@ class_name HeaderWindow extends Control
 @export var beacon_health_bar : TextureProgressBar;
 @export var monster_health_text : Label;
 @export var breach_amount_text : Label;
+@export var resource_amount_per_biome : Dictionary[TileDataManager.BIOMES, Label];
 
 func _ready() -> void:
 	setup_progress_bar();
 	update_beacon_health(BeaconManager.instance.health);
 	update_monster_health(GameLoop.current_day);
+	update_resource_amount(TileDataManager.BIOMES.NATURAL);
+	update_resource_amount(TileDataManager.BIOMES.MINERAL);
+	update_resource_amount(TileDataManager.BIOMES.ARTIFICIAL);
 	update_breach_amount();
 	SignalBus.beacon_health_updated.connect(update_beacon_health);
 	SignalBus.setup_phase_started.connect(update_monster_health);
 	SignalBus.breach_spawned.connect(update_breach_amount);
+	SignalBus.resource_gained.connect(update_resource_amount);
 
 func setup_progress_bar():
 	beacon_health_bar.min_value = 0;
@@ -28,3 +33,6 @@ func update_breach_amount():
 
 func update_monster_health(current_day : int):
 	monster_health_text.text = str(current_day);
+
+func update_resource_amount(type : TileDataManager.BIOMES):
+	resource_amount_per_biome[type].text = str(ResourceManager.instance.essences[type]);

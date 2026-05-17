@@ -16,6 +16,7 @@ signal card_discarded; # TileCard
 signal tile_placed;
 signal evolution_started;
 signal evolution_finished;
+signal resource_gained;
 signal beacon_health_updated;
 signal breach_spawned;
 signal breach_instability_changed;

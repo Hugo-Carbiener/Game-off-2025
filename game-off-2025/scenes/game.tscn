@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=102 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -26,6 +26,7 @@
 [ext_resource type="Shader" uid="uid://cs2kq3d1xmhum" path="res://assets/shaders/ShockWave.gdshader" id="20_weeiq"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="21_uxocx"]
 [ext_resource type="Script" uid="uid://lgg52d0fn8br" path="res://assets/scripts/Schockwave.gd" id="22_7nv0b"]
+[ext_resource type="Script" uid="uid://kddp1txwiobl" path="res://assets/scripts/ResourceManager.gd" id="23_l6q63"]
 [ext_resource type="FontFile" uid="uid://hqjevqlk863l" path="res://assets/fonts/Dedicool.ttf" id="23_o8oq8"]
 [ext_resource type="Script" uid="uid://cpmped0rn7pvq" path="res://assets/scripts/input/interactionArea/TilemapInteractionArea.gd" id="24_sxt1d"]
 [ext_resource type="Script" uid="uid://c4cv0bin8bd1s" path="res://assets/scripts/input/interactionArea/CardHandInteractionArea.gd" id="26_7gkqi"]
@@ -45,12 +46,17 @@
 [ext_resource type="PackedScene" uid="uid://n0tesceeiak6" path="res://scenes/components/PhaseTitle.tscn" id="40_m4url"]
 [ext_resource type="Texture2D" uid="uid://478ujqnbovwt" path="res://assets/sprites/UI_discard-pile.png" id="40_rm0al"]
 [ext_resource type="Texture2D" uid="uid://c46lykl8xsmkc" path="res://assets/sprites/UI_discard-pile-hovered.png" id="41_i4re6"]
+[ext_resource type="Texture2D" uid="uid://bhyskaywrnk45" path="res://assets/sprites/UI_natural_essence.png" id="41_sxt1d"]
+[ext_resource type="Texture2D" uid="uid://tpv1fkbraidn" path="res://assets/sprites/UI_mineral_essence.png" id="42_2iuns"]
+[ext_resource type="Texture2D" uid="uid://bb4fjx7vipir3" path="res://assets/sprites/UI_artificial_essence.png" id="43_7gkqi"]
 [ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="46_ja1h7"]
 [ext_resource type="LabelSettings" uid="uid://cim6v58ulrs2m" path="res://assets/fonts/SmallFont.tres" id="47_3hbvx"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="47_p4npv"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="48_xjcjm"]
+[ext_resource type="Texture2D" uid="uid://bp4tnlykowmbb" path="res://assets/sprites/UI_void_essence_empty.png" id="52_7nv0b"]
 [ext_resource type="Texture2D" uid="uid://dafaeoeyontpg" path="res://assets/sprites/UI_tile-selection-frame.png" id="53_66xif"]
 [ext_resource type="Script" uid="uid://dl2gj0p4i3tav" path="res://assets/scripts/ui/components/TileSelectionDetail.gd" id="53_bnuda"]
+[ext_resource type="Texture2D" uid="uid://bsnifwona7ns0" path="res://assets/sprites/UI_void_essence_frame.png" id="53_o8oq8"]
 [ext_resource type="Texture2D" uid="uid://bmmr8hkgyxehc" path="res://assets/sprites/UI_heal_icon_small.png" id="54_bnuda"]
 [ext_resource type="Texture2D" uid="uid://t8exnna177y" path="res://assets/sprites/UI_monster_weakness_icon_small.png" id="55_0rmfi"]
 [ext_resource type="Script" uid="uid://b81pu688kc1xg" path="res://assets/scripts/ui/components/DiscardWindow.gd" id="55_ms3bu"]
@@ -203,6 +209,10 @@ region = Rect2(96, 0, 8, 8)
 atlas = ExtResource("7_pr1ej")
 region = Rect2(112, 0, 8, 8)
 
+[sub_resource type="LabelSettings" id="LabelSettings_753oq"]
+font = ExtResource("23_o8oq8")
+font_size = 8
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
 shader = ExtResource("20_weeiq")
 shader_parameter/strength = 0.08
@@ -231,7 +241,7 @@ shader_parameter/noise_tex = ExtResource("48_xjcjm")
 shader_parameter/time_scale = 15.25
 shader_parameter/center_offset = Vector2(0, 0.1)
 shader_parameter/noise_scale = 0.4110000195225
-shader_parameter/width_scale = 2.0850000515375
+shader_parameter/width_scale = 1.222000058045
 shader_parameter/rotation_coef = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_bk1p3"]
@@ -344,6 +354,9 @@ hold_input_required_duration = 1.0
 
 [node name="Beacon manager" type="Node2D" parent="."]
 script = ExtResource("18_l6q63")
+
+[node name="Resource manager" type="Node2D" parent="."]
+script = ExtResource("23_l6q63")
 
 [node name="Static UI" type="CanvasLayer" parent="."]
 offset = Vector2(320, 180)
@@ -679,7 +692,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("61_uxocx")
 
-[node name="Header" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "monster_health_text", "breach_amount_text")]
+[node name="Header" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "monster_health_text", "breach_amount_text", "resource_amount_per_biome")]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = -104.0
@@ -693,6 +706,11 @@ beacon_health_text = NodePath("Inner container/Header container/Beacon health co
 beacon_health_bar = NodePath("Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health bar")
 monster_health_text = NodePath("Inner container/Header container/Monster health container/Monster health text margin/monster health")
 breach_amount_text = NodePath("Inner container/Header container/Breach amount container/Breach amount text margin/Beach amount")
+resource_amount_per_biome = {
+0: NodePath("Inner container/Header container/Nature essence container/Label container/Nature essence label"),
+1: NodePath("Inner container/Header container/Mineral essence container/Label container/Mineral essence label"),
+2: NodePath("Inner container/Header container/Artificial essence container/Label container/Artificial essence label")
+}
 
 [node name="Frame background" type="NinePatchRect" parent="Static UI/Header"]
 layout_mode = 2
@@ -709,7 +727,7 @@ theme_override_constants/margin_right = 16
 
 [node name="Header container" type="HBoxContainer" parent="Static UI/Header/Inner container"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 
 [node name="Beacon health container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
 layout_mode = 2
@@ -752,7 +770,7 @@ stretch_mode = 3
 
 [node name="Monster health text margin" type="MarginContainer" parent="Static UI/Header/Inner container/Header container/Monster health container"]
 layout_mode = 2
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_top = 3
 
 [node name="monster health" type="Label" parent="Static UI/Header/Inner container/Header container/Monster health container/Monster health text margin"]
 layout_mode = 2
@@ -770,13 +788,70 @@ stretch_mode = 5
 
 [node name="Breach amount text margin" type="MarginContainer" parent="Static UI/Header/Inner container/Header container/Breach amount container"]
 layout_mode = 2
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_top = 3
 
 [node name="Beach amount" type="Label" parent="Static UI/Header/Inner container/Header container/Breach amount container/Breach amount text margin"]
 layout_mode = 2
 text = "0/5"
 label_settings = SubResource("LabelSettings_0rmfi")
 vertical_alignment = 1
+
+[node name="Nature essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Nature essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Nature essence container"]
+layout_mode = 2
+texture = ExtResource("41_sxt1d")
+stretch_mode = 3
+
+[node name="Label container" type="MarginContainer" parent="Static UI/Header/Inner container/Header container/Nature essence container"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+
+[node name="Nature essence label" type="Label" parent="Static UI/Header/Inner container/Header container/Nature essence container/Label container"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_753oq")
+
+[node name="Mineral essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Mineral essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Mineral essence container"]
+layout_mode = 2
+texture = ExtResource("42_2iuns")
+stretch_mode = 3
+
+[node name="Label container" type="MarginContainer" parent="Static UI/Header/Inner container/Header container/Mineral essence container"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+
+[node name="Mineral essence label" type="Label" parent="Static UI/Header/Inner container/Header container/Mineral essence container/Label container"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_753oq")
+
+[node name="Artificial essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Artificial essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Artificial essence container"]
+layout_mode = 2
+texture = ExtResource("43_7gkqi")
+stretch_mode = 3
+
+[node name="Label container" type="MarginContainer" parent="Static UI/Header/Inner container/Header container/Artificial essence container"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+
+[node name="Artificial essence label" type="Label" parent="Static UI/Header/Inner container/Header container/Artificial essence container/Label container"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Phase title" parent="Static UI" instance=ExtResource("40_m4url")]
 visible = false
@@ -824,6 +899,17 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("24_sxt1d")
 main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
+
+[node name="Void essence container" type="MarginContainer" parent="UI/Screen container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Void essence bar" type="TextureProgressBar" parent="UI/Screen container/Void essence container"]
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 3.0
+texture_under = ExtResource("52_7nv0b")
+texture_over = ExtResource("53_o8oq8")
 
 [node name="Footer container" type="MarginContainer" parent="UI/Screen container"]
 layout_mode = 2
@@ -888,16 +974,19 @@ size_flags_horizontal = 0
 texture = ExtResource("29_ms3bu")
 stretch_mode = 2
 
-[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer" node_paths=PackedStringArray("folding_icon", "deck_window", "deck_element_container_window")]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
+layout_mode = 2
+
+[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("folding_icon", "deck_window", "deck_element_container_window")]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("26_fedci")
 texture_pressed = ExtResource("27_8qswn")
 texture_hover = ExtResource("27_8qswn")
 script = ExtResource("27_458eo")
-folding_icon = NodePath("../Folding icon menu")
-deck_window = NodePath("../Deck window")
-deck_element_container_window = NodePath("../Deck window/Deck element container/VBoxContainer")
+folding_icon = NodePath("../../Folding icon menu")
+deck_window = NodePath("../../Deck window")
+deck_element_container_window = NodePath("../../Deck window/Deck element container/VBoxContainer")
 
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
@@ -1009,7 +1098,7 @@ visible = false
 layout_mode = 2
 
 [node name="Background shader" type="TextureRect" parent="UI"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.17461646, 0.12141951, 0.15886873, 1)
 z_index = -100
 material = SubResource("ShaderMaterial_2rfjg")
 layout_mode = 2

@@ -40,6 +40,12 @@ enum TRIGGERS {
 	ON_BREACH_INTERACTION,
 }
 
+enum BIOMES {
+	NATURAL,
+	MINERAL,
+	ARTIFICIAL
+}
+
 # regex 
 var cardinal_tile_requirement_regex : RegEx = RegEx.new();
 var tile_amount_requirement_regex : RegEx = RegEx.new();

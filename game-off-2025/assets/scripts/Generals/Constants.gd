@@ -27,6 +27,7 @@ const tilemap_offset = Vector2(0, -0.2);
 const base_card_per_round = 5;
 const base_card_hand_size = 7;
 const card_draw_interval = 0.1;
+const base_void_essences = 3;
 
 ## Breaches
 const base_breach_amount = 5;
