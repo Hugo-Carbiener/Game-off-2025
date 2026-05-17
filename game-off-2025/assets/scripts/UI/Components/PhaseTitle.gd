@@ -7,15 +7,15 @@ class_name PhaseTitle extends Control
 @export var lifetime_duration : float;
 
 var titles_per_phase = {
-	GameLoop.PHASES.SETUP : "day %s",
-	GameLoop.PHASES.PLAY : "your turn",
-	GameLoop.PHASES.RESOLUTION : "monsters turn",
+	GameLoop.PHASES.SETUP : "Day %s",
+	GameLoop.PHASES.PLAY : "Your Turn",
+	GameLoop.PHASES.RESOLUTION : "Monsters Turn",
 }
 
 var sub_titles_per_phase = {
-	GameLoop.PHASES.SETUP : "New threats appears, prepare accordingly",
-	GameLoop.PHASES.PLAY : "Close breaches, fend off the monsters",
-	GameLoop.PHASES.RESOLUTION : "Hold fast, monsters are comming",
+	GameLoop.PHASES.SETUP : "Breaches appear and evolve",
+	GameLoop.PHASES.PLAY : "Reforge the land, prepare for an offensive",
+	GameLoop.PHASES.RESOLUTION : "Monsters are coming out of the breaches",
 }
 
 func init(title : String, sub_title : String) :

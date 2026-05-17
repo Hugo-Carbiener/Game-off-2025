@@ -26,7 +26,7 @@ func init_sprites():
 	monster_damage_animated_sprite.visible = false;
 
 func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(10, tilemap_position, get_monster_path(tilemap_position));
+	var monster = Monster.new(GameLoop.current_day, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
@@ -76,7 +76,7 @@ func on_setup():
 		MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
 	
 	for breach in breaches.values():
-		await breach.update_breach();
+		breach.update_breach();
 
 func on_resolution():
 	spawn_monsters();
@@ -85,6 +85,9 @@ func on_resolution():
 	sorted_monsters.sort_custom(func(a,b) : return cell_manhattan_distance(monsters.find_key(a), Vector2i.ZERO) < cell_manhattan_distance(monsters.find_key(b), Vector2i.ZERO))
 	for monster in sorted_monsters:
 		await execute_monster_trajectory(monster);
+	
+	for breach in breaches.values():
+		await breach.apply_tile_interactions();
 
 func execute_monster_trajectory(monster : Monster):
 	on_move_start(monster);

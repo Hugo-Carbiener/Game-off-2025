@@ -196,7 +196,7 @@ func apply_tile_breach_damage(tilemap_position : Vector2i, breach : Breach):
 	if tile_data == null: return;
 	
 	if breach != null:
-		breach.gain_instability(-1 * tile_data.damage);
+		breach.gain_instability(-1 * tile_data.damage, tilemap_position);
 		await bounce_tile(tilemap_position, tile_data);
 
 func apply_ranged_tile_damage(tilemap_position : Vector2i, monster : Monster):

@@ -24,7 +24,7 @@ phase_sub_title = NodePath("MarginContainer/Background/MarginContainer/VBoxConta
 lifetime_duration = 1.5
 
 [node name="Shadow" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 0.77254903)
+modulate = Color(0, 0, 0, 0.8745098)
 layout_mode = 2
 texture = ExtResource("2_xa5vh")
 
@@ -59,7 +59,7 @@ size_flags_horizontal = 4
 
 [node name="Phase title" type="Label" parent="MarginContainer/Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "RESOLUTION PHASE"
+text = "DAY 99"
 label_settings = SubResource("LabelSettings_xa5vh")
 horizontal_alignment = 1
 vertical_alignment = 1
