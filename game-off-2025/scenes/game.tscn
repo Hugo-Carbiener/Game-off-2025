@@ -350,6 +350,7 @@ offset = Vector2(320, 180)
 transform = Transform2D(1, 0, 0, 1, 320, 180)
 
 [node name="Tile selection detail" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "maturity_counter_label", "instability_meter", "codex_link_button", "lines_list", "health_weakness_line_container", "effects_line_container", "monster_spawned_line", "maturity_line")]
+visible = false
 custom_minimum_size = Vector2(140, 0)
 offset_left = 180.0
 offset_top = -180.0
@@ -777,6 +778,14 @@ text = "0/5"
 label_settings = SubResource("LabelSettings_0rmfi")
 vertical_alignment = 1
 
+[node name="Phase title" parent="Static UI" instance=ExtResource("40_m4url")]
+visible = false
+z_index = 1
+offset_left = -320.0
+offset_top = -180.0
+offset_right = -320.0
+offset_bottom = -180.0
+
 [node name="UI" type="MarginContainer" parent="." node_paths=PackedStringArray("footer_container", "end_turn_button", "phase_title", "death_screen", "win_screen", "pause_window")]
 anchors_preset = 15
 anchor_right = 1.0
@@ -790,7 +799,7 @@ grow_vertical = 2
 script = ExtResource("19_mmvbu")
 footer_container = NodePath("Screen container/Footer container")
 end_turn_button = NodePath("Screen container/Footer container/Footer hbox/Right area/VBoxContainer/End turn button")
-phase_title = NodePath("Phase title")
+phase_title = NodePath("../Static UI/Phase title")
 death_screen = NodePath("Death Screen")
 win_screen = NodePath("Win screen")
 pause_window = NodePath("Pause screen")
@@ -1007,11 +1016,6 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("21_uxocx")
 stretch_mode = 6
-
-[node name="Phase title" parent="UI" instance=ExtResource("40_m4url")]
-visible = false
-z_index = 1
-layout_mode = 2
 
 [node name="Discard window" type="MarginContainer" parent="UI" node_paths=PackedStringArray("title_label", "card_container", "card_amount_label", "validate_button")]
 visible = false
