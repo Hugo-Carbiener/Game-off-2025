@@ -47,7 +47,7 @@ static func parse_span_range(_min_range : String, _max_range : String):
 func range_to_string() -> String:
 	if min_range <= 0:
 		return str(max_range);
-	return str(min_range) + "-" + str(max_range);
+	return str(min_range) + "•" + str(max_range);
 
 func get_offset_coordinates() -> Array[Vector2i]:
 	var res : Array[Vector2i];
