@@ -35,6 +35,7 @@ static func setup_phase():
 	UserSettings.are_input_blocked = true;
 	current_day += 1;
 	SignalBus.setup_phase_started.emit(current_day);
+	ResourceManager.instance.on_setup();
 	await MonsterFactory.instance.on_setup();
 	await TileCardFactory.instance.draw_hand();
 		

@@ -798,7 +798,6 @@ vertical_alignment = 1
 
 [node name="Nature essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
 layout_mode = 2
-theme_override_constants/separation = -2
 
 [node name="Nature essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Nature essence container"]
 layout_mode = 2
@@ -817,7 +816,6 @@ label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Mineral essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
 layout_mode = 2
-theme_override_constants/separation = -2
 
 [node name="Mineral essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Mineral essence container"]
 layout_mode = 2
@@ -836,7 +834,6 @@ label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Artificial essence container" type="HBoxContainer" parent="Static UI/Header/Inner container/Header container"]
 layout_mode = 2
-theme_override_constants/separation = -2
 
 [node name="Artificial essence icon" type="TextureRect" parent="Static UI/Header/Inner container/Header container/Artificial essence container"]
 layout_mode = 2
