@@ -3,6 +3,7 @@ class_name CustomTileData
 var id : String;
 var color : Color;
 var name : String;
+var cost : TileCost;
 var damage : int;
 var effect_range : TileRange;
 var description : String;
@@ -19,6 +20,7 @@ func _init(
 		_id: String,
 		_color: Color,
 		_name : String,
+		_cost : TileCost,
 		_damage : int,
 		_range : String,
 		_description : String,
@@ -32,6 +34,7 @@ func _init(
 	self.id = _id;
 	self.color = _color;
 	self.name = _name;
+	self.cost = _cost;
 	self.damage = _damage;
 	self.effect_range = TileRange.parse_range(_range);
 	self.description = _description;

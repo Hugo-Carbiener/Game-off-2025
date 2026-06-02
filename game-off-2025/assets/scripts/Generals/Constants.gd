@@ -27,7 +27,6 @@ const tilemap_offset = Vector2(0, -0.2);
 const base_card_per_round = 5;
 const base_card_hand_size = 7;
 const card_draw_interval = 0.1;
-const base_void_essences = 3;
 
 ## Breaches
 const base_breach_amount = 5;
@@ -37,7 +36,6 @@ const first_breach_spawn_round = 2;
 const breach_spawn_step = 3;
 const breach_min_spawn_range = 3;
 const breach_max_instability = 30;
-const breach_starting_instability = 10;
 const breach_daily_instability_gain = 5;
 const breach_target_cells_amount = 4;
 

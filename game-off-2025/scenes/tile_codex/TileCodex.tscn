@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://1apjfaxjnqup" path="res://assets/sprites/UI_book-favorite-active-highlighted.png" id="9_cs6d5"]
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="10_ffusi"]
 [ext_resource type="Texture2D" uid="uid://b1ewahacht5i3" path="res://assets/sprites/UI_book-right-page-effects.png" id="14_2fjf8"]
-[ext_resource type="LabelSettings" uid="uid://c46nqmt1mo3q5" path="res://assets/fonts/TileCodexFontOutlined.tres" id="15_08uid"]
+[ext_resource type="LabelSettings" uid="uid://c46nqmt1mo3q5" path="res://assets/fonts/FontOutlined.tres" id="15_08uid"]
 [ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/tile_codex/EffectTooltip.tscn" id="15_ffusi"]
 [ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="15_g7s2b"]
 [ext_resource type="Texture2D" uid="uid://c7yqfqmuxr4sj" path="res://assets/sprites/UI_book-right-page-evolutions.png" id="15_keuhg"]

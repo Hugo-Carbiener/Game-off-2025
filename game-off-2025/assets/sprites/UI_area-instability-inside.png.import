@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp4tnlykowmbb"
-path="res://.godot/imported/UI_void_essence_empty.png-d99aee724bc955cf101a431364dbaa7b.ctex"
+uid="uid://3eljqvyn3y35"
+path="res://.godot/imported/UI_area-instability-inside.png-63bd1b519085a1f59013db0d4b91a1c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/UI_void_essence_empty.png"
-dest_files=["res://.godot/imported/UI_void_essence_empty.png-d99aee724bc955cf101a431364dbaa7b.ctex"]
+source_file="res://assets/sprites/UI_area-instability-inside.png"
+dest_files=["res://.godot/imported/UI_area-instability-inside.png-63bd1b519085a1f59013db0d4b91a1c5.ctex"]
 
 [params]
 

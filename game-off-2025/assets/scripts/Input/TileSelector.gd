@@ -17,10 +17,12 @@ func on_tile_selection_interaction():
 
 func select_tile(_selected_tile : Vector2i):
 	selected_tile = _selected_tile
+	await MainCamera.zoom_transition(MainTilemap.instance.map_to_local(selected_tile), Vector2i.ONE * 2);
 	SignalBus.tile_selected.emit(selected_tile);
 
 func unselect_tile():
 	selected_tile = Vector2i.ZERO;
+	await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 	SignalBus.tile_unselected.emit();
 
 func is_tile_occupied(coordinates : Vector2i) -> bool:

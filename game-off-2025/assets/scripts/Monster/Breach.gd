@@ -43,7 +43,7 @@ func mature_tile():
 	await MonsterFactory.instance.breach_transition(tilemap_position, false);
 	var breach_tile_data = TileDataManager.tile_dictionnary.get("large-breach");
 	MonsterFactory.instance.place_tile(tilemap_position, breach_tile_data);
-	gain_instability(Constants.breach_starting_instability, tilemap_position);
+	gain_instability(Constants.breach_max_instability, tilemap_position);
 	check_state();
 
 func is_mature() -> bool:
@@ -62,8 +62,6 @@ func gain_instability(instability_amount : int, source : Vector2i):
 func check_state():
 	if instability == 0:
 		seal_breach();
-	if instability == Constants.breach_max_instability:
-		burst_breach();
 
 func destroy_tiles_around():
 	for x in range(-1, 2, 1):
@@ -90,8 +88,3 @@ func select_tiles_around():
 
 func seal_breach():
 	pass;
-
-func burst_breach():
-	destroy_tiles_around();
-	for target_cell in target_cells:
-		MonsterFactory.instance.spawn_monster(target_cell);

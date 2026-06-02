@@ -5,6 +5,9 @@ const TILE_CUSTOM_DATA_COLOR_KEY = "color";
 const TILE_CUSTOM_DATA_NAME_KEY = "name";
 const TILE_CUSTOM_DATA_DAMAGE_KEY = "damage";
 const TILE_CUSTOM_DATA_RANGE_KEY = "range";
+const TILE_CUSTOM_DATA_NATURAL_COST_KEY = "natural_cost";
+const TILE_CUSTOM_DATA_MINERAL_COST_KEY = "mineral_cost";
+const TILE_CUSTOM_DATA_ARTIFICIAL_COST_KEY = "artificial_cost";
 const TILE_CUSTOM_DATA_DESCRIPTION_KEY = "description";
 const TILE_CUSTOM_DATA_PLAYABLE_KEY = "is_playable";
 const TILE_CUSTOM_DATA_UTIL_KEY = "is_util";
@@ -14,12 +17,14 @@ const TILE_CUSTOM_DATA_EFFECTS_KEY = "effects";
 const tile_set: TileSet = preload("res://assets/tiles/tiles_8px.tres");
 
 static var beacon_icon : Texture2D = preload("res://assets/sprites/UI_beacon.png");
-static var damage_icon : Texture2D = preload("res://assets/sprites/UI_damage-icon.png");
 static var damage_icon_small : Texture2D = preload("res://assets/sprites/UI_damage-icon-small.png");
 static var ranged_damage_icon_small : Texture2D = preload("res://assets/sprites/UI_ranged_damage_icon_small.png");
 static var beacon_icon_small : Texture2D = preload("res://assets/sprites/UI_beacon_icon_small.png");
 static var heal_icon_small : Texture2D = preload("res://assets/sprites/UI_heal_icon_small.png");
 static var burst_icon_small : Texture2D = preload("res://assets/sprites/UI_burst_icon_small.png");
+static var natural_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
+static var mineral_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
+static var artificial_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
 
 ## tiles 
 var tile_dictionnary : Dictionary[String, CustomTileData];
@@ -68,6 +73,9 @@ func load_tile_data():
 		var tile_id = tile_data.get_custom_data(TILE_CUSTOM_DATA_ID_KEY);
 		var tile_color = tile_data.get_custom_data(TILE_CUSTOM_DATA_COLOR_KEY);
 		var tile_name = tile_data.get_custom_data(TILE_CUSTOM_DATA_NAME_KEY);
+		var tile_cost = TileCost.new(tile_data.get_custom_data(TILE_CUSTOM_DATA_NATURAL_COST_KEY),
+			tile_data.get_custom_data(TILE_CUSTOM_DATA_MINERAL_COST_KEY),
+			tile_data.get_custom_data(TILE_CUSTOM_DATA_ARTIFICIAL_COST_KEY));
 		var tile_damage = tile_data.get_custom_data(TILE_CUSTOM_DATA_DAMAGE_KEY);
 		var tile_range = tile_data.get_custom_data(TILE_CUSTOM_DATA_RANGE_KEY);
 		var tile_description = tile_data.get_custom_data(TILE_CUSTOM_DATA_DESCRIPTION_KEY);
@@ -81,6 +89,7 @@ func load_tile_data():
 			tile_id,
 			tile_color,
 			tile_name,
+			tile_cost,
 			tile_damage,
 			tile_range,
 			tile_description,

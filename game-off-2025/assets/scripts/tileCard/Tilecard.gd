@@ -11,6 +11,9 @@ var is_draggable : bool;
 @export var card_overlay : TextureRect;
 @export var card_border : TextureRect;
 @export var card_name : Label;
+@export var card_natural_cost_container : HBoxContainer;
+@export var card_mineral_cost_container : HBoxContainer;
+@export var card_artificial_cost_container : HBoxContainer;
 @export var card_sprite : TextureRect;
 @export var card_mouse_detector : TileCardMouseDetector;
 @export var card_effects_icons : HBoxContainer;
@@ -42,6 +45,7 @@ func with_clickable_evolutions(on_evolution_click : Callable) -> TileCard:
 	return self;
 
 func setup(_id : String, draggable : bool) :
+	reset();
 	var tile_data = TileDataManager.tile_dictionnary[_id] if UserData.get_known_tiles().has(_id) else TileDataManager.tile_dictionnary["unknown"] ;
 	is_draggable = draggable;
 	set_meta('Draggable', is_draggable);
@@ -55,6 +59,7 @@ func setup(_id : String, draggable : bool) :
 	card_border.visible = false;
 	card_chains.visible = !UserData.get_known_tiles().has(_id);
 	init_signals();
+	init_costs(tile_data);
 	init_icons(tile_data);
 	init_evolutions(tile_data);
 	init_color(tile_data.color);
@@ -66,6 +71,13 @@ func reset():
 		tile_card_evolution.queue_free();
 	tile_card_evolutions.clear();
 
+	for natural_cost_essence in card_natural_cost_container.get_children():
+		natural_cost_essence.queue_free();
+	for mineral_cost_essence in card_mineral_cost_container.get_children():
+		mineral_cost_essence.queue_free();
+	for artificial_cost_essence in card_artificial_cost_container.get_children():
+		artificial_cost_essence.queue_free();
+		
 	if card_mouse_detector.mouse_entered.is_connected(on_mouse_entered):
 		card_mouse_detector.mouse_entered.disconnect(on_mouse_entered);
 	if mouse_exited.is_connected(on_mouse_exit):
@@ -98,6 +110,21 @@ func init_color(color : Color) :
 	card_evolution_title.label_settings.font_color = color;
 	for tile_card_evolution in tile_card_evolutions:
 		tile_card_evolution.init_color(color);
+
+func init_costs(tile_data : CustomTileData) :
+	var sprite = TextureRect.new();
+	if tile_data.cost.natural_cost > 0:
+		sprite.texture = TileDataManager.natural_essence_icon;
+		for i in tile_data.cost.natural_cost:
+			card_natural_cost_container.add_child(sprite.duplicate());
+	if tile_data.cost.mineral_cost > 0:
+		sprite.texture = TileDataManager.mineral_essence_icon;
+		for i in tile_data.cost.mineral_cost:
+			card_mineral_cost_container.add_child(sprite.duplicate());
+	if tile_data.cost.artificial_cost > 0:
+		sprite.texture = TileDataManager.artificial_essence_icon;
+		for i in tile_data.cost.artificial_cost:
+			card_artificial_cost_container.add_child(sprite.duplicate());
 
 func init_icons(tile_data : CustomTileData) :
 	if !tile_data.effects.is_empty():

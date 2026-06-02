@@ -7,13 +7,13 @@ class_name PhaseTitle extends Control
 @export var lifetime_duration : float;
 
 var titles_per_phase = {
-	GameLoop.PHASES.SETUP : "Day %s",
+	GameLoop.PHASES.SETUP : "Turn %s",
 	GameLoop.PHASES.PLAY : "Your Turn",
 	GameLoop.PHASES.RESOLUTION : "Monsters Turn",
 }
 
 var sub_titles_per_phase = {
-	GameLoop.PHASES.SETUP : "Breaches appear and evolve",
+	GameLoop.PHASES.SETUP : "Breaches appear, monsters grow stronger",
 	GameLoop.PHASES.PLAY : "Reforge the land, prepare for an offensive",
 	GameLoop.PHASES.RESOLUTION : "Monsters are coming out of the breaches",
 }

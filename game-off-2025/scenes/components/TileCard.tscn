@@ -1,11 +1,11 @@
 [gd_scene load_steps=27 format=3 uid="uid://e3wskp2bkdnm"]
 
-[ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/tileCard/Tilecard.gd" id="1_334as"]
+[ext_resource type="Script" uid="uid://csnqb0oxagt3w" path="res://assets/scripts/tilecard/Tilecard.gd" id="1_334as"]
 [ext_resource type="Texture2D" uid="uid://bec2pswolnt35" path="res://assets/sprites/UI_card_background.png" id="2_ig78c"]
 [ext_resource type="Texture2D" uid="uid://xr0q7ragebt1" path="res://assets/sprites/UI_card_background_overlay.png" id="3_7nrqj"]
 [ext_resource type="Texture2D" uid="uid://d33x0kakm2gem" path="res://assets/sprites/UI_card_background_chains.png" id="3_tolko"]
-[ext_resource type="Script" uid="uid://cfy48d15iriip" path="res://assets/scripts/tileCard/TileCardMouseDetector.gd" id="3_wjw0q"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="4_eq3wv"]
+[ext_resource type="Script" uid="uid://cfy48d15iriip" path="res://assets/scripts/tilecard/TileCardMouseDetector.gd" id="3_wjw0q"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="4_eq3wv"]
 [ext_resource type="Texture2D" uid="uid://dkcxv38sgq7dq" path="res://assets/sprites/UI_card_background_border.png" id="4_ttman"]
 [ext_resource type="Texture2D" uid="uid://bqa4poxen4or5" path="res://assets/sprites/shader resources/shader_pattern_middle_gradient.png" id="5_tysvy"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="6_uila8"]
@@ -55,7 +55,7 @@ font_size = 8
 font = ExtResource("10_n3nhw")
 font_size = 8
 
-[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_chains", "card_overlay", "card_border", "card_name", "card_sprite", "card_mouse_detector", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
+[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_chains", "card_overlay", "card_border", "card_name", "card_natural_cost_container", "card_mineral_cost_container", "card_artificial_cost_container", "card_sprite", "card_mouse_detector", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -74,6 +74,9 @@ card_chains = NodePath("Tile card/Chains")
 card_overlay = NodePath("Tile card/Overlay")
 card_border = NodePath("Tile card/Border")
 card_name = NodePath("Tile card/VBoxContainer/Card name margin/Tile card name")
+card_natural_cost_container = NodePath("Tile card/VBoxContainer/Cost margin/Costs container/Nature cost container")
+card_mineral_cost_container = NodePath("Tile card/VBoxContainer/Cost margin/Costs container/Mineral cost container")
+card_artificial_cost_container = NodePath("Tile card/VBoxContainer/Cost margin/Costs container/Artificial cost container")
 card_sprite = NodePath("Tile card/VBoxContainer/Tile preview margin/HBoxContainer/Tile preview")
 card_mouse_detector = NodePath("Tile card")
 card_effects_icons = NodePath("Tile card/VBoxContainer/Effects margin/HBoxContainer")
@@ -155,6 +158,7 @@ horizontal_alignment = 1
 clip_text = true
 
 [node name="Cost margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -164,6 +168,7 @@ theme_override_constants/margin_right = 8
 
 [node name="Costs container" type="HBoxContainer" parent="Tile card/VBoxContainer/Cost margin"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Nature cost container" type="HBoxContainer" parent="Tile card/VBoxContainer/Cost margin/Costs container"]
 layout_mode = 2
@@ -171,14 +176,17 @@ size_flags_horizontal = 3
 theme_override_constants/separation = -3
 
 [node name="TextureRect" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Nature cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("11_hiac3")
 
 [node name="TextureRect2" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Nature cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("11_hiac3")
 
 [node name="TextureRect3" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Nature cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("11_hiac3")
 
@@ -188,14 +196,17 @@ size_flags_horizontal = 3
 theme_override_constants/separation = -3
 
 [node name="TextureRect" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Mineral cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("12_ccmn3")
 
 [node name="TextureRect2" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Mineral cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("12_ccmn3")
 
 [node name="TextureRect3" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Mineral cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("12_ccmn3")
 
@@ -205,14 +216,17 @@ size_flags_horizontal = 3
 theme_override_constants/separation = -3
 
 [node name="TextureRect" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Artificial cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("13_ya6m2")
 
 [node name="TextureRect2" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Artificial cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("13_ya6m2")
 
 [node name="TextureRect3" type="TextureRect" parent="Tile card/VBoxContainer/Cost margin/Costs container/Artificial cost container"]
+visible = false
 layout_mode = 2
 texture = ExtResource("13_ya6m2")
 
@@ -322,7 +336,7 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_right = 7
+theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 6
 
 [node name="Damage container" type="HBoxContainer" parent="Tile card/Stats margin"]
