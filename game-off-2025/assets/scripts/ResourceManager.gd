@@ -14,9 +14,16 @@ func _ready() -> void:
 
 func gain_resource(type : TileDataManager.BIOMES, amount : int):
 	essences.set(type, essences[type] + amount);
-	SignalBus.resource_gained.emit(type);
+	SignalBus.resource_gained.emit();
 
-func has_resource(_essences : Dictionary[TileDataManager.BIOMES, int]) -> bool:
+func use_resource(type : TileDataManager.BIOMES, amount : int):
+	essences.set(type, essences[type] - amount);
+	SignalBus.resource_used.emit();
+
+func has_resources(_essences : Dictionary[TileDataManager.BIOMES, int]) -> bool:
 	for type in _essences.keys():
 		if _essences[type] > essences[type]: return false;
 	return true;
+
+func can_pay_for(tile_data : CustomTileData) -> bool:
+	return has_resources(tile_data.cost.to_dictionary());

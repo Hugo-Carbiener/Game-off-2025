@@ -24,6 +24,7 @@ var is_draggable : bool;
 @export var card_damage_icon : TextureRect;
 @export var card_range_label : Label;
 @export var card_range_icon : TextureRect;
+@export var cost_veil : TextureRect;
 @export_group("Variables")
 @export var card_hover_bottom_offset : int;
 @export var card_selection_bottom_offset : int;
@@ -86,6 +87,8 @@ func reset():
 func init_signals():
 	card_mouse_detector.mouse_entered.connect(on_mouse_entered);
 	card_mouse_detector.mouse_exited.connect(on_mouse_exit);
+	SignalBus.resource_gained.connect(on_resource_update);
+	SignalBus.resource_used.connect(on_resource_update);
 
 func init_color(color : Color) :
 	card_color = color;
@@ -125,6 +128,7 @@ func init_costs(tile_data : CustomTileData) :
 		sprite.texture = TileDataManager.artificial_essence_icon;
 		for i in tile_data.cost.artificial_cost:
 			card_artificial_cost_container.add_child(sprite.duplicate());
+	on_resource_update();
 
 func init_icons(tile_data : CustomTileData) :
 	if !tile_data.effects.is_empty():
@@ -213,6 +217,9 @@ func on_unselection():
 	transition_card_margin();
 	z_index = 0;
 	card_border.visible = false;
+
+func on_resource_update():
+	cost_veil.visible = !ResourceManager.instance.can_pay_for(TileDataManager.tile_dictionnary[card_id]);
 
 func card_is_selected() -> bool:
 	return CardSelector.instance.get_selected_card() == self;

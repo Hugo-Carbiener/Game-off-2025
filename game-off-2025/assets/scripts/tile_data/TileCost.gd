@@ -8,3 +8,10 @@ func _init(_natural_cost : int, _mineral_cost : int, _artificial_cost : int) -> 
 	self.natural_cost = _natural_cost;
 	self.mineral_cost = _mineral_cost;
 	self.artificial_cost = _artificial_cost;
+
+func to_dictionary() -> Dictionary[TileDataManager.BIOMES, int]:
+	return {
+			TileDataManager.BIOMES.NATURAL : natural_cost,
+		TileDataManager.BIOMES.MINERAL : mineral_cost,
+		TileDataManager.BIOMES.ARTIFICIAL : artificial_cost
+	};
