@@ -143,4 +143,3 @@ theme_override_icons/grabber = ExtResource("10_cxpn8")
 theme_override_icons/grabber_highlight = ExtResource("11_p6ntd")
 max_value = 1.0
 step = 0.001
-value = 0.5

@@ -21,7 +21,7 @@ const NEIGHBOR_TILE_COORDINATES_CODEX = {
 }
 
 ## Tilemaps
-const tilemap_offset = Vector2(0, -0.2);
+const tilemap_offset = Vector2(0, -0.15);
 
 ## Card hand
 const base_card_per_round = 5;
@@ -32,7 +32,7 @@ const card_draw_interval = 0.1;
 const base_breach_amount = 5;
 const breach_transition_duration = .75;
 const breach_setup_delay = 2;
-const first_breach_spawn_round = 2;
+const first_breach_spawn_round = 1;
 const breach_spawn_step = 3;
 const breach_min_spawn_range = 3;
 const breach_max_instability = 30;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=101 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -10,10 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="7_pr1ej"]
 [ext_resource type="Script" uid="uid://flpf2ppdvda1" path="res://assets/scripts/monster/MonsterFactory.gd" id="7_q8j3a"]
 [ext_resource type="Texture2D" uid="uid://6dt0o348y1jn" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="8_ms3bu"]
+[ext_resource type="Texture2D" uid="uid://d257gag4ejxp5" path="res://assets/sprites/animations_monster_damage.png" id="9_0sl42"]
 [ext_resource type="Texture2D" uid="uid://ca3trttlhmjj2" path="res://assets/sprites/animations_small_to_large_breach.png" id="9_7ixpq"]
-[ext_resource type="Texture2D" uid="uid://deoqbpkeahn8" path="res://assets/sprites/animations_tile-apparition.png" id="10_7gkqi"]
 [ext_resource type="Script" uid="uid://da5daveobeivr" path="res://assets/scripts/tilemap/IndicationTilemap.gd" id="10_bk1p3"]
-[ext_resource type="Script" uid="uid://ddj7vltxhj1kw" path="res://assets/scripts/tilemap/TileAnimationPlayer.gd" id="11_753oq"]
 [ext_resource type="Script" uid="uid://be50r2ntpbp3p" path="res://assets/scripts/fight/GameLoop.gd" id="11_n8ral"]
 [ext_resource type="Script" uid="uid://c7gbyyahblwfp" path="res://assets/scripts/audio/AudioManager.gd" id="12_yd4ix"]
 [ext_resource type="AudioStream" uid="uid://d2dni5sbfbd63" path="res://assets/audio/Début_Jeu.ogg" id="13_66xif"]
@@ -90,47 +89,33 @@ region = Rect2(0, 0, 8, 8)
 atlas = ExtResource("7_pr1ej")
 region = Rect2(8, 16, 8, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2iuns"]
-atlas = ExtResource("10_7gkqi")
-region = Rect2(0, 0, 8, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf7vy"]
+atlas = ExtResource("9_0sl42")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gkqi"]
-atlas = ExtResource("10_7gkqi")
-region = Rect2(8, 0, 8, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8ni1"]
+atlas = ExtResource("9_0sl42")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_753oq"]
-atlas = ExtResource("10_7gkqi")
-region = Rect2(16, 0, 8, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3x338"]
-atlas = ExtResource("10_7gkqi")
-region = Rect2(24, 0, 8, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1yg85"]
-atlas = ExtResource("10_7gkqi")
-region = Rect2(32, 0, 8, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hbvx"]
+atlas = ExtResource("9_0sl42")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oaba0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2iuns")
+"texture": SubResource("AtlasTexture_pf7vy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7gkqi")
+"texture": SubResource("AtlasTexture_o8ni1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_753oq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3x338")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1yg85")
+"texture": SubResource("AtlasTexture_3hbvx")
 }],
 "loop": false,
-"name": &"tile-apparition",
-"speed": 25.0
+"name": &"damage",
+"speed": 15.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20167"]
@@ -221,6 +206,10 @@ region = Rect2(96, 0, 8, 8)
 atlas = ExtResource("7_pr1ej")
 region = Rect2(112, 0, 8, 8)
 
+[sub_resource type="LabelSettings" id="LabelSettings_753oq"]
+font = ExtResource("23_o8oq8")
+font_size = 8
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
 shader = ExtResource("20_weeiq")
 shader_parameter/strength = 0.08
@@ -275,7 +264,7 @@ script = ExtResource("4_bk1p3")
 tile_set = ExtResource("2_rm0al")
 script = ExtResource("3_i4re6")
 
-[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "tile_feedback_sprite", "tile_animation_player", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
+[node name="Main tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("beacon_sprite", "tile_feedback_sprite", "evolution_from_tile_sprite", "evolution_to_tile_sprite")]
 tile_set = ExtResource("2_rm0al")
 occlusion_enabled = false
 collision_enabled = false
@@ -283,7 +272,6 @@ navigation_enabled = false
 script = ExtResource("4_pf7vy")
 beacon_sprite = NodePath("Beacon sprite")
 tile_feedback_sprite = NodePath("Tile animation sprite")
-tile_animation_player = NodePath("Tile apparition animation")
 evolution_transition_duration = 1.0
 evolution_from_tile_sprite = NodePath("Evolution from tile sprite")
 evolution_to_tile_sprite = NodePath("Evolution to tile sprite")
@@ -304,12 +292,6 @@ texture = SubResource("AtlasTexture_0qimb")
 visible = false
 texture = SubResource("AtlasTexture_8ool0")
 
-[node name="Tile apparition animation" type="AnimatedSprite2D" parent="Tilemaps/Main tilemap"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_oaba0")
-animation = &"tile-apparition"
-script = ExtResource("11_753oq")
-
 [node name="Monster tilemap" type="TileMapLayer" parent="Tilemaps" node_paths=PackedStringArray("monster_health_indicator", "breach_animated_sprite", "indicator_tilemap", "monster_sprite", "monster_damage_animated_sprite")]
 tile_set = ExtResource("2_rm0al")
 occlusion_enabled = false
@@ -329,7 +311,7 @@ monster_damage_animated_sprite = NodePath("Damage animation")
 [node name="Damage animation" type="AnimatedSprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_oaba0")
-animation = &"tile-apparition"
+animation = &"damage"
 
 [node name="Monster sprite" type="Sprite2D" parent="Tilemaps/Monster tilemap"]
 visible = false
@@ -374,14 +356,10 @@ transform = Transform2D(1, 0, 0, 1, 320, 180)
 [node name="Tile selection detail" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("selection_preview", "title_label", "health_label", "weakness_label", "damage_label", "damage_boost_label", "damage_multiplier_label", "damage_decrease_label", "range_label", "range_boost_label", "effects_container", "trajectory_container", "trajectory_preview_container", "maturity_counter_label", "instability_meter", "codex_link_button", "lines_list", "health_weakness_line_container", "effects_line_container", "monster_spawned_line", "maturity_line")]
 visible = false
 custom_minimum_size = Vector2(140, 0)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -460.0
+offset_left = 180.0
 offset_top = -180.0
-offset_right = -320.0
-offset_bottom = -18.0
-grow_horizontal = 0
+offset_right = 320.0
+offset_bottom = 21.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/margin_top = 8
@@ -419,7 +397,6 @@ patch_margin_bottom = 16
 
 [node name="MarginContainer" type="MarginContainer" parent="Static UI/Tile selection detail"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -838,7 +815,7 @@ theme_override_constants/margin_top = 3
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Mineral essence container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
@@ -856,7 +833,7 @@ theme_override_constants/margin_top = 3
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Artificial essence container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
@@ -874,7 +851,7 @@ theme_override_constants/margin_top = 3
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = SubResource("LabelSettings_753oq")
 
 [node name="Area instabiliy container" type="MarginContainer" parent="Static UI/Header/VBoxContainer"]
 layout_mode = 2
@@ -882,6 +859,7 @@ size_flags_horizontal = 4
 
 [node name="Area instability bar" type="TextureProgressBar" parent="Static UI/Header/VBoxContainer/Area instabiliy container"]
 layout_mode = 2
+step = 5.0
 value = 100.0
 texture_over = ExtResource("45_sxt1d")
 texture_progress = ExtResource("46_2iuns")
@@ -907,7 +885,6 @@ label_settings = ExtResource("47_3hbvx")
 layout_mode = 2
 text = "%"
 label_settings = ExtResource("47_3hbvx")
-vertical_alignment = 2
 
 [node name="Phase title" parent="Static UI" instance=ExtResource("40_m4url")]
 visible = false
@@ -960,7 +937,7 @@ main_tilemap = NodePath("../../../Tilemaps/Main tilemap")
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 20
 
 [node name="Footer hbox" type="HBoxContainer" parent="UI/Screen container/Footer container"]
 layout_mode = 2

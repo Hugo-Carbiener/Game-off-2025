@@ -10,7 +10,10 @@ func setup(monster : Monster):
 
 func on_damage(monster : Monster, damage_amount : int, is_ranged: bool):
 	await instantiate_damage_element(damage_amount, is_ranged);
-	AnimationUtils.animate_integer(monster_health.label, monster.health, max(0, monster.health - damage_amount));
+	AnimationUtils.animate_integer(update_health_label, monster.health, max(0, monster.health - damage_amount));
+
+func update_health_label(damage_amount : int):
+	monster_health.label.text = str(round(damage_amount));
 
 func instantiate_damage_element(damage_amount : int, is_ranged: bool):
 	var icon = TileDataManager.damage_icon_small if not is_ranged else TileDataManager.ranged_damage_icon_small;

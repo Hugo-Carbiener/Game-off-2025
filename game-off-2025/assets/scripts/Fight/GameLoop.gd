@@ -9,10 +9,14 @@ static var phase_start_sequences = {
 }
 static var current_phase : PHASES;
 static var current_day : int;
+static var max_area_instability : int;
+static var area_instability : int;
 
 func _ready() -> void:
 	current_phase = PHASES.SETUP;
 	current_day = 0;
+	max_area_instability = Constants.base_breach_amount * Constants.breach_max_instability;
+	area_instability = max_area_instability;
 	SignalBus.play_phase_ended.connect(end_turn);
 	SignalBus.game_saving.connect(save_fight); 
 	SignalBus.tile_placed.connect(on_tile_placed);
@@ -28,12 +32,12 @@ static func get_next_phase() -> int:
 
 static func start_phase(phase: PHASES):
 	current_phase = phase;
-	await GameUI.instance.display_phase_title(current_phase);
 	phase_start_sequences.get(phase).call();
 
 static func setup_phase():
 	UserSettings.are_input_blocked = true;
 	current_day += 1;
+	await GameUI.instance.display_phase_title(current_phase);
 	SignalBus.setup_phase_started.emit(current_day);
 	await MonsterFactory.instance.on_setup();
 	await TileCardFactory.instance.draw_hand();
@@ -41,6 +45,7 @@ static func setup_phase():
 	start_phase(get_next_phase());
 
 static func play_phase():
+	await GameUI.instance.display_phase_title(current_phase);
 	SignalBus.play_phase_started.emit();
 	UserSettings.are_input_blocked = false;
 
@@ -48,6 +53,7 @@ static func resolution_phase():
 	UserSettings.are_input_blocked = true;
 	
 	if need_resolution_phase():
+		await GameUI.instance.display_phase_title(current_phase);
 		SignalBus.resolution_phase_started.emit();
 		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);
 		MainTilemap.instance.execute_all_tile_effects(TileDataManager.TRIGGERS.ON_RESOLUTION_START);

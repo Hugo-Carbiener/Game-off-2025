@@ -47,11 +47,14 @@ func select_card(card_index : int):
 		card_index_selected = -1;
 		return;
 	
-	SignalBus.card_selected.emit();
-	card_selected.on_selection();
-	
 	var tile_data = TileDataManager.tile_dictionnary[card_selected.card_id];
 	if tile_data == null: return;
+	
+	if !ResourceManager.instance.can_pay_for(tile_data):
+		return;
+	
+	SignalBus.card_selected.emit();
+	card_selected.on_selection();
 	
 	cursor_preview.texture.region = tile_data.get_texture_region();
 	cursor_preview_anchor_offset = Vector2(card_selected.card_sprite.size.x/2, card_selected.card_sprite.global_position.y - card_selected.global_position.y);

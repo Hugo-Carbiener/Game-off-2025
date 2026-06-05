@@ -45,13 +45,13 @@ func animate_scale(target : CanvasItem, from : Vector2, to : Vector2, duration :
 	await tween.finished;
 	return tween;
 
-func animate_integer(label : Label, from : int, to : int):
+func animate_integer(method : Callable, from : int, to : int, duration : float = Constants.default_transition_duration):
 	var tween = get_tree().create_tween();
 	tween.tween_method(
-		func(value): label.text = str(round(value)), # The update function
+		method, # The update function
 		from,                                        # Start value
 		to,                                          # End value
-		Constants.integer_animation_duration * abs(from - to)                                     # Time in seconds
+	duration                                         # Time in seconds
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	await tween.finished;
 	return tween;

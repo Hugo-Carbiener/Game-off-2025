@@ -51,7 +51,7 @@ func breach_transition(tilemap_position : Vector2i, is_spawn : bool):
 	tween.tween_callback(func(): breach_animated_sprite.visible = true);
 	tween.tween_callback(func(): breach_animated_sprite.frame = 0);
 	tween.tween_callback(func(): breach_animated_sprite.animation = animation_name);
-	tween.tween_property(breach_animated_sprite, "frame", MonsterFactory.instance.breach_animated_sprite.sprite_frames.get_frame_count(animation_name), Constants.default_transition_duration);
+	tween.tween_property(breach_animated_sprite, "frame", MonsterFactory.instance.breach_animated_sprite.sprite_frames.get_frame_count(animation_name), Constants.default_transition_duration*2);
 	tween.tween_callback(func(): breach_animated_sprite.visible = false);
 	tween.tween_callback(func(): if !is_spawn: show_tile(tilemap_position));
 	await tween.finished;

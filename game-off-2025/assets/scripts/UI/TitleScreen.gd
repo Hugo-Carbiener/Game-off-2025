@@ -33,7 +33,8 @@ func start_new_game():
 
 func init_audio_volume():
 	base_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"));
+	update_volume(true);
 
 func update_volume(value_changed: bool):
 	if !value_changed: return;
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(volume_slider.value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(volume_slider.value));

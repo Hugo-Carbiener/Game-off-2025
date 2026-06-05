@@ -50,14 +50,17 @@ func is_mature() -> bool:
 	return age > Constants.breach_setup_delay;
 
 func gain_instability(instability_amount : int, source : Vector2i):
-	instability = min(max(0, instability + instability_amount), Constants.breach_max_instability);
-	SignalBus.breach_instability_changed.emit(tilemap_position, instability);
+	var effective_amount = min(instability_amount, Constants.breach_max_instability) if instability_amount > 0 else - min(abs(instability_amount), instability);
+	instability += effective_amount;
+	GameLoop.area_instability = min(GameLoop.area_instability + effective_amount, GameLoop.max_area_instability);
 	
 	# dispatch
 	var text = ("+" if instability_amount > 0 else "-") + str(abs(instability_amount));
 	var text_damage = MonsterTextDamage.create_animated_monster_text_damage(text, TileDataManager.burst_icon_small, true);
 	text_damage.position = MonsterFactory.instance.map_to_local(source);
 	MonsterFactory.instance.add_child(text_damage);
+	SignalBus.breach_instability_changed.emit(tilemap_position, instability);
+
 
 func check_state():
 	if instability == 0:

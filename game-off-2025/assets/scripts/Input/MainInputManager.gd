@@ -27,12 +27,12 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_released("debug-instability-increase"):
 		for breach in MonsterFactory.breaches.values():
-			breach.gain_instability(5);
+			breach.gain_instability(5, Vector2i.ZERO);
 			breach.check_state();
 	
 	if event.is_action_released("debug-instability-decrease"):
 		for breach in MonsterFactory.breaches.values():
-			breach.gain_instability(-5);
+			breach.gain_instability(-5, Vector2i.ZERO);
 			breach.check_state();
 	
 	if event.is_action_released("debug-spawn-monster"):

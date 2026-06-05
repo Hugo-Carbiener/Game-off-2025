@@ -19,7 +19,7 @@ var sub_titles_per_phase = {
 }
 
 func init(title : String, sub_title : String) :
-	phase_title.text = title.capitalize() % (GameLoop.current_day + 1) if title.contains("%") else title.capitalize();
+	phase_title.text = title.capitalize() % GameLoop.current_day if title.contains("%") else title.capitalize();
 	phase_sub_title.text = sub_title;
 	modulate.a = 0;
 	visible = true;

@@ -4,6 +4,7 @@ class_name MainTilemap
 static var instance : MainTilemap;
 @export var beacon_sprite : Sprite2D;
 @export var tile_feedback_sprite : Sprite2D;
+@export var tile_animation_player : TileAnimationPlayer;
 @export_group("Evolution transition")
 @export var evolution_transition_duration : float;
 @export var evolution_from_tile_sprite : Sprite2D;
@@ -20,6 +21,8 @@ func _ready() -> void:
 
 func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = false) -> bool :
 	if MonsterFactory.monsters.has(tile_position): return false;
+	
+	await tile_animation_player.on_tile_apparition(map_to_local(tile_position));
 	
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 

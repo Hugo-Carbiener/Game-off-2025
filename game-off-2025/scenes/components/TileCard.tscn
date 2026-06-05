@@ -55,7 +55,7 @@ font_size = 8
 font = ExtResource("10_n3nhw")
 font_size = 8
 
-[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_chains", "card_overlay", "card_border", "card_name", "card_natural_cost_container", "card_mineral_cost_container", "card_artificial_cost_container", "card_sprite", "card_mouse_detector", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon")]
+[node name="Tile card" type="MarginContainer" node_paths=PackedStringArray("card_chains", "card_overlay", "card_border", "card_name", "card_natural_cost_container", "card_mineral_cost_container", "card_artificial_cost_container", "card_sprite", "card_mouse_detector", "card_effects_icons", "card_description", "card_evolution_title", "tile_card_evolution_container", "card_damage_label", "card_damage_icon", "card_range_label", "card_range_icon", "cost_veil")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -87,6 +87,7 @@ card_damage_label = NodePath("Tile card/Stats margin/Damage container/Damage amo
 card_damage_icon = NodePath("Tile card/Stats margin/Damage container/Damage icon")
 card_range_label = NodePath("Tile card/Stats margin/Range container/Range amount")
 card_range_icon = NodePath("Tile card/Stats margin/Range container/Range icon")
+cost_veil = NodePath("Tile card/Cost veil")
 card_hover_bottom_offset = 20
 card_selection_bottom_offset = 30
 card_hover_side_offset = 10
@@ -328,7 +329,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_bottom = 7
 
 [node name="Damage container" type="HBoxContainer" parent="Tile card/Stats margin"]
 layout_mode = 2
@@ -339,12 +340,13 @@ theme_override_constants/separation = 2
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 texture = ExtResource("12_tolko")
 stretch_mode = 3
 
 [node name="Damage amount" type="Label" parent="Tile card/Stats margin/Damage container"]
 layout_mode = 2
+size_flags_vertical = 0
 text = "2"
 label_settings = SubResource("LabelSettings_tolko")
 horizontal_alignment = 1
@@ -366,7 +368,7 @@ vertical_alignment = 1
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 texture = ExtResource("13_wjw0q")
 stretch_mode = 2
 
