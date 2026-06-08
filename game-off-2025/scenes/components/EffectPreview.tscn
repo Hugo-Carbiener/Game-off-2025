@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctrul2d2ivdhe"]
+
+[ext_resource type="Texture2D" uid="uid://bjvgirw6c04t6" path="res://assets/sprites/UI_poison_icon_small.png" id="1_tvyg4"]
+[ext_resource type="Script" uid="uid://u0y8ys0jw2gl" path="res://assets/scripts/ui/components/EffectPreview.gd" id="2_gpq3e"]
+[ext_resource type="Script" uid="uid://c5bowkaxah16w" path="res://assets/scripts/ui/components/tooltips/TooltipFactory.gd" id="3_5yctd"]
+
+[node name="Effect preview" type="TextureRect" node_paths=PackedStringArray("tooltip")]
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("1_tvyg4")
+stretch_mode = 3
+script = ExtResource("2_gpq3e")
+tooltip = NodePath("Tooltip")
+bounce_factor = 1.5
+
+[node name="Tooltip" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "."
+script = ExtResource("3_5yctd")
+tooltip_type = 1

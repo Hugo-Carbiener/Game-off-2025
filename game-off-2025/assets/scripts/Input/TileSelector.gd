@@ -17,8 +17,8 @@ func on_tile_selection_interaction():
 
 func select_tile(_selected_tile : Vector2i):
 	selected_tile = _selected_tile
-	await MainCamera.zoom_transition(MainTilemap.instance.map_to_local(selected_tile) + MainTilemap.instance.global_position, Vector2i.ONE * 2);
 	SignalBus.tile_selected.emit(selected_tile);
+	await MainCamera.zoom_transition(MainTilemap.instance.map_to_local(selected_tile) + MainTilemap.instance.global_position, Vector2i.ONE * 2);
 
 func unselect_tile():
 	selected_tile = Vector2i.ZERO;

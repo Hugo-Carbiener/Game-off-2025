@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=104 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -45,8 +45,10 @@
 [ext_resource type="LabelSettings" uid="uid://c46nqmt1mo3q5" path="res://assets/fonts/FontOutlined.tres" id="39_7nv0b"]
 [ext_resource type="Texture2D" uid="uid://dsmltbqvhya3j" path="res://assets/sprites/UI_long-button-hovered.png" id="39_i4re6"]
 [ext_resource type="FontFile" uid="uid://olkliva202j2" path="res://assets/fonts/Tiny5-Regular.ttf" id="39_rm0al"]
+[ext_resource type="Script" uid="uid://c5bowkaxah16w" path="res://assets/scripts/ui/components/tooltips/TooltipFactory.gd" id="40_7gkqi"]
 [ext_resource type="PackedScene" uid="uid://n0tesceeiak6" path="res://scenes/components/PhaseTitle.tscn" id="40_m4url"]
 [ext_resource type="Texture2D" uid="uid://478ujqnbovwt" path="res://assets/sprites/UI_discard-pile.png" id="40_rm0al"]
+[ext_resource type="LabelSettings" uid="uid://bcdvhxpa4xmo6" path="res://assets/fonts/SmallFontOutlined.tres" id="41_753oq"]
 [ext_resource type="Texture2D" uid="uid://c46lykl8xsmkc" path="res://assets/sprites/UI_discard-pile-hovered.png" id="41_i4re6"]
 [ext_resource type="Texture2D" uid="uid://bhyskaywrnk45" path="res://assets/sprites/UI_natural_essence.png" id="41_sxt1d"]
 [ext_resource type="Texture2D" uid="uid://tpv1fkbraidn" path="res://assets/sprites/UI_mineral_essence.png" id="42_2iuns"]
@@ -216,10 +218,6 @@ region = Rect2(96, 0, 8, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbak0"]
 atlas = ExtResource("7_pr1ej")
 region = Rect2(96, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3x28f"]
-atlas = ExtResource("7_pr1ej")
-region = Rect2(112, 0, 8, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gqpi"]
 shader = ExtResource("20_weeiq")
@@ -706,7 +704,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("61_uxocx")
 
-[node name="Header" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "area_instability_bar", "area_instability_percentage", "monster_health_text", "breach_amount_text", "resource_amount_per_biome")]
+[node name="Header" type="MarginContainer" parent="Static UI" node_paths=PackedStringArray("beacon_health_text", "beacon_health_bar", "area_instability_bar", "area_instability_percentage", "monster_health_text", "resource_amount_per_biome")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -320.0
@@ -723,12 +721,11 @@ beacon_health_text = NodePath("VBoxContainer/Stat header/Inner container/Header 
 beacon_health_bar = NodePath("VBoxContainer/Stat header/Inner container/Header container/Beacon health container/Beacon health text margin/Beacon health bar")
 area_instability_bar = NodePath("VBoxContainer/Area instabiliy container/Area instability bar")
 area_instability_percentage = NodePath("VBoxContainer/Area instabiliy container/HBoxContainer/Area instability value")
-monster_health_text = NodePath("VBoxContainer/Stat header/Inner container/Header container/Monster health container/Monster health text margin/monster health")
-breach_amount_text = NodePath("VBoxContainer/Stat header/Inner container/Header container/Breach amount container/Breach amount text margin/Beach amount")
+monster_health_text = NodePath("VBoxContainer/Stat header/Inner container/Header container/Monster health container/monster health")
 resource_amount_per_biome = {
-0: NodePath("VBoxContainer/Stat header/Inner container/Header container/Nature essence container/Label container/Nature essence label"),
-1: NodePath("VBoxContainer/Stat header/Inner container/Header container/Mineral essence container/Label container/Mineral essence label"),
-2: NodePath("VBoxContainer/Stat header/Inner container/Header container/Artificial essence container/Label container/Artificial essence label")
+0: NodePath("VBoxContainer/Stat header/Inner container/Header container/Nature essence container/Nature essence label"),
+1: NodePath("VBoxContainer/Stat header/Inner container/Header container/Mineral essence container/Mineral essence label"),
+2: NodePath("VBoxContainer/Stat header/Inner container/Header container/Artificial essence container/Artificial essence label")
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Static UI/Header"]
@@ -749,14 +746,16 @@ patch_margin_bottom = 16
 [node name="Inner container" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_right = 8
 
 [node name="Header container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 12
 
 [node name="Beacon health container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
+tooltip_text = "The health of the beacon. You lose if it reaches 0."
+script = ExtResource("40_7gkqi")
 
 [node name="Beacon icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Beacon health container"]
 layout_mode = 2
@@ -771,7 +770,7 @@ alignment = 1
 [node name="Beacon health" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Beacon health container/Beacon health text margin"]
 layout_mode = 2
 text = "999/999"
-label_settings = ExtResource("39_7nv0b")
+label_settings = ExtResource("41_753oq")
 vertical_alignment = 1
 
 [node name="Beacon health bar" type="TextureProgressBar" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Beacon health container/Beacon health text margin"]
@@ -788,93 +787,64 @@ tint_over = Color(1, 1, 1, 0)
 
 [node name="Monster health container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
+tooltip_text = "Monster damage. It increase each day."
+script = ExtResource("40_7gkqi")
 
 [node name="Monster icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Monster health container"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_xbak0")
 stretch_mode = 3
 
-[node name="Monster health text margin" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Monster health container"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="monster health" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Monster health container/Monster health text margin"]
+[node name="monster health" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Monster health container"]
 layout_mode = 2
 text = "999"
-label_settings = ExtResource("39_7nv0b")
-vertical_alignment = 1
-
-[node name="Breach amount container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
-layout_mode = 2
-
-[node name="Breach icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Breach amount container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_3x28f")
-stretch_mode = 5
-
-[node name="Breach amount text margin" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Breach amount container"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="Beach amount" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Breach amount container/Breach amount text margin"]
-layout_mode = 2
-text = "0"
-label_settings = ExtResource("39_7nv0b")
+label_settings = ExtResource("41_753oq")
 vertical_alignment = 1
 
 [node name="Nature essence container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
+tooltip_text = "Natural essences. Used to pay for cards."
+script = ExtResource("40_7gkqi")
 
 [node name="Nature essence icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Nature essence container"]
 layout_mode = 2
 texture = ExtResource("41_sxt1d")
 stretch_mode = 3
 
-[node name="Label container" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Nature essence container"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="Nature essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Nature essence container/Label container"]
-custom_minimum_size = Vector2(16, 0)
+[node name="Nature essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Nature essence container"]
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = ExtResource("41_753oq")
 
 [node name="Mineral essence container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
+tooltip_text = "Mineral essences. Used to pay for cards."
+script = ExtResource("40_7gkqi")
 
 [node name="Mineral essence icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Mineral essence container"]
 layout_mode = 2
 texture = ExtResource("42_2iuns")
 stretch_mode = 3
 
-[node name="Label container" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Mineral essence container"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="Mineral essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Mineral essence container/Label container"]
-custom_minimum_size = Vector2(16, 0)
+[node name="Mineral essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Mineral essence container"]
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = ExtResource("41_753oq")
 
 [node name="Artificial essence container" type="HBoxContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container"]
 layout_mode = 2
+tooltip_text = "Artificial essences. Used to pay for cards."
+script = ExtResource("40_7gkqi")
 
 [node name="Artificial essence icon" type="TextureRect" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Artificial essence container"]
 layout_mode = 2
 texture = ExtResource("43_7gkqi")
 stretch_mode = 3
 
-[node name="Label container" type="MarginContainer" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Artificial essence container"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="Artificial essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Artificial essence container/Label container"]
-custom_minimum_size = Vector2(16, 0)
+[node name="Artificial essence label" type="Label" parent="Static UI/Header/VBoxContainer/Stat header/Inner container/Header container/Artificial essence container"]
 layout_mode = 2
 text = "99"
-label_settings = ExtResource("39_7nv0b")
+label_settings = ExtResource("41_753oq")
 
 [node name="Area instabiliy container" type="MarginContainer" parent="Static UI/Header/VBoxContainer"]
 layout_mode = 2
@@ -1097,10 +1067,14 @@ alignment = 2
 
 [node name="Card hand count" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 1
+tooltip_text = "Number of cards in hand. "
+mouse_filter = 1
 text = "0/7"
 label_settings = SubResource("LabelSettings_pf7vy")
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("40_7gkqi")
 
 [node name="Discard icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("discard_pile_size_label", "discard_window")]
 layout_mode = 2

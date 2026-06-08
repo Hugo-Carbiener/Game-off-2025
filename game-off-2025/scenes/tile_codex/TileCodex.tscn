@@ -18,12 +18,12 @@
 [ext_resource type="LabelSettings" uid="uid://d2mhtc3s6xgol" path="res://assets/fonts/TileCodexFont.tres" id="10_ffusi"]
 [ext_resource type="Texture2D" uid="uid://b1ewahacht5i3" path="res://assets/sprites/UI_book-right-page-effects.png" id="14_2fjf8"]
 [ext_resource type="LabelSettings" uid="uid://c46nqmt1mo3q5" path="res://assets/fonts/FontOutlined.tres" id="15_08uid"]
-[ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/tile_codex/EffectTooltip.tscn" id="15_ffusi"]
+[ext_resource type="PackedScene" uid="uid://3wsqc25g5gfo" path="res://scenes/tile_codex/EffectTooltipContent.tscn" id="15_ffusi"]
 [ext_resource type="Texture2D" uid="uid://0vltc1p34mst" path="res://assets/sprites/UI_square.png" id="15_g7s2b"]
 [ext_resource type="Texture2D" uid="uid://c7yqfqmuxr4sj" path="res://assets/sprites/UI_book-right-page-evolutions.png" id="15_keuhg"]
 [ext_resource type="Texture2D" uid="uid://drvt6ygaoh6kg" path="res://assets/sprites/UI_book-right-page-requirements.png" id="16_0pkkn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="19_4nx1l"]
-[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/fogOfWar.gdshader" id="27_v6eaw"]
+[ext_resource type="Shader" uid="uid://b5yii853lyxre" path="res://assets/shaders/FogOfWar.gdshader" id="27_v6eaw"]
 [ext_resource type="Texture2D" uid="uid://cowvawqwnuhs6" path="res://assets/sprites/shader resources/shader_pattern_outer_circle.png" id="28_4nx1l"]
 [ext_resource type="Texture2D" uid="uid://buoyxbuppvdky" path="res://assets/sprites/shader resources/noiseTexture.png" id="29_414yg"]
 [ext_resource type="Texture2D" uid="uid://cjdcy8jux4exr" path="res://assets/sprites/shader resources/white.png" id="30_mui47"]
@@ -282,7 +282,7 @@ theme_override_constants/margin_top = 8
 
 [node name="Effects container" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 0
 
 [node name="Effects title" type="Label" parent="MarginContainer/VBoxContainer/Page container/Right page margin/VBoxContainer/Effects/Effects content margin/Effects container"]
 layout_mode = 2

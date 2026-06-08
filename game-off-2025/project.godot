@@ -48,6 +48,11 @@ window/stretch/aspect="expand"
 
 movie_writer/movie_file="D:/Dev/Godot/Game-off-2025/game-off-2025/assets/movie.avi"
 
+[gui]
+
+timers/tooltip_delay_sec=0.0
+theme/custom="uid://1mght2w32m2t"
+
 [input]
 
 debug-next-phase={

@@ -5,7 +5,6 @@ class_name HeaderWindow extends Control
 @export var area_instability_bar : TextureProgressBar;
 @export var area_instability_percentage : Label;
 @export var monster_health_text : Label;
-@export var breach_amount_text : Label;
 @export var resource_amount_per_biome : Dictionary[TileDataManager.BIOMES, Label];
 
 func _ready() -> void:
@@ -14,12 +13,10 @@ func _ready() -> void:
 	update_resource_amount(TileDataManager.BIOMES.NATURAL);
 	update_resource_amount(TileDataManager.BIOMES.MINERAL);
 	update_resource_amount(TileDataManager.BIOMES.ARTIFICIAL);
-	update_breach_amount();
 	setup_beacon_health_bar();
 	await setup_area_instability();
 	SignalBus.beacon_health_updated.connect(update_beacon_health);
 	SignalBus.setup_phase_started.connect(on_setup);
-	SignalBus.breach_spawned.connect(update_breach_amount);
 	SignalBus.resource_gained.connect(update_resource_amount);
 	SignalBus.breach_instability_changed.connect(update_area_instability);
 
@@ -45,9 +42,6 @@ func set_area_instability_values(instability_value : int):
 	area_instability_bar.value = instability_value;
 	var percentage = int(instability_value * 100. / GameLoop.max_area_instability);
 	area_instability_percentage.text = str(percentage);
-
-func update_breach_amount():
-	breach_amount_text.text = str(MonsterFactory.breaches.size());
 
 func on_setup(current_day : int):
 	update_monster_health(current_day);

@@ -133,9 +133,8 @@ func init_costs(tile_data : CustomTileData) :
 func init_icons(tile_data : CustomTileData) :
 	if !tile_data.effects.is_empty():
 		for effect in tile_data.effects:
-			var icon = TextureRect.new();
-			icon.texture = effect.icon;
-			card_effects_icons.add_child(icon);
+			var effect_preview = EffectPreview.create_effect_preview(effect);
+			card_effects_icons.add_child(effect_preview);
 
 func init_evolutions(tile_data : CustomTileData):
 	if tile_data.evolutions == null or tile_data.evolutions.is_empty() : 

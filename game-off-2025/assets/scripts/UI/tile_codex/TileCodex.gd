@@ -44,7 +44,7 @@ var current_tile_data : CustomTileData;
 var current_tile_index : int = 0;
 var bookmarks : Array[TileCodexBookmark];
 var tile_card : TileCard;
-var effect_tooltips : Array[EffectTooltip];
+var effect_tooltips : Array[EffectTooltipContent];
 var evolutions : Array[TileCardEvolution];
 var previous_tiles : Array[String];
 var timer : Timer;
@@ -192,7 +192,7 @@ func init_effects(tile_data : CustomTileData):
 	
 	damage_effect_tooltip.visible = tile_data.damage > 0;
 	for effect in tile_data.effects:
-		var effect_toolitp = EffectTooltip.create_tooltip(effect);
+		var effect_toolitp = EffectTooltipContent.create_tooltip(effect);
 		effects_container.add_child(effect_toolitp);
 		effect_tooltips.append(effect_toolitp);
 
