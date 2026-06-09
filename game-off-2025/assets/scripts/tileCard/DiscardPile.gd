@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func discard(tile_card : TileCard):
 	var card_id = tile_card.card_id;
-	await CardMovementAnimation.launch_card_movement_animation(tile_card, tile_card.card_sprite.global_position, global_position + size / 2, self);
+	await ElementMovementAnimation.launch_element_movement_animation(tile_card.card_sprite.texture, tile_card.card_sprite.global_position, global_position + size / 2, self);
 	AnimationUtils.bounce(self, 1.5);
 	cards.append(card_id);
 	update_card_amount();

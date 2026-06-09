@@ -40,9 +40,7 @@ func on_multi_card_selection_interaction():
 		multi_select_card(hovered_card);
 
 func select_card(card_index : int):
-	card_index_selected = card_index;
-	
-	var card_selected = get_selected_card();
+	var card_selected = TileCardFactory.instance.cards[card_index];
 	if card_selected == null: 
 		card_index_selected = -1;
 		return;
@@ -53,6 +51,7 @@ func select_card(card_index : int):
 	if !ResourceManager.instance.can_pay_for(tile_data):
 		return;
 	
+	card_index_selected = card_index;
 	SignalBus.card_selected.emit();
 	card_selected.on_selection();
 	

@@ -21,9 +21,9 @@ func on_card_drawn(tile_card : TileCard):
 func dispatch_drawn_card(tile_card : TileCard):
 	TileCardFactory.instance.update_card_count_label();
 	AnimationUtils.bounce(self, 1.5);
-	await CardMovementAnimation.launch_card_movement_animation(tile_card, global_position + size / 2, tile_card.card_sprite.global_position, self);
+	await ElementMovementAnimation.launch_element_movement_animation(tile_card.card_sprite.texture, global_position + size / 2, tile_card.card_sprite.global_position, self);
 	AnimationUtils.animate_scale(tile_card, Vector2.ZERO, Vector2.ONE, tile_card.card_movement_transition_duration);
-	await AnimationUtils.fade(tile_card, Color.WHITE, tile_card.card_movement_transition_duration);
+	await AnimationUtils.fade(tile_card, 1, tile_card.card_movement_transition_duration);
 	tile_card.modulate.a = 1;
 
 func on_click():
@@ -40,7 +40,7 @@ func open_deck():
 		deck_elements.append(DeckElement.create_deck_element(tile_id, get_card_probability(tile_id)));
 	deck_window.modulate.a = 0;
 	deck_window.visible = true;
-	await AnimationUtils.fade(deck_window, Color.WHITE, 0.1);
+	await AnimationUtils.fade(deck_window, 1, 0.1);
 	for deck_element in deck_elements:
 		if deck_element == null: continue;
 		await AnimationUtils.add_child_fade_in(deck_element_container_window, deck_element, 0.1);
@@ -55,7 +55,7 @@ func close_deck():
 		if deck_element is not DeckElement: continue;
 		
 		await AnimationUtils.delete_child_fade_out(deck_element, 0.1);
-	await AnimationUtils.fade(deck_window, Color.TRANSPARENT, 0.1);
+	await AnimationUtils.fade(deck_window, 0, 0.1);
 	deck_window.visible = false;
 
 func get_deck_size() -> int:

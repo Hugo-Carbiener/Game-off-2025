@@ -22,9 +22,11 @@ static var ranged_damage_icon_small : Texture2D = preload("res://assets/sprites/
 static var beacon_icon_small : Texture2D = preload("res://assets/sprites/UI_beacon_icon_small.png");
 static var heal_icon_small : Texture2D = preload("res://assets/sprites/UI_heal_icon_small.png");
 static var burst_icon_small : Texture2D = preload("res://assets/sprites/UI_burst_icon_small.png");
-static var natural_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
-static var mineral_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
-static var artificial_essence_icon : Texture2D = preload("res://assets/sprites/UI_natural_essence.png");
+static var essence_icons : Dictionary[BIOMES, Texture2D] = {
+	 BIOMES.NATURAL : preload("res://assets/sprites/UI_natural_essence.png"),
+	 BIOMES.MINERAL : preload("res://assets/sprites/UI_mineral_essence.png"),
+	 BIOMES.ARTIFICIAL : preload("res://assets/sprites/UI_artificial_essence.png")
+}
 
 ## tiles 
 var tile_dictionnary : Dictionary[String, CustomTileData];

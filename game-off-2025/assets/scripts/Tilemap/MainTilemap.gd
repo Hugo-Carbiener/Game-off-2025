@@ -22,13 +22,18 @@ func _ready() -> void:
 func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = false) -> bool :
 	if MonsterFactory.monsters.has(tile_position): return false;
 	
-	await tile_animation_player.on_tile_apparition(map_to_local(tile_position));
+	if tile.cost.has_cost() && !ResourceManager.instance.can_pay_for(tile):
+		return false;
 	
 	var placed_tile = super(tile_position, tile, force);
 	if !placed_tile: return false; 
-
-	SignalBus.tile_placed.emit(tiles.size());
 	
+	if tile.cost.has_cost() :
+		ResourceManager.instance.pay_for(tile);
+	
+	await tile_animation_player.on_tile_apparition(map_to_local(tile_position));
+	
+	SignalBus.tile_placed.emit(tiles.size());
 	if !tiles_dynamic_data.has(tile_position):
 		tiles_dynamic_data.set(tile_position, DynamicTileData.new());
 	else: 

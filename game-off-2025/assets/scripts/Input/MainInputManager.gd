@@ -46,13 +46,13 @@ func _input(event: InputEvent) -> void:
 			tile_card.discard();
 
 	if event.is_action_released("debug-natural-resource-increase"):
-		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.NATURAL, 1);
+		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.NATURAL, 1, Vector2i.ZERO);
 
 	if event.is_action_released("debug-mineral-resource-increase"):
-		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.MINERAL, 1);
+		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.MINERAL, 1, Vector2i.ZERO);
 		
 	if event.is_action_released("debug-artificial-resource-increase"):
-		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.ARTIFICIAL, 1);
+		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.ARTIFICIAL, 1, Vector2i.ZERO);
 
 	if event.is_action_pressed('debug-next-phase'):
 		GameLoop.start_phase(GameLoop.get_next_phase());

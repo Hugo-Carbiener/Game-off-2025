@@ -18,6 +18,7 @@ func _ready() -> void:
 	SignalBus.beacon_health_updated.connect(update_beacon_health);
 	SignalBus.setup_phase_started.connect(on_setup);
 	SignalBus.resource_gained.connect(update_resource_amount);
+	SignalBus.resource_used.connect(update_resource_amount);
 	SignalBus.breach_instability_changed.connect(update_area_instability);
 
 func setup_beacon_health_bar():

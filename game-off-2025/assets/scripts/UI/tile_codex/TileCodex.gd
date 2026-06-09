@@ -30,7 +30,7 @@ class_name TileCodex
 @export var close_bookmark_tile_icon : TextureRect;
 @export var close_bookmark_texture : Texture2D;
 @export_group("Misc")
-@export var damage_effect_tooltip : EffectTooltip;
+@export var damage_effect_tooltip : EffectTooltipContent;
 @export var requirements_tilemap : TileMapLayer;
 @export var requirement_timer : Timer;
 @export var requirement_shader : TextureRect;

@@ -72,8 +72,9 @@ func on_setup():
 	if GameLoop.is_breach_spawn_day():
 		var breach_max_range = min(Constants.beacon_range, Constants.breach_min_spawn_range + breaches.size());
 		var valid_breach_positions = MainTilemap.instance.get_valid_monster_spawn_positions(Constants.breach_min_spawn_range, breach_max_range);
-		var breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];
-		MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
+		if valid_breach_positions.size()>0:
+			var breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];
+			MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
 	
 	for breach in breaches.values():
 		breach.update_breach();

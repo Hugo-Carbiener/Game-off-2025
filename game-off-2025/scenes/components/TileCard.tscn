@@ -256,7 +256,7 @@ mouse_filter = 1
 
 [node name="Effects margin" type="MarginContainer" parent="Tile card/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 7
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tile card/VBoxContainer/Effects margin"]
@@ -297,7 +297,7 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="Tile card/VBoxContainer/Evolution margin"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2
 
 [node name="Evolutions" type="Label" parent="Tile card/VBoxContainer/Evolution margin/VBoxContainer"]
 layout_mode = 2
@@ -380,4 +380,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("19_n3nhw")

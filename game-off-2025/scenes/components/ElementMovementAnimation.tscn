@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddn7ti4jwyn3p"]
 
-[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="1_irm8h"]
-[ext_resource type="Script" uid="uid://byd8t6gbkftkw" path="res://assets/scripts/ui/components/CardMovementAnimation.gd" id="2_wxuj5"]
-[ext_resource type="Texture2D" uid="uid://begebsrjpuntw" path="res://assets/sprites/animations_discard_particle.png" id="3_xnrdm"]
+[ext_resource type="Texture2D" uid="uid://da8llw2am7mt6" path="res://assets/sprites/tiles.png" id="1_wygnl"]
+[ext_resource type="Script" uid="uid://byd8t6gbkftkw" path="res://assets/scripts/ui/components/CardMovementAnimation.gd" id="2_uarem"]
+[ext_resource type="Texture2D" uid="uid://begebsrjpuntw" path="res://assets/sprites/animations_discard_particle.png" id="3_6fkx5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_458eo"]
-atlas = ExtResource("1_irm8h")
+atlas = ExtResource("1_wygnl")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pf7vy"]
@@ -17,20 +17,20 @@ particles_anim_loop = false
 [sub_resource type="Gradient" id="Gradient_458eo"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Card movement animation" type="Sprite2D" node_paths=PackedStringArray("particle_system")]
+[node name="Element movement animation" type="Sprite2D" node_paths=PackedStringArray("particle_system")]
 z_index = 1
 texture = SubResource("AtlasTexture_458eo")
-script = ExtResource("2_wxuj5")
+script = ExtResource("2_uarem")
 particle_system = NodePath("Particles")
 trajectory_variance = 2.0
 trajectory_amplitude = 100.0
-card_movement_animation_duration = 0.75
+movement_animation_duration = 0.75
 
 [node name="Particles" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_pf7vy")
 emitting = false
 amount = 16
-texture = ExtResource("3_xnrdm")
+texture = ExtResource("3_6fkx5")
 lifetime = 0.5
 one_shot = true
 gravity = Vector2(0, 0)

@@ -4,4 +4,4 @@ class_name Tooltip extends Control
 
 func _ready() -> void:
 	self.modulate = Color.TRANSPARENT;
-	AnimationUtils.fade(self, Color.WHITE, fade_in_duration);
+	AnimationUtils.fade(self, 1, fade_in_duration);

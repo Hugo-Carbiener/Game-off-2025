@@ -117,15 +117,15 @@ func init_color(color : Color) :
 func init_costs(tile_data : CustomTileData) :
 	var sprite = TextureRect.new();
 	if tile_data.cost.natural_cost > 0:
-		sprite.texture = TileDataManager.natural_essence_icon;
+		sprite.texture = TileDataManager.essence_icons[TileDataManager.BIOMES.NATURAL];
 		for i in tile_data.cost.natural_cost:
 			card_natural_cost_container.add_child(sprite.duplicate());
 	if tile_data.cost.mineral_cost > 0:
-		sprite.texture = TileDataManager.mineral_essence_icon;
+		sprite.texture = TileDataManager.essence_icons[TileDataManager.BIOMES.MINERAL];
 		for i in tile_data.cost.mineral_cost:
 			card_mineral_cost_container.add_child(sprite.duplicate());
 	if tile_data.cost.artificial_cost > 0:
-		sprite.texture = TileDataManager.artificial_essence_icon;
+		sprite.texture = TileDataManager.essence_icons[TileDataManager.BIOMES.ARTIFICIAL];
 		for i in tile_data.cost.artificial_cost:
 			card_artificial_cost_container.add_child(sprite.duplicate());
 	on_resource_update();
@@ -159,7 +159,7 @@ func update_evolutions():
 # Called before a card is destroyed
 func discard():
 	SignalBus.card_discarded.emit(self);
-	AnimationUtils.fade(self, Color.TRANSPARENT, card_movement_transition_duration);
+	AnimationUtils.fade(self, 0, card_movement_transition_duration);
 	await AnimationUtils.animate_scale(self, scale, Vector2.ZERO, card_movement_transition_duration);
 	queue_free();
 
@@ -217,8 +217,11 @@ func on_unselection():
 	z_index = 0;
 	card_border.visible = false;
 
-func on_resource_update():
-	cost_veil.visible = !ResourceManager.instance.can_pay_for(TileDataManager.tile_dictionnary[card_id]);
+func on_resource_update(_type : TileDataManager.BIOMES = TileDataManager.BIOMES.NATURAL):
+	var veil_should_be_visible = ResourceManager.instance != null && !ResourceManager.instance.can_pay_for(TileDataManager.tile_dictionnary[card_id])
+	var veil_is_visible = cost_veil.modulate.a > 0;
+	if veil_is_visible != veil_should_be_visible:
+		await AnimationUtils.fade(cost_veil, 0.5 if veil_should_be_visible else 0., 0.2);
 
 func card_is_selected() -> bool:
 	return CardSelector.instance.get_selected_card() == self;
