@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://bad6gthvrvfvi"]
+
+[ext_resource type="Texture2D" uid="uid://bt3ewbs6rj831" path="res://assets/sprites/UI_large-breach.png" id="1_a3gc6"]
+[ext_resource type="Script" uid="uid://7l48necxq8j3" path="res://assets/scripts/monster/Breach.gd" id="2_un1ru"]
+[ext_resource type="Texture2D" uid="uid://botrjos1qt5f4" path="res://assets/sprites/UI_small-breach.png" id="2_vhywh"]
+[ext_resource type="Texture2D" uid="uid://ca3trttlhmjj2" path="res://assets/sprites/animations_small_to_large_breach.png" id="3_umiei"]
+[ext_resource type="PackedScene" uid="uid://ctrul2d2ivdhe" path="res://scenes/components/EffectPreview.tscn" id="3_un1ru"]
+[ext_resource type="Texture2D" uid="uid://6dt0o348y1jn" path="res://assets/sprites/animations_nothing_to_small_breach.png" id="4_0470u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnoml"]
+atlas = ExtResource("1_a3gc6")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b7vm"]
+atlas = ExtResource("2_vhywh")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cna0t"]
+atlas = ExtResource("3_umiei")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fijh8"]
+atlas = ExtResource("3_umiei")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfa7t"]
+atlas = ExtResource("3_umiei")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6rtk"]
+atlas = ExtResource("4_0470u")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6mhb"]
+atlas = ExtResource("4_0470u")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8x12"]
+atlas = ExtResource("4_0470u")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_agblq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnoml")
+}],
+"loop": true,
+"name": &"large-breach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b7vm")
+}],
+"loop": false,
+"name": &"small-breach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cna0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fijh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfa7t")
+}],
+"loop": false,
+"name": &"small-to-large",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6rtk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6mhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8x12")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 5.0
+}]
+
+[node name="Breach" type="AnimatedSprite2D" node_paths=PackedStringArray("intent", "effect_preview")]
+sprite_frames = SubResource("SpriteFrames_agblq")
+animation = &"large-breach"
+script = ExtResource("2_un1ru")
+intent = NodePath("Intent")
+effect_preview = NodePath("Intent/Effect preview")
+intent_declaration_duration = 4.0
+intent_vertical_offset = 20
+
+[node name="Intent" type="MarginContainer" parent="."]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -12.0
+offset_right = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Effect preview" parent="Intent" instance=ExtResource("3_un1ru")]
+layout_mode = 2

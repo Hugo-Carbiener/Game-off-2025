@@ -38,7 +38,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("debug-spawn-monster"):
 		var pos = Vector2i(randi() % (Constants.beacon_range * 2) - Constants.beacon_range, randi() % (Constants.beacon_range * 2) - Constants.beacon_range);
 		if !MonsterFactory.breaches.has(pos) and !MonsterFactory.monsters.has(pos) and !MainTilemap.instance.tiles.has(pos):
-			MonsterFactory.instance.spawn_monster(pos);
+			MonsterFactory.instance.spawn_breach(pos, Constants.breach_setup_delay);
 	
 	if event.is_action_released('debug-discard-left-most'):
 		var tile_card = TileCardFactory.instance.cards[0];

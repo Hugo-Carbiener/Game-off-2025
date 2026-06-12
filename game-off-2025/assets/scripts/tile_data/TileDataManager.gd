@@ -38,6 +38,7 @@ var world_tile_amount = 0;
 enum TRIGGERS {
 	ANY,
 	ON_MONSTER_WALK,
+	ON_SETUP_START,
 	ON_RESOLUTION_START,
 	ON_RESOLUTION_END,
 	ON_MONSTER_DEATH,
@@ -51,6 +52,12 @@ enum BIOMES {
 	NATURAL,
 	MINERAL,
 	ARTIFICIAL
+}
+
+var biome_colors : Dictionary[BIOMES, Color] = {
+	BIOMES.NATURAL : Color.SEA_GREEN,
+	BIOMES.MINERAL : Color.STEEL_BLUE,
+	BIOMES.ARTIFICIAL : Color.ORANGE_RED
 }
 
 # regex 

@@ -11,8 +11,10 @@ static func create_effect_preview(effect : TileEffect) -> EffectPreview:
 	return effect_preview;
 
 func setup(effect : TileEffect):
-	mouse_entered.connect(on_mouse_enter);
-	mouse_exited.connect(on_mouse_exit);
+	if !mouse_entered.has_connections():
+		mouse_entered.connect(on_mouse_enter);
+	if !mouse_exited.has_connections():
+		mouse_exited.connect(on_mouse_exit);
 	pivot_offset = size / 2;
 	texture = effect.icon;
 	tooltip.preloaded_tooltip = EffectTooltip.create_effect_tooltip(effect);

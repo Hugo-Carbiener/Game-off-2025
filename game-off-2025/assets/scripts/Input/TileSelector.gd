@@ -21,9 +21,10 @@ func select_tile(_selected_tile : Vector2i):
 	await MainCamera.zoom_transition(MainTilemap.instance.map_to_local(selected_tile) + MainTilemap.instance.global_position, Vector2i.ONE * 2);
 
 func unselect_tile():
+	var unselected_tile_position = selected_tile;
 	selected_tile = Vector2i.ZERO;
-	await MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
-	SignalBus.tile_unselected.emit();
+	SignalBus.tile_unselected.emit(unselected_tile_position);
+	MainCamera.zoom_transition(Vector2i.ZERO, Vector2i.ONE);
 
 func is_tile_occupied(coordinates : Vector2i) -> bool:
 	return MainTilemap.instance.tiles.has(coordinates) \

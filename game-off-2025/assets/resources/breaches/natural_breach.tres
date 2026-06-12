@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BreachData" load_steps=5 format=3 uid="uid://ccogswmqj0rhb"]
+
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="2_cxspj"]
+[ext_resource type="Resource" uid="uid://bh8r1t4xue0bb" path="res://assets/resources/effects/breach_effects/Swarm.tres" id="2_tstd0"]
+[ext_resource type="Resource" uid="uid://c4th32bhxjxm6" path="res://assets/resources/effects/breach_effects/Instability.tres" id="3_4tux1"]
+[ext_resource type="Script" uid="uid://cg7par48ecv6j" path="res://assets/scripts/monster/BreachData.gd" id="3_tstd0"]
+
+[resource]
+script = ExtResource("3_tstd0")
+name = "Natural breach"
+effects = Array[ExtResource("2_cxspj")]([ExtResource("3_4tux1"), ExtResource("2_tstd0"), ExtResource("2_tstd0")])
+metadata/_custom_type_script = "uid://cg7par48ecv6j"

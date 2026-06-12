@@ -35,8 +35,8 @@ var scenes : Dictionary[SCENES, PackedScene] = {
 }
 
 var scene_data : Dictionary[SCENES, SceneData] = {
-	SCENES.CODEX_SUMMARY: preload("res://assets/resources/sceneData/CodexSceneData.tres"),
-	SCENES.GAME: preload("res://assets/resources/sceneData/GameSceneData.tres")
+	SCENES.CODEX_SUMMARY: preload("res://assets/resources/scene_data/CodexSceneData.tres"),
+	SCENES.GAME: preload("res://assets/resources/scene_data/GameSceneData.tres")
 }
 
 func _ready() -> void:

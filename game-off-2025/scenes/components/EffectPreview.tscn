@@ -11,7 +11,7 @@ texture = ExtResource("1_tvyg4")
 stretch_mode = 3
 script = ExtResource("2_gpq3e")
 tooltip = NodePath("Tooltip")
-bounce_factor = 1.5
+bounce_factor = 2.0
 
 [node name="Tooltip" type="MarginContainer" parent="."]
 layout_mode = 1

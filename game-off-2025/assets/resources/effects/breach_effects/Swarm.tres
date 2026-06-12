@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://bh8r1t4xue0bb"]
+
+[ext_resource type="Texture2D" uid="uid://bjvgirw6c04t6" path="res://assets/sprites/UI_poison_icon_small.png" id="1_y1qtv"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="2_qyqvb"]
+
+[resource]
+script = ExtResource("2_qyqvb")
+value = 1
+trigger = 3
+title = "Swarm"
+icon = ExtResource("1_y1qtv")
+effect = 22
+metadata/_custom_type_script = "uid://dop7as4nabpyj"

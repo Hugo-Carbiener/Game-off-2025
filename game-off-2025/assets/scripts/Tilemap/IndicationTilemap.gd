@@ -106,5 +106,5 @@ func display_breach_targetted_tiles(cell: Vector2i):
 	var breach = MonsterFactory.breaches[cell]
 	if breach == null: return;
 	
-	for targetted_cell in breach.target_cells:
+	for targetted_cell in breach.weak_points:
 		place_tile(targetted_cell, TileDataManager.tile_dictionnary.get(RANGE_TILE_KEY));

@@ -46,7 +46,7 @@ func select_card(card_index : int):
 		return;
 	
 	var tile_data = TileDataManager.tile_dictionnary[card_selected.card_id];
-	if tile_data == null: return;
+	if tile_data == null || tile_data.is_util: return;
 	
 	if !ResourceManager.instance.can_pay_for(tile_data):
 		return;

@@ -38,9 +38,10 @@ static func setup_phase():
 	UserSettings.are_input_blocked = true;
 	current_day += 1;
 	await GameUI.instance.display_phase_title(current_phase);
-	SignalBus.setup_phase_started.emit(current_day);
+	await HeaderWindow.instance.on_setup();
 	await MonsterFactory.instance.on_setup();
 	await TileCardFactory.instance.draw_hand();
+	SignalBus.setup_phase_started.emit(current_day);
 		
 	start_phase(get_next_phase());
 
@@ -53,6 +54,7 @@ static func resolution_phase():
 	UserSettings.are_input_blocked = true;
 	
 	if need_resolution_phase():
+		TileSelector.instance.unselect_tile();
 		await GameUI.instance.display_phase_title(current_phase);
 		SignalBus.resolution_phase_started.emit();
 		await MainCamera.zoom_transition(MainTilemap.instance.position, Vector2i.ONE * 2);

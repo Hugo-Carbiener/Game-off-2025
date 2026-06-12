@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://c4th32bhxjxm6"]
+
+[ext_resource type="Texture2D" uid="uid://kppa71yl3idg" path="res://assets/sprites/UI_burst_icon_small.png" id="1_jcn88"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="2_rgvo6"]
+
+[resource]
+script = ExtResource("2_rgvo6")
+value = 5
+trigger = 3
+title = "Instability"
+icon = ExtResource("1_jcn88")
+effect = 23
+metadata/_custom_type_script = "uid://dop7as4nabpyj"

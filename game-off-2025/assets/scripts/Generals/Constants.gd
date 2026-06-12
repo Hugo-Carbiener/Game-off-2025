@@ -31,13 +31,13 @@ const card_draw_interval = 0.1;
 ## Breaches
 const base_breach_amount = 5;
 const breach_transition_duration = .75;
-const breach_setup_delay = 2;
+const breach_setup_delay = 1;
 const first_breach_spawn_round = 1;
 const breach_spawn_step = 3;
 const breach_min_spawn_range = 4;
 const breach_max_instability = 30;
 const breach_daily_instability_gain = 5;
-const breach_target_cells_amount = 4;
+const breach_weak_points_amount = 4;
 
 ## Monsters
 const monster_spawn_max_tile_distance = 5;

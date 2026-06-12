@@ -26,7 +26,7 @@ func on_step_end():
 		on_death();
 	
 	await MainTilemap.instance.apply_tile_damage(tilemap_position, self);
-	await MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);	
+	await MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);
 	await MainTilemap.instance.apply_ranged_tile_damage(tilemap_position, self);
 	await MainTilemap.instance.execute_ranged_tile_effects(TileDataManager.TRIGGERS.ON_MONSTER_WALK, tilemap_position);
 	position_in_trajectory +=1;
@@ -43,7 +43,7 @@ func damage(damage_amount : int, damage_source_position : Vector2i):
 	health -= damage_amount + health_weakness;
 	
 	var is_ranged = damage_source_position != tilemap_position;
-	var monster_info_texture = TileDataManager.ranged_damage_icon_small if is_ranged else TileDataManager.damage_icon_small;
+	#var monster_info_texture = TileDataManager.ranged_damage_icon_small if is_ranged else TileDataManager.damage_icon_small;
 	#MonsterInfo.launch_monster_info("-" + str(damage_amount), monster_info_texture, MainTilemap.instance.map_to_local(damage_source_position), MonsterFactory.instance);
 	AnimationUtils.blink_sprite(MonsterFactory.instance.monster_sprite);
 	await MonsterFactory.instance.dispatch_monster_damage(self, damage_amount, is_ranged);

@@ -37,6 +37,8 @@ enum EFFECT {
 	FILL_WITH_TILE,
 	FILL_WITH_TILE_OR_EVOLVE,
 	INCREASE_MAX_RANGE,
+	SPAWN_MONSTER,
+	GAIN_INSTABILITY
 }
 
 var effect_actions : Dictionary[EFFECT, EffectAction] = {
@@ -62,13 +64,16 @@ var effect_actions : Dictionary[EFFECT, EffectAction] = {
 	EFFECT.FILL_WITH_TILE : FillWithTileEffectAction.new(self),
 	EFFECT.FILL_WITH_TILE_OR_EVOLVE : FillWithTileOrEvolveEffectAction.new(self),
 	EFFECT.INCREASE_MAX_RANGE : IncreaseMaxRangeEffectAction.new(self),
+	EFFECT.SPAWN_MONSTER : SpawnMonsterEffectAction.new(self),
+	EFFECT.GAIN_INSTABILITY : GainInstabilityEffectAction.new(self),
 }
 
 ## Descriptions
 var trigger_descriptions : Dictionary[TileDataManager.TRIGGERS, String] = {
 	TileDataManager.TRIGGERS.ON_MONSTER_WALK : "When an enemy enters",
-	TileDataManager.TRIGGERS.ON_RESOLUTION_START : "At the start of the resolution phase",
-	TileDataManager.TRIGGERS.ON_RESOLUTION_END : "At the end of the resolution phase",
+	TileDataManager.TRIGGERS.ON_SETUP_START : "At the start of the breaches' turn",
+	TileDataManager.TRIGGERS.ON_RESOLUTION_START : "At the start of the monsters' turn",
+	TileDataManager.TRIGGERS.ON_RESOLUTION_END : "At the end of the monsters' turn",
 	TileDataManager.TRIGGERS.ON_MONSTER_DEATH : "When a monster dies in range",
 	TileDataManager.TRIGGERS.ON_TILE_PLACED : "When a land tile is placed in range",
 	TileDataManager.TRIGGERS.ON_BEACON_DAMAGE : "When the beacon is damaged",
@@ -99,6 +104,8 @@ const value_per_effect : Dictionary[EFFECT, StringName] = {
 	EFFECT.FILL_WITH_TILE : &"tile_value",
 	EFFECT.FILL_WITH_TILE_OR_EVOLVE : &"tile_value",
 	EFFECT.INCREASE_MAX_RANGE : &"value",
+	EFFECT.SPAWN_MONSTER : &"value",
+	EFFECT.GAIN_INSTABILITY : &"value",
 }
 
 func _validate_property(property : Dictionary) -> void:

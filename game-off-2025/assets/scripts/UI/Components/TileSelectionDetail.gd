@@ -20,13 +20,16 @@ const METADATA_VALUE_BREACH = "breach";
 @export var trajectory_container : GridContainer;
 @export var trajectory_preview_container : VBoxContainer;
 @export var maturity_counter_label : Label;
+@export var breach_intent_effect_preview : EffectPreview;
 @export var instability_meter : InstabilityMeter;
+@export var instability_text_value : Label;
+@export var instability_text_max_value : Label;
 @export var codex_link_button : TextureButton;
 @export_group("Component groups")
 @export var lines_list : Array[Control];
 @export var health_weakness_line_container : Control;
 @export var effects_line_container : Control;
-@export var monster_spawned_line : Control;
+@export var breach_intent_line : Control;
 @export var maturity_line : Control;
 
 func _ready() -> void:
@@ -48,11 +51,13 @@ func on_tile_selection(tile_position : Vector2i):
 		return;
 	visible = true;
 
-func on_tile_unselection():
+func on_tile_unselection(_tilemap_position : Vector2i):
 	visible = false;
 
 func setup_from_tile(tile_data : CustomTileData, tile_dynamic_data : DynamicTileData):
 	selection_preview.texture.region = tile_data.get_texture_region();
+	selection_preview.self_modulate = Color.WHITE;
+
 	title_label.text = tile_data.name;
 	damage_label.text = str(tile_data.damage);
 	var damage_boost_text = "+" + str(tile_dynamic_data.damage_boost) if tile_dynamic_data.damage_boost > 0 else ""; 
@@ -64,13 +69,12 @@ func setup_from_tile(tile_data : CustomTileData, tile_dynamic_data : DynamicTile
 	var range_boost_text = "+" + str(tile_dynamic_data.range_boost) if tile_dynamic_data.range_boost > 0 else "";
 	range_boost_label.text = range_boost_text;
 	
-	for effect_idx in range(tile_data.effects.size()):
-		var icon = effects_container.get_child(effect_idx);
-		if effect_idx >= tile_data.effects.size():
-			icon.visible = false;
-		else :
-			icon.texture = tile_data.effects[effect_idx].icon;
-			icon.visible = true;
+	for tile_effect_preview in effects_container.get_children():
+		tile_effect_preview.queue_free();
+	
+	for tile_effect in tile_data.effects:
+		var effect_preview = EffectPreview.create_effect_preview(tile_effect);
+		effects_container.add_child(effect_preview);
 	
 	for connection in codex_link_button.button_up.get_connections():
 		codex_link_button.button_up.disconnect(connection["callable"]);
@@ -81,6 +85,8 @@ func setup_from_tile(tile_data : CustomTileData, tile_dynamic_data : DynamicTile
 
 func setup_from_monster(monster : Monster):
 	selection_preview.texture.region = TileDataManager.tile_dictionnary[Constants.TILE_DICT_MONSTER_KEY].get_texture_region();
+	selection_preview.self_modulate = Color.WHITE;
+
 	title_label.text = "Monster";
 	health_label.text = str(monster.health);
 	weakness_label.text = str(monster.health_weakness);
@@ -129,19 +135,28 @@ func reset_trajectory():
 		child.queue_free();
 
 func setup_from_breach(breach : Breach):
-	var breach_tile_name = Constants.TILE_DICT_SMALL_BREACH_KEY if !breach.is_mature() else Constants.TILE_DICT_LARGE_BREACH_KEY;
-	selection_preview.texture.region = TileDataManager.tile_dictionnary[breach_tile_name].get_texture_region();
-	title_label.text = "Breach";
+	selection_preview.texture.region = breach.get_breach_texture_region();
+	selection_preview.self_modulate = breach.modulate;
+	title_label.text = breach.breach_data.name;
 	
 	maturity_counter_label.text = str(Constants.breach_setup_delay - breach.age);
+	instability_text_value.text = str(breach.instability);
+	instability_text_max_value.text = str(Constants.breach_max_instability);
 	instability_meter.setup(breach.instability);
+	breach_intent_effect_preview.setup(breach.get_intent_effect());
 	setup_visibility(METADATA_VALUE_BREACH);
-	monster_spawned_line.visible = breach.is_mature();
+	breach_intent_line.visible = breach.is_mature();
 	maturity_line.visible = !breach.is_mature();
 
 func on_breach_instability_changed(tilemap_position : Vector2i, instability_value : int):
 	if visible == false or tilemap_position != TileSelector.instance.selected_tile: return
 	
+	AnimationUtils.animate_integer(
+		func(x): instability_text_value.text = str(x),
+		int(instability_meter.meter.value),
+		instability_value,
+		Constants.default_transition_duration
+	);
 	instability_meter.transition_value(instability_value);
 
 func setup_visibility(type : String):

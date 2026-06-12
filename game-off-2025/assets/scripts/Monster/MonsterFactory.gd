@@ -7,6 +7,7 @@ static var instance : MonsterFactory;
 @export_group("Components")
 @export var monster_health_indicator : MonsterHealthIndicator;
 @export_group("Breaches variables")
+@export var breach_models : Array[BreachData];
 @export var breach_intro_animation_per_maturity : Dictionary[int, String];
 @export var breach_animated_sprite : AnimatedSprite2D;
 @export_group("Monster variables")
@@ -25,36 +26,26 @@ func init_sprites():
 	breach_animated_sprite.visible = false;
 	monster_damage_animated_sprite.visible = false;
 
-func spawn_monster(tilemap_position: Vector2i):
-	var monster = Monster.new(GameLoop.current_day, tilemap_position, get_monster_path(tilemap_position));
+func execute_breaches_intent():
+	for breach in breaches.values():
+		if breach == null: return;
+		
+		breach.execute_intent();
+
+func spawn_monster(breach : Breach):
+	var _position = breach.get_free_weak_point_position();
+	add_monster(GameLoop.current_day + 1, _position);
+
+func add_monster(health : int, tilemap_position : Vector2i):
+	var monster = Monster.new(health, tilemap_position, get_monster_path(tilemap_position));
 	monsters.set(tilemap_position, monster);
 	var monster_tile_data = TileDataManager.tile_dictionnary.get(Constants.TILE_DICT_MONSTER_KEY);
 	place_tile(tilemap_position, monster_tile_data);
 
-func spawn_monsters():
-	for breach in breaches.values():
-		if !breach.is_mature(): continue;
-		spawn_monster(breach.tilemap_position);
-
 func spawn_breach(tilemap_position: Vector2i, turn_delay : int):
-	var breach = await Breach.new(tilemap_position, turn_delay);
+	var breach = await Breach.create_breach(tilemap_position, turn_delay, breach_models[randi() % breach_models.size()], self);
 	breaches.set(tilemap_position, breach);
-	var breach_tile_data = TileDataManager.tile_dictionnary.get("small-breach");
-	place_tile(tilemap_position, breach_tile_data);
 	SignalBus.breach_spawned.emit();
-
-func breach_transition(tilemap_position : Vector2i, is_spawn : bool):
-	var tween = get_tree().create_tween();
-	var animation_name = "breach_spawn" if is_spawn else "breach_update";
-	tween.tween_callback(func(): if !is_spawn: hide_tile(tilemap_position));
-	tween.tween_callback(func(): breach_animated_sprite.position = MonsterFactory.instance.map_to_local(tilemap_position));
-	tween.tween_callback(func(): breach_animated_sprite.visible = true);
-	tween.tween_callback(func(): breach_animated_sprite.frame = 0);
-	tween.tween_callback(func(): breach_animated_sprite.animation = animation_name);
-	tween.tween_property(breach_animated_sprite, "frame", MonsterFactory.instance.breach_animated_sprite.sprite_frames.get_frame_count(animation_name), Constants.default_transition_duration*2);
-	tween.tween_callback(func(): breach_animated_sprite.visible = false);
-	tween.tween_callback(func(): if !is_spawn: show_tile(tilemap_position));
-	await tween.finished;
 
 func remove_breach(tilemap_position: Vector2i):
 	if !breaches.has(tilemap_position): return;
@@ -76,11 +67,15 @@ func on_setup():
 			var breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];
 			MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
 	
-	for breach in breaches.values():
-		breach.update_breach();
+	for breach_index in range(breaches.size()):
+		var breach = breaches.values()[breach_index];
+		if breach_index == breaches.size() - 1:
+			await breach.update_breach();
+		else: 
+			breach.update_breach();
 
 func on_resolution():
-	spawn_monsters();
+	execute_breaches_intent();
 	# Get monsters from closest to furthest  
 	var sorted_monsters = monsters.values();
 	sorted_monsters.sort_custom(func(a,b) : return cell_manhattan_distance(monsters.find_key(a), Vector2i.ZERO) < cell_manhattan_distance(monsters.find_key(b), Vector2i.ZERO))
@@ -167,7 +162,7 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 
 func load(_monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int]):
 	for monster_position in _monsters:
-		spawn_monster(monster_position);
+		add_monster(GameLoop.current_day + 1, monster_position);
 		#TODO : save breaches
 	#for breach_position in _breaches.keys():
 		#spawn_breach(breach_position, _breaches[breach_position]);
