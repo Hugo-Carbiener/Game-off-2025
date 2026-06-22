@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbiycfg665uxa"]
+
+[ext_resource type="Texture2D" uid="uid://e51xwhe5mjfw" path="res://assets/sprites/UI_setup-phase-icon.png" id="1_l14jk"]
+[ext_resource type="Script" uid="uid://b6012mh2grgmh" path="res://assets/scripts/ui/components/calendar/BreachCalendarDay.gd" id="2_w53md"]
+
+[node name="Calendar breach day" type="TextureRect"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_vertical = 0
+texture = ExtResource("1_l14jk")
+stretch_mode = 3
+script = ExtResource("2_w53md")

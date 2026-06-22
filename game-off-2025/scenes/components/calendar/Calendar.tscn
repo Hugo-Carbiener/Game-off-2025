@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0dnvmwoa1gls"]
+
+[ext_resource type="Script" uid="uid://d2tnl44fy227k" path="res://assets/scripts/ui/components/calendar/Calendar.gd" id="1_8237i"]
+[ext_resource type="Shader" uid="uid://qf0xpnn4k0hc" path="res://assets/shaders/verticalCropFade.gdshader" id="2_yv87e"]
+[ext_resource type="Texture2D" uid="uid://5olomnkd1crs" path="res://assets/sprites/UI_calendar.png" id="3_7o5b3"]
+[ext_resource type="Texture2D" uid="uid://e51xwhe5mjfw" path="res://assets/sprites/UI_setup-phase-icon.png" id="5_2q6xe"]
+[ext_resource type="Texture2D" uid="uid://dyvsrnam362h7" path="res://assets/sprites/UI_phase-selector.png" id="6_aekyl"]
+[ext_resource type="Script" uid="uid://c5bowkaxah16w" path="res://assets/scripts/ui/components/tooltips/TooltipFactory.gd" id="7_s1gf8"]
+[ext_resource type="Texture2D" uid="uid://dhvyaayhwkvtg" path="res://assets/sprites/UI_harvest-phase-icon.png" id="8_rj3fm"]
+[ext_resource type="Texture2D" uid="uid://dwwa7vgi8xouv" path="res://assets/sprites/UI_play-phase-icon.png" id="9_augvm"]
+[ext_resource type="Texture2D" uid="uid://dnkxs68dyjjtl" path="res://assets/sprites/UI_resolution-phase-icon.png" id="10_aylyn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dku7i"]
+shader = ExtResource("2_yv87e")
+shader_parameter/fade_length = 0.350000016625
+shader_parameter/fade_start = 0.400000019
+
+[node name="Calendar" type="MarginContainer" node_paths=PackedStringArray("day_anchors", "calendar_day_container", "phases_anchors", "phases_selector")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_top = 30
+script = ExtResource("1_8237i")
+day_anchors = [NodePath("Calendar sprite/HBoxContainer/Days area container/VBoxContainer/Spawn anchor"), NodePath("Calendar sprite/HBoxContainer/Days area container/VBoxContainer/Future anchor"), NodePath("Calendar sprite/HBoxContainer/Days area container/VBoxContainer/Current day anchor"), NodePath("Calendar sprite/HBoxContainer/Days area container/VBoxContainer/Past anchor"), NodePath("Calendar sprite/HBoxContainer/Days area container/VBoxContainer/Remove anchor")]
+calendar_day_container = NodePath("Calendar sprite/HBoxContainer/Days area container")
+phases_anchors = {
+0: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Setup phase anchor"),
+1: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Harvest phase anchor"),
+2: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Play phase anchor"),
+3: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Resolution phase anchor")
+}
+phases_selector = NodePath("Calendar sprite/HBoxContainer/Phase area container/Phase selector")
+
+[node name="Calendar sprite" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dku7i")
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_7o5b3")
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Calendar sprite"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Days area container" type="MarginContainer" parent="Calendar sprite/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Calendar sprite/HBoxContainer/Days area container"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Spawn anchor" type="Control" parent="Calendar sprite/HBoxContainer/Days area container/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.48235294)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Future anchor" type="Control" parent="Calendar sprite/HBoxContainer/Days area container/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.48235294)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Current day anchor" type="Control" parent="Calendar sprite/HBoxContainer/Days area container/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.48235294)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Past anchor" type="Control" parent="Calendar sprite/HBoxContainer/Days area container/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.48235294)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Remove anchor" type="Control" parent="Calendar sprite/HBoxContainer/Days area container/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.48235294)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Phase area container" type="MarginContainer" parent="Calendar sprite/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = -1
+
+[node name="Phase selector" type="TextureRect" parent="Calendar sprite/HBoxContainer/Phase area container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("6_aekyl")
+stretch_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Calendar sprite/HBoxContainer/Phase area container"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Setup phase anchor" type="TextureRect" parent="Calendar sprite/HBoxContainer/Phase area container/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Breach phase: breaches grow and declare intents"
+texture = ExtResource("5_2q6xe")
+script = ExtResource("7_s1gf8")
+
+[node name="Harvest phase anchor" type="TextureRect" parent="Calendar sprite/HBoxContainer/Phase area container/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Harvest phase: tiles generates resources"
+texture = ExtResource("8_rj3fm")
+script = ExtResource("7_s1gf8")
+
+[node name="Play phase anchor" type="TextureRect" parent="Calendar sprite/HBoxContainer/Phase area container/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Play phase"
+texture = ExtResource("9_augvm")
+script = ExtResource("7_s1gf8")
+
+[node name="Resolution phase anchor" type="TextureRect" parent="Calendar sprite/HBoxContainer/Phase area container/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Monster phase: breaches execute their intents and monsters walk towards the beacon"
+texture = ExtResource("10_aylyn")
+script = ExtResource("7_s1gf8")

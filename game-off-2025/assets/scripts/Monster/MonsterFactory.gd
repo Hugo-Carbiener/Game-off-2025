@@ -15,16 +15,25 @@ static var instance : MonsterFactory;
 @export var monster_sprite : Sprite2D;
 @export var monster_damage_animated_sprite : AnimatedSprite2D;
 
+var next_breach_position = Vector2i.ZERO;
+
 func _ready() -> void:
 	super();
 	if instance == null:
 		instance = self;
 	init_sprites();
+	init_next_breach_position();
 
 func init_sprites():
 	monster_sprite.visible = false;
 	breach_animated_sprite.visible = false;
 	monster_damage_animated_sprite.visible = false;
+
+func init_next_breach_position():
+	var breach_max_range = min(Constants.beacon_range, Constants.breach_min_spawn_range + breaches.size());
+	var valid_breach_positions = MainTilemap.instance.get_valid_monster_spawn_positions(Constants.breach_min_spawn_range, breach_max_range);
+	if valid_breach_positions.size()>0:
+		next_breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];	
 
 func execute_breaches_intent():
 	for breach in breaches.values():
@@ -60,13 +69,10 @@ func remove_monster(tilemap_position: Vector2i):
 	clear_tile(tilemap_position);
 
 func on_setup():
-	if GameLoop.is_breach_spawn_day():
-		var breach_max_range = min(Constants.beacon_range, Constants.breach_min_spawn_range + breaches.size());
-		var valid_breach_positions = MainTilemap.instance.get_valid_monster_spawn_positions(Constants.breach_min_spawn_range, breach_max_range);
-		if valid_breach_positions.size()>0:
-			var breach_position = valid_breach_positions[randi() % valid_breach_positions.size()];
-			MonsterFactory.instance.spawn_breach(breach_position, Constants.breach_setup_delay);
-	
+	if GameLoop.is_breach_spawn_day(GameLoop.current_day):
+		await MonsterFactory.instance.spawn_breach(next_breach_position, Constants.breach_setup_delay);
+		init_next_breach_position();
+
 	for breach_index in range(breaches.size()):
 		var breach = breaches.values()[breach_index];
 		if breach_index == breaches.size() - 1:

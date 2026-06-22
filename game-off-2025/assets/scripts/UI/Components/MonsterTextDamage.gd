@@ -23,6 +23,6 @@ func setup(text : String, texture : Texture2D, color : Color = Color.WHITE):
 
 func start_lifetime(is_in_open_world : bool = false):
 	if is_in_open_world:
-		AnimationUtils.move(self, Constants.default_ui_fade_offset, Constants.monster_info_lifetime_duration * 2);
+		AnimationUtils.push(self, Constants.default_ui_fade_offset, Constants.monster_info_lifetime_duration * 2);
 	await AnimationUtils.fade(self, 0, Constants.monster_info_lifetime_duration / 2., Constants.monster_info_lifetime_duration / 2.);
 	queue_free();

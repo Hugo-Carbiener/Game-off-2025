@@ -77,6 +77,7 @@ func get_valid_monster_spawn_positions(min_tile_range : int, max_tile_range : in
 			var coordinates = Vector2i(x, y);
 			if has_tile_at(coordinates) : continue;
 			if cell_distance(Vector2i.ZERO, coordinates) < min_tile_range: continue;
+			if MonsterFactory.instance.next_breach_position == coordinates: continue;
 			if MonsterFactory.instance.breaches.has(coordinates): continue;
 			if MonsterFactory.instance.monsters.has(coordinates): continue;
 			

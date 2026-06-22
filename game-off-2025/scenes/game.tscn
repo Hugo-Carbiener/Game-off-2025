@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://crymo458rjfyb"]
+[gd_scene load_steps=109 format=3 uid="uid://crymo458rjfyb"]
 
 [ext_resource type="Script" uid="uid://da7uowct2s81y" path="res://assets/scripts/input/CardSelector.gd" id="1_8qswn"]
 [ext_resource type="TileSet" uid="uid://mva5xg62erqv" path="res://assets/tiles/tiles_8px.tres" id="2_rm0al"]
@@ -80,6 +80,7 @@
 [ext_resource type="Texture2D" uid="uid://cxcrrwrg3yiyo" path="res://assets/sprites/UI_scene-codex-icon.png" id="61_uxocx"]
 [ext_resource type="Script" uid="uid://0d1cr3at8ybj" path="res://assets/scripts/ui/components/HeaderWindow.gd" id="64_3x28f"]
 [ext_resource type="PackedScene" uid="uid://e545ju0p8qeo" path="res://scenes/components/InstabilityMeter.tscn" id="64_mmvbu"]
+[ext_resource type="PackedScene" uid="uid://b0dnvmwoa1gls" path="res://scenes/components/calendar/Calendar.tscn" id="80_4nbsr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
 atlas = ExtResource("7_pr1ej")
@@ -690,6 +691,15 @@ text = "Validate"
 label_settings = SubResource("LabelSettings_7ixpq")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Calendar" parent="UI" node_paths=PackedStringArray("phases_anchors") instance=ExtResource("80_4nbsr")]
+layout_mode = 2
+phases_anchors = {
+0: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Setup phase anchor"),
+1: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Harvest phase anchor"),
+2: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Play phase anchor"),
+3: NodePath("Calendar sprite/HBoxContainer/Phase area container/HBoxContainer/Resolution phase anchor")
+}
 
 [node name="Static UI" type="CanvasLayer" parent="."]
 offset = Vector2(320, 180)

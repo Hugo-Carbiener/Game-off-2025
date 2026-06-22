@@ -4,10 +4,12 @@ class_name IndicationTilemap
 static var instance : IndicationTilemap;
 static var VALID_CELL_TILE_KEY = "valid-cell";
 static var RANGE_TILE_KEY = "range-indicator";
+static var BREACH_TILE_KEY = "small-breach";
 
 var is_tile_range_displayed = false;
 var is_valid_tile_displayed = false;
 var last_tile_hovered : Vector2i = Vector2i.ZERO;
+var next_breach_position;
 
 func _ready() -> void:
 	super();
@@ -55,13 +57,14 @@ func check_for_tile_hover(event : InputEvent):
 		update_hovered_tile(cell);
 
 func update_hovered_tile(new_hovered_tile : Vector2i):
-	clear_tilemap();
+	clear_tile(last_tile_hovered);
 	if TileSelector.instance.has_selected_tile():
 		display_selected_tile_indications(TileSelector.instance.selected_tile);
 		
 	if cell_distance(new_hovered_tile, Vector2.ZERO) > Constants.beacon_range: return;
 	
 	place_tile(new_hovered_tile, TileDataManager.tile_dictionnary[VALID_CELL_TILE_KEY]);
+	last_tile_hovered = new_hovered_tile;
 
 func display_valid_cells():
 	if MainTilemap.instance.is_currently_evolving_tile(): return;
@@ -108,3 +111,20 @@ func display_breach_targetted_tiles(cell: Vector2i):
 	
 	for targetted_cell in breach.weak_points:
 		place_tile(targetted_cell, TileDataManager.tile_dictionnary.get(RANGE_TILE_KEY));
+
+func display_next_breach():
+	next_breach_position = MonsterFactory.instance.next_breach_position;
+	place_tile(next_breach_position, TileDataManager.tile_dictionnary.get(BREACH_TILE_KEY), true);
+	
+	for x in range(-1, 2, 1):
+		for y in range(-1, 2, 1):
+			var coordinates = Vector2i(x, y);
+			if coordinates == Vector2i.ZERO: continue;
+			
+			place_tile(coordinates + next_breach_position, TileDataManager.tile_dictionnary.get(RANGE_TILE_KEY), true);
+
+func clear_next_breach():
+	for x in range(-1, 2, 1):
+		for y in range(-1, 2, 1):
+			var coordinates = Vector2i(x, y);
+			clear_tile(coordinates + next_breach_position);

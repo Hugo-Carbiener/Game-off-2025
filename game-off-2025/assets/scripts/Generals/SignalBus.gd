@@ -33,6 +33,7 @@ signal tile_unselected
 signal play_phase_started;
 signal play_phase_ended;
 signal setup_phase_started;
+signal harvest_phase_started;
 signal resolution_phase_started;
 signal game_won;
 signal game_lost;

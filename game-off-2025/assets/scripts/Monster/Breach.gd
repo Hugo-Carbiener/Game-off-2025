@@ -52,7 +52,7 @@ func spawn_tile():
 
 func update_breach():
 	age += 1;
-	if !is_mature() and age >= Constants.breach_setup_delay:
+	if !is_mature() and age > Constants.breach_setup_delay:
 		mature_tile();
 		return;
 	
