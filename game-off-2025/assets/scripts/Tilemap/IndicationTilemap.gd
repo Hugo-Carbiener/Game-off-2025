@@ -25,8 +25,11 @@ func init_signals():
 	# Card selection
 	SignalBus.card_selected.connect(display_valid_cells);
 	SignalBus.card_unselected.connect(clear_valid_cells);
+	# Tile selection
+	SignalBus.tile_unselected.connect(on_tile_unselected);
 
 func display_selected_tile_indications(selected_tile : Vector2i):
+	clear_tilemap();
 	place_tile(selected_tile, TileDataManager.tile_dictionnary[VALID_CELL_TILE_KEY]);
 	if MainTilemap.instance.tiles.has(selected_tile):
 		display_tile_range(selected_tile);
@@ -40,7 +43,7 @@ func display_selected_tile_indications(selected_tile : Vector2i):
 		display_breach_targetted_tiles(selected_tile);
 		return;
 
-func on_tile_unselected():
+func on_tile_unselected(_tile_uneselected : Vector2i):
 	clear_tilemap();
 
 func _input(event):

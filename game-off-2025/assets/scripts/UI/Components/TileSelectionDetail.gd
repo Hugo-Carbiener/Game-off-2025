@@ -139,7 +139,7 @@ func setup_from_breach(breach : Breach):
 	selection_preview.self_modulate = breach.modulate;
 	title_label.text = breach.breach_data.name;
 	
-	maturity_counter_label.text = str(Constants.breach_setup_delay - breach.age);
+	maturity_counter_label.text = str(Constants.breach_setup_delay - breach.age + 1);
 	instability_text_value.text = str(breach.instability);
 	instability_text_max_value.text = str(Constants.breach_max_instability);
 	instability_meter.setup(breach.instability);

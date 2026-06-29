@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bad6gthvrvfvi"]
+[gd_scene load_steps=18 format=3 uid="uid://bad6gthvrvfvi"]
 
 [ext_resource type="Texture2D" uid="uid://bt3ewbs6rj831" path="res://assets/sprites/UI_large-breach.png" id="1_a3gc6"]
+[ext_resource type="Texture2D" uid="uid://de44m8a815c4a" path="res://assets/sprites/UI_sealed-breach.png" id="2_umiei"]
 [ext_resource type="Script" uid="uid://7l48necxq8j3" path="res://assets/scripts/monster/Breach.gd" id="2_un1ru"]
 [ext_resource type="Texture2D" uid="uid://botrjos1qt5f4" path="res://assets/sprites/UI_small-breach.png" id="2_vhywh"]
 [ext_resource type="Texture2D" uid="uid://ca3trttlhmjj2" path="res://assets/sprites/animations_small_to_large_breach.png" id="3_umiei"]
@@ -9,6 +10,10 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mnoml"]
 atlas = ExtResource("1_a3gc6")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0470u"]
+atlas = ExtResource("2_umiei")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6b7vm"]
@@ -51,6 +56,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0470u")
+}],
+"loop": true,
+"name": &"sealed-breach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6b7vm")
 }],
 "loop": false,
@@ -88,7 +101,7 @@ animations = [{
 
 [node name="Breach" type="AnimatedSprite2D" node_paths=PackedStringArray("intent", "effect_preview")]
 sprite_frames = SubResource("SpriteFrames_agblq")
-animation = &"large-breach"
+animation = &"sealed-breach"
 script = ExtResource("2_un1ru")
 intent = NodePath("Intent")
 effect_preview = NodePath("Intent/Effect preview")

@@ -6,6 +6,7 @@ const SPAWN_BREACH_SPRITE_KEY = "spawn";
 const SMALL_BREACH_SPRITE_KEY = "small-breach";
 const SMALL_TO_LARGE_SPRITE_KEY = "small-to-large";
 const LARGE_BREACH_SPRITE_KEY = "large-breach";
+const SEALED_BREACH_SPRITE_KEY = "sealed-breach";
 
 @export_group("Intent variables")
 @export var intent : Control;
@@ -18,6 +19,7 @@ var turn_delay : int;
 var breach_data : BreachData;
 var age : int;
 var mature : bool;
+var sealed : bool;
 var instability : int;
 var weak_points : Array[Vector2i];
 var has_intent : bool = false;
@@ -53,7 +55,7 @@ func spawn_tile():
 func update_breach():
 	age += 1;
 	if !is_mature() and age > Constants.breach_setup_delay:
-		mature_tile();
+		mature_breach();
 		return;
 	
 	if is_mature():
@@ -96,13 +98,17 @@ func apply_tile_interactions():
 	
 		await MainTilemap.instance.execute_tile_effects(TileDataManager.TRIGGERS.ON_BREACH_INTERACTION, target_cell);
 
-func mature_tile():
+func mature_breach():
 	play(SMALL_TO_LARGE_SPRITE_KEY);
 	await animation_finished;
 	animation = LARGE_BREACH_SPRITE_KEY;
 	mature = true;
 	gain_instability(Constants.breach_max_instability, tilemap_position);
 	check_state();
+
+func seal_breach():
+	sealed = true;
+	play(SEALED_BREACH_SPRITE_KEY);
 
 func is_mature() -> bool:
 	return mature;
@@ -179,9 +185,6 @@ func select_tiles_around():
 			valid_cells.append(coordinates);
 	valid_cells.shuffle();
 	weak_points = valid_cells.slice(0, Constants.breach_weak_points_amount);
-
-func seal_breach():
-	pass;
 
 func get_free_weak_point_position() -> Vector2i:
 	var valid_weak_points : Array[Vector2i];
