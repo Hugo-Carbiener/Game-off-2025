@@ -17,7 +17,7 @@ func _ready() -> void:
 func gain_resource(type : TileDataManager.BIOMES, amount : int, from : Vector2i):
 	essences.set(type, essences[type] + amount);
 	var destination = essence_storage[type];
-	await ElementMovementAnimation.launch_element_movement_animation(TileDataManager.essence_icons[type], MainTilemap.instance.map_to_local(from), destination.global_position + (destination.size / 2), self);
+	await ElementMovementAnimation.launch_element_movement_animation_with_texture(TileDataManager.essence_icons[type], MainTilemap.instance.map_to_local(from), destination.global_position + (destination.size / 2), self);
 	SignalBus.resource_gained.emit(type);
 
 func use_resource(type : TileDataManager.BIOMES, amount : int):

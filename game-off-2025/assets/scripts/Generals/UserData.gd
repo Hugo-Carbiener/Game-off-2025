@@ -1,5 +1,6 @@
 extends Node
 
+var card_deck : Dictionary[String, int];
 var tile_codex_save : TileCodexSave = TileCodexSave.new();
 var fight_save : FightSave = FightSave.new();
 var modules : Dictionary[String, Save] = {
@@ -8,6 +9,8 @@ var modules : Dictionary[String, Save] = {
 };
 
 func _ready() -> void:
+	for card in TileDataManager.playable_tiles:
+		card_deck.set(card, 1);
 	SignalBus.play_phase_started.connect(auto_save);
 
 func auto_save():

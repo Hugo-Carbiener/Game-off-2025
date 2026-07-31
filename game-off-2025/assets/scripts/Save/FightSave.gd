@@ -5,7 +5,9 @@ const KEY_NAME = "fight"
 var day : int; 
 var phase : GameLoop.PHASES;
 var tiles : Dictionary[Vector2i, String];
-var cards : Array[String];
+var hand_cards : Array[String];
+var draw_cards : Array[String];
+var discard_cards : Array[String];
 var monsters : Array[Vector2i];
 var breaches : Dictionary[Vector2i, int];
 var beacon_health : int;
@@ -17,8 +19,12 @@ var loaders : Dictionary[String, Callable] = {
 		load_phase,
 	"tiles" : 
 		load_tiles,
-	"cards" : 
-		load_cards,
+	"hand" : 
+		load_hand,
+	"draw" : 
+		load_draw,
+	"discard" : 
+		load_discard,
 	"monsters" : 
 		load_monsters,
 	"breaches" : 
@@ -27,11 +33,13 @@ var loaders : Dictionary[String, Callable] = {
 		load_beacon_health
 }
 
-func update(_day: int, _phase: GameLoop.PHASES, _tiles : Dictionary[Vector2i, String], _cards : Array[String], _monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int], _beacon_health : int):
+func update(_day: int, _phase: GameLoop.PHASES, _tiles : Dictionary[Vector2i, String], _hand : Array[String], _draw : Array[String], _discard : Array[String], _monsters : Array[Vector2i], _breaches : Dictionary[Vector2i, int], _beacon_health : int):
 	self.day = _day;
 	self.phase = _phase;
 	self.tiles = _tiles;
-	self.cards = _cards;
+	self.hand_cards = _hand;
+	self.draw_cards = _draw;
+	self.discard_cards = _discard;
 	self.monsters = _monsters;
 	self.breaches = _breaches;
 	self.beacon_health = _beacon_health;
@@ -45,7 +53,9 @@ func to_JSON() -> Dictionary[String, Variant]:
 		"day" : day,
 		"phase" : phase,
 		"tiles" : tiles,
-		"cards" : cards,
+		"hand" : hand_cards,
+		"draw" : draw_cards,
+		"discard" : discard_cards,
 		"monsters" : monsters,
 		"breaches" : breaches,
 		"beacon_health" : beacon_health
@@ -66,9 +76,17 @@ func load_tiles(_tiles : Dictionary):
 	for key in _tiles.keys():
 		tiles.set(vector2i_from_str(key), str(_tiles[key]));
 
-func load_cards(_cards : Array):
+func load_hand(_cards : Array):
 	for tile_id in _cards:
-		cards.append(str(tile_id));
+		hand_cards.append(str(tile_id));
+
+func load_draw(_cards : Array):
+	for tile_id in _cards:
+		draw_cards.append(str(tile_id));
+
+func load_discard(_cards : Array):
+	for tile_id in _cards:
+		discard_cards.append(str(tile_id));
 
 func load_monsters(_monsters : Array):
 	for position in _monsters:

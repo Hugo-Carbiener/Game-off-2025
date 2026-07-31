@@ -133,7 +133,7 @@ func learn_evolution(tile_data : CustomTileData):
 	
 	CardSelector.instance.unselect_card();
 	UserData.get_known_tiles().append(tile_data.id);
-	TileCardFactory.instance.update_tile_card_evolutions();
+	HandPile.instance.update_tile_card_evolutions();
 	CardSelector.instance.unselect_card();
 	NotificationCenter.instance.notify_new_tile(tile_data);
 	TileCodex.store_new_tile(tile_data.id);

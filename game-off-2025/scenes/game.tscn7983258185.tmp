@@ -429,24 +429,20 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_left = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = -6
 alignment = 2
 
-[node name="Deck window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer"]
+[node name="Deck window" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 4
 
-[node name="Deck window background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer/Deck window"]
+[node name="Deck window background" type="NinePatchRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
 layout_mode = 2
 texture = ExtResource("53_66xif")
 patch_margin_left = 5
@@ -454,35 +450,35 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="Deck element container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer/Deck window"]
+[node name="Deck element container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window"]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer/Deck window/Deck element container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window/Deck element container"]
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 alignment = 2
 
-[node name="Title" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer/Deck window/Deck element container/VBoxContainer"]
+[node name="Title" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/Deck window/Deck element container/VBoxContainer"]
 layout_mode = 2
 text = "Cards"
 label_settings = ExtResource("27_q8j3a")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Folding icon menu" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer"]
+[node name="Folding icon menu" type="TextureRect" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("29_ms3bu")
 stretch_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer"]
 layout_mode = 2
 
-[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("button", "folding_icon", "deck_window", "deck_element_container_window", "pile_size_label")]
+[node name="Draw icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Draw area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("button", "folding_icon", "deck_window", "deck_element_container_window")]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("26_fedci")
@@ -493,21 +489,7 @@ button = NodePath(".")
 folding_icon = NodePath("../../Folding icon menu")
 deck_window = NodePath("../../Deck window")
 deck_element_container_window = NodePath("../../Deck window/Deck element container/VBoxContainer")
-pile_size_label = NodePath("../../../Card count margin/Card count")
 card_removed_signal = "card_drawn"
-
-[node name="Card count margin" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = -4
-theme_override_constants/margin_bottom = 4
-
-[node name="Card count" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Draw area/HBoxContainer/Card count margin"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "000"
-label_settings = ExtResource("47_3hbvx")
-horizontal_alignment = 1
-vertical_alignment = 2
 
 [node name="Card area container" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 layout_mode = 2
@@ -520,7 +502,7 @@ script = ExtResource("26_7gkqi")
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/Control" node_paths=PackedStringArray("pile_size_label")]
+[node name="Card container" type="HBoxContainer" parent="UI/Screen container/Footer container/Footer hbox/Card area container/Control" node_paths=PackedStringArray("card_count_label")]
 z_index = 1
 clip_contents = true
 layout_mode = 1
@@ -535,7 +517,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = -30
 alignment = 1
 script = ExtResource("27_753oq")
-pile_size_label = NodePath("../../../Right area/VBoxContainer/HBoxContainer/Card hand count")
+card_count_label = NodePath("../../../Right area/VBoxContainer/HBoxContainer/Card hand count")
 
 [node name="Right area" type="MarginContainer" parent="UI/Screen container/Footer container/Footer hbox"]
 custom_minimum_size = Vector2(100, 0)
@@ -582,7 +564,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("40_7gkqi")
 
-[node name="Discard icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("discard_window", "pile_size_label")]
+[node name="Discard icon" type="TextureButton" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("discard_pile_size_label", "discard_window")]
 layout_mode = 2
 size_flags_vertical = 8
 disabled = true
@@ -590,8 +572,8 @@ texture_normal = ExtResource("40_rm0al")
 texture_pressed = ExtResource("41_i4re6")
 texture_hover = ExtResource("41_i4re6")
 script = ExtResource("37_oaba0")
+discard_pile_size_label = NodePath("Card amount")
 discard_window = NodePath("../../../../../../../Discard window")
-pile_size_label = NodePath("Card amount")
 card_added_signal = "card_discarded"
 
 [node name="Card amount" type="Label" parent="UI/Screen container/Footer container/Footer hbox/Right area/VBoxContainer/HBoxContainer/Discard icon"]

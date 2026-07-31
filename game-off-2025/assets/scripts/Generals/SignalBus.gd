@@ -13,6 +13,7 @@ signal summary_element_clicked
 # World signals
 signal card_drawn; # TileCard
 signal card_discarded; # TileCard
+signal card_used; # TileCard
 signal tile_placed;
 signal evolution_started;
 signal evolution_finished;

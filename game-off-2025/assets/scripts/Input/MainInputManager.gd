@@ -23,7 +23,7 @@ func _input(event: InputEvent) -> void:
 		CardSelector.instance.unselect_card();
 	
 	if event.is_action_released('debug-generate-card'):
-		TileCardFactory.instance.draw_random_card();
+		DrawPile.instance.draw_random_card();
 	
 	if event.is_action_released("debug-instability-increase"):
 		for breach in MonsterFactory.breaches.values():
@@ -41,9 +41,9 @@ func _input(event: InputEvent) -> void:
 			MonsterFactory.instance.spawn_breach(pos, Constants.breach_setup_delay);
 	
 	if event.is_action_released('debug-discard-left-most'):
-		var tile_card = TileCardFactory.instance.cards[0];
+		var tile_card = HandPile.instance.tile_cards[0];
 		if tile_card != null:
-			tile_card.discard();
+			DiscardPile.instance.discard_from_card(tile_card);
 
 	if event.is_action_released("debug-natural-resource-increase"):
 		ResourceManager.instance.gain_resource(TileDataManager.BIOMES.NATURAL, 1, Vector2i.ZERO);

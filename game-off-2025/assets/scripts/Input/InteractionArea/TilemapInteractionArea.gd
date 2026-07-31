@@ -18,14 +18,9 @@ func place_tile(selected_card : TileCard):
 	var tile_data = TileDataManager.tile_dictionnary[selected_card.card_id];
 	var tile_position = main_tilemap.local_to_map(main_tilemap.get_local_mouse_position());
 	var placed_tile = await main_tilemap.place_tile(tile_position, tile_data);
-	var keep_card_selected = true;
+	SignalBus.card_used.emit(selected_card);
 	
-	if placed_tile:
-		selected_card.discard();
-	else: 
-		keep_card_selected = false;
-	
-	if !keep_card_selected:
+	if !placed_tile:
 		CardSelector.instance.unselect_card();
 
 func select_tile():

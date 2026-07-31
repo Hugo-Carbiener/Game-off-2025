@@ -6,6 +6,7 @@ const tile_card_scene: PackedScene = preload("res://scenes/components/TileCard.t
 var card_id : String;
 var card_color : Color;
 var is_draggable : bool;
+
 @export_group("Components")
 @export var card_chains : TextureRect;
 @export var card_overlay : TextureRect;
@@ -157,8 +158,7 @@ func update_evolutions():
 		tile_card_evolution.update();
 
 # Called before a card is destroyed
-func discard():
-	SignalBus.card_discarded.emit(self);
+func on_discarded():
 	AnimationUtils.fade(self, 0, card_movement_transition_duration);
 	await AnimationUtils.animate_scale(self, scale, Vector2.ZERO, card_movement_transition_duration);
 	queue_free();
@@ -194,7 +194,7 @@ func on_mouse_entered():
 	if UserSettings.are_input_blocked or !is_draggable: return;
 	if card_is_selected(): return;
 	
-	var card_index = TileCardFactory.instance.cards.find(self);
+	var card_index = HandPile.instance.tile_cards.find(self);
 	if card_index == -1: return;
 	
 	CardSelector.instance.card_index_hovered = card_index;

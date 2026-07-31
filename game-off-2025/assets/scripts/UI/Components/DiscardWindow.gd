@@ -39,9 +39,9 @@ func update_components():
 func validate():
 	reset();
 	for tile_card in card_container.get_children():
-		tile_card.reparent(TileCardFactory.instance, false);
+		tile_card.reparent(HandPile.instance, false);
 	for tile_card in CardSelector.instance.cards_selected:
 		var tween = get_tree().create_tween();
-		tween.tween_callback(func(): tile_card.discard());
+		tween.tween_callback(func(): DiscardPile.instance.discard_from_card(tile_card));
 		await tween.finished;
 	CardSelector.instance.clear_multi_card_selection();

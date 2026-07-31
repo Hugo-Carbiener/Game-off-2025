@@ -44,7 +44,7 @@ static func setup_phase():
 	await GameUI.instance.display_phase_title(current_phase);
 	await HeaderWindow.instance.on_setup();
 	await MonsterFactory.instance.on_setup();
-	await TileCardFactory.instance.draw_hand();
+	await DrawPile.instance.draw_hand();
 		
 	start_phase(get_next_phase());
 
@@ -97,7 +97,9 @@ func save_fight():
 		current_day, 
 		current_phase,
 		MainTilemap.instance.get_tiles_for_save(),
-		TileCardFactory.instance.get_cards_for_save(),
+		HandPile.instance.get_cards_for_save(),
+		DrawPile.instance.get_cards_for_save(),
+		DiscardPile.instance.get_cards_for_save(),
 		MonsterFactory.instance.monsters.keys(),
 		{}, #TODO : save breaches
 		BeaconManager.instance.health);
@@ -108,7 +110,9 @@ func load_fight():
 	
 	current_day = fight_save.day;
 	current_phase = fight_save.phase;
-	TileCardFactory.instance.load_cards(fight_save.cards);
+	HandPile.instance.load_pile(fight_save.hand_cards);
+	DrawPile.instance.load_pile(fight_save.draw_cards);
+	DiscardPile.instance.load_pile(fight_save.discard_cards);
 	MonsterFactory.instance.load(fight_save.monsters, fight_save.breaches);
 	MainTilemap.instance.load(fight_save.tiles);
 	BeaconManager.instance.health = fight_save.beacon_health;

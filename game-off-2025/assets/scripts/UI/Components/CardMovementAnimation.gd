@@ -8,15 +8,25 @@ const element_movement_animation_scene = preload("res://scenes/components/Elemen
 @export var movement_animation_duration : float;
 @export var fade_out_duration : float;
 
-static func launch_element_movement_animation(sprite : Texture2D, from : Vector2, to : Vector2, root : CanvasItem):
+static func launch_element_movement_animation(atlas_region : Rect2, from : Vector2, to : Vector2, root : CanvasItem):
 	var movement_animation = element_movement_animation_scene.instantiate();
-	movement_animation.setup(sprite);
+	movement_animation.setup(atlas_region);
 	root.add_child(movement_animation);
 	await movement_animation.start_lifetime(from, to);
 	movement_animation.queue_free();
 
-func setup(sprite : Texture2D):
-	texture = sprite;
+static func launch_element_movement_animation_with_texture(_texture : Texture2D, from : Vector2, to : Vector2, root : CanvasItem):
+	var movement_animation = element_movement_animation_scene.instantiate();
+	movement_animation.setup_texture(_texture);
+	root.add_child(movement_animation);
+	await movement_animation.start_lifetime(from, to);
+	movement_animation.queue_free();
+
+func setup(atlas_region : Rect2):
+	texture.region = atlas_region;
+
+func setup_texture(_texture : Texture2D):
+	texture = _texture;
 
 func start_lifetime(from : Vector2, to : Vector2):
 	var curve = create_curve(from, to);
@@ -38,7 +48,7 @@ func start_lifetime(from : Vector2, to : Vector2):
 func create_curve(from : Vector2, to : Vector2) -> Curve2D:
 	var curve = Curve2D.new();
 	var direction = to - from;
-	var normal = Vector2(direction.y, -direction.x).normalized();
+	var normal = Vector2(direction.y, -abs(direction.x)).normalized();
 	var curvature_strength = randf_range(1.0, trajectory_variance);
 	var control_offset = normal * curvature_strength * trajectory_amplitude;
 	curve.add_point(from, Vector2.ZERO, control_offset);

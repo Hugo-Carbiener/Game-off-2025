@@ -40,7 +40,7 @@ func on_multi_card_selection_interaction():
 		multi_select_card(hovered_card);
 
 func select_card(card_index : int):
-	var card_selected = TileCardFactory.instance.cards[card_index];
+	var card_selected = HandPile.instance.tile_cards[card_index];
 	if card_selected == null: 
 		card_index_selected = -1;
 		return;
@@ -86,15 +86,15 @@ func clear_multi_card_selection():
 func get_selected_card() -> TileCard:
 	if !card_is_selected() : return null;
 	
-	return TileCardFactory.instance.cards[card_index_selected];
+	return HandPile.instance.tile_cards[card_index_selected];
 
 func get_hovered_card() -> TileCard:
 	if !card_is_hovered() : return null;
 	
-	return TileCardFactory.instance.cards[card_index_hovered];
+	return HandPile.instance.tile_cards[card_index_hovered];
 
 func card_is_selected() -> bool:
-	return card_index_selected != -1 and card_index_selected < TileCardFactory.instance.get_hand_size();
+	return card_index_selected != -1 and card_index_selected < HandPile.instance.get_pile_size();
 
 func card_is_hovered() -> bool:
-	return card_index_hovered != -1 and card_index_hovered < TileCardFactory.instance.get_hand_size();
+	return card_index_hovered != -1 and card_index_hovered < HandPile.instance.get_pile_size();
