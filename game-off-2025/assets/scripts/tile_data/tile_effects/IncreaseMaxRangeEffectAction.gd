@@ -7,4 +7,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 		MainTilemap.instance.tiles_dynamic_data[tile_position + offset_coords].range_boost += tile_effect.get_value();
 
 func get_description() -> String:
-	return "increase the maximum range of tiles in range.";
+	return "increase the maximum range of tiles in range by {value}.";

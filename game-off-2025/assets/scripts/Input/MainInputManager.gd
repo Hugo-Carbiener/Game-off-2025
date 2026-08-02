@@ -25,6 +25,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released('debug-generate-card'):
 		DrawPile.instance.draw_random_card();
 	
+	if event.is_action_released("debug-destroy-tile"):
+		MainTilemap.instance.destroy_tile(MainTilemap.instance.local_to_map(MainTilemap.instance.get_local_mouse_position()));
+	
 	if event.is_action_released("debug-instability-increase"):
 		for breach in MonsterFactory.breaches.values():
 			breach.gain_instability(5, Vector2i.ZERO);

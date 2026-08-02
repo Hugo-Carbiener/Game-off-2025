@@ -36,7 +36,7 @@ var tile_size : Vector2i;
 var world_tile_amount = 0;
 
 enum TRIGGERS {
-	ANY,
+	NONE,
 	ON_MONSTER_WALK,
 	ON_SETUP_START,
 	ON_RESOLUTION_START,

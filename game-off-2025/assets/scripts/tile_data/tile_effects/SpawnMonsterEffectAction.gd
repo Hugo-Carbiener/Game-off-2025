@@ -9,4 +9,4 @@ func execute(tile_position : Vector2i, _tile_data : CustomTileData):
 	MonsterFactory.instance.spawn_monster(breach);
 
 func get_description() -> String:
-	return "spawns %s monsters on the breach's weak points.";
+	return "spawns {value} monsters on the breach's weak points.";

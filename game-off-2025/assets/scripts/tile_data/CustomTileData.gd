@@ -16,6 +16,9 @@ var devolutions : Array[String];
 var requirement : TileRequirement;
 var effects : Array[TileEffect];
 
+var channeled : bool;
+var drained : bool;
+
 func _init(
 		_id: String,
 		_color: Color,
@@ -108,10 +111,20 @@ func parse_requirement(requirement_string : String) -> TileRequirement:
 func parse_effects(_effects : Array) -> Array[TileEffect]:
 	var tile_effects : Array[TileEffect];
 	for resource_path in _effects:
+		if !FileAccess.file_exists(resource_path):
+			printerr("Effect at path " + resource_path + " does not exist for tile " + self.id);
+			continue;
+	
 		var effect := load(resource_path) as TileEffect;
 		if effect == null:
 			printerr("Effect at path " + resource_path + " could not be loaded for tile " + self.id);
 			continue;
+		
+		if effect.effect == TileEffect.EFFECT.CHANNELED:
+			channeled = true;
+		
+		if effect.effect == TileEffect.EFFECT.DRAINED:
+			drained = true;
 		
 		tile_effects.append(effect);
 	return tile_effects;

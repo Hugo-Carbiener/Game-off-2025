@@ -9,4 +9,4 @@ func execute(tile_position : Vector2i, _tile_data : CustomTileData):
 	breach.gain_instability(tile_effect.get_value(), tile_position);
 
 func get_description() -> String:
-	return "increases the breach's instability by %s.";
+	return "increases the breach's instability by {value}.";

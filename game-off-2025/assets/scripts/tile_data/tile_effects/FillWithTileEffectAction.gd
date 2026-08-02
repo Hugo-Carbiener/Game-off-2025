@@ -11,4 +11,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 		MainTilemap.instance.place_tile(target_coordinates, target_tile, true);
 
 func get_description() -> String:
-	return "fills the area with %s tiles.";
+	return "fills the area with {tile_value} tiles.";

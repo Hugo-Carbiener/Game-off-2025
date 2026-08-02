@@ -10,7 +10,7 @@ var card_index_hovered : int = -1;
 func _ready() -> void:
 	if instance == null:
 		instance = self;
-	SignalBus.card_discarded.connect(on_card_discarded);
+	SignalBus.card_used.connect(on_card_used);
 
 func on_card_selection_interaction():
 	if !card_is_hovered(): 
@@ -76,7 +76,7 @@ func unselect_card():
 	SignalBus.card_unselected.emit();
 	cursor_preview.visible = false;
 
-func on_card_discarded(_tile_card : TileCard):
+func on_card_used(_tile_card : TileCard):
 	if _tile_card == get_selected_card():
 		unselect_card();
 

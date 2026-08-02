@@ -15,54 +15,37 @@ class_name TileEffect
 		property_list_changed.emit(); ## update exported fields
 
 enum EFFECT {
+	CHANNELED,
+	DRAINED,
 	INCREASE_TILE_DAMAGE,
 	INCREASE_RANGED_TILE_DAMAGE,
-	MULTIPLY_TILE_DAMAGE,
 	DEAL_DAMAGE,
-	POISON,
-	ROOT,
 	GROW_BIOME,
-	GAIN_TEMPORARY_VOID_CHARGES,
 	MONSTER_WEAKNESS,
 	MONSTER_DAMAGE_REDUCTION,
-	FIRE,
-	EVOLVE,
-	DEVOLVE,
 	BEACON_HEAL,
 	BEACON_SHIELD,
-	TRIGGER_RANDOM_TILE,
-	TRIGGER_ALL_TILES,
 	PLACE_TILE,
-	REMOVE_TILE,
+	DESTROY_TILE,
 	FILL_WITH_TILE,
-	FILL_WITH_TILE_OR_EVOLVE,
 	INCREASE_MAX_RANGE,
 	SPAWN_MONSTER,
 	GAIN_INSTABILITY
 }
 
 var effect_actions : Dictionary[EFFECT, EffectAction] = {
+	EFFECT.CHANNELED : ChanneledEffectAction.new(self),
+	EFFECT.DRAINED : DrainedEffectAction.new(self),
 	EFFECT.INCREASE_TILE_DAMAGE : IncreaseTileDamageEffectAction.new(self),
 	EFFECT.INCREASE_RANGED_TILE_DAMAGE : IncreaseRangedTileDamageEffectAction.new(self),
-	EFFECT.MULTIPLY_TILE_DAMAGE : MultiplyTileDamageEffectAction.new(self),
 	EFFECT.DEAL_DAMAGE : DealDamageEffectAction.new(self),
-	EFFECT.POISON : PoisonEffectAction.new(self),
-	EFFECT.ROOT : RootEffectAction.new(self),
 	EFFECT.GROW_BIOME : GrowBiomeEffectAction.new(self),
-	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : GainTemporaryVoidChargeEffectAction.new(self),
 	EFFECT.MONSTER_WEAKNESS : MonsterWeaknessEffectAction.new(self),
 	EFFECT.MONSTER_DAMAGE_REDUCTION : MonsterDamageReductionEffectAction.new(self),
-	EFFECT.FIRE : FireEffectAction.new(self),
-	EFFECT.EVOLVE : EvolveEffectAction.new(self),
-	EFFECT.DEVOLVE : DevolveEffectAction.new(self),
 	EFFECT.BEACON_HEAL : BeaconHealEffectAction.new(self),
 	EFFECT.BEACON_SHIELD : BeaconShieldEffectAction.new(self),
-	EFFECT.TRIGGER_RANDOM_TILE : TriggerRandomTileEffectAction.new(self),
-	EFFECT.TRIGGER_ALL_TILES : TriggerAllTilesEffectAction.new(self),
 	EFFECT.PLACE_TILE : PlaceTileEffectAction.new(self),
-	EFFECT.REMOVE_TILE : RemoveTileEffectAction.new(self),
 	EFFECT.FILL_WITH_TILE : FillWithTileEffectAction.new(self),
-	EFFECT.FILL_WITH_TILE_OR_EVOLVE : FillWithTileOrEvolveEffectAction.new(self),
 	EFFECT.INCREASE_MAX_RANGE : IncreaseMaxRangeEffectAction.new(self),
 	EFFECT.SPAWN_MONSTER : SpawnMonsterEffectAction.new(self),
 	EFFECT.GAIN_INSTABILITY : GainInstabilityEffectAction.new(self),
@@ -70,6 +53,7 @@ var effect_actions : Dictionary[EFFECT, EffectAction] = {
 
 ## Descriptions
 var trigger_descriptions : Dictionary[TileDataManager.TRIGGERS, String] = {
+	TileDataManager.TRIGGERS.NONE : "",
 	TileDataManager.TRIGGERS.ON_MONSTER_WALK : "When an enemy enters",
 	TileDataManager.TRIGGERS.ON_SETUP_START : "At the start of the breaches' turn",
 	TileDataManager.TRIGGERS.ON_RESOLUTION_START : "At the start of the monsters' turn",
@@ -79,30 +63,27 @@ var trigger_descriptions : Dictionary[TileDataManager.TRIGGERS, String] = {
 	TileDataManager.TRIGGERS.ON_BEACON_DAMAGE : "When the beacon is damaged",
 }
 
+var wildcards : Dictionary[String, String] = {
+	"{value}" : str(value),
+	"{tile_value}" : tile_value,
+}
+
 ## Hide useless fields
 const values_always_displayed : Array[StringName] = [&"trigger", &"title", &"description", &"icon", &"effect"];
 const value_per_effect : Dictionary[EFFECT, StringName] = {
+	EFFECT.CHANNELED : &"",
+	EFFECT.DRAINED : &"",
 	EFFECT.INCREASE_TILE_DAMAGE : &"value",
 	EFFECT.INCREASE_RANGED_TILE_DAMAGE : &"value",
-	EFFECT.MULTIPLY_TILE_DAMAGE : &"value",
 	EFFECT.DEAL_DAMAGE : &"value",
-	EFFECT.POISON : &"value",
-	EFFECT.ROOT : &"value",
 	EFFECT.GROW_BIOME : &"tile_value",
-	EFFECT.GAIN_TEMPORARY_VOID_CHARGES : &"value",
 	EFFECT.MONSTER_WEAKNESS : &"value",
 	EFFECT.MONSTER_DAMAGE_REDUCTION : &"value",
-	EFFECT.FIRE : &"value",
-	EFFECT.EVOLVE : &"value",
-	EFFECT.DEVOLVE : &"value",
 	EFFECT.BEACON_HEAL : &"value",
 	EFFECT.BEACON_SHIELD : &"value",
-	EFFECT.TRIGGER_RANDOM_TILE : &"value",
-	EFFECT.TRIGGER_ALL_TILES : &"value",
 	EFFECT.PLACE_TILE : &"tile_value",
-	EFFECT.REMOVE_TILE : &"tile_value",
+	EFFECT.DESTROY_TILE : &"tile_value",
 	EFFECT.FILL_WITH_TILE : &"tile_value",
-	EFFECT.FILL_WITH_TILE_OR_EVOLVE : &"tile_value",
 	EFFECT.INCREASE_MAX_RANGE : &"value",
 	EFFECT.SPAWN_MONSTER : &"value",
 	EFFECT.GAIN_INSTABILITY : &"value",
@@ -115,7 +96,7 @@ func _validate_property(property : Dictionary) -> void:
 		property.usage &= ~PROPERTY_USAGE_EDITOR
 
 func execute(_trigger : TileDataManager.TRIGGERS, tile_position : Vector2i, tile_data : CustomTileData):
-	if trigger != _trigger or _trigger == TileDataManager.TRIGGERS.ANY: return;
+	if trigger != _trigger or _trigger == TileDataManager.TRIGGERS.NONE: return;
 	
 	if !effect_actions.has(effect):
 		printerr("Effect " + str(effect) + " has no action.");
@@ -140,4 +121,6 @@ func get_value_to_string() -> String:
 	return "";
 
 func get_description() -> String:
-	return trigger_descriptions[trigger] + ", " + effect_actions[effect].get_description() % get_value_to_string();
+	var trigger_description = trigger_descriptions[trigger];
+	var effect_description = effect_actions[effect].get_description();
+	return trigger_description + (", " if !trigger_description.is_empty() else "") + effect_description.format(wildcards);

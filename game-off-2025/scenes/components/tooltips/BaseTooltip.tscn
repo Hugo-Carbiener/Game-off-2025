@@ -35,7 +35,7 @@ theme_override_constants/margin_bottom = 3
 
 [node name="Background" type="ColorRect" parent="Content margin"]
 layout_mode = 2
-color = Color(0, 0, 0, 0.78431374)
+color = Color(0, 0, 0, 0.90588236)
 
 [node name="Text margin" type="MarginContainer" parent="Content margin"]
 layout_mode = 2

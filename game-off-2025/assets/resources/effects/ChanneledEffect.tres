@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TileEffect" load_steps=3 format=3 uid="uid://b7mc4034ofk5t"]
+
+[ext_resource type="Texture2D" uid="uid://bvhs76g2s0ctd" path="res://assets/sprites/UI_fire_icon_small.png" id="1_6rwp5"]
+[ext_resource type="Script" uid="uid://dop7as4nabpyj" path="res://assets/scripts/tile_data/tile_effects/TileEffect.gd" id="2_u1nar"]
+
+[resource]
+script = ExtResource("2_u1nar")
+tile_value = "0"
+title = "Channeled"
+icon = ExtResource("1_6rwp5")
+metadata/_custom_type_script = "uid://dop7as4nabpyj"

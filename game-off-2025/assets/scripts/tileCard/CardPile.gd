@@ -1,4 +1,4 @@
-@abstract class_name CardPile extends Control
+@abstract class_name CardPile extends TooltipFactory
 
 @export var pile_size_label : Label;
 @export_group("Signals")

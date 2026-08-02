@@ -20,8 +20,8 @@ func place_tile(selected_card : TileCard):
 	var placed_tile = await main_tilemap.place_tile(tile_position, tile_data);
 	SignalBus.card_used.emit(selected_card);
 	
-	if !placed_tile:
-		CardSelector.instance.unselect_card();
+	if placed_tile and tile_data.channeled:
+		DiscardPile.instance.discard_from_card(selected_card);
 
 func select_tile():
 	TileSelector.instance.on_tile_selection_interaction();

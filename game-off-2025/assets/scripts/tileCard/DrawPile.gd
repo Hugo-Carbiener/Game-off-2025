@@ -3,7 +3,8 @@ class_name DrawPile extends CardPile
 static var instance : DrawPile;
 
 var detail_is_active : bool = false;
-
+var deck_elements : Dictionary[String, DeckElement];
+	
 @export var button : TextureButton;
 @export var folding_icon : TextureRect;
 @export var deck_window : Control;
@@ -47,6 +48,9 @@ func draw_hand():
 	await tween.finished;
 
 func on_card_drawn(tile_card : TileCard):
+	if detail_is_active and deck_elements.has(tile_card.card_id):
+		var card_id = tile_card.card_id;
+		await update_deck(card_id, deck_elements.get(card_id).get_amount() - 1);
 	# dispatch at the end of the frame so that the Hbox layout has time to be computed
 	call_deferred("dispatch_drawn_card", tile_card);
 
@@ -84,22 +88,19 @@ func on_click():
 	folding_icon.flip_v = detail_is_active;
 
 func open_deck():
-	var deck_elements : Array[DeckElement];
+	var tile_amounts : Dictionary[String, int];
 	for tile_id in cards:
-		deck_elements.append(DeckElement.create_deck_element(tile_id, get_card_probability(tile_id)));
+		tile_amounts[tile_id] = tile_amounts.get(tile_id, 0) + 1;
+
+	for tile_id in tile_amounts.keys():
+		deck_elements.set(tile_id, DeckElement.create_deck_element(tile_id, tile_amounts.get(tile_id)));
+	
 	deck_window.modulate.a = 0;
 	deck_window.visible = true;
 	await AnimationUtils.fade(deck_window, 1, 0.1);
-	for deck_element in deck_elements:
+	for deck_element in deck_elements.values():
 		if deck_element == null: continue;
 		await AnimationUtils.add_child_fade_in(deck_element_container_window, deck_element, 0.1);
-
-func get_card_probability(tile_id : String) -> float:
-	var amount = 0;
-	for card in cards:
-		if card == tile_id:
-			amount += 1;
-	return float(amount) / cards.size() * 100;
 
 func close_deck():
 	var container_children = deck_element_container_window.get_children();
@@ -110,3 +111,15 @@ func close_deck():
 		await AnimationUtils.delete_child_fade_out(deck_element, 0.1);
 	await AnimationUtils.fade(deck_window, 0, 0.1);
 	deck_window.visible = false;
+	deck_elements.clear();
+
+func update_deck(tile_id : String, amount : int):
+	if !deck_elements.has(tile_id): return;
+	
+	var deck_element = deck_elements.get(tile_id);
+	if amount > 0:
+		await deck_element.update_amount(amount);
+	else:
+		deck_elements.erase(tile_id);
+		AnimationUtils.delete_child_fade_out(deck_element, 0.1);
+	

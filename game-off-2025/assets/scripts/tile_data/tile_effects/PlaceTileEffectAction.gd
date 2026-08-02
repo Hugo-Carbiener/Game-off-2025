@@ -16,4 +16,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 	MainTilemap.instance.place_tile(valid_cells[randi() % valid_cells.size()], target_tile, true);
 
 func get_description() -> String:
-	return "place a %s tile.";
+	return "place a {tile_value} tile.";

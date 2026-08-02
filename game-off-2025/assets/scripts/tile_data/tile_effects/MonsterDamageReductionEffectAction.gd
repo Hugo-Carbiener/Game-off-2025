@@ -7,4 +7,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 		MonsterFactory.monsters[tile_position + offset_coords].damage_weakness += tile_effect.get_value();
 
 func get_description() -> String:
-	return "enemies in range deal %s less damage.";
+	return "enemies in range deal {value} less damage.";

@@ -9,4 +9,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 			MainTilemap.instance.tiles_dynamic_data[tile_position + offset_coords].damage_boost += tile_effect.get_value();
 
 func get_description() -> String:
-	return "increase the damage of ranged land tiles by %s.";
+	return "increase the damage of ranged land tiles by {value}.";

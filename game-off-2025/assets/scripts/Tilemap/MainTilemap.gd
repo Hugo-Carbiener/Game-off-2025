@@ -55,9 +55,13 @@ func place_tile(tile_position : Vector2i, tile : CustomTileData, force : bool = 
 func destroy_tile(tilemap_position : Vector2i):
 	if !tiles.has(tilemap_position) or tilemap_position == Vector2i.ZERO: return;
 	
+	var tile_data = tiles.get(tilemap_position);
 	execute_ranged_tile_effects(TileDataManager.TRIGGERS.ON_TILE_DESTROYED, tilemap_position);
 	clear_targetted_tiles(tilemap_position);
 	clear_tile(tilemap_position);
+	
+	if !tile_data.drained:
+		DiscardPile.instance.discard_from_tile(tile_data.id, map_to_local(tilemap_position) + global_position);
 
 func clear_tile(tile_position : Vector2i):
 	super(tile_position);

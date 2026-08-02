@@ -7,4 +7,4 @@ func execute(tile_position : Vector2i, tile_data : CustomTileData):
 		MonsterFactory.monsters[tile_position + offset_coords].damage(tile_effect.get_value(), tile_position);
 
 func get_description() -> String:
-	return "deals %S damages.";
+	return "deals {value} damages.";
