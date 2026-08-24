@@ -97,7 +97,8 @@ func execute_monster_trajectory(monster : Monster):
 		var to = monster_destination;
 		if monster.is_at_destination() or monster.is_dead():
 			break;
-	
+		
+		SignalBus.monster_stepped.emit(to);
 		var tween = get_tree().create_tween();
 		tween.set_parallel(true);
 		tween.tween_property(monster_sprite, "position", map_to_local(to), Constants.monster_movement_duration);

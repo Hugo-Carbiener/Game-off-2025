@@ -9,5 +9,5 @@ value = 1
 trigger = 3
 title = "Swarm"
 icon = ExtResource("1_y1qtv")
-effect = 22
+effect = 14
 metadata/_custom_type_script = "uid://dop7as4nabpyj"

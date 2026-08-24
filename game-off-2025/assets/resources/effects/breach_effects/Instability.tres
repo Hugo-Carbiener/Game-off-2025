@@ -9,5 +9,5 @@ value = 5
 trigger = 3
 title = "Instability"
 icon = ExtResource("1_jcn88")
-effect = 23
+effect = 15
 metadata/_custom_type_script = "uid://dop7as4nabpyj"

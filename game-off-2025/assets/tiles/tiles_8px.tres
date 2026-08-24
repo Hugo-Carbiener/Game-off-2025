@@ -294,6 +294,10 @@ texture_region_size = Vector2i(8, 8)
 0:0/0/custom_data_11 = 3
 0:0/0/custom_data_12 = 2
 0:0/0/custom_data_13 = 1
+19:0/0 = 0
+19:0/0/custom_data_0 = "highlight"
+19:0/0/custom_data_1 = "highlight"
+19:0/0/custom_data_10 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5cnl0"]
 texture = ExtResource("3_ikjf6")

@@ -3,6 +3,7 @@ class_name IndicationTilemap
 
 static var instance : IndicationTilemap;
 static var VALID_CELL_TILE_KEY = "valid-cell";
+static var HIGHLIGHT_CELL_TILE_KEY = "highlight";
 static var RANGE_TILE_KEY = "range-indicator";
 static var BREACH_TILE_KEY = "small-breach";
 
@@ -27,6 +28,9 @@ func init_signals():
 	SignalBus.card_unselected.connect(clear_valid_cells);
 	# Tile selection
 	SignalBus.tile_unselected.connect(on_tile_unselected);
+	# Monster resolution
+	SignalBus.monster_stepped.connect(on_monster_step);
+	SignalBus.setup_phase_started.connect(clear_tilemap);
 
 func display_selected_tile_indications(selected_tile : Vector2i):
 	clear_tilemap();
@@ -42,6 +46,22 @@ func display_selected_tile_indications(selected_tile : Vector2i):
 	if MonsterFactory.breaches.has(selected_tile):
 		display_breach_targetted_tiles(selected_tile);
 		return;
+
+func on_monster_step(new_position : Vector2i):
+	var highlighted_cells : Dictionary[Vector2i, Object];
+	if MainTilemap.instance.has_tile_at(new_position):
+		highlighted_cells.set(new_position, null);
+	
+	var dynamic_tile_data = MainTilemap.instance.tiles_dynamic_data.get(new_position);
+	if dynamic_tile_data == null:
+		return;
+		
+	for range_cell in dynamic_tile_data.targetted_by:
+		if MainTilemap.instance.has_tile_at(range_cell):
+			highlighted_cells.set(range_cell, null);
+	
+	for highlighted_cell in highlighted_cells:
+		place_tile(highlighted_cell, TileDataManager.tile_dictionnary[HIGHLIGHT_CELL_TILE_KEY]);
 
 func on_tile_unselected(_tile_uneselected : Vector2i):
 	clear_tilemap();
